@@ -2,8 +2,6 @@
 /dist
 /node_modules
 
-#Virtual Ambient (env)
-.env
 # Logs
 logs
 *.log
