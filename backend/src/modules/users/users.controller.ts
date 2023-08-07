@@ -7,14 +7,14 @@ import {
   Param,
   Delete,
   ParseUUIDPipe,
-  // UseGuards,
+  UseGuards,
   UseInterceptors,
   ClassSerializerInterceptor,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
-// import { JwtauthGuard } from '../auth/jwt-auth.guard';
+import { JwtauthGuard } from '../auth/jwt-auth.guard';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 
 @ApiTags('Users')
@@ -30,7 +30,7 @@ export class UsersController {
 
   @UseInterceptors(ClassSerializerInterceptor)
   @Get()
-  // @UseGuards(JwtauthGuard)
+  @UseGuards(JwtauthGuard)
   @ApiBearerAuth()
   findAll() {
     return this.usersService.findAll();
@@ -38,7 +38,7 @@ export class UsersController {
 
   @UseInterceptors(ClassSerializerInterceptor)
   @Get(':id')
-  // @UseGuards(JwtauthGuard)
+  @UseGuards(JwtauthGuard)
   @ApiBearerAuth()
   findOne(@Param('id', ParseUUIDPipe) id: string) {
     return this.usersService.findOne(id);
@@ -46,7 +46,7 @@ export class UsersController {
 
   @UseInterceptors(ClassSerializerInterceptor)
   @Patch(':id')
-  // @UseGuards(JwtauthGuard)
+  @UseGuards(JwtauthGuard)
   @ApiBearerAuth()
   update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
     return this.usersService.update(id, updateUserDto);
@@ -54,7 +54,7 @@ export class UsersController {
 
   @UseInterceptors(ClassSerializerInterceptor)
   @Delete(':id')
-  // @UseGuards(JwtauthGuard)
+  @UseGuards(JwtauthGuard)
   @ApiBearerAuth()
   remove(@Param('id') id: string) {
     return this.usersService.remove(id);
