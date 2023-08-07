@@ -16,6 +16,7 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { JwtauthGuard } from '../auth/jwt-auth.guard';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import { UserPermissionGuard } from './guards/user-permission.guard';
 
 @ApiTags('Users')
 @Controller('users')
@@ -46,7 +47,7 @@ export class UsersController {
 
   @UseInterceptors(ClassSerializerInterceptor)
   @Patch(':id')
-  @UseGuards(JwtauthGuard)
+  @UseGuards(JwtauthGuard, UserPermissionGuard)
   @ApiBearerAuth()
   update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
     return this.usersService.update(id, updateUserDto);
@@ -54,7 +55,7 @@ export class UsersController {
 
   @UseInterceptors(ClassSerializerInterceptor)
   @Delete(':id')
-  @UseGuards(JwtauthGuard)
+  @UseGuards(JwtauthGuard, UserPermissionGuard)
   @ApiBearerAuth()
   remove(@Param('id') id: string) {
     return this.usersService.remove(id);
