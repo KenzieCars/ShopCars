@@ -43,7 +43,7 @@ export const TitleContainer = styled.div`
   justify-content: center;
   gap: .4rem;
 
-  padding: 3rem;
+  padding: 2rem;
 
   position: absolute;
 
