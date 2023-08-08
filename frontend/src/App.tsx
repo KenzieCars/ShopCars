@@ -1,7 +1,12 @@
+import FilterCars from "./components/Filter";
+import { HomeProvider } from "./providers/HomeProvider";
+
 const App = () => {
   return (
     <>
-      <h1>Front</h1>
+      <HomeProvider>
+        <FilterCars />
+      </HomeProvider>
     </>
   );
 };
