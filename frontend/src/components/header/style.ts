@@ -1,63 +1,59 @@
 import { styled } from "styled-components";
-import img28 from "../../../public/Group28.png";
 
 export const DivHeader = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 5%;
-  border-bottom: 2px solid #f6f6f6;
+  padding: .7rem;
+  
+  background: var(--white);
+  
+  @media (min-width: 768px) {
+    position: fixed;
+    top: 0;
+    right: 0;
+    z-index: 1;
+    
+    width: 100%;
+    padding: 1rem 3.75rem;
+
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+  }
 `;
 
 export const Nav = styled.nav`
   display: flex;
-  gap: 10px;
+  gap: 1rem;
 `;
 
 export const ButtonHeader = styled.button`
-  background-color: white;
-  border: 1px solid;
+  background: none;
   border-radius: 6px;
+  
   cursor: pointer;
+  
   padding: 10px 20px;
-  font-size: 16px;
+
+  font-size: .7rem;
+  font-weight: 600;
+  color: var(--primary-color);
+
+  transition: .2s ease;
+
+  @media (min-width: 768px) {
+    border: 1px solid var(--primary-color);
+    font-size: .9rem;
+
+    &:hover {
+      border: 1px solid var(--black);
+      color: var(--black);
+    }
+  }
 `;
 
-export const MobileNav = styled.nav`
+export const MobileNav = styled.div`
   display: flex;
   flex-direction: column;
   gap: 10px;
   align-items: flex-end;
-  padding: 10px 20px;
-`;
-
-export const DivImg = styled.div`
-  background-image: url(${img28});
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  min-height: 544px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-
-export const DivIntImg = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-`;
-
-export const H1Styled = styled.h1`
-  font-size: 50px;
-  color: white;
-  font-family: "Lexend";
-`;
-
-export const PStyled = styled.p`
-  font-size: 36px;
-  color: white;
-  font-family: "Lexend";
-  padding: 0 0 0 10px;
 `;

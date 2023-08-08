@@ -8,7 +8,7 @@ const GlobalStyle = createGlobalStyle`
     --gray: #5F7067;
     --green: #6FD660;
     --black: #181818;
-    --linkedin: #0077B5;
+    --blue: #0077B5;
     --alert-negative: #EA4335;
     --alert-success: #6FD660;
   }
