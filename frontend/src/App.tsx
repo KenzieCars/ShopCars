@@ -1,8 +1,16 @@
+// import CardHome from "./components/CardHome"
+import AppRoutes from "./routes"
+import GlobalStyle from "./styles/globalStyles"
+import Reset from "./styles/reset"
+
 const App = () => {
 
   return (
     <>
-      <h1>Front</h1>
+      {/* <CardHome /> */}
+      <AppRoutes />
+      <Reset />
+      <GlobalStyle />
     </>
   )
 }
