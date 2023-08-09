@@ -1,7 +1,6 @@
-// import CardHome from "./components/CardHome"
-import AppRoutes from "./routes"
-import GlobalStyle from "./styles/globalStyles"
-import Reset from "./styles/reset"
+import AppRoutes from "./routes";
+import GlobalStyle from "./styles/globalStyles";
+import Reset from "./styles/reset";
 
 const App = () => {
   return (
@@ -10,7 +9,7 @@ const App = () => {
       <Reset />
       <GlobalStyle />
     </>
-  )
-}
+  );
+};
 
-export default App
+export default App;
