@@ -4,13 +4,13 @@ import { HomeContext } from "../../../providers/HomeProvider";
 import FilterBrand from "../brand";
 import ModelCars from "../model";
 import ColorCars from "../color";
-import YearCars from "../Year";
-import FuelTypeCars from "../FuelType";
+import YearCars from "../year";
+import FuelTypeCars from "../fuelType";
 import RangeKMSlider from "../km";
 import RangeSlider from "../price";
 
 const ModalFilter = () => {
-  const { modalFilter, setModalFilter } = useContext(HomeContext);
+  const { modalFilter, setModalFilter, clearFilters } = useContext(HomeContext);
 
   const closeModal = () => {
     setModalFilter(false);
@@ -32,7 +32,7 @@ const ModalFilter = () => {
         <FuelTypeCars />
         <RangeKMSlider />
         <RangeSlider />
-        <button> Limpar Filtros </button>
+        <button onClick={clearFilters}> Limpar Filtros </button>
       </ModalContent>
     </ModalContainer>
   );

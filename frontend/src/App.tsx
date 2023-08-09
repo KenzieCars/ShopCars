@@ -1,12 +1,13 @@
-import FilterCars from "./components/Filter";
-import { HomeProvider } from "./providers/HomeProvider";
+import AppRoutes from "./routes";
+import GlobalStyle from "./styles/globalStyles";
+import Reset from "./styles/reset";
 
 const App = () => {
   return (
     <>
-      <HomeProvider>
-        <FilterCars />
-      </HomeProvider>
+      <AppRoutes />
+      <Reset />
+      <GlobalStyle />
     </>
   );
 };

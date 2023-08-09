@@ -5,7 +5,7 @@ export const ModelCarsWrapper = styled.div`
     font-weight: bold;
     font-family: "Lexend", sans-serif;
     margin: 10px 0 10px 0;
-    font-size: 24px;
+    font-size: 20px;
   }
 
   .options {

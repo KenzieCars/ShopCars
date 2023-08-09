@@ -1,19 +1,10 @@
 import React, { useState } from "react";
 import { Menu } from "@mui/material";
-import {
-  ButtonHeader,
-  DivHeader,
-  DivImg,
-  DivIntImg,
-  Nav,
-  MobileNav,
-  H1Styled,
-  PStyled,
-} from "./style";
 import LogoHeader from "../../../public/LogoHeader.png";
 import { useMediaQuery } from "@mui/material";
 import { IconButton } from "@mui/material";
 import { GiHamburgerMenu } from "react-icons/gi";
+import { DivHeader, MobileNav, ButtonHeader, Nav } from "./style";
 
 const Header = () => {
   const [menuAnchor, setMenuAnchor] = useState<null | HTMLElement>(null);
@@ -53,13 +44,6 @@ const Header = () => {
           </Nav>
         )}
       </DivHeader>
-
-      <DivImg>
-        <DivIntImg>
-          <H1Styled>Motors Shop</H1Styled>
-          <PStyled>A melhor plataforma de anúncios de carros do país</PStyled>
-        </DivIntImg>
-      </DivImg>
     </>
   );
 };

@@ -23,7 +23,7 @@ export default function RangeSlider() {
           fontFamily: "Lexend, sans-serif",
           fontWeight: "bold",
           margin: "10px 0",
-          fontSize: "24px",
+          fontSize: "20px",
         }}
       >
         Preço

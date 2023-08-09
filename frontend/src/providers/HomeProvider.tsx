@@ -21,6 +21,7 @@ interface HomeContextValues {
   setValueKmCar: React.Dispatch<React.SetStateAction<number[]>>;
   modalFilter: boolean;
   setModalFilter: React.Dispatch<React.SetStateAction<boolean>>;
+  clearFilters: () => void;
 }
 
 export const HomeContext = createContext({} as HomeContextValues);
@@ -33,7 +34,17 @@ export const HomeProvider = ({ children }: IHomeProviderProps) => {
   const [selectedFuelType, setSelectedFuelType] = useState("");
   const [valueCar, setValueCar] = useState<number[]>([0, 550000]);
   const [valueKmCar, setValueKmCar] = useState<number[]>([0, 650000]);
-  const [modalFilter, setModalFilter] = useState(true);
+  const [modalFilter, setModalFilter] = useState(false);
+
+  const clearFilters = () => {
+    setSelectedbrand("");
+    setSelectedModel("");
+    setSelectedColor("");
+    setSelectedYear("");
+    setSelectedFuelType("");
+    setValueCar([0, 550000]);
+    setValueKmCar([0, 650000]);
+  };
 
   return (
     <HomeContext.Provider
@@ -54,6 +65,7 @@ export const HomeProvider = ({ children }: IHomeProviderProps) => {
         setValueKmCar,
         modalFilter,
         setModalFilter,
+        clearFilters,
       }}
     >
       {children}
