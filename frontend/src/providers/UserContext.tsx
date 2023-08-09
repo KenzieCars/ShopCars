@@ -12,19 +12,19 @@ export const UserProvider = ({ children }: IDefaultProviderProps) => {
   const [loading, setLoading] = useState(false)
 
   const userLogin = async (formData: ILogin) => {
+    console.log(formData)
     try {
       setLoading(true)
       const res = await api.post('/login', formData)
 
       setUser(res.data)
 
-      console.log(res.data)
+      localStorage.setItem('@userToken', res.data.token)
 
-      // localStorage.setItem('@userToken', res.data.uhsuhsushus)
-      // localStorage.setItem('@userId', res.data.ojsojsosj)
       toast.success('Logged in!')
 
       navigate('/')
+
     } catch (error) {
       console.log(error)
 

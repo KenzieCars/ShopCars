@@ -82,6 +82,16 @@ export const ForgotMyPassword = styled.div`
     align-self: flex-end;
 
     cursor: pointer;
+
+    transition: .2s ease;
+
+    &:hover {
+      color: var(--primary-color);
+    }
+
+    @media (min-width: 768px) {
+      font-size: .8rem;
+    }
   }
 `
 
@@ -103,6 +113,8 @@ export const ButtonContainer = styled.div`
     font-size: .9rem;
     font-weight: 600;
 
+    transition: .2s ease;
+
     &:hover {
       background: var(--black);
       color: var(--white);
@@ -112,8 +124,25 @@ export const ButtonContainer = styled.div`
 
 export const ButtonToRegister = styled(Link)`
   color: var(--gray);
-  font-size: .8rem;
+  font-size: .7rem;
   font-weight: 600;
 
   cursor: pointer;
+
+  transition: .2s ease;
+
+  &:hover {
+      color: var(--primary-color);
+  }
+
+  @media (min-width: 768px) {
+    font-size: .8rem;
+  }
+`
+
+export const Error = styled.p`
+    color: var(--alert-negative);
+    font-size: .5rem;
+    letter-spacing: .04rem;
+    transition: .4s ease;
 `
