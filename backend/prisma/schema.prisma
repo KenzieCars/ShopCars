@@ -25,7 +25,9 @@ datasource db {
     street String?
     number Int?
     complement String?
+
     cars Car[]
+    comments Comment[]
 
     @@map("users")
   }
@@ -43,9 +45,12 @@ datasource db {
     description String
     imgCover String
     bestPrice Boolean? @default(false)
+
     user  User @relation(fields: [userId], references: [id])
     userId String
+
     images Image[]
+    comments Comment[]
 
      @@map("cars")
   }
@@ -53,8 +58,24 @@ datasource db {
     model Image {
     id String @id
     imgGalery String
+
     car Car @relation(fields: [carId], references: [id])
     carId String
 
     @@map("images")
   }
+
+    model Comment {
+    id String @id
+
+    description String
+    createdAt DateTime @default(now())
+
+    car Car @relation(fields: [carId], references: [id])
+    carId String
+
+    user  User @relation(fields: [userId], references: [id])
+    userId String
+
+    @@map("comments")
+  } 
