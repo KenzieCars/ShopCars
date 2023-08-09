@@ -14,6 +14,7 @@ import { CreateCarDto } from './dto/create-car.dto';
 import { UpdateCarDto } from './dto/update-car.dto';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { JwtauthGuard } from '../auth/jwt-auth.guard';
+import { CarPermissionGuard } from './guards/car-permission.guard';
 
 @ApiTags('Cars')
 @Controller('cars')
@@ -39,11 +40,13 @@ export class CarsController {
   }
 
   @Patch(':id')
+  @UseGuards(JwtauthGuard, CarPermissionGuard)
   update(@Param('id') id: string, @Body() data: UpdateCarDto) {
     return this.carsService.update(id, data);
   }
 
   @Delete(':id')
+  @UseGuards(JwtauthGuard, CarPermissionGuard)
   remove(@Param('id') id: string) {
     return this.carsService.remove(id);
   }

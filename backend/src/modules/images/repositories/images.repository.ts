@@ -1,4 +1,4 @@
-import { Image } from '../entities/image.entity';
+import {Image} from "@prisma/client"
 import { CreateImageDto } from '../dto/create-image.dto';
 import { UpdateImageDto } from '../dto/update-image.dto';
 
