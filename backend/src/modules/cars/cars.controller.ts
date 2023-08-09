@@ -14,6 +14,7 @@ import { CreateCarDto } from './dto/create-car.dto';
 import { UpdateCarDto } from './dto/update-car.dto';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { JwtauthGuard } from '../auth/jwt-auth.guard';
+import { UserPermissionGuard } from '../users/guards/user-permission.guard';
 
 @ApiTags('Cars')
 @Controller('cars')

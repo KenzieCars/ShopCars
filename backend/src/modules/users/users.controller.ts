@@ -17,6 +17,7 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { JwtauthGuard } from '../auth/jwt-auth.guard';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { UserPermissionGuard } from './guards/user-permission.guard';
+import { UserAdmPermissionGuard } from './guards/userAdm-permission.guard';
 
 @ApiTags('Users')
 @Controller('users')
@@ -31,7 +32,10 @@ export class UsersController {
 
   @UseInterceptors(ClassSerializerInterceptor)
   @Get()
-  @UseGuards(JwtauthGuard)
+  @UseGuards(
+    JwtauthGuard, 
+    UserAdmPermissionGuard
+  )
   @ApiBearerAuth()
   findAll() {
     return this.usersService.findAll();
@@ -39,7 +43,7 @@ export class UsersController {
 
   @UseInterceptors(ClassSerializerInterceptor)
   @Get(':id')
-  @UseGuards(JwtauthGuard)
+  @UseGuards(JwtauthGuard, UserPermissionGuard)
   @ApiBearerAuth()
   findOne(@Param('id', ParseUUIDPipe) id: string) {
     return this.usersService.findOne(id);
