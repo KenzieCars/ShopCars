@@ -1,20 +1,20 @@
-import { Link } from "react-router-dom"
-import { styled } from "styled-components"
+import { Link } from "react-router-dom";
+import { styled } from "styled-components";
 
 export const MainContainerHome = styled.main`
   display: flex;
-  flex-direction: column;
+  /* flex-direction: column; */
   gap: 1rem;
 
   @media (min-width: 768px) {
     padding: 2rem;
   }
-`
+`;
 export const BannerContainer = styled.section`
   height: 15rem;
 
   position: relative;
-  
+
   > img {
     object-fit: cover;
     width: 100%;
@@ -22,7 +22,7 @@ export const BannerContainer = styled.section`
   }
 
   &::before {
-    content: '';
+    content: "";
     position: absolute;
     top: 0;
     left: 0;
@@ -34,20 +34,21 @@ export const BannerContainer = styled.section`
   @media (min-width: 768px) {
     height: 34rem;
   }
-`
+`;
 
 export const TitleContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: .4rem;
+  gap: 0.4rem;
 
   padding: 2rem;
 
   position: absolute;
 
-  > h1, p {
+  > h1,
+  p {
     color: var(--white);
   }
 
@@ -73,8 +74,7 @@ export const TitleContainer = styled.div`
       font-size: 1.2rem;
     }
   }
-
-`
+`;
 
 export const ListCardContainer = styled.ul`
   display: flex;
@@ -94,12 +94,12 @@ export const ListCardContainer = styled.ul`
 
     justify-content: flex-end;
   }
-`
+`;
 
 export const NextButtonContainer = styled.div`
   display: flex;
   flex-direction: column;
-  gap: .4rem;
+  gap: 0.4rem;
   align-items: center;
   justify-content: center;
 
@@ -107,7 +107,7 @@ export const NextButtonContainer = styled.div`
 
   > span {
     color: var(--gray);
-    font-size: .8rem;
+    font-size: 0.8rem;
     font-weight: 600;
   }
 
@@ -121,14 +121,14 @@ export const NextButtonContainer = styled.div`
       font-size: 1rem;
     }
   }
-`
+`;
 
 export const ButtonNext = styled(Link)`
   display: flex;
   align-items: center;
-  gap: .4rem;
+  gap: 0.4rem;
 
-  font-size: .8rem;
+  font-size: 0.8rem;
   font-weight: 600;
 
   :nth-child(1) {
@@ -142,4 +142,4 @@ export const ButtonNext = styled(Link)`
       font-size: 1.4rem;
     }
   }
-`
+`;
