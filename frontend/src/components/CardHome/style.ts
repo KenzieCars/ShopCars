@@ -15,7 +15,7 @@ export const CardContainer = styled.li`
   flex-shrink: 0;
 
   @media (min-width: 768px) {
-    width: 285px;
+    width: 282px;
   }
 `
 
