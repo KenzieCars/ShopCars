@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from 'src/database/prisma.service';
 import { CreateCommentDto } from '../../dto/create-comment.dto';
 import { UpdateCommentDto } from '../../dto/update-comment.dto';
@@ -12,6 +12,14 @@ export class CommentsPrismaRepository implements CommentsRepository {
   async create(data: CreateCommentDto, userId: string): Promise<Comment> {
     const comment = new Comment();
 
+    const car = await this.prisma.car.findFirst({
+      where: { id: data.carId },
+    });
+
+    if(!car){
+      throw new NotFoundException("Car not found")
+    }
+
     Object.assign(comment, {
       ...data,
       userId: userId,
@@ -22,7 +30,6 @@ export class CommentsPrismaRepository implements CommentsRepository {
         id: comment.id,
 
         description: comment.description,
-        // createdAt: comment.createdAt,
 
         carId: comment.carId,
         userId: comment.userId,
@@ -49,6 +56,7 @@ export class CommentsPrismaRepository implements CommentsRepository {
       where: { id },
       data: { ...data },
     });
+    
     return comment;
   }
 

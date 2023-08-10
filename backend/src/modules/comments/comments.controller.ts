@@ -14,6 +14,7 @@ import { JwtauthGuard } from '../auth/jwt-auth.guard';
 import { CreateCommentDto } from './dto/create-comment.dto';
 import { UpdateCommentDto } from './dto/update-comment.dto';
 import { CommentsService } from './comments.service';
+import { CarUserPermissionGuard } from '../images/guards/images-permission.guard';
 
 @ApiTags('Comments')
 @Controller('comments')
@@ -21,7 +22,7 @@ export class CommentsController {
   constructor(private readonly commentsService: CommentsService) {}
 
   @Post()
-  @UseGuards(JwtauthGuard)
+  @UseGuards(JwtauthGuard, CarUserPermissionGuard)
   @ApiBearerAuth()
   create(@Body() data: CreateCommentDto, @Request() req) {
     return this.commentsService.create(data, req.user.id);

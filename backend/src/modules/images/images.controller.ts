@@ -14,6 +14,8 @@ import { CreateImageDto } from './dto/create-image.dto';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { JwtauthGuard } from '../auth/jwt-auth.guard';
 import { UpdateImageDto } from './dto/update-image.dto';
+import { CarUserPermissionGuard } from './guards/images-permission.guard';
+import { ImagePermissionGuard } from './guards/UpdateOrDeletePermissions.guard';
 
 @ApiTags('Images')
 @Controller('images')
@@ -21,7 +23,7 @@ export class ImagesController {
   constructor(private readonly imagesService: ImagesService) {}
 
   @Post()
-  @UseGuards(JwtauthGuard)
+  @UseGuards(JwtauthGuard, CarUserPermissionGuard)
   @ApiBearerAuth()
   create(@Body() data: CreateImageDto) {
     return this.imagesService.create(data);
@@ -38,11 +40,13 @@ export class ImagesController {
   }
 
   @Patch(':id')
+  @UseGuards(JwtauthGuard, ImagePermissionGuard)
   update(@Param('id') id: string, @Body() data: UpdateImageDto) {
     return this.imagesService.update(id, data);
   }
 
   @Delete(':id')
+  @UseGuards(JwtauthGuard, ImagePermissionGuard)
   remove(@Param('id') id: string) {
     return this.imagesService.remove(id);
   }
