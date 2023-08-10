@@ -5,7 +5,7 @@ export class User {
   readonly id: string;
   name: string;
   email: string;
-  seller: boolean;
+  readonly seller: boolean;
   cellPhone: string;
   cpf: string;
   dateOfBirth: string;
@@ -18,6 +18,9 @@ export class User {
 
   @Exclude()
   password: string;
+
+  @Exclude()
+  isAdm: boolean;
 
   constructor() {
     this.id = randomUUID();

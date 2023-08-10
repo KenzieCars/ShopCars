@@ -16,6 +16,7 @@ datasource db {
     email String @unique
     password String
     seller Boolean? @default(false)
+    isAdm Boolean? @default(false)
     cellPhone String
     cpf String
     dateOfBirth String

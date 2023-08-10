@@ -30,8 +30,14 @@ export class CreateUserDto {
   password: string;
 
   @ApiProperty()
+  @IsOptional()
   @IsBoolean()
   seller: boolean;
+
+  @ApiProperty()
+  @IsOptional()
+  @IsBoolean()
+  isAdm: boolean;
 
   @ApiProperty()
   @IsString()
@@ -71,4 +77,5 @@ export class CreateUserDto {
   @IsString()
   @IsOptional()
   complement: string | null;
+
 }
