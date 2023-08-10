@@ -1,16 +1,25 @@
-import { CardContainer, ContactUserContainer, ContainerInfo, ContainerInfoCar, FigureContainer } from './style'
+import {
+  CardContainer,
+  ContactUserContainer,
+  ContainerInfo,
+  ContainerInfoCar,
+  FigureContainer,
+} from "./style";
 
 const CardHome = () => {
-
   return (
     <CardContainer>
       <FigureContainer>
-        <img src="https://cdn.buttercms.com/PxDTu9VtS3uuVA2sogHB" alt="car name" />
+        <img
+          src="https://cdn.buttercms.com/PxDTu9VtS3uuVA2sogHB"
+          alt="car name"
+        />
       </FigureContainer>
       <ContainerInfo>
         <h3>Maseratti - Ghibli</h3>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-          Veritatis, quisquam provident. Expedita rerum magnam incidunt culpa.
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Veritatis,
+          quisquam provident. Expedita rerum magnam incidunt culpa.
         </p>
         <ContactUserContainer>
           <span>S</span>
@@ -25,7 +34,7 @@ const CardHome = () => {
         </ContainerInfoCar>
       </ContainerInfo>
     </CardContainer>
-  )
-}
+  );
+};
 
-export default CardHome
+export default CardHome;

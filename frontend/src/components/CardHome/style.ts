@@ -1,4 +1,4 @@
-import { styled } from "styled-components"
+import { styled } from "styled-components";
 
 export const CardContainer = styled.li`
   display: flex;
@@ -17,73 +17,74 @@ export const CardContainer = styled.li`
   @media (min-width: 768px) {
     width: 282px;
   }
-`
+`;
 
 export const FigureContainer = styled.figure`
   > img {
     width: 100%;
     border-radius: 12px 12px 0 0;
   }
-`
+`;
 
 export const ContainerInfo = styled.div`
   display: flex;
   flex-direction: column;
-  gap: .4rem;
+  gap: 0.4rem;
 
   padding: 1rem;
 
   > h3 {
-    font-size: .8rem;
+    font-size: 0.8rem;
     color: var(--black);
   }
 
   > p {
-    font-size: .7rem;
+    font-size: 0.7rem;
     color: var(--gray);
   }
 
   @media (min-width: 768px) {
-    gap: .7rem;
+    gap: 0.7rem;
 
     > h3 {
       font-size: 1rem;
     }
 
     > p {
-      font-size: .8rem;
+      font-size: 0.8rem;
     }
   }
-`
+`;
 
 export const ContactUserContainer = styled.div`
   display: flex;
   align-items: center;
-  gap: .4rem;
+  gap: 0.4rem;
 
   :nth-child(1) {
     border-radius: 50%;
 
     background-color: var(--blue);
 
-    padding: .4rem .7rem;
+    padding: 0.4rem 0.7rem;
 
-    font-size: .7rem;
+    font-size: 0.7rem;
 
     color: var(--white);
   }
 
   :nth-child(2) {
-    font-size: .7rem;
+    font-size: 0.7rem;
     color: var(--gray);
   }
 
   @media (min-width: 768px) {
-    :nth-child(1), :nth-child(2) {
-      font-size: .83rem;
+    :nth-child(1),
+    :nth-child(2) {
+      font-size: 0.83rem;
     }
   }
-`
+`;
 
 export const ContainerInfoCar = styled.div`
   display: flex;
@@ -92,29 +93,31 @@ export const ContainerInfoCar = styled.div`
 
   > div {
     display: flex;
-    gap: .4rem;
+    gap: 0.4rem;
 
     > span {
       background: var(--primary-color);
 
       border-radius: 6px;
 
-      opacity: .7;
-      
-      padding: .4rem;
-      font-size: .7rem;
+      opacity: 0.7;
+
+      padding: 0.4rem;
+      font-size: 0.7rem;
       color: var(--white);
+      display: flex;
+      align-items: center;
 
       @media (min-width: 768px) {
-        font-size: .8rem;
+        font-size: 0.8rem;
       }
     }
   }
 
   > span {
-    font-size: .9rem;
+    font-size: 0.9rem;
     font-weight: 700;
 
     color: var(--gray);
   }
-`
+`;

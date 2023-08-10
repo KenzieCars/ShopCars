@@ -6,8 +6,8 @@ import ModelCars from "../model";
 import ColorCars from "../color";
 import YearCars from "../year";
 import FuelTypeCars from "../fuelType";
-import RangeKMSlider from "../km";
-import RangeSlider from "../price";
+import { RangeKMSlider } from "../km";
+import { RangeSlider } from "../price";
 
 const ModalFilter = () => {
   const { modalFilter, setModalFilter, clearFilters } = useContext(HomeContext);
