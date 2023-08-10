@@ -3,11 +3,11 @@ import Typography from "@material-ui/core/Typography";
 import { RootContainer, StyledSlider } from "./style";
 import { HomeContext } from "../../../providers/HomeProvider";
 
-function valuetext(value: number) {
+const valuetext = (value: number) => {
   return `${value} km`;
-}
+};
 
-export default function RangeKMSlider() {
+export const RangeKMSlider = () => {
   const { valueKmCar, setValueKmCar } = useContext(HomeContext);
 
   const handleChange = (event: Event, newValue: number | number[]) => {
@@ -39,4 +39,4 @@ export default function RangeKMSlider() {
       />
     </RootContainer>
   );
-}
+};
