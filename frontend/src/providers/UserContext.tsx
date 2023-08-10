@@ -1,8 +1,9 @@
 import { createContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { IDefaultProviderProps, ILogin, IRegister, IUserContext } from "./@types";
+import { IDefaultProviderProps, ILogin, IUserContext } from "./@types";
 import { api } from "../services/api";
 import { toast } from "react-toastify";
+import { ICreateUser } from '../components/RegisterForm/@types';
 
 export const UserContext = createContext({} as IUserContext)
 
@@ -37,7 +38,7 @@ export const UserProvider = ({ children }: IDefaultProviderProps) => {
     }
   }
 
-  const userRegister = async (formData: IRegister) => {
+  const userRegister = async (formData: ICreateUser) => {
     try {
       setLoading(true)
       const res = await api.post('/users', formData)
@@ -73,7 +74,7 @@ export const UserProvider = ({ children }: IDefaultProviderProps) => {
       setLoading, userLogin,
       userRegister, logout
     }}>
-      { children }
+      {children}
     </UserContext.Provider>
   )
 }
