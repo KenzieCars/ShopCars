@@ -11,7 +11,7 @@ export class CommentUserPermissionException extends UnauthorizedException {
 }
 
 @Injectable()
-export class CommentUserPermissionGuard implements CanActivate {
+export class CommentPermissionGuard implements CanActivate {
   constructor(private prisma: PrismaService) {}
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
@@ -30,11 +30,23 @@ export class CommentUserPermissionGuard implements CanActivate {
     const userId = user.id;
 
     const car = await this.prisma.car.findFirst({
-        where: {id: carId, userId: userId}
+        where: {userId: userId}
     });
 
-    if (!car) {
-      throw new CommentUserPermissionException();
+    const coments = await this.prisma.comment.findMany({
+        where: {
+            carId: car.id
+        }
+    })
+    
+    const comentFind = await this.prisma.comment.findFirst({
+        where: {
+            userId: userId
+        }
+    })
+
+    if (coments.length == 0 || !comentFind) {
+      throw new UnauthorizedException("you do not have permission to access this feature");
     }
     
     return true;
