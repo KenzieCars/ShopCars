@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { ModalContainer, ModalContent, CloseButton, Title } from "./style";
+import { ModalContainer, ModalContent, CloseButton, Title, TitleAndBtnCloseContainer, RangeContainer, CarFilters } from "./style";
 import { HomeContext } from "../../../providers/HomeProvider";
 import FilterBrand from "../brand";
 import ModelCars from "../model";
@@ -23,16 +23,22 @@ const ModalFilter = () => {
   return (
     <ModalContainer>
       <ModalContent>
-        <CloseButton onClick={closeModal}>X</CloseButton>
-        <Title>Filtro</Title>
-        <FilterBrand />
-        <ModelCars />
-        <ColorCars />
-        <YearCars />
-        <FuelTypeCars />
-        <RangeKMSlider />
-        <RangeSlider />
-        <button onClick={clearFilters}> Limpar Filtros </button>
+        <TitleAndBtnCloseContainer>
+          <CloseButton onClick={closeModal}>X</CloseButton>
+          <Title>Filtro</Title>
+        </TitleAndBtnCloseContainer>
+        <CarFilters>
+          <FilterBrand />
+          <ModelCars />
+          <ColorCars />
+          <YearCars />
+          <FuelTypeCars />
+        </CarFilters>
+        <RangeContainer>
+          <RangeKMSlider />
+          <RangeSlider />
+          <button onClick={clearFilters}> Limpar Filtros </button>
+        </RangeContainer>
       </ModalContent>
     </ModalContainer>
   );

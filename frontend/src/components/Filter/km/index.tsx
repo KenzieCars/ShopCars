@@ -22,8 +22,8 @@ export const RangeKMSlider = () => {
         style={{
           fontFamily: "Lexend, sans-serif",
           fontWeight: "bold",
-          margin: "10px 0",
-          fontSize: "20px",
+          margin: "5px 0",
+          fontSize: "16px",
         }}
       >
         KM

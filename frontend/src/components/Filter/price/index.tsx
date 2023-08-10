@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, ChangeEvent } from "react";
 import Typography from "@material-ui/core/Typography";
 import { RootContainer, StyledSlider } from "./style";
 import { HomeContext } from "../../../providers/HomeProvider";
@@ -10,7 +10,7 @@ const valuetext = (value: number) => {
 export const RangeSlider = () => {
   const { valueCar, setValueCar } = useContext(HomeContext);
 
-  const handleChange = (event: Event, newValue: number | number[]) => {
+  const handleChange = (event: ChangeEvent<{}>, newValue: number | number[]) => {
     setValueCar(newValue as number[]);
   };
 
@@ -22,8 +22,8 @@ export const RangeSlider = () => {
         style={{
           fontFamily: "Lexend, sans-serif",
           fontWeight: "bold",
-          margin: "10px 0",
-          fontSize: "20px",
+          margin: "5px 0",
+          fontSize: "16px",
         }}
       >
         Preço
