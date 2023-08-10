@@ -23,8 +23,6 @@ export const ModalContent = styled.div`
   max-width: 400px;
   position: relative;
 
-  max-height: calc(100% - 40px);
-  overflow-y: auto;
   justify-content: center;
   align-items: center;
   button {
@@ -37,6 +35,15 @@ export const ModalContent = styled.div`
     font-family: "Lexend", sans-serif;
   }
 `;
+
+export const TitleAndBtnCloseContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+
+  padding-bottom: .6rem;
+
+  box-shadow: rgba(0, 0, 0, 0.05) 0px 1px 2px 0px;
+`
 
 export const CloseButton = styled.span`
   position: absolute;
@@ -52,3 +59,32 @@ export const Title = styled.h4`
   margin-bottom: 10px;
   margin: -10px 0 0 0;
 `;
+
+export const CarFilters = styled.section`
+  display: flex;
+  flex-direction: column;
+
+  overflow-y: auto;
+
+  height: 218px;
+
+  &:before {
+    content: '';
+    position: absolute;
+    bottom: 213px;
+    left: 0;
+    width: 100%;
+    height: 48px;
+    background: linear-gradient(transparent,  white);
+  }
+
+  @media (min-width: 380px) {
+    height: 300px;
+  }
+`
+
+export const RangeContainer = styled.section`
+  display: flex;
+  flex-direction: column;
+`
+

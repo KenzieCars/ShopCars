@@ -19,6 +19,9 @@ export const UserProvider = ({ children }: IDefaultProviderProps) => {
 
       setUser(res.data)
 
+      console.log(res.data)
+      console.log(res)
+
       localStorage.setItem('@userToken', res.data.token)
 
       toast.success('Logged in!')
