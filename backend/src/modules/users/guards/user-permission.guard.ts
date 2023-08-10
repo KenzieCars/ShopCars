@@ -5,7 +5,7 @@ import { User } from '../entities/user.entity';
 
 export class UserPermissionException extends UnauthorizedException {
   constructor() {
-    super('Você não tem permissão para acessar este recurso');
+    super('You do not have permission to access this resource.');
   }
 }
 

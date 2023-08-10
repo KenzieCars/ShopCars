@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from 'src/database/prisma.service';
 import { ImagesRepository } from 'src/modules/images/repositories/images.repository';
 import { CreateImageDto } from '../../dto/create-image.dto';
@@ -11,6 +11,14 @@ export class ImagesPrismaRepository implements ImagesRepository {
 
   async create(data: CreateImageDto): Promise<Image> {
     const image = new Image();
+
+    const car = await this.prisma.car.findFirst({
+      where: { id: data.carId },
+    });
+
+    if(!car){
+      throw new NotFoundException("Car not found")
+    }
 
     Object.assign(image, {
       ...data,
