@@ -10,16 +10,9 @@ export const MainContainerHome = styled.main`
     padding: 2rem;
   }
 `;
+
 export const BannerContainer = styled.section`
-  height: 15rem;
-
   position: relative;
-
-  > img {
-    object-fit: cover;
-    width: 100%;
-    height: 100%;
-  }
 
   &::before {
     content: "";
@@ -28,7 +21,8 @@ export const BannerContainer = styled.section`
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.6); // Cor escura com opacidade
+    background-color: rgba(0, 0, 0, 0.3); // Cor escura com opacidade
+    z-index: 5;
   }
 
   @media (min-width: 768px) {
@@ -43,9 +37,11 @@ export const TitleContainer = styled.div`
   justify-content: center;
   gap: 0.4rem;
 
-  padding: 2rem;
+  padding: 2.8rem;
 
   position: absolute;
+
+  z-index: 6;
 
   > h1,
   p {

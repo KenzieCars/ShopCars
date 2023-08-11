@@ -1,6 +1,6 @@
 import Footer from "../../components/Footer"
 import RegisteForm from "../../components/RegisterForm"
-import { Header } from "../../components/header"
+import { Header } from "../../components/Header"
 
 const Register = () => {
 
