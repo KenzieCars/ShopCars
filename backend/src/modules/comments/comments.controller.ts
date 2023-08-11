@@ -14,6 +14,7 @@ import { JwtauthGuard } from '../auth/jwt-auth.guard';
 import { CreateCommentDto } from './dto/create-comment.dto';
 import { UpdateCommentDto } from './dto/update-comment.dto';
 import { CommentsService } from './comments.service';
+import { CommentPermissionGuard } from './guards/updateOrDeletePermission.guard';
 
 @ApiTags('Comments')
 @Controller('comments')
@@ -38,11 +39,13 @@ export class CommentsController {
   }
 
   @Patch(':id')
+  @UseGuards(JwtauthGuard, CommentPermissionGuard)
   update(@Param('id') id: string, @Body() data: UpdateCommentDto) {
     return this.commentsService.update(id, data);
   }
 
   @Delete(':id')
+  @UseGuards(JwtauthGuard, CommentPermissionGuard)
   remove(@Param('id') id: string) {
     return this.commentsService.remove(id);
   }
