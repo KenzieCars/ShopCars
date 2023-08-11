@@ -10,7 +10,4 @@ export class CreateCommentDto {
   @IsString()
   carId: string;
 
-  // @ApiProperty()
-  // @IsString()
-  // userId: string;
 }

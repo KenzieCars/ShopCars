@@ -22,7 +22,7 @@ export class CarUserPermissionGuard implements CanActivate {
     const findCar = await this.prisma.car.findFirst({where: {id: carId}});
 
     if (!findCar) {
-      throw new NotFoundException('Car Not found');
+      throw new NotFoundException('Car not found');
     }
 
     const user: User = request.user as User;

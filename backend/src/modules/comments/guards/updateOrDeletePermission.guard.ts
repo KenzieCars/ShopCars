@@ -30,11 +30,11 @@ export class CommentPermissionGuard implements CanActivate {
     })
 
     if(!comment){
-      throw new NotFoundException("Comment Not Found");
+      throw new NotFoundException("Comment not found");
     }
 
     if(comment.userId != userId) {
-      throw new UnauthorizedException("you do not have permission to access this feature");
+      throw new UnauthorizedException("You do not have permission to access this feature");
     }
     
     return true;

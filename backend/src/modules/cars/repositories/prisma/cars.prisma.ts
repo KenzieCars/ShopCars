@@ -20,6 +20,7 @@ export class CarsPrismaRepository implements CarsRepository {
     const newCar = await this.prisma.car.create({
       data: {
         id: car.id,
+
         brand: car.brand,
         model: car.model,
         year: car.year,
@@ -31,6 +32,7 @@ export class CarsPrismaRepository implements CarsRepository {
         description: car.description,
         imgCover: car.imgCover,
         bestPrice: car.bestPrice,
+
         userId: car.userId,
       },
     });
@@ -39,13 +41,23 @@ export class CarsPrismaRepository implements CarsRepository {
   }
 
   async findAll(): Promise<Car[]> {
-    const cars = await this.prisma.car.findMany();
+    const cars = await this.prisma.car.findMany({
+      include: {
+        images: true,
+        comments: true
+      }
+    });
+
     return cars;
   }
 
   async findOne(id: string): Promise<Car> {
     const car = await this.prisma.car.findFirst({
       where: { id },
+      include: {
+        images: true,
+        comments: true
+      }
     });
     return car;
   }
@@ -53,6 +65,10 @@ export class CarsPrismaRepository implements CarsRepository {
   async update(id: string, data: UpdateCarDto): Promise<Car> {
     const car = await this.prisma.car.update({
       where: { id },
+      include: {
+        images: true,
+        comments: true
+      },
       data: { ...data },
     });
     return car;

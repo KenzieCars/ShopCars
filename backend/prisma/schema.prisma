@@ -68,7 +68,6 @@ datasource db {
 
     model Comment {
     id String @id
-
     description String
     createdAt DateTime @default(now())
 

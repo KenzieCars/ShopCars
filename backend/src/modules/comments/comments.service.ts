@@ -20,7 +20,7 @@ export class CommentsService {
     const comment = await this.commentsRepository.findOne(id);
 
     if (!comment) {
-      throw new NotFoundException('comment not found');
+      throw new NotFoundException('Comment not found');
     }
     return comment;
   }
@@ -29,7 +29,7 @@ export class CommentsService {
     const findcomment = await this.commentsRepository.findOne(id);
 
     if (!findcomment) {
-      throw new NotFoundException('Comment Not found');
+      throw new NotFoundException('Comment not found');
     }
 
     return this.commentsRepository.update(id, updateCommentDto);
@@ -39,7 +39,7 @@ export class CommentsService {
     const findcomment = await this.commentsRepository.findOne(id);
 
     if (!findcomment) {
-      throw new NotFoundException('comment Not found');
+      throw new NotFoundException('Comment not found');
     }
 
     return this.commentsRepository.delete(id);
