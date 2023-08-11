@@ -88,6 +88,7 @@ export const FieldsetRegister = styled.fieldset`
     flex-direction: column;
     gap: .4rem;
     border: none;
+    position: relative;
 
     > label {
         color: var(--gray);
@@ -126,6 +127,13 @@ export const FieldsetRegister = styled.fieldset`
         &::placeholder {
             color: var(--light-gray);
         }
+    }
+
+    > svg {
+        color: var(--gray);
+        top: 35px;
+        right: 20px;
+        position: absolute;
     }
 `
 

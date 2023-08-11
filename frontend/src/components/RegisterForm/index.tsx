@@ -7,10 +7,9 @@ import {
 import { Error } from '../../components/LoginForm/style'
 import { useForm } from 'react-hook-form'
 import { ICreateUser } from './@types';
-import { useContext } from 'react'
+import { useContext, useState } from 'react'
 import { UserContext } from '../../providers/UserContext'
-
-
+import { BsEyeFill, BsEyeSlashFill } from 'react-icons/bs'
 
 const registerSchema = z.object({
     name: z.string().nonempty('Nome é obrigatório'),
@@ -42,7 +41,9 @@ const registerSchema = z.object({
 const RegisteForm = () => {
     const { userRegister } = useContext(UserContext)
 
-    // type TRegister = z.infer<typeof registerSchema>
+    const [isSeller, setIsSeller] = useState<'seller' | 'buyer' | null>(null)
+    const [showPass, setShowPass] = useState<'text' | 'password'>('password')
+    const [showConfirm, setShowConfirm] = useState<'text' | 'password'>('password')
 
     const { register, handleSubmit, formState: { errors } } = useForm<ICreateUser>({
         resolver: zodResolver(registerSchema)
@@ -61,6 +62,38 @@ const RegisteForm = () => {
         rectifyData.number = Number(data.number);
 
         await userRegister(rectifyData)
+    }
+
+    const changeBuyerButtonStyle = () => {
+        if (isSeller === 'buyer') {
+            return { background: 'var(--black)' }
+        } else {
+            return {}
+        }
+    }
+
+    const changeSellerButtonStyle = () => {
+        if (isSeller === 'seller') {
+            return { background: 'var(--black)' }
+        } else {
+            return {}
+        }
+    }
+
+    const togglePassVisibility = () => {
+        if (showPass === 'password') {
+            setShowPass('text')
+        } else {
+            setShowPass('password')
+        }
+    }
+
+    const toggleConfirmVisibility = () => {
+        if (showConfirm === 'password') {
+            setShowConfirm('text')
+        } else {
+            setShowConfirm('password')
+        }
     }
 
     return (
@@ -143,21 +176,27 @@ const RegisteForm = () => {
                     <h4>Tipo de conta</h4>
                 </TitleOptions>
                 <AccountTypeField>
-                    <input {...register("seller")} type="radio" value='false' id='buyer' />
-                    <label htmlFor='buyer'>Comprador</label>
-                    <input {...register("seller")} type="radio" value='true' id='seller' />
-                    <label htmlFor='seller'>Anunciante</label>
+                    <input {...register("seller")} type="radio" value='false' id='buyer' onClick={() => setIsSeller('buyer')} />
+                    <label style={changeBuyerButtonStyle()} htmlFor='buyer'>Comprador</label>
+                    <input {...register("seller")} type="radio" value='true' id='seller' onClick={() => setIsSeller('seller')} />
+                    <label style={changeSellerButtonStyle()} htmlFor='seller'>Anunciante</label>
                 </AccountTypeField>
                 {errors.seller?.message ? <Error>{errors.seller.message} *</Error> : null}
                 <FieldsetRegister>
                     <label>Senha</label>
-                    <input type='password' placeholder='Digitar senha' {...register('password')} />
+                    <input type={showPass} placeholder='Digitar senha' {...register('password')} />
                     {errors.password?.message ? <Error>{errors.password.message} *</Error> : null}
+                    {showPass === 'password' ?
+                        <BsEyeFill onClick={() => togglePassVisibility()} /> :
+                        <BsEyeSlashFill onClick={() => togglePassVisibility()} />}
                 </FieldsetRegister>
                 <FieldsetRegister>
                     <label>Confirmar senha</label>
-                    <input type='password' placeholder='Confirme a senha' {...register('confirmPassword')} />
+                    <input type={showConfirm} placeholder='Confirme a senha' {...register('confirmPassword')} />
                     {errors.confirmPassword?.message ? <Error>{errors.confirmPassword.message} *</Error> : null}
+                    {showConfirm === 'password' ?
+                        <BsEyeFill onClick={() => toggleConfirmVisibility()} /> :
+                        <BsEyeSlashFill onClick={() => toggleConfirmVisibility()} />}
                 </FieldsetRegister>
                 <RegisterButtonContainer>
                     <button type='submit'>Finalizar cadastro</button>
