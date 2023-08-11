@@ -7,20 +7,20 @@ import {
 import { Error } from '../../components/LoginForm/style'
 import { useForm } from 'react-hook-form'
 import { ICreateUser } from './@types';
-import { useContext } from 'react'
+import { useContext, useState } from 'react'
 import { UserContext } from '../../providers/UserContext'
-
-
+import { BsEyeFill, BsEyeSlashFill } from 'react-icons/bs'
+import { handlePhone, handleCpf, handleBirthDate, handleCep, handleState, handleNumber } from './utils'
 
 const registerSchema = z.object({
     name: z.string().nonempty('Nome é obrigatório'),
     email: z.string().email('Deve ser um e-mail'),
-    cpf: z.string().nonempty('CPF é obrigatório'),
-    cellPhone: z.string().nonempty('Celular é obrigatório'),
-    dateOfBirth: z.string().nonempty('Data de nascimento é obrigatório'),
+    cpf: z.string().nonempty('CPF é obrigatório').min(14, '000.000.000-00'),
+    cellPhone: z.string().nonempty('Celular é obrigatório').min(15, '(DD) 9 0000-0000'),
+    dateOfBirth: z.string().nonempty('Data de nascimento é obrigatório').min(10, 'dd/mm/aaaa'),
     description: z.string().nonempty('Descrição é obrigatória'),
-    cep: z.string().nonempty('CEP é obrigatório'),
-    state: z.string().nonempty('Estado é obrigatório'),
+    cep: z.string().nonempty('CEP é obrigatório').min(9, '00000-000'),
+    state: z.string().nonempty('Estado é obrigatório').min(2, 'Ex: PR'),
     city: z.string().nonempty('Cidade é obrigatória'),
     street: z.string().nonempty('Rua é obrigatória'),
     number: z.string().nonempty('Número é obrigatório'),
@@ -42,7 +42,9 @@ const registerSchema = z.object({
 const RegisteForm = () => {
     const { userRegister } = useContext(UserContext)
 
-    // type TRegister = z.infer<typeof registerSchema>
+    const [isSeller, setIsSeller] = useState<'seller' | 'buyer' | null>(null)
+    const [showPass, setShowPass] = useState<'text' | 'password'>('password')
+    const [showConfirm, setShowConfirm] = useState<'text' | 'password'>('password')
 
     const { register, handleSubmit, formState: { errors } } = useForm<ICreateUser>({
         resolver: zodResolver(registerSchema)
@@ -61,6 +63,38 @@ const RegisteForm = () => {
         rectifyData.number = Number(data.number);
 
         await userRegister(rectifyData)
+    }
+
+    const changeBuyerButtonStyle = () => {
+        if (isSeller === 'buyer') {
+            return { background: 'var(--black)' }
+        } else {
+            return {}
+        }
+    }
+
+    const changeSellerButtonStyle = () => {
+        if (isSeller === 'seller') {
+            return { background: 'var(--black)' }
+        } else {
+            return {}
+        }
+    }
+
+    const togglePassVisibility = () => {
+        if (showPass === 'password') {
+            setShowPass('text')
+        } else {
+            setShowPass('password')
+        }
+    }
+
+    const toggleConfirmVisibility = () => {
+        if (showConfirm === 'password') {
+            setShowConfirm('text')
+        } else {
+            setShowConfirm('password')
+        }
     }
 
     return (
@@ -84,17 +118,20 @@ const RegisteForm = () => {
                 </FieldsetRegister>
                 <FieldsetRegister>
                     <label>CPF</label>
-                    <input type='text' placeholder='000.000.000-00' {...register('cpf')} />
+                    <input type='text' placeholder='000.000.000-00' {...register('cpf')}
+                        onKeyUp={(event) => handleCpf(event)} maxLength={14} />
                     {errors.cpf?.message ? <Error>{errors.cpf.message} *</Error> : null}
                 </FieldsetRegister>
                 <FieldsetRegister>
                     <label>Celular</label>
-                    <input type='text' placeholder='(DDD) 90000-0000' {...register('cellPhone')} />
+                    <input type='text' placeholder='(DD) 9 0000-0000' {...register('cellPhone')}
+                        onKeyUp={(event) => handlePhone(event)} maxLength={16} />
                     {errors.cellPhone?.message ? <Error>{errors.cellPhone.message} *</Error> : null}
                 </FieldsetRegister>
                 <FieldsetRegister>
                     <label>Data de nascimento</label>
-                    <input type='text' placeholder='00/00/00' {...register('dateOfBirth')} />
+                    <input type='text' placeholder='00/00/1900' {...register('dateOfBirth')}
+                        onKeyUp={(event) => handleBirthDate(event)} maxLength={10} />
                     {errors.dateOfBirth?.message ? <Error>{errors.dateOfBirth.message} *</Error> : null}
                 </FieldsetRegister>
                 <FieldsetRegister>
@@ -107,13 +144,15 @@ const RegisteForm = () => {
                 </TitleOptions>
                 <FieldsetRegister>
                     <label>CEP</label>
-                    <input type='text' placeholder='00000-000' {...register('cep')} />
+                    <input type='text' placeholder='00000-000' {...register('cep')}
+                        onKeyUp={(event) => handleCep(event)} maxLength={9} />
                     {errors.cep?.message ? <Error>{errors.cep.message} *</Error> : null}
                 </FieldsetRegister>
                 <DualFields>
                     <fieldset>
                         <label>Estado</label>
-                        <input type='text' placeholder='Digitar estado' {...register('state')} />
+                        <input type='text' placeholder='Digitar estado' {...register('state')}
+                            onKeyUp={(event) => handleState(event)} maxLength={2} />
                         {errors.state?.message ? <Error>{errors.state.message} *</Error> : null}
                     </fieldset>
                     <fieldset>
@@ -130,7 +169,8 @@ const RegisteForm = () => {
                 <DualFields>
                     <fieldset>
                         <label>Número</label>
-                        <input type='text' placeholder='Digitar número' {...register('number')} />
+                        <input type='text' placeholder='Digitar número' {...register('number')}
+                            onKeyUp={(event) => handleNumber(event)} />
                         {errors.number?.message ? <Error>{errors.number.message} *</Error> : null}
                     </fieldset>
                     <fieldset>
@@ -143,21 +183,27 @@ const RegisteForm = () => {
                     <h4>Tipo de conta</h4>
                 </TitleOptions>
                 <AccountTypeField>
-                    <input {...register("seller")} type="radio" value='false' id='buyer' />
-                    <label htmlFor='buyer'>Comprador</label>
-                    <input {...register("seller")} type="radio" value='true' id='seller' />
-                    <label htmlFor='seller'>Anunciante</label>
+                    <input {...register("seller")} type="radio" value='false' id='buyer' onClick={() => setIsSeller('buyer')} />
+                    <label style={changeBuyerButtonStyle()} htmlFor='buyer'>Comprador</label>
+                    <input {...register("seller")} type="radio" value='true' id='seller' onClick={() => setIsSeller('seller')} />
+                    <label style={changeSellerButtonStyle()} htmlFor='seller'>Anunciante</label>
                 </AccountTypeField>
                 {errors.seller?.message ? <Error>{errors.seller.message} *</Error> : null}
                 <FieldsetRegister>
                     <label>Senha</label>
-                    <input type='password' placeholder='Digitar senha' {...register('password')} />
+                    <input type={showPass} placeholder='Digitar senha' {...register('password')} />
                     {errors.password?.message ? <Error>{errors.password.message} *</Error> : null}
+                    {showPass === 'password' ?
+                        <BsEyeFill onClick={() => togglePassVisibility()} /> :
+                        <BsEyeSlashFill onClick={() => togglePassVisibility()} />}
                 </FieldsetRegister>
                 <FieldsetRegister>
                     <label>Confirmar senha</label>
-                    <input type='password' placeholder='Confirme a senha' {...register('confirmPassword')} />
+                    <input type={showConfirm} placeholder='Confirme a senha' {...register('confirmPassword')} />
                     {errors.confirmPassword?.message ? <Error>{errors.confirmPassword.message} *</Error> : null}
+                    {showConfirm === 'password' ?
+                        <BsEyeFill onClick={() => toggleConfirmVisibility()} /> :
+                        <BsEyeSlashFill onClick={() => toggleConfirmVisibility()} />}
                 </FieldsetRegister>
                 <RegisterButtonContainer>
                     <button type='submit'>Finalizar cadastro</button>
