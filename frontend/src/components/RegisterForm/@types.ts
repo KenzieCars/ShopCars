@@ -15,3 +15,7 @@ export interface ICreateUser {
     "number": number
     "complement": string
 }
+
+export interface IChangeStyles {
+    background?: string | undefined
+}
