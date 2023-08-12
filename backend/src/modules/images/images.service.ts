@@ -28,7 +28,7 @@ export class ImagesService {
     const findImage = await this.imagesRepository.findOne(id);
 
     if (!findImage) {
-      throw new NotFoundException('Image Not found');
+      throw new NotFoundException('Image not found');
     }
 
     return this.imagesRepository.update(id, updateImageDto);
@@ -38,7 +38,7 @@ export class ImagesService {
     const findImage = await this.imagesRepository.findOne(id);
 
     if (!findImage) {
-      throw new NotFoundException('Image Not found');
+      throw new NotFoundException('Image not found');
     }
 
     return this.imagesRepository.delete(id);

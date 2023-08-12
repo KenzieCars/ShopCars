@@ -2,6 +2,7 @@ import { randomUUID } from 'node:crypto';
 
 export class Car {
   readonly id: string;
+
   brand: string;
   model: string;
   year: string;
@@ -13,6 +14,7 @@ export class Car {
   description: string;
   imgCover: string;
   bestPrice: boolean;
+  
   userId: string;
 
   constructor() {
