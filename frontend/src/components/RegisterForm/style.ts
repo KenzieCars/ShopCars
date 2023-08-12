@@ -180,9 +180,10 @@ export const AccountTypeField = styled.div`
         font-weight: 600;
         transition: .2s ease;
         border-radius: 8px;
+        cursor: pointer;
 
         &:hover {
-            background: var(--black);
+            background: var(--gray);
             color: var(--white);
         }
     }

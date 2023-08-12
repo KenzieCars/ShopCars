@@ -16,6 +16,7 @@ import FilterCars from "../../components/Filter";
 import CustomSwiperComponent from "../../components/Swiper";
 
 const Home = () => {
+
   return (
     <>
       <Header />
@@ -30,15 +31,7 @@ const Home = () => {
       <MainContainerHome>
         <FilterCars />
         <ListCardContainer>
-          <CardHome />
-          <CardHome />
-          <CardHome />
-          <CardHome />
-          <CardHome />
-          <CardHome />
-          <CardHome />
-          <CardHome />
-          <CardHome />
+          <CardHome /> 
         </ListCardContainer>
       </MainContainerHome>
       <ButtonHome />

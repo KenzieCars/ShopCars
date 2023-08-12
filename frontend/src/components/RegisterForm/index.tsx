@@ -6,7 +6,7 @@ import {
 } from './style'
 import { Error } from '../../components/LoginForm/style'
 import { useForm } from 'react-hook-form'
-import { ICreateUser } from './@types';
+import { ICreateUser, IChangeStyles } from './@types';
 import { useContext, useState } from 'react'
 import { UserContext } from '../../providers/UserContext'
 import { BsEyeFill, BsEyeSlashFill } from 'react-icons/bs'
@@ -40,7 +40,7 @@ const registerSchema = z.object({
 })
 
 const RegisteForm = () => {
-    const { userRegister } = useContext(UserContext)
+    const { userRegister, loading } = useContext(UserContext)
 
     const [isSeller, setIsSeller] = useState<'seller' | 'buyer' | null>(null)
     const [showPass, setShowPass] = useState<'text' | 'password'>('password')
@@ -50,7 +50,7 @@ const RegisteForm = () => {
         resolver: zodResolver(registerSchema)
     })
 
-    const registerSubmit = async (data: ICreateUser) => {
+    const registerSubmit = async (data: ICreateUser): Promise<void> => {
         // eslint-disable-next-line prefer-const
         let rectifyData: ICreateUser = data
 
@@ -60,12 +60,12 @@ const RegisteForm = () => {
             rectifyData.seller = false
         }
 
-        rectifyData.number = Number(data.number);
+        rectifyData.number = Number(data.number)
 
         await userRegister(rectifyData)
     }
 
-    const changeBuyerButtonStyle = () => {
+    const changeBuyerButtonStyle = (): IChangeStyles => {
         if (isSeller === 'buyer') {
             return { background: 'var(--black)' }
         } else {
@@ -73,7 +73,7 @@ const RegisteForm = () => {
         }
     }
 
-    const changeSellerButtonStyle = () => {
+    const changeSellerButtonStyle = (): IChangeStyles => {
         if (isSeller === 'seller') {
             return { background: 'var(--black)' }
         } else {
@@ -81,7 +81,7 @@ const RegisteForm = () => {
         }
     }
 
-    const togglePassVisibility = () => {
+    const togglePassVisibility = (): void => {
         if (showPass === 'password') {
             setShowPass('text')
         } else {
@@ -89,11 +89,19 @@ const RegisteForm = () => {
         }
     }
 
-    const toggleConfirmVisibility = () => {
+    const toggleConfirmVisibility = (): void => {
         if (showConfirm === 'password') {
             setShowConfirm('text')
         } else {
             setShowConfirm('password')
+        }
+    }
+
+    const changeRegisterButtonStyle = (): IChangeStyles => {
+        if (loading) {
+            return { background: 'var(--light-gray)' }
+        } else {
+            return {}
         }
     }
 
@@ -206,7 +214,7 @@ const RegisteForm = () => {
                         <BsEyeSlashFill onClick={() => toggleConfirmVisibility()} />}
                 </FieldsetRegister>
                 <RegisterButtonContainer>
-                    <button type='submit'>Finalizar cadastro</button>
+                    <button type='submit' disabled={loading ? true : false} style={changeRegisterButtonStyle()}>Finalizar cadastro</button>
                 </RegisterButtonContainer>
             </FormRegisterContainer>
         </MainContainerRegister>

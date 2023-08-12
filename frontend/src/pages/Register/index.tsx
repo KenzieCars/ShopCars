@@ -1,14 +1,14 @@
-import Footer from "../../components/Footer"
+import RegisterFooter from "../../components/RegisterFooter"
 import RegisteForm from "../../components/RegisterForm"
-import { Header } from "../../components/Header"
+import RegisterHeader from "../../components/RegisterHeader"
 
 const Register = () => {
 
   return (
     <>
-      <Header />
+      <RegisterHeader />
       <RegisteForm />
-      <Footer />
+      <RegisterFooter />
     </>
   )
 }

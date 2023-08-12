@@ -83,12 +83,9 @@ export const ListCardContainer = styled.ul`
   @media (min-width: 768px) {
     flex-direction: row;
     flex-wrap: wrap;
-
-    margin-top: 1.4rem;
-
     gap: 1.4rem;
 
-    justify-content: flex-end;
+    margin-top: 1.4rem;
   }
 `;
 

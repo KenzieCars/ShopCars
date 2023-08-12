@@ -1,3 +1,4 @@
+import { useContext } from "react";
 import {
   CardContainer,
   ContactUserContainer,
@@ -5,35 +6,42 @@ import {
   ContainerInfoCar,
   FigureContainer,
 } from "./style";
+import { HomeContext } from "../../providers/HomeProvider";
 
 const CardHome = () => {
+  const { cars } = useContext(HomeContext)
+
   return (
-    <CardContainer>
-      <FigureContainer>
-        <img
-          src="https://cdn.buttercms.com/PxDTu9VtS3uuVA2sogHB"
-          alt="car name"
-        />
-      </FigureContainer>
-      <ContainerInfo>
-        <h3>Maseratti - Ghibli</h3>
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Veritatis,
-          quisquam provident. Expedita rerum magnam incidunt culpa.
-        </p>
-        <ContactUserContainer>
-          <span>S</span>
-          <span>Samuel Leão</span>
-        </ContactUserContainer>
-        <ContainerInfoCar>
-          <div>
-            <span>0 KM</span>
-            <span>2019</span>
-          </div>
-          <span>R$ 00.000,00</span>
-        </ContainerInfoCar>
-      </ContainerInfo>
-    </CardContainer>
+    <>
+      {cars.map((car) => (
+      <CardContainer>
+        <FigureContainer>
+          <img
+            src={car.imgCover}
+            alt={car.model}
+          />
+        </FigureContainer>
+        <ContainerInfo>
+            <h3>{car.brand} - {car.model}</h3>
+          <p>
+            {car.description}
+          </p>
+          <ContactUserContainer>
+            <span>S</span>
+            <span>Samuel Leão</span>
+          </ContactUserContainer>
+          <ContainerInfoCar>
+            <div>
+                <span>{car.km} KM</span>
+                <span>{car.year}</span>
+            </div>
+              <span>R$ {car.price}</span>
+          </ContainerInfoCar>
+        </ContainerInfo>
+      </CardContainer>
+        
+      ))}
+    </>
   );
 };
 
