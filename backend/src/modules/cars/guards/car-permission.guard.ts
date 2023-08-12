@@ -6,7 +6,7 @@ import { PrismaService } from 'src/database/prisma.service';
 
 export class CarPermissionException extends UnauthorizedException {
   constructor() {
-    super('Você não tem permissão para acessar este recurso');
+    super('You do not have permission to access this resource');
   }
 }
 

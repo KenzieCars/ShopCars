@@ -21,6 +21,7 @@ export class CarsService {
     if (!car) {
       throw new NotFoundException('Car not found');
     }
+
     return car;
   }
 
@@ -28,7 +29,7 @@ export class CarsService {
     const findCar = await this.carsRepository.findOne(id);
 
     if (!findCar) {
-      throw new NotFoundException('Car Not found');
+      throw new NotFoundException('Car not found');
     }
 
     return this.carsRepository.update(id, updateCarDto);
@@ -38,7 +39,7 @@ export class CarsService {
     const findCar = await this.carsRepository.findOne(id);
 
     if (!findCar) {
-      throw new NotFoundException('Car Not found');
+      throw new NotFoundException('Car not found');
     }
 
     return this.carsRepository.delete(id);

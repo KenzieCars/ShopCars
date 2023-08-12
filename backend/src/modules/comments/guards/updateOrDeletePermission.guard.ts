@@ -17,36 +17,24 @@ export class CommentPermissionGuard implements CanActivate {
   async canActivate(context: ExecutionContext): Promise<boolean> {
     const request = context.switchToHttp().getRequest<Request>();
 
-    const carId = request.body.carId;
-
-    const findCar = await this.prisma.car.findFirst({where: {id: carId}});
-
-    if (!findCar) {
-      throw new NotFoundException('Car Not found');
-    }
-
     const user: User = request.user as User;
     
     const userId = user.id;
 
-    const car = await this.prisma.car.findFirst({
-        where: {userId: userId}
-    });
+    const idComment = request.params.id
 
-    const coments = await this.prisma.comment.findMany({
+    const comment = await this.prisma.comment.findFirst({
         where: {
-            carId: car.id
-        }
-    })
-    
-    const comentFind = await this.prisma.comment.findFirst({
-        where: {
-            userId: userId
+            id: idComment
         }
     })
 
-    if (coments.length == 0 || !comentFind) {
-      throw new UnauthorizedException("you do not have permission to access this feature");
+    if(!comment){
+      throw new NotFoundException("Comment not found");
+    }
+
+    if(comment.userId != userId) {
+      throw new UnauthorizedException("You do not have permission to access this feature");
     }
     
     return true;
