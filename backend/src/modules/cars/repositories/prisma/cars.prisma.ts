@@ -44,7 +44,8 @@ export class CarsPrismaRepository implements CarsRepository {
     const cars = await this.prisma.car.findMany({
       include: {
         images: true,
-        comments: true
+        comments: true,
+        user: true
       }
     });
 
@@ -56,7 +57,8 @@ export class CarsPrismaRepository implements CarsRepository {
       where: { id },
       include: {
         images: true,
-        comments: true
+        comments: true,
+        user: true
       }
     });
     return car;
@@ -67,7 +69,8 @@ export class CarsPrismaRepository implements CarsRepository {
       where: { id },
       include: {
         images: true,
-        comments: true
+        comments: true,
+        user: true
       },
       data: { ...data },
     });
