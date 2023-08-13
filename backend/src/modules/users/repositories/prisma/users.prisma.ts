@@ -33,6 +33,9 @@ export class UsersPrismaRepository implements UsersRepository {
   async findOne(id: string): Promise<User> {
     const user = await this.prisma.user.findUnique({
       where: { id },
+      include: {
+        cars: true,
+      },
     });
 
     return plainToInstance(User, user);
@@ -50,6 +53,9 @@ export class UsersPrismaRepository implements UsersRepository {
     const user = await this.prisma.user.update({
       where: { id },
       data: { ...data },
+      include: {
+        cars: true,
+      },
     });
 
     return plainToInstance(User, user);
