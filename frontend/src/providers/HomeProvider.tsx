@@ -42,6 +42,25 @@ export interface ICars {
   userId: string
   images: any[]
   comments: any[]
+  user: User
+}
+
+export interface User {
+  id: string
+  name: string
+  email: string
+  password: string
+  seller: boolean
+  isAdm: boolean
+  cellPhone: string
+  cpf: string
+  dateOfBirth: string
+  description: string
+  city: string
+  state: string
+  street: string
+  number: number
+  complement: string
 }
 
 export const HomeContext = createContext({} as HomeContextValues);
@@ -72,7 +91,7 @@ export const HomeProvider = ({ children }: IHomeProviderProps) => {
       try {
         const res = await api.get('/cars')
         setCars(res.data)
-        console.log(res.data)
+        // console.log(res.data)
       } catch (error) {
         console.log(error)
       }

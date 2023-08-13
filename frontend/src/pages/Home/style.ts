@@ -86,6 +86,8 @@ export const ListCardContainer = styled.ul`
     gap: 1.4rem;
 
     margin-top: 1.4rem;
+
+    height: 100%;
   }
 `;
 

@@ -14,7 +14,7 @@ const CardHome = () => {
   return (
     <>
       {cars.map((car) => (
-      <CardContainer>
+      <CardContainer key={car.id}>
         <FigureContainer>
           <img
             src={car.imgCover}
@@ -27,8 +27,8 @@ const CardHome = () => {
             {car.description}
           </p>
           <ContactUserContainer>
-            <span>S</span>
-            <span>Samuel Leão</span>
+              <span>{car.user.name[0]}</span>
+              <span>{car.user.name}</span>
           </ContactUserContainer>
           <ContainerInfoCar>
             <div>
