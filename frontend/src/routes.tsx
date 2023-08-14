@@ -1,8 +1,8 @@
 import { Route, Routes } from "react-router-dom";
 import Home from "./pages/Home";
-import { HomeProvider } from "./providers/HomeProvider";
+import { HomeProvider } from "./providers/HomeProvider/HomeProvider";
 import Login from "./pages/Login";
-import { UserProvider } from "./providers/UserContext";
+import { UserProvider } from "./providers/UserProvider/UserContext";
 import Register from "./pages/Register";
 import { CarProvider } from "./providers/CarProvider/CarContext";
 

@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { HomeContext } from "../../../providers/HomeProvider";
+import { HomeContext } from "../../../providers/HomeProvider/HomeProvider";
 import { FuelTypeCarsWrapper } from "./style";
 
 const FuelTypeCars = () => {
@@ -14,9 +14,8 @@ const FuelTypeCars = () => {
       <div className="select-header">Tipo de Combustível</div>
       <div className="options">
         <div
-          className={`option ${
-            selectedFuelType === "Elétrico" ? "selected" : ""
-          }`}
+          className={`option ${selectedFuelType === "Elétrico" ? "selected" : ""
+            }`}
           onClick={() => handleOptionClick("Elétrico")}
         >
           Elétrico
@@ -28,9 +27,8 @@ const FuelTypeCars = () => {
           Flex
         </div>
         <div
-          className={`option ${
-            selectedFuelType === "Híbrido" ? "selected" : ""
-          }`}
+          className={`option ${selectedFuelType === "Híbrido" ? "selected" : ""
+            }`}
           onClick={() => handleOptionClick("Híbrido")}
         >
           Híbrido

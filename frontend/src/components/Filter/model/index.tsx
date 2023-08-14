@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { HomeContext } from "../../../providers/HomeProvider";
+import { HomeContext } from "../../../providers/HomeProvider/HomeProvider";
 import { ModelCarsWrapper } from "./style";
 
 const ModelCars = () => {
@@ -56,9 +56,8 @@ const ModelCars = () => {
           Onix
         </div>
         <div
-          className={`option ${
-            selectedModel === "Porsche 718" ? "selected" : ""
-          }`}
+          className={`option ${selectedModel === "Porsche 718" ? "selected" : ""
+            }`}
           onClick={() => handleOptionClick("Porsche 718")}
         >
           Porsche 718

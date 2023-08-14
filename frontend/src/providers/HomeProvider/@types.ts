@@ -1,5 +1,5 @@
-import { ICreateUser } from "../components/RegisterForm/@types";
-import { ICar, TUserCarsResponse } from "./CarProvider/@types";
+import { ICreateUser } from "../../components/RegisterForm/@types";
+import { ICar, TUserCarsResponse } from "../CarProvider/@types";
 
 export interface IUserContext {
   user: IUser | null;

@@ -1,10 +1,10 @@
 import { createContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { IDefaultProviderProps, ILogin, IUserContext } from "./@types";
-import { api } from "../services/api";
+import { IDefaultProviderProps, ILogin, IUserContext } from "../HomeProvider/@types";
+import { api } from "../../services/api";
 import { toast } from "react-toastify";
-import { ICreateUser } from '../components/RegisterForm/@types';
-import { ICar, TUserCarsResponse } from "./CarProvider/@types";
+import { ICreateUser } from '../../components/RegisterForm/@types';
+import { ICar, TUserCarsResponse } from "../CarProvider/@types";
 
 export const UserContext = createContext({} as IUserContext)
 
