@@ -45,6 +45,7 @@ export class CarsPrismaRepository implements CarsRepository {
       include: {
         images: true,
         comments: true,
+        user: true
       }
     });
 
