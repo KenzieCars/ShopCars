@@ -5,9 +5,12 @@ import { useMediaQuery } from "@mui/material";
 import { IconButton } from "@mui/material";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { DivHeader, MobileNav, ButtonHeader, Nav } from "./style";
+import { useNavigate } from "react-router-dom";
 
 const Header = () => {
   const [menuAnchor, setMenuAnchor] = useState<null | HTMLElement>(null);
+
+  const navigate = useNavigate();
 
   const handleMenuOpen = (event: React.MouseEvent<HTMLButtonElement>) => {
     setMenuAnchor(event.currentTarget);
@@ -15,6 +18,15 @@ const Header = () => {
 
   const handleMenuClose = () => {
     setMenuAnchor(null);
+  };
+
+  const handleLoginClick = () => {
+    navigate("/login");
+  };
+
+  const handleRegisterClick = () => {
+    console.log("Botão de cadastro clicado");
+    navigate("/register");
   };
 
   const isMobile = useMediaQuery("(max-width: 700px)");
@@ -33,14 +45,18 @@ const Header = () => {
               open={Boolean(menuAnchor)}
               onClose={handleMenuClose}
             >
-              <ButtonHeader>Fazer Login</ButtonHeader>
-              <ButtonHeader>Cadastrar</ButtonHeader>
+              <ButtonHeader onClick={handleLoginClick}>
+                Fazer Login
+              </ButtonHeader>
+              <ButtonHeader onClick={handleRegisterClick}>
+                Cadastrar
+              </ButtonHeader>
             </Menu>
           </MobileNav>
         ) : (
           <Nav>
-            <ButtonHeader>Fazer Login</ButtonHeader>
-            <ButtonHeader>Cadastrar</ButtonHeader>
+            <ButtonHeader onClick={handleLoginClick}>Fazer Login</ButtonHeader>
+            <ButtonHeader onClick={handleRegisterClick}>Cadastrar</ButtonHeader>
           </Nav>
         )}
       </DivHeader>
