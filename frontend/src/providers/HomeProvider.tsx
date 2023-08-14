@@ -1,5 +1,4 @@
-import { createContext, ReactNode, useEffect, useState } from "react";
-import { api } from "../services/api";
+import { createContext, ReactNode, useState } from "react";
 
 interface IHomeProviderProps {
   children: ReactNode;
@@ -23,26 +22,6 @@ interface HomeContextValues {
   modalFilter: boolean;
   setModalFilter: React.Dispatch<React.SetStateAction<boolean>>;
   clearFilters: () => void;
-  cars: ICars[];
-}
-
-export interface ICars {
-  id: string
-  brand: string
-  model: string
-  year: string
-  km: number
-  color: string
-  status: boolean
-  fuel: string
-  price: number
-  description: string
-  imgCover: string
-  bestPrice: boolean
-  userId: string
-  images: any[]
-  comments: any[]
-  user: User
 }
 
 export interface User {
@@ -74,7 +53,6 @@ export const HomeProvider = ({ children }: IHomeProviderProps) => {
   const [valueCar, setValueCar] = useState<number[]>([0, 550000]);
   const [valueKmCar, setValueKmCar] = useState<number[]>([0, 650000]);
   const [modalFilter, setModalFilter] = useState(false);
-  const [cars, setCars] = useState<ICars[]>([]);
 
   const clearFilters = () => {
     setSelectedbrand("");
@@ -85,19 +63,6 @@ export const HomeProvider = ({ children }: IHomeProviderProps) => {
     setValueCar([0, 550000]);
     setValueKmCar([0, 650000]);
   };
-
-  useEffect(() => {
-    const getCars = async () => {
-      try {
-        const res = await api.get('/cars')
-        setCars(res.data)
-        // console.log(res.data)
-      } catch (error) {
-        console.log(error)
-      }
-    }
-    getCars()
-  }, [])
 
   return (
     <HomeContext.Provider
@@ -118,8 +83,7 @@ export const HomeProvider = ({ children }: IHomeProviderProps) => {
         setValueKmCar,
         modalFilter,
         setModalFilter,
-        clearFilters,
-        cars
+        clearFilters
       }}
     >
       {children}

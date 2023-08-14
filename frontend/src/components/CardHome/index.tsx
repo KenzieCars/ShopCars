@@ -6,14 +6,16 @@ import {
   ContainerInfoCar,
   FigureContainer,
 } from "./style";
-import { HomeContext } from "../../providers/HomeProvider";
+import { CarContext } from "../../providers/CarProvider/CarContext";
 
 const CardHome = () => {
-  const { cars } = useContext(HomeContext)
+  const { allcars } = useContext(CarContext)
+
+  // console.log(allcars)
 
   return (
     <>
-      {cars.map((car) => (
+      {allcars.map((car) => (
       <CardContainer key={car.id}>
         <FigureContainer>
           <img
@@ -27,8 +29,8 @@ const CardHome = () => {
             {car.description}
           </p>
           <ContactUserContainer>
-              <span>{car.user.name[0]}</span>
-              <span>{car.user.name}</span>
+              {/* <span>{car.user.name[0]}</span> */}
+              {/* <span>{car.user.name}</span> */}
           </ContactUserContainer>
           <ContainerInfoCar>
             <div>

@@ -27,7 +27,7 @@ export const Nav = styled.nav`
   gap: 1rem;
 `;
 
-export const ButtonHeader = styled(Link)`
+export const ButtonHeader = styled.button`
   background: none;
   border-radius: 6px;
   
