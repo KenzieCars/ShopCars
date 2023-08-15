@@ -7,12 +7,15 @@ import {
   FigureContainer,
 } from "./style";
 import { CarContext } from "../../providers/CarProvider/CarContext";
+import NothingHere from "../NothingHere";
 
 const CardHome = () => {
   const { allcars } = useContext(CarContext)
 
-  // console.log(allcars)
+  console.log(allcars)
 
+  if (allcars.length === 0) return <NothingHere />
+  
   return (
     <>
       {allcars.map((car) => (
@@ -41,7 +44,6 @@ const CardHome = () => {
           </ContainerInfoCar>
         </ContainerInfo>
       </CardContainer>
-        
       ))}
     </>
   );

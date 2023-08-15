@@ -5,6 +5,7 @@ import Login from "./pages/Login";
 import { UserProvider } from "./providers/UserProvider/UserContext";
 import Register from "./pages/Register";
 import { CarProvider } from "./providers/CarProvider/CarContext";
+import ProfileView from "./pages/ProfileView";
 
 const AppRoutes = () => {
   return (
@@ -16,6 +17,7 @@ const AppRoutes = () => {
             <Route path="/login" element={<Login />} />
             <Route path="*" element={<Login />} />
             <Route path="/register" element={<Register />} />
+            <Route path="/profile" element={<ProfileView />} />
           </Routes>
         </HomeProvider>
       </CarProvider>

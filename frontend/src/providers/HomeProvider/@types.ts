@@ -33,6 +33,7 @@ export interface IUser {
   street: string;
   number: number;
   complement: string;
+  isAdmin: boolean;
 }
 
 export interface IRegister extends Omit<IUser, "id"> {}
