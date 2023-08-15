@@ -1,33 +1,48 @@
-import { styled } from "styled-components";
+import { styled } from 'styled-components'
 
-export const MainContainerRegister = styled.main`
-    display: flex;
-    flex-direction: column;
-    padding: 1rem;
-
-    @media (min-width: 768px) {
-        margin-top: 7rem;
-        align-items: center;
-        padding-bottom: 4rem;
-    }
+export const ModalWrapper = styled.div`
+    position: fixed;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0,0,0,0.5);
+    z-index: 1;
 `
 
-export const FormRegisterContainer = styled.form`
+export const ModalContainer = styled.div`
     width: 95%;
+    max-width: 520px;
+    max-height: 630px;
+    background-color: var(--white);
+    border-radius: 8px;
+    margin: 4rem auto 0;
+    overflow-y: auto;
+`
+
+export const FormModalContainer = styled.form`
     display: flex;
     flex-direction: column;
     gap: 1rem;
     border-radius: 8px;
     padding: 1.4rem;
-    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+    /* box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px; */
     background: var(--white);
-    max-width: 412px;
     margin: 0 auto;
 `
 
-export const TitleRegister = styled.div`
+export const TitleModal = styled.div`
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
     > h3 {
         color: var(--gray);
+        font-size: 1rem;
+    }
+
+    > span {
+        color: var(--light-gray);
+        font-size: 1rem;
     }
 `
 
@@ -44,7 +59,7 @@ export const DualFields = styled.div`
     align-items: center;
     justify-content: space-around;
     gap: .5rem;
-
+    width: fit-content;
     
     
     > fieldset {
@@ -77,13 +92,10 @@ export const DualFields = styled.div`
                 color: var(--light-gray);
             }
         }
-        /* > p {
-            width: 40%;
-        } */
     }
 `
 
-export const FieldsetRegister = styled.fieldset`
+export const FieldsetModal = styled.fieldset`
     display: flex;
     flex-direction: column;
     gap: .4rem;
@@ -93,6 +105,19 @@ export const FieldsetRegister = styled.fieldset`
     > label {
         color: var(--gray);
         font-size: .8rem;
+    }
+
+    > select {
+        max-height: 100px;
+
+        
+
+        > option {
+            max-height: 100px;
+            height: 100px;
+
+            
+        }
     }
 
     > textarea {
@@ -128,17 +153,9 @@ export const FieldsetRegister = styled.fieldset`
             color: var(--light-gray);
         }
     }
-
-    > svg {
-        color: var(--gray);
-        top: 35px;
-        right: 20px;
-        position: absolute;
-        cursor: pointer;
-    }
 `
 
-export const RegisterButtonContainer = styled.div`
+export const ModalButtonContainer = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -156,35 +173,6 @@ export const RegisterButtonContainer = styled.div`
 
         &:hover {
             background: var(--black);
-            color: var(--white);
-        }
-    }
-`
-
-export const AccountTypeField = styled.div`
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-around;
-    gap: .5rem;
-
-    > input {
-        display: none;
-    }
-
-    > label {
-        background: var(--primary-color);
-        padding: .8rem;
-        width: 100%;
-        color: var(--white);
-        font-size: .9rem;
-        font-weight: 600;
-        transition: .2s ease;
-        border-radius: 8px;
-        cursor: pointer;
-
-        &:hover {
-            background: var(--gray);
             color: var(--white);
         }
     }

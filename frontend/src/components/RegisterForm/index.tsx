@@ -116,12 +116,12 @@ const RegisteForm = () => {
                 </TitleOptions>
                 <FieldsetRegister>
                     <label>Nome</label>
-                    <input type='text' placeholder='Ex: José Martins' {...register('name')} />
+                    <input type='text' placeholder='johndoe' {...register('name')} />
                     {errors.name?.message ? <Error>{errors.name.message} *</Error> : null}
                 </FieldsetRegister>
                 <FieldsetRegister>
                     <label>Email</label>
-                    <input type='text' placeholder='Ex: jose@shopcars.com.br' {...register('email')} />
+                    <input type='text' placeholder='johndoe@shopcars.com.br' {...register('email')} />
                     {errors.email?.message ? <Error>{errors.email.message} *</Error> : null}
                 </FieldsetRegister>
                 <FieldsetRegister>
