@@ -5,14 +5,16 @@ import {
   ContainerInfo,
   ContainerInfoCar,
   FigureContainer,
+  FlagGoodDeal,
 } from "./style";
 import { CarContext } from "../../providers/CarProvider/CarContext";
 import NothingHere from "../NothingHere";
+import { TbFlag3Filled  } from 'react-icons/tb'
 
 const CardHome = () => {
   const { allcars } = useContext(CarContext)
 
-  console.log(allcars)
+  // console.log(allcars)
 
   if (allcars.length === 0) return <NothingHere />
   
@@ -43,7 +45,8 @@ const CardHome = () => {
               <span>R$ {car.price}</span>
           </ContainerInfoCar>
         </ContainerInfo>
-      </CardContainer>
+          <FlagGoodDeal><TbFlag3Filled /></FlagGoodDeal>
+        </CardContainer>
       ))}
     </>
   );

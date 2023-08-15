@@ -14,6 +14,8 @@ export const CardContainer = styled.li`
 
   flex-shrink: 0;
 
+  position: relative;
+
   @media (min-width: 768px) {
     width: 282px;
     height: fit-content;
@@ -130,3 +132,23 @@ export const ContainerInfoCar = styled.div`
     color: var(--gray);
   }
 `;
+
+export const FlagGoodDeal = styled.div`
+  display: flex;
+  align-items: center;
+
+  position: absolute;
+  top: -10px;
+  right: -10px;
+
+  border-radius: 50%;
+
+  box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px;
+
+  padding: .4rem;
+
+  background: var(--alert-success);
+
+  color: var(--white);
+  font-size: 1.2rem;
+`
