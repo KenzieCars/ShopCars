@@ -1,42 +1,45 @@
 import { createContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { IDefaultProviderProps, ILogin, IUserContext } from "../HomeProvider/@types";
+import {
+  IDefaultProviderProps,
+  ILogin,
+  IUserContext,
+} from "../HomeProvider/@types";
 import { api } from "../../services/api";
 import { toast } from "react-toastify";
-import { ICreateUser } from '../../components/RegisterForm/@types';
+import { ICreateUser } from "../../components/RegisterForm/@types";
 import { ICar, TUserCarsResponse } from "../CarProvider/@types";
 
-export const UserContext = createContext({} as IUserContext)
+export const UserContext = createContext({} as IUserContext);
 
 export const UserProvider = ({ children }: IDefaultProviderProps) => {
-  const navigate = useNavigate()
-  const [user, setUser] = useState(null)
-  const [loading, setLoading] = useState(false)
+  const navigate = useNavigate();
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(false);
   const [listCarsUser, setListCarsUser] = useState<ICar[] | []>([]);
   const [userIdCars, setUserIdCars] = useState<TUserCarsResponse | null>(null);
 
   const userLogin = async (formData: ILogin) => {
     try {
-      setLoading(true)
-      const res = await api.post('/login', formData)
+      setLoading(true);
+      const res = await api.post("/login", formData);
 
-      setUser(res.data)
+      setUser(res.data);
 
-      localStorage.setItem('@userToken', res.data.token)
-      localStorage.setItem('@userId', res.data.id)
+      localStorage.setItem("@userToken", res.data.token);
+      localStorage.setItem("@userId", res.data.id);
 
-      toast.success('Logged in!')
+      toast.success("Logged in!");
 
-      navigate('/profile')
-
+      navigate("/profile");
     } catch (error) {
-      console.log(error)
+      console.log(error);
 
-      toast.error('Something went wrong!')
+      toast.error("Something went wrong!");
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
-  }
+  };
 
   useEffect(() => {
     const token = localStorage.getItem("@userToken");
@@ -45,11 +48,14 @@ export const UserProvider = ({ children }: IDefaultProviderProps) => {
     if (token) {
       const userLogged = async () => {
         try {
-          const response = await api.get<TUserCarsResponse>(`/users/${userId}`, {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          });
+          const response = await api.get<TUserCarsResponse>(
+            `/users/${userId}`,
+            {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            }
+          );
 
           setUserIdCars(response.data);
 
@@ -66,43 +72,49 @@ export const UserProvider = ({ children }: IDefaultProviderProps) => {
 
   const userRegister = async (formData: ICreateUser) => {
     try {
-      setLoading(true)
-      const res = await api.post('/users', formData)
+      setLoading(true);
+      const res = await api.post("/users", formData);
 
-      console.log(res)
+      console.log(res);
 
-      setUser(res.data)
+      setUser(res.data);
 
-      toast.success('User registered!')
+      toast.success("User registered!");
 
-      navigate('/login')
-
+      navigate("/login");
     } catch (error) {
-      console.log(error)
+      console.log(error);
 
-      toast.error('Email already exists.')
+      toast.error("Email already exists.");
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
-  }
+  };
 
   const logout = () => {
-    setUser(null)
+    setUser(null);
 
-    localStorage.clear()
+    localStorage.clear();
 
-    navigate('/login')
-  }
+    navigate("/login");
+  };
 
   return (
-    <UserContext.Provider value={{
-      user, loading,
-      setLoading, userLogin,
-      userRegister, logout,
-      listCarsUser, userIdCars,
-      setListCarsUser, setUserIdCars,
-    }}>
+    <UserContext.Provider
+      value={{
+        user,
+        loading,
+        setLoading,
+        userLogin,
+        userRegister,
+        logout,
+        listCarsUser,
+        userIdCars,
+        setListCarsUser,
+        setUserIdCars,
+      }}
+    >
       {children}
     </UserContext.Provider>
-  )
-}
+  );
+};

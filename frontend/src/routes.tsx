@@ -6,6 +6,7 @@ import { UserProvider } from "./providers/UserProvider/UserContext";
 import Register from "./pages/Register";
 import { CarProvider } from "./providers/CarProvider/CarContext";
 import ProfileView from "./pages/ProfileView";
+import UserPage from "./pages/UserPage";
 
 const AppRoutes = () => {
   return (
@@ -18,6 +19,7 @@ const AppRoutes = () => {
             <Route path="*" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/profile" element={<ProfileView />} />
+            <Route path="/userPage" element={<UserPage />} />
           </Routes>
         </HomeProvider>
       </CarProvider>
