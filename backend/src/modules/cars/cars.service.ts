@@ -11,8 +11,8 @@ export class CarsService {
     return await this.carsRepository.create(data, userId);
   }
 
-  async findAll() {
-    return await this.carsRepository.findAll();
+  async findAll(page: number, perPage: number) {
+    return await this.carsRepository.findAll(page, perPage);
   }
 
   async findOne(id: string) {
