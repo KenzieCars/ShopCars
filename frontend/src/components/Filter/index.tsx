@@ -8,7 +8,7 @@ import { RangeSlider } from "./price";
 import { RangeKMSlider } from "./km";
 import { FilterStyle } from "./style";
 import ModalFilter from "./modalRenderFilter";
-import { HomeContext } from "../../providers/HomeProvider";
+import { HomeContext } from "../../providers/HomeProvider/HomeProvider";
 
 const FilterCars = () => {
   const { clearFilters } = useContext(HomeContext);

@@ -2,7 +2,7 @@ import { createContext, useContext, useEffect, useState } from "react";
 // import { useNavigate } from "react-router-dom";
 import { api } from "../../services/api";
 import { toast } from "react-toastify";
-import { UserContext } from "../UserContext";
+import { UserContext } from "../UserProvider/UserContext";
 import { ICar, ICarContext, IComment, IDefaultProviderProps, IImage, TCarRequest, TCarResponse, TCarUpdate, } from "./@types";
 
 export const CarContext = createContext({} as ICarContext);

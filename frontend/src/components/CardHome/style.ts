@@ -16,12 +16,19 @@ export const CardContainer = styled.li`
 
   @media (min-width: 768px) {
     width: 282px;
+    height: fit-content;
+    min-height: 390px;
+    max-height: 390px;
   }
 `;
 
 export const FigureContainer = styled.figure`
   > img {
     width: 100%;
+    height: 152px;
+
+    object-fit: cover;
+
     border-radius: 12px 12px 0 0;
   }
 `;
@@ -41,6 +48,8 @@ export const ContainerInfo = styled.div`
   > p {
     font-size: 0.7rem;
     color: var(--gray);
+    height: 90px;
+    line-height: 150%;
   }
 
   @media (min-width: 768px) {

@@ -1,10 +1,10 @@
 import { createContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { IDefaultProviderProps, ILogin, IUserContext } from "./@types";
-import { api } from "../services/api";
+import { IDefaultProviderProps, ILogin, IUserContext } from "../HomeProvider/@types";
+import { api } from "../../services/api";
 import { toast } from "react-toastify";
-import { ICreateUser } from '../components/RegisterForm/@types';
-import { ICar, TUserCarsResponse } from "./CarProvider/@types";
+import { ICreateUser } from '../../components/RegisterForm/@types';
+import { ICar, TUserCarsResponse } from "../CarProvider/@types";
 
 export const UserContext = createContext({} as IUserContext)
 
@@ -16,21 +16,18 @@ export const UserProvider = ({ children }: IDefaultProviderProps) => {
   const [userIdCars, setUserIdCars] = useState<TUserCarsResponse | null>(null);
 
   const userLogin = async (formData: ILogin) => {
-    console.log(formData)
     try {
       setLoading(true)
       const res = await api.post('/login', formData)
 
       setUser(res.data)
 
-      console.log(res.data)
-      console.log(res)
-
       localStorage.setItem('@userToken', res.data.token)
+      localStorage.setItem('@userId', res.data.id)
 
       toast.success('Logged in!')
 
-      navigate('/')
+      navigate('/profile')
 
     } catch (error) {
       console.log(error)
