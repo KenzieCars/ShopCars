@@ -12,7 +12,7 @@ export const MainContainerProfile = styled.main`
   }
 `
 
-export const CardListProfile = styled.section`
+export const CardListProfile = styled.ul`
   display: flex;
   gap: 1rem;
   overflow-x: auto;
@@ -21,6 +21,9 @@ export const CardListProfile = styled.section`
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: space-between;
-    margin-top: 3rem;
+
+    width: 100%;
+    padding: 3rem 0;
+    overflow-x: visible;
   }
 `
