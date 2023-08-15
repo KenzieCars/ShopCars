@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom'
 import { styled } from 'styled-components'
 
 export const FooterContainer = styled.footer`
@@ -25,6 +24,8 @@ export const FooterContainer = styled.footer`
   }
 
   @media (min-width: 768px) {
+    flex-direction: row;
+    justify-content: space-between;
     gap: 2rem;
 
     > h3 {
@@ -37,8 +38,9 @@ export const FooterContainer = styled.footer`
   }
 `
 
-export const ButtonToBeginning = styled(Link)`
+export const ButtonToBeginning = styled.button`
   color: var(--white);
-
   font-size: 1.7rem;
+
+  background: transparent;
 `

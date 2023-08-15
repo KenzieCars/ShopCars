@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { styled } from "styled-components";
 
 export const DivHeader = styled.div`
@@ -12,7 +13,7 @@ export const DivHeader = styled.div`
     position: fixed;
     top: 0;
     right: 0;
-    z-index: 1;
+    z-index: 9;
     
     width: 100%;
     padding: 1rem 3.75rem;
@@ -45,8 +46,9 @@ export const ButtonHeader = styled.button`
     font-size: .9rem;
 
     &:hover {
-      border: 1px solid var(--black);
-      color: var(--black);
+      border: 1px solid var(--white);
+      background: var(--black);
+      color: var(--white);
     }
   }
 `;

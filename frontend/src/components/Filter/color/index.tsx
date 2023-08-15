@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { HomeContext } from "../../../providers/HomeProvider";
+import { HomeContext } from "../../../providers/HomeProvider/HomeProvider";
 import { ColorCarsWrapper } from "./style";
 
 const ColorCars = () => {

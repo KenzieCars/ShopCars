@@ -1,4 +1,4 @@
-import { IUser } from "../@types";
+import { IUser } from "../HomeProvider/@types";
 
 export interface ICarContext {
 	images: IImage[] | [];
@@ -34,6 +34,7 @@ export interface ICar {
 	"imgCover": string,
 	"bestPrice?": boolean,
 	"userId": number,
+	"user": IUser
 }
 
 export interface TUserCarsResponse extends IUser {

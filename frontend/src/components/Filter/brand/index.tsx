@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { HomeContext } from "../../../providers/HomeProvider";
+import { HomeContext } from "../../../providers/HomeProvider/HomeProvider";
 import { CustomSelect } from "./style";
 
 const FilterBrand = () => {
@@ -14,9 +14,8 @@ const FilterBrand = () => {
       <div className="select-header">Marca</div>
       <div className="options">
         <div
-          className={`option ${
-            selectedbrand === "general motors" ? "selected" : ""
-          }`}
+          className={`option ${selectedbrand === "general motors" ? "selected" : ""
+            }`}
           onClick={() => handleOptionClick("general motors")}
         >
           General Motors
@@ -46,9 +45,8 @@ const FilterBrand = () => {
           Porsche
         </div>
         <div
-          className={`option ${
-            selectedbrand === "volkswagen" ? "selected" : ""
-          }`}
+          className={`option ${selectedbrand === "volkswagen" ? "selected" : ""
+            }`}
           onClick={() => handleOptionClick("volkswagen")}
         >
           Volkswagen
