@@ -2,11 +2,9 @@ import { IUser } from "../HomeProvider/@types";
 
 export interface ICarContext {
 	images: IImage[] | [];
-	comments: [] | IComment[];
 	car: ICar | null;
 	allcars: [] | ICar[];
 	listCarsUser: [] | ICar[]
-	setComments: React.Dispatch<React.SetStateAction<[] | IComment[]>>;
 	setImages: React.Dispatch<React.SetStateAction<IImage[] | []>>;
 	setCar: React.Dispatch<React.SetStateAction<ICar | null>>;
 	setAllCars: React.Dispatch<React.SetStateAction<[] | ICar[]>>;
@@ -59,14 +57,13 @@ export type TCarRequest = Omit<ICar, "id" | "userId">
 
 export type TCarUpdate = Partial<TCarRequest>
 
+export interface TListCarsResponse extends ICar {
+	"images": IImage[] | [],
+	"comments": IComment[] | [],
+	"user": IUser[] | [] 
+}
+
 export interface TCarResponse extends ICar {
 	"images": IImage[] | [],
-	"comments": IComment[] | [] 
-}
-
-export interface TListCarsResponse extends ICar {
-    "images": IImage[] | [],
-    "comments": IComment[] | [],
-    "user": IUser[] | []
-}
-
+	"comments": IComment[] | []
+} 

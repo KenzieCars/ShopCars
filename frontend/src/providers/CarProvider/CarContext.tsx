@@ -2,15 +2,22 @@ import { createContext, useContext, useEffect, useState } from "react";
 // import { useNavigate } from "react-router-dom";
 import { api } from "../../services/api";
 import { toast } from "react-toastify";
+import {
+  ICar,
+  ICarContext,
+  IDefaultProviderProps,
+  IImage,
+  TCarRequest,
+  TCarResponse,
+  TListCarsResponse,
+  TCarUpdate,
+} from "./@types";
 import { UserContext } from "../UserProvider/UserContext";
-import { ICar, ICarContext, IComment, TListCarsResponse, IDefaultProviderProps, IImage, TCarRequest, TCarResponse, TCarUpdate, } from "./@types";
 
 export const CarContext = createContext({} as ICarContext);
 
 export const CarProvider = ({ children }: IDefaultProviderProps) => {
   // const navigate = useNavigate();
-
-  const [comments, setComments] = useState<IComment[] | []>([]);
   const [images, setImages] = useState<IImage[] | []>([]);
   const [car, setCar] = useState<ICar | null>(null);
   const [allcars, setAllCars] = useState<ICar[] | []>([]);
@@ -44,7 +51,6 @@ export const CarProvider = ({ children }: IDefaultProviderProps) => {
         setCar(res.data);
 
         toast.success("Car registered!");
-
       } catch (error) {
         console.log(error);
 
@@ -120,12 +126,10 @@ export const CarProvider = ({ children }: IDefaultProviderProps) => {
   return (
     <CarContext.Provider
       value={{
-        comments,
         images,
         car,
         allcars,
         listCarsUser,
-        setComments,
         setImages,
         setCar,
         setAllCars,
