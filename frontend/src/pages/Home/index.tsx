@@ -9,12 +9,14 @@ import {
   NextButtonContainer,
   TitleContainer,
 } from "./style";
-import { Header } from "../../components/header";
+import { Header } from "../../components/Header";
 import ButtonHome from "../../components/Filter/butonModal";
 import ModalFilter from "../../components/Filter/modalRenderFilter";
 import FilterCars from "../../components/Filter";
+import CustomSwiperComponent from "../../components/Swiper";
 
 const Home = () => {
+
   return (
     <>
       <Header />
@@ -23,24 +25,13 @@ const Home = () => {
           <h1>Motors Shop</h1>
           <p>A melhor plataforma de anúncios de carros do país</p>
         </TitleContainer>
-        <img
-          src="https://images.pexels.com/photos/6969035/pexels-photo-6969035.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
-          alt=""
-        />
+        <CustomSwiperComponent />
       </BannerContainer>
 
       <MainContainerHome>
         <FilterCars />
         <ListCardContainer>
-          <CardHome />
-          <CardHome />
-          <CardHome />
-          <CardHome />
-          <CardHome />
-          <CardHome />
-          <CardHome />
-          <CardHome />
-          <CardHome />
+          <CardHome /> 
         </ListCardContainer>
       </MainContainerHome>
       <ButtonHome />

@@ -14,14 +14,23 @@ export const CardContainer = styled.li`
 
   flex-shrink: 0;
 
+  position: relative;
+
   @media (min-width: 768px) {
     width: 282px;
+    height: fit-content;
+    min-height: 390px;
+    max-height: 390px;
   }
 `;
 
 export const FigureContainer = styled.figure`
   > img {
     width: 100%;
+    height: 152px;
+
+    object-fit: cover;
+
     border-radius: 12px 12px 0 0;
   }
 `;
@@ -41,6 +50,8 @@ export const ContainerInfo = styled.div`
   > p {
     font-size: 0.7rem;
     color: var(--gray);
+    height: 90px;
+    line-height: 150%;
   }
 
   @media (min-width: 768px) {
@@ -121,3 +132,23 @@ export const ContainerInfoCar = styled.div`
     color: var(--gray);
   }
 `;
+
+export const FlagGoodDeal = styled.div`
+  display: flex;
+  align-items: center;
+
+  position: absolute;
+  top: -10px;
+  right: -10px;
+
+  border-radius: 50%;
+
+  box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px;
+
+  padding: .4rem;
+
+  background: var(--alert-success);
+
+  color: var(--white);
+  font-size: 1.2rem;
+`

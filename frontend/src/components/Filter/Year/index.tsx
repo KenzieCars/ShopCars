@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { HomeContext } from "../../../providers/HomeProvider";
+import { HomeContext } from "../../../providers/HomeProvider/HomeProvider";
 import { YearCarsWrapper } from "./style";
 
 const YearCars = () => {
@@ -18,9 +18,8 @@ const YearCars = () => {
           return (
             <div
               key={year}
-              className={`option ${
-                selectedYear === year.toString() ? "selected" : ""
-              }`}
+              className={`option ${selectedYear === year.toString() ? "selected" : ""
+                }`}
               onClick={() => handleOptionClick(year.toString())}
             >
               {year}

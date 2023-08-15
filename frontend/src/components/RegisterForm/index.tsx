@@ -8,7 +8,7 @@ import { Error } from '../../components/LoginForm/style'
 import { useForm } from 'react-hook-form'
 import { ICreateUser, IChangeStyles } from './@types';
 import { useContext, useState } from 'react'
-import { UserContext } from '../../providers/UserContext'
+import { UserContext } from '../../providers/UserProvider/UserContext'
 import { BsEyeFill, BsEyeSlashFill } from 'react-icons/bs'
 import { handlePhone, handleCpf, handleBirthDate, handleCep, handleState, handleNumber } from './utils'
 

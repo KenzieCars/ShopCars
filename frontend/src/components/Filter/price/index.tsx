@@ -1,7 +1,7 @@
 import { useContext, ChangeEvent } from "react";
 import Typography from "@material-ui/core/Typography";
 import { RootContainer, StyledSlider } from "./style";
-import { HomeContext } from "../../../providers/HomeProvider";
+import { HomeContext } from "../../../providers/HomeProvider/HomeProvider";
 
 const valuetext = (value: number) => {
   return `R$ ${value}`;

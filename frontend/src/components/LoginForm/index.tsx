@@ -10,10 +10,10 @@ import {
   TitleLogin,
   Error,
 } from "./style";
-import { ILogin } from "../../providers/@types";
+import { ILogin } from "../../providers/HomeProvider/@types";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useContext } from "react";
-import { UserContext } from "../../providers/UserContext";
+import { UserContext } from "../../providers/UserProvider/UserContext";
 
 const LoginForm = () => {
   const { userLogin } = useContext(UserContext);

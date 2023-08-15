@@ -24,6 +24,24 @@ interface HomeContextValues {
   clearFilters: () => void;
 }
 
+export interface User {
+  id: string
+  name: string
+  email: string
+  password: string
+  seller: boolean
+  isAdm: boolean
+  cellPhone: string
+  cpf: string
+  dateOfBirth: string
+  description: string
+  city: string
+  state: string
+  street: string
+  number: number
+  complement: string
+}
+
 export const HomeContext = createContext({} as HomeContextValues);
 
 export const HomeProvider = ({ children }: IHomeProviderProps) => {
@@ -65,7 +83,7 @@ export const HomeProvider = ({ children }: IHomeProviderProps) => {
         setValueKmCar,
         modalFilter,
         setModalFilter,
-        clearFilters,
+        clearFilters
       }}
     >
       {children}
