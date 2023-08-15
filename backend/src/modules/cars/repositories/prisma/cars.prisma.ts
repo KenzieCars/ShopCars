@@ -75,6 +75,7 @@ export class CarsPrismaRepository implements CarsRepository {
       include: {
         images: true,
         comments: true,
+        user: true,
       },
     });
     return car;
@@ -86,6 +87,7 @@ export class CarsPrismaRepository implements CarsRepository {
       include: {
         images: true,
         comments: true,
+        user: true,
       },
       data: { ...data },
     });
