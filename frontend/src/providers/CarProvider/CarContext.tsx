@@ -3,7 +3,7 @@ import { createContext, useContext, useEffect, useState } from "react";
 import { api } from "../../services/api";
 import { toast } from "react-toastify";
 import { UserContext } from "../UserProvider/UserContext";
-import { ICar, ICarContext, IComment, IDefaultProviderProps, IImage, TCarRequest, TCarResponse, TCarUpdate, } from "./@types";
+import { ICar, ICarContext, IComment, TListCarsResponse, IDefaultProviderProps, IImage, TCarRequest, TCarResponse, TCarUpdate, } from "./@types";
 
 export const CarContext = createContext({} as ICarContext);
 
@@ -20,7 +20,7 @@ export const CarProvider = ({ children }: IDefaultProviderProps) => {
   useEffect(() => {
     const allCars = async () => {
       try {
-        const response = await api.get<TCarResponse[] | []>(`/cars`);
+        const response = await api.get<TListCarsResponse[] | []>(`/cars`);
         setAllCars(response.data);
       } catch (error) {
         console.log(error);

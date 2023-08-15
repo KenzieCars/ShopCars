@@ -62,6 +62,11 @@ export type TCarUpdate = Partial<TCarRequest>
 export interface TCarResponse extends ICar {
 	"images": IImage[] | [],
 	"comments": IComment[] | [] 
-} 
+}
 
+export interface TListCarsResponse extends ICar {
+    "images": IImage[] | [],
+    "comments": IComment[] | [],
+    "user": IUser[] | []
+}
 
