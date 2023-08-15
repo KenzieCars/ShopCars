@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/database/prisma.service';
-import { CarsRepository } from '../cars.repository';
+import { CarsRepository, PaginationCars } from '../cars.repository';
 import { CreateCarDto } from '../../dto/create-car.dto';
 import { Car } from '../../entities/car.entity';
 import { UpdateCarDto } from '../../dto/update-car.dto';
@@ -40,16 +40,33 @@ export class CarsPrismaRepository implements CarsRepository {
     return newCar;
   }
 
-  async findAll(): Promise<Car[]> {
+  async findAll(page: number, perPage: number): Promise<PaginationCars> {
+    const skip = (page - 1) * perPage;
+    const take = perPage;
+
     const cars = await this.prisma.car.findMany({
+      skip,
+      take,
       include: {
         images: true,
         comments: true,
-        user: true
-      }
+        user: true,
+      },
     });
+    const totalCars = await this.prisma.car.count()
+    const totalPages = Math.ceil(totalCars / perPage);
+    const nextPage = page < totalPages ? Number(page) + 1 : null;
+    const prevPage = page > 1 ? page - 1 : null;
 
-    return cars;
+    const returnCarsPagination = {
+      nextPage: nextPage,
+      prevPage: prevPage,
+      totalPages: totalPages,
+      totalCars: totalCars,
+      cars
+    }
+
+    return returnCarsPagination;
   }
 
   async findOne(id: string): Promise<Car> {
@@ -58,7 +75,7 @@ export class CarsPrismaRepository implements CarsRepository {
       include: {
         images: true,
         comments: true,
-      }
+      },
     });
     return car;
   }
