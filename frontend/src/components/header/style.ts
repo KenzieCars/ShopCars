@@ -1,20 +1,19 @@
-import { Link } from "react-router-dom";
 import { styled } from "styled-components";
 
 export const DivHeader = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: .7rem;
-  
+  padding: 0.7rem;
+
   background: var(--white);
-  
+
   @media (min-width: 768px) {
     position: fixed;
     top: 0;
     right: 0;
     z-index: 9;
-    
+
     width: 100%;
     padding: 1rem 3.75rem;
 
@@ -30,20 +29,20 @@ export const Nav = styled.nav`
 export const ButtonHeader = styled.button`
   background: none;
   border-radius: 6px;
-  
+
   cursor: pointer;
-  
+
   padding: 10px 20px;
 
-  font-size: .7rem;
+  font-size: 0.7rem;
   font-weight: 600;
   color: var(--primary-color);
 
-  transition: .2s ease;
+  transition: 0.2s ease;
 
   @media (min-width: 768px) {
     border: 1px solid var(--primary-color);
-    font-size: .9rem;
+    font-size: 0.9rem;
 
     &:hover {
       border: 1px solid var(--white);
