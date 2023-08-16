@@ -7,6 +7,7 @@ import { GiHamburgerMenu } from "react-icons/gi";
 import { DivHeader, MobileNav, ButtonHeader, Nav } from "./style";
 import { Link, useNavigate } from "react-router-dom";
 import { UserContext } from "../../providers/UserProvider/UserContext";
+import { ContactUserContainer } from "../CardHome/style";
 
 const Header = () => {
   const [menuAnchor, setMenuAnchor] = useState<null | HTMLElement>(null);
@@ -69,7 +70,7 @@ const Header = () => {
 
 const HeaderUserPage = () => {
   const { userIdCars } = useContext(UserContext);
-  console.log(userIdCars);
+
   const [menuAnchor, setMenuAnchor] = useState<null | HTMLElement>(null);
 
   const handleMenuOpen = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -96,11 +97,29 @@ const HeaderUserPage = () => {
               open={Boolean(menuAnchor)}
               onClose={handleMenuClose}
             >
-              {/* <Nav>{allcars && <h2>Olá, {allcars.user.name}</h2>}</Nav> */}
+              <Nav>
+                {userIdCars && (
+                  <span>
+                    <ContactUserContainer>
+                      <span>{userIdCars.name[0]}</span>
+                      {userIdCars.name.split(" ")[0]}
+                    </ContactUserContainer>
+                  </span>
+                )}
+              </Nav>
             </Menu>
           </MobileNav>
         ) : (
-          <Nav>{userIdCars && <h2>Olá, {userIdCars.name}</h2>}</Nav>
+          <Nav>
+            {userIdCars && (
+              <span>
+                <ContactUserContainer>
+                  <span>{userIdCars.name[0]}</span>
+                  {userIdCars.name.split(" ")[0]}
+                </ContactUserContainer>
+              </span>
+            )}
+          </Nav>
         )}
       </DivHeader>
     </>

@@ -51,19 +51,9 @@ export const DivCard = styled.div`
   transform: translate(-55%, -50%);
   border-radius: 10px;
   margin-left: 3px;
-
-  > div {
-    width: 100px;
-    height: 100px;
-    background-color: #4529e6;
-    border-radius: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
 `;
 
-export const DivTest = styled.div`
+export const Divanucios = styled.div`
   margin-top: 200px;
 `;
 
@@ -84,4 +74,31 @@ export const ListCardUserPage = styled.ul`
 
     gap: 1.4rem;
   }
+`;
+
+export const DivCardUser = styled.div`
+  width: 100px;
+  height: 100px;
+  background-color: #4529e6;
+  border-radius: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  > h2 {
+    color: #ffffff;
+  }
+`;
+
+export const DivNameUser = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 10px;
+`;
+
+export const SpanAnuciant = styled.span`
+  background-color: #edeafd;
+  color: #4529e6;
+  border-radius: 4px;
+  padding: 5px;
 `;
