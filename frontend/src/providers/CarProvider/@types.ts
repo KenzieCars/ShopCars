@@ -1,69 +1,62 @@
 import { IUser } from "../HomeProvider/@types";
-
 export interface ICarContext {
-	images: IImage[] | [];
-	car: ICar | null;
-	allcars: [] | ICar[];
-	listCarsUser: [] | ICar[]
-	setImages: React.Dispatch<React.SetStateAction<IImage[] | []>>;
-	setCar: React.Dispatch<React.SetStateAction<ICar | null>>;
-	setAllCars: React.Dispatch<React.SetStateAction<[] | ICar[]>>;
-	setListCarsUser: React.Dispatch<React.SetStateAction<[] | ICar[]>>
-	carRegister: (formData: TCarRequest) => Promise<void>;
-	editeCar: (formData: TCarUpdate, carId: string) => Promise<void>;
-	deleteCar: (carId: string) => Promise<void>;
-  }
-
+  images: IImage[] | [];
+  car: ICar | null;
+  allcars: [] | TCarUserResponse[]
+  setImages: React.Dispatch<React.SetStateAction<IImage[] | []>>;
+  setCar: React.Dispatch<React.SetStateAction<ICar | null>>;
+  setAllCars: React.Dispatch<React.SetStateAction<[] | TCarUserResponse[]>>
+  carRegister: (formData: TCarRequest) => Promise<void>;
+  editeCar: (formData: TCarUpdate, carId: string) => Promise<void>;
+  deleteCar: (carId: string) => Promise<void>;
+}
 export interface IDefaultProviderProps {
-	children: React.ReactNode
+  children: React.ReactNode;
 }
-
 export interface ICar {
-	"id": string
-	"brand": string,
-	"model": string,
-	"year": string,
-	"km": number,
-	"color": string,
-	"status"?: boolean,
-	"fuel": string,
-	"price": number,
-	"description": string,
-	"imgCover": string,
-	"bestPrice?": boolean,
-	"userId": number,
-	"user": IUser
+  id: string;
+  brand: string;
+  model: string;
+  year: string;
+  km: number;
+  color: string;
+  status?: boolean;
+  fuel: string;
+  price: number;
+  description: string;
+  imgCover: string;
+  "bestPrice?": boolean;
+  userId: number;
 }
-
+export type TCarRequest = Omit<ICar, "id" | "userId">;
 export interface TUserCarsResponse extends IUser {
-	"cars": ICar[] | [],
-} 
-
+  cars: ICar[] | [];
+}
 export interface IImage {
-	"id": string
-	"imgGalery": string,
-	"carId": string
+  id: string;
+  imgGalery: string;
+  carId: string;
 }
-
 export interface IComment {
-	"id": string
-	"description": string,
-	"createdAt": string,
-	"carId": string,
-	"userId": string
+  id: string;
+  description: string;
+  createdAt: string;
+  carId: string;
+  userId: string;
 }
-
-export type TCarRequest = Omit<ICar, "id" | "userId">
-
-export type TCarUpdate = Partial<TCarRequest>
-
-export interface TListCarsResponse extends ICar {
-	"images": IImage[] | [],
-	"comments": IComment[] | [],
-	"user": IUser[] | [] 
+export type TCarUpdate = Partial<TCarRequest>;
+export interface TDataCarResponse extends ICar {
+  images: IImage[] | [];
+  comments: IComment[] | [];
+  user: IUser;
 }
-
-export interface TCarResponse extends ICar {
-	"images": IImage[] | [],
-	"comments": IComment[] | []
-} 
+export interface TListPaginationCars {
+  nextPage: number | null;
+  prevPage: number | null;
+  totalPages: number | null;
+  totalCars: number | null;
+  cars: TDataCarResponse[] | [];
+}
+export interface TCarUserResponse extends ICar {
+    user: IUser;
+  }

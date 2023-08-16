@@ -34,8 +34,8 @@ const CardHome = () => {
             {car.description}
           </p>
           <ContactUserContainer>
-              <span>{car.user.name[0]}</span>
-              <span>{car.user.name}</span>
+            <span>{car.user.name[0]}</span>
+            <span>{car.user.name}</span>
           </ContactUserContainer>
           <ContainerInfoCar>
             <div>
