@@ -7,7 +7,7 @@ import {
 } from "react";
 import { CarContext } from "../CarProvider/CarContext";
 import { api } from "../../services/api";
-import { ICar, TCarUserResponse } from "../CarProvider/@types";
+import { ICar, TDataCarResponse } from "../CarProvider/@types";
 
 interface IHomeProviderProps {
   children: ReactNode;
@@ -78,7 +78,7 @@ export const HomeProvider = ({ children }: IHomeProviderProps) => {
 
   const filterCars = async () => {
     try {
-      const response = await api.get<TCarUserResponse[]>("/cars");
+      const response = await api.get<TDataCarResponse[]>("/cars");
       setallcarsPages(response.data);
 
       let filteredCars = response.data;
