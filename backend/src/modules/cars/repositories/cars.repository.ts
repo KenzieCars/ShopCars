@@ -3,8 +3,8 @@ import { UpdateCarDto } from '../dto/update-car.dto';
 import { Car } from '../entities/car.entity';
 
 export type PaginationCars = {
-  nextPage: number;
-  prevPage: number;
+  nextPage: string;
+  prevPage: string;
   totalPages: number;
   totalCars: number;
   cars: Car[];

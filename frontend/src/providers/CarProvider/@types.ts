@@ -15,7 +15,6 @@ export interface ICarContext {
 export interface IDefaultProviderProps {
   children: React.ReactNode;
 }
-
 export interface ICar {
   id: string;
   brand: string;
@@ -33,7 +32,6 @@ export interface ICar {
 }
 
 export type TCarRequest = Omit<ICar, "id" | "userId">;
-
 export interface TUserCarsResponse extends IUser {
   cars: ICar[] | [];
 }
@@ -43,7 +41,6 @@ export interface IImage {
   imgGalery: string;
   carId: string;
 }
-
 export interface IComment {
   id: string;
   description: string;

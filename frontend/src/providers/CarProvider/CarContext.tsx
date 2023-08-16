@@ -15,18 +15,14 @@ import {
   TListPaginationCars,
 } from "./@types";
 
-
 export const CarContext = createContext({} as ICarContext);
-
 export const CarProvider = ({ children }: IDefaultProviderProps) => {
   // const navigate = useNavigate();
-
   const [images, setImages] = useState<IImage[] | []>([]);
   const [car, setCar] = useState<ICar | null>(null);
   const [allcars, setAllCars] = useState<TCarUserResponse[] | []>([]);
 
   const { setListCarsUser, listCarsUser } = useContext(UserContext);
-
   useEffect(() => {
     const allCars = async () => {
       try {
@@ -37,13 +33,10 @@ export const CarProvider = ({ children }: IDefaultProviderProps) => {
         console.log(error);
       }
     };
-
     allCars();
   }, []);
-
   const carRegister = async (formData: TCarRequest) => {
     const token = localStorage.getItem("@userToken");
-
     if (token) {
       try {
         const res = await api.post<ICar>("/cars", formData, {
@@ -51,21 +44,16 @@ export const CarProvider = ({ children }: IDefaultProviderProps) => {
             Authorization: `Bearer ${token}`,
           },
         });
-
         setCar(res.data);
-
         toast.success("Car registered!");
       } catch (error) {
         console.log(error);
-
         toast.error("Car already exists.");
       }
     }
   };
-
   const editeCar = async (formData: TCarUpdate, carId: string) => {
     const token = localStorage.getItem("@userToken");
-
     if (token) {
       try {
         const response = await api.patch<TDataCarResponse>(
@@ -77,7 +65,6 @@ export const CarProvider = ({ children }: IDefaultProviderProps) => {
             },
           }
         );
-
         const newListCars = listCarsUser.map((car) => {
           if (car.id === carId) {
             return response.data;
@@ -86,17 +73,14 @@ export const CarProvider = ({ children }: IDefaultProviderProps) => {
           }
         });
         setListCarsUser(newListCars);
-
         toast.success("Successfully changed!");
       } catch (error) {
         toast.error("Something went wrong!");
       }
     }
   };
-
   const deleteCar = async (carId: string) => {
     const token = localStorage.getItem("@userToken");
-
     if (token) {
       try {
         await api.delete(`/cars/${carId}`, {
@@ -104,9 +88,7 @@ export const CarProvider = ({ children }: IDefaultProviderProps) => {
             Authorization: `Bearer ${token}`,
           },
         });
-
         const carFind = listCarsUser.find((car) => car.id === carId);
-
         if (!carFind) {
           toast.error("Car Not Found!");
         } else {
@@ -121,12 +103,10 @@ export const CarProvider = ({ children }: IDefaultProviderProps) => {
         }
       } catch (error) {
         console.log(error);
-
         toast.error("Unable to delete car!");
       }
     }
   };
-
   return (
     <CarContext.Provider
       value={{

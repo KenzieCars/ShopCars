@@ -55,12 +55,14 @@ export class CarsPrismaRepository implements CarsRepository {
     });
     const totalCars = await this.prisma.car.count()
     const totalPages = Math.ceil(totalCars / perPage);
-    const nextPage = page < totalPages ? Number(page) + 1 : null;
-    const prevPage = page > 1 ? page - 1 : null;
+    const nextPage = Number(page) < totalPages && Number(page) + 1;
+    const prevPage = Number(page) > 1 && Number(page) <= totalPages + 1  && Number(page) - 1;
+    const nextPageUrl = nextPage ? `http://localhost:3000/cars/?page=${nextPage}` : null
+    const prevPageUrl = prevPage ? `http://localhost:3000/cars/?page=${prevPage}` : null
 
     const returnCarsPagination = {
-      nextPage: nextPage,
-      prevPage: prevPage,
+      nextPage: nextPageUrl,
+      prevPage: prevPageUrl,
       totalPages: totalPages,
       totalCars: totalCars,
       cars
