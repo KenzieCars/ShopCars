@@ -6,7 +6,9 @@ const FuelTypeCars = () => {
   const { selectedFuelType, setSelectedFuelType } = useContext(HomeContext);
 
   const handleOptionClick = (option: string) => {
-    setSelectedFuelType(option);
+    setSelectedFuelType((prevSelected) =>
+      prevSelected === option ? "" : option
+    );
   };
 
   return (
@@ -14,21 +16,23 @@ const FuelTypeCars = () => {
       <div className="select-header">Tipo de Combustível</div>
       <div className="options">
         <div
-          className={`option ${selectedFuelType === "Elétrico" ? "selected" : ""
-            }`}
+          className={`option ${
+            selectedFuelType === "Elétrico" ? "selected" : ""
+          }`}
           onClick={() => handleOptionClick("Elétrico")}
         >
           Elétrico
         </div>
         <div
-          className={`option ${selectedFuelType === "Flex" ? "selected" : ""}`}
-          onClick={() => handleOptionClick("Flex")}
+          className={`option ${selectedFuelType === "flex" ? "selected" : ""}`}
+          onClick={() => handleOptionClick("flex")}
         >
           Flex
         </div>
         <div
-          className={`option ${selectedFuelType === "Híbrido" ? "selected" : ""
-            }`}
+          className={`option ${
+            selectedFuelType === "Híbrido" ? "selected" : ""
+          }`}
           onClick={() => handleOptionClick("Híbrido")}
         >
           Híbrido

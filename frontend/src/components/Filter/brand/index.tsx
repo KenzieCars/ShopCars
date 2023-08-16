@@ -6,7 +6,7 @@ const FilterBrand = () => {
   const { selectedbrand, setSelectedbrand } = useContext(HomeContext);
 
   const handleOptionClick = (option: string) => {
-    setSelectedbrand(option);
+    setSelectedbrand((prevSelected) => (prevSelected === option ? "" : option));
   };
 
   return (
@@ -14,11 +14,18 @@ const FilterBrand = () => {
       <div className="select-header">Marca</div>
       <div className="options">
         <div
-          className={`option ${selectedbrand === "general motors" ? "selected" : ""
-            }`}
-          onClick={() => handleOptionClick("general motors")}
+          className={`option ${
+            selectedbrand === "chevrolet" ? "selected" : ""
+          }`}
+          onClick={() => handleOptionClick("chevrolet")}
         >
-          General Motors
+          Chevrolet
+        </div>
+        <div
+          className={`option ${selectedbrand === "citroën" ? "selected" : ""}`}
+          onClick={() => handleOptionClick("citroën")}
+        >
+          Citroën
         </div>
         <div
           className={`option ${selectedbrand === "fiat" ? "selected" : ""}`}
@@ -39,14 +46,39 @@ const FilterBrand = () => {
           Honda
         </div>
         <div
-          className={`option ${selectedbrand === "porsche" ? "selected" : ""}`}
-          onClick={() => handleOptionClick("porsche")}
+          className={`option ${selectedbrand === "hyundai" ? "selected" : ""}`}
+          onClick={() => handleOptionClick("hyundai")}
         >
-          Porsche
+          Hyundai
         </div>
         <div
-          className={`option ${selectedbrand === "volkswagen" ? "selected" : ""
-            }`}
+          className={`option ${selectedbrand === "nissan" ? "selected" : ""}`}
+          onClick={() => handleOptionClick("nissan")}
+        >
+          Nissan
+        </div>
+        <div
+          className={`option ${selectedbrand === "peugeot" ? "selected" : ""}`}
+          onClick={() => handleOptionClick("peugeot")}
+        >
+          Peugeot
+        </div>
+        <div
+          className={`option ${selectedbrand === "renault" ? "selected" : ""}`}
+          onClick={() => handleOptionClick("renault")}
+        >
+          Renault
+        </div>
+        <div
+          className={`option ${selectedbrand === "toyota" ? "selected" : ""}`}
+          onClick={() => handleOptionClick("toyota")}
+        >
+          Toyota
+        </div>
+        <div
+          className={`option ${
+            selectedbrand === "volkswagen" ? "selected" : ""
+          }`}
           onClick={() => handleOptionClick("volkswagen")}
         >
           Volkswagen

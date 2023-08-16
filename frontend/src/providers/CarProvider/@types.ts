@@ -1,5 +1,4 @@
 import { IUser } from "../UserProvider/@types";
-
 export interface ICarContext {
   images: IImage[] | [];
   car: ICar | null;
@@ -11,7 +10,6 @@ export interface ICarContext {
   editeCar: (formData: TCarUpdate, carId: string) => Promise<void>;
   deleteCar: (carId: string) => Promise<void>;
 }
-
 export interface IDefaultProviderProps {
   children: React.ReactNode;
 }
@@ -30,12 +28,10 @@ export interface ICar {
   "bestPrice?": boolean;
   userId: number;
 }
-
 export type TCarRequest = Omit<ICar, "id" | "userId">;
 export interface TUserCarsResponse extends IUser {
   cars: ICar[] | [];
 }
-
 export interface IImage {
   id: string;
   imgGalery: string;
@@ -48,15 +44,12 @@ export interface IComment {
   carId: string;
   userId: string;
 }
-
 export type TCarUpdate = Partial<TCarRequest>;
-
 export interface TDataCarResponse extends ICar {
   images: IImage[] | [];
   comments: IComment[] | [];
   user: IUser;
 }
-
 export interface TListPaginationCars {
   nextPage: number | null;
   prevPage: number | null;
@@ -64,7 +57,6 @@ export interface TListPaginationCars {
   totalCars: number | null;
   cars: TDataCarResponse[] | [];
 }
-
 export interface TCarUserResponse extends ICar {
   user: IUser;
 }

@@ -14,20 +14,17 @@ import {
   TDataCarResponse,
   TListPaginationCars,
 } from "./@types";
-
 export const CarContext = createContext({} as ICarContext);
 export const CarProvider = ({ children }: IDefaultProviderProps) => {
   // const navigate = useNavigate();
   const [images, setImages] = useState<IImage[] | []>([]);
   const [car, setCar] = useState<ICar | null>(null);
   const [allcars, setAllCars] = useState<TCarUserResponse[] | []>([]);
-
   const { setListCarsUser, listCarsUser } = useContext(UserContext);
   useEffect(() => {
     const allCars = async () => {
       try {
         const response = await api.get<TListPaginationCars>(`/cars`);
-
         setAllCars(response.data.cars);
       } catch (error) {
         console.log(error);
@@ -97,7 +94,6 @@ export const CarProvider = ({ children }: IDefaultProviderProps) => {
               return car;
             }
           });
-
           setListCarsUser(newListCars);
           toast.success("Successfully deleted!");
         }
