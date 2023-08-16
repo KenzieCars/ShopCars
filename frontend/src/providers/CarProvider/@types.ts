@@ -1,4 +1,5 @@
-import { IUser } from "../HomeProvider/@types";
+import { IUser } from "../UserProvider/@types";
+
 export interface ICarContext {
   images: IImage[] | [];
   car: ICar | null;

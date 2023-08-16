@@ -121,6 +121,3 @@ export const CarProvider = ({ children }: IDefaultProviderProps) => {
     </CarContext.Provider>
   );
 };
-
-
-
