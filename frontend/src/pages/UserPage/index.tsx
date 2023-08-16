@@ -9,10 +9,10 @@ import {
   SpanAnuciant,
   UserPageSection,
 } from "./style";
-import RegisterFooter from "../../components/RegisterFooter";
 import { HeaderUserPage } from "../../components/Header";
 import { useContext } from "react";
 import { UserContext } from "../../providers/UserProvider/UserContext";
+import Footer from "../../components/Footer";
 
 const UserPage = () => {
   const { userIdCars } = useContext(UserContext);
@@ -48,7 +48,7 @@ const UserPage = () => {
           </ListCardUserPage>
         </DivCar>
       </UserPageSection>
-      <RegisterFooter />
+      <Footer />
     </>
   );
 };

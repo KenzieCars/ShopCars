@@ -12,8 +12,9 @@ import NothingHere from "../NothingHere";
 import { TbFlag3Filled } from "react-icons/tb";
 const CardHome = () => {
   const { allcars } = useContext(CarContext);
-  // console.log(allcars)
+
   if (allcars.length === 0) return <NothingHere />;
+  
   return (
     <>
       {allcars.map((car) => (
