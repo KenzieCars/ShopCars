@@ -10,22 +10,22 @@ import {
   IImage,
   TCarRequest,
   TCarUpdate,
-  TCarUserResponse,
+  // TCarUserResponse,
   TDataCarResponse,
-  TListPaginationCars,
+  // TListPaginationCars,
 } from "./@types";
 export const CarContext = createContext({} as ICarContext);
 export const CarProvider = ({ children }: IDefaultProviderProps) => {
   // const navigate = useNavigate();
   const [images, setImages] = useState<IImage[] | []>([]);
   const [car, setCar] = useState<ICar | null>(null);
-  const [allcars, setAllCars] = useState<TCarUserResponse[] | []>([]);
+  const [allcars, setAllCars] = useState<TDataCarResponse[] | []>([]);
   const { setListCarsUser, listCarsUser } = useContext(UserContext);
   useEffect(() => {
     const allCars = async () => {
       try {
-        const response = await api.get<TListPaginationCars>(`/cars`);
-        setAllCars(response.data.cars);
+        const response = await api.get<TDataCarResponse[]>(`/cars`);
+        setAllCars(response.data);
       } catch (error) {
         console.log(error);
       }
