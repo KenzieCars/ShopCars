@@ -32,10 +32,16 @@ export class CarsController {
     return this.carsService.create(data, req.user.id);
   }
 
-  @Get()
+  @Get("/pagination")
   findAll(@Query('page') page = 1,  perPage = 12) {
     return this.carsService.findAll(page, perPage);
   }
+
+  @Get()
+  findAllCars() {
+    return this.carsService.findAllCars();
+  }
+
 
   @Get(':id')
   findOne(@Param('id') id: string) {
