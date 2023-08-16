@@ -2,18 +2,19 @@ import { createContext, useContext, useEffect, useState } from "react";
 // import { useNavigate } from "react-router-dom";
 import { api } from "../../services/api";
 import { toast } from "react-toastify";
-
-import { UserContext } from "../UserContext";
+import { UserContext } from "../UserProvider/UserContext";
 import {
   ICar,
   ICarContext,
   IDefaultProviderProps,
   IImage,
   TCarRequest,
-  TCarResponse,
-  TListCarsResponse,
   TCarUpdate,
+  TCarUserResponse,
+  TDataCarResponse,
+  TListPaginationCars,
 } from "./@types";
+
 
 export const CarContext = createContext({} as ICarContext);
 
@@ -22,15 +23,16 @@ export const CarProvider = ({ children }: IDefaultProviderProps) => {
 
   const [images, setImages] = useState<IImage[] | []>([]);
   const [car, setCar] = useState<ICar | null>(null);
-  const [allcars, setAllCars] = useState<ICar[] | []>([]);
+  const [allcars, setAllCars] = useState<TCarUserResponse[] | []>([]);
 
   const { setListCarsUser, listCarsUser } = useContext(UserContext);
 
   useEffect(() => {
     const allCars = async () => {
       try {
-        const response = await api.get<TListCarsResponse[] | []>(`/cars`);
-        setAllCars(response.data);
+        const response = await api.get<TListPaginationCars>(`/cars`);
+
+        setAllCars(response.data.cars);
       } catch (error) {
         console.log(error);
       }
@@ -66,7 +68,7 @@ export const CarProvider = ({ children }: IDefaultProviderProps) => {
 
     if (token) {
       try {
-        const response = await api.patch<TCarResponse>(
+        const response = await api.patch<TDataCarResponse>(
           `/cars/${carId}`,
           formData,
           {
@@ -114,7 +116,7 @@ export const CarProvider = ({ children }: IDefaultProviderProps) => {
             }
           });
 
-          setAllCars(newListCars);
+          setListCarsUser(newListCars);
           toast.success("Successfully deleted!");
         }
       } catch (error) {
@@ -131,11 +133,9 @@ export const CarProvider = ({ children }: IDefaultProviderProps) => {
         images,
         car,
         allcars,
-        listCarsUser,
         setImages,
         setCar,
         setAllCars,
-        setListCarsUser,
         carRegister,
         editeCar,
         deleteCar,

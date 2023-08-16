@@ -15,6 +15,10 @@ export class CarsService {
     return await this.carsRepository.findAll(page, perPage);
   }
 
+  async findAllCars() {
+    return await this.carsRepository.findAllCars();
+  }
+
   async findOne(id: string) {
     const car = await this.carsRepository.findOne(id);
 

@@ -69,6 +69,19 @@ export class CarsPrismaRepository implements CarsRepository {
     return returnCarsPagination;
   }
 
+  async findAllCars(): Promise<Car[]> {
+
+    const cars = await this.prisma.car.findMany({
+      include: {
+        images: true,
+        comments: true,
+        user: true,
+      },
+    });
+
+    return cars;
+  }
+
   async findOne(id: string): Promise<Car> {
     const car = await this.prisma.car.findFirst({
       where: { id },

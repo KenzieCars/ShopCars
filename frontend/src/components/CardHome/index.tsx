@@ -14,7 +14,7 @@ import { TbFlag3Filled  } from 'react-icons/tb'
 const CardHome = () => {
   const { allcars } = useContext(CarContext)
 
-  // console.log(allcars)
+  console.log(allcars[0])
 
   if (allcars.length === 0) return <NothingHere />
   

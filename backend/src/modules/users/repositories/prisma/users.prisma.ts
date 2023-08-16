@@ -76,6 +76,7 @@ export class UsersPrismaRepository implements UsersRepository {
       data: {reset_token: token}
     });
   }
+  
   async updatePassword(id: string, password: string): Promise<void> {
       await this.prisma.user.update({
         where: {id},
