@@ -5,15 +5,14 @@ import {
   ContainerInfo,
   ContainerInfoCar,
   FigureContainer,
+  FlagGoodDeal,
 } from "./style";
 import { CarContext } from "../../providers/CarProvider/CarContext";
 import NothingHere from "../NothingHere";
-
+import { TbFlag3Filled } from "react-icons/tb";
 const CardHome = () => {
   const { allcars } = useContext(CarContext);
-
   if (allcars.length === 0) return <NothingHere />;
-
   return (
     <>
       {allcars.map((car) => (
@@ -38,10 +37,12 @@ const CardHome = () => {
               <span>R$ {car.price}</span>
             </ContainerInfoCar>
           </ContainerInfo>
+          <FlagGoodDeal>
+            <TbFlag3Filled />
+          </FlagGoodDeal>
         </CardContainer>
       ))}
     </>
   );
 };
-
 export default CardHome;

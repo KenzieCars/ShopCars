@@ -56,8 +56,9 @@ export const SiglaUser = styled.span`
   align-items: center;
 
   border-radius: 50%;
+  flex-shrink: 0;
 
-  padding: .4rem 1rem;
+  padding: .6rem 1.3rem;
 
   background: var(--primary-color);
 

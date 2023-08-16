@@ -8,6 +8,7 @@ import {
   Delete,
   Request,
   UseGuards,
+  Query
 } from '@nestjs/common';
 import { CarsService } from './cars.service';
 import { CreateCarDto } from './dto/create-car.dto';
@@ -15,6 +16,7 @@ import { UpdateCarDto } from './dto/update-car.dto';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { JwtauthGuard } from '../auth/jwt-auth.guard';
 import { CarPermissionGuard } from './guards/car-permission.guard';
+
 
 
 @ApiTags('Cars')
@@ -30,10 +32,16 @@ export class CarsController {
     return this.carsService.create(data, req.user.id);
   }
 
-  @Get()
-  findAll() {
-    return this.carsService.findAll();
+  @Get("/pagination")
+  findAll(@Query('page') page = 1,  perPage = 12) {
+    return this.carsService.findAll(page, perPage);
   }
+
+  @Get()
+  findAllCars() {
+    return this.carsService.findAllCars();
+  }
+
 
   @Get(':id')
   findOne(@Param('id') id: string) {

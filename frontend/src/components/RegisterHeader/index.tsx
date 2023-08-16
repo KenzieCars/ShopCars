@@ -25,7 +25,7 @@ const RegisterHeader = () => {
     return (
         <>
             <DivHeader id="register_header">
-                <img src={LogoHeader} alt="Logo" />
+                <img src={LogoHeader} alt="Logo" onClick={() => navigate('/')}/>
                 {isMobile ? (
                     <MobileNav>
                         <IconButton onClick={handleMenuOpen}>
