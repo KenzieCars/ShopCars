@@ -11,6 +11,7 @@ export interface ICarContext {
   editeCar: (formData: TCarUpdate, carId: string) => Promise<void>;
   deleteCar: (carId: string) => Promise<void>;
 }
+
 export interface IDefaultProviderProps {
   children: React.ReactNode;
 }
