@@ -1,68 +1,83 @@
-import { useContext } from "react";
-import { HomeContext } from "../../../providers/HomeProvider";
+import React, { useContext } from "react";
+import { HomeContext } from "../../../providers/HomeProvider/HomeProvider";
 import { ModelCarsWrapper } from "./style";
 
 const ModelCars = () => {
   const { selectedModel, setSelectedModel } = useContext(HomeContext);
 
   const handleOptionClick = (option: string) => {
-    setSelectedModel(option);
+    setSelectedModel((prevSelected) => (prevSelected === option ? "" : option));
   };
+
+  const cars = [
+    "camaro",
+    "cobalt",
+    "cruze",
+    "aircross",
+    "c3",
+    "c4",
+    "argo",
+    "cronos",
+    "doblo",
+    "fiorino",
+    "mobi",
+    "palio",
+    "strada",
+    "toro",
+    "uno",
+    "ecosport",
+    "fiesta",
+    "focus",
+    "fusion",
+    "ka",
+    "mustang",
+    "ranger",
+    "city",
+    "civic",
+    "fit",
+    "hr-v",
+    "creta",
+    "hb20",
+    "hb20s",
+    "kicks",
+    "march",
+    "sentra",
+    "versa",
+    "208",
+    "308",
+    "captur",
+    "duster",
+    "kwid",
+    "logan",
+    "sandero",
+    "corolla",
+    "etios",
+    "hilux",
+    "yaris",
+    "fox",
+    "gol",
+    "golf",
+    "jetta",
+    "polo",
+    "saveiro",
+    "t-cross",
+    "up!",
+    "voyage",
+  ];
 
   return (
     <ModelCarsWrapper>
       <div className="select-header">Modelo</div>
       <div className="options">
-        <div
-          className={`option ${selectedModel === "civic" ? "selected" : ""}`}
-          onClick={() => handleOptionClick("civic")}
-        >
-          Civic
-        </div>
-        <div
-          className={`option ${selectedModel === "corola" ? "selected" : ""}`}
-          onClick={() => handleOptionClick("corola")}
-        >
-          Corola
-        </div>
-        <div
-          className={`option ${selectedModel === "cruze" ? "selected" : ""}`}
-          onClick={() => handleOptionClick("cruze")}
-        >
-          Cruze
-        </div>
-        <div
-          className={`option ${selectedModel === "fit" ? "selected" : ""}`}
-          onClick={() => handleOptionClick("fit")}
-        >
-          Fit
-        </div>
-        <div
-          className={`option ${selectedModel === "gol" ? "selected" : ""}`}
-          onClick={() => handleOptionClick("gol")}
-        >
-          Gol
-        </div>
-        <div
-          className={`option ${selectedModel === "Ka" ? "selected" : ""}`}
-          onClick={() => handleOptionClick("Ka")}
-        >
-          Ka
-        </div>
-        <div
-          className={`option ${selectedModel === "onix" ? "selected" : ""}`}
-          onClick={() => handleOptionClick("onix")}
-        >
-          Onix
-        </div>
-        <div
-          className={`option ${
-            selectedModel === "Porsche 718" ? "selected" : ""
-          }`}
-          onClick={() => handleOptionClick("Porsche 718")}
-        >
-          Porsche 718
-        </div>
+        {cars.map((model) => (
+          <div
+            key={model}
+            className={`option ${selectedModel === model ? "selected" : ""}`}
+            onClick={() => handleOptionClick(model)}
+          >
+            {model}
+          </div>
+        ))}
       </div>
     </ModelCarsWrapper>
   );

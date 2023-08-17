@@ -1,13 +1,16 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Menu } from "@mui/material";
 import LogoHeader from "../../../public/LogoHeader.png";
 import { useMediaQuery } from "@mui/material";
 import { IconButton } from "@mui/material";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { DivHeader, MobileNav, ButtonHeader, Nav } from "./style";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { UserContext } from "../../providers/UserProvider/UserContext";
+import { ContactUserContainer } from "../CardHome/style";
 
 const Header = () => {
+  const { userIdCars } = useContext(UserContext);
   const [menuAnchor, setMenuAnchor] = useState<null | HTMLElement>(null);
 
   const navigate = useNavigate();
@@ -34,7 +37,9 @@ const Header = () => {
   return (
     <>
       <DivHeader>
-        <img src={LogoHeader} alt="Logo" />
+        <Link to="/">
+          <img src={LogoHeader} alt="Logo" />
+        </Link>
         {isMobile ? (
           <MobileNav>
             <IconButton onClick={handleMenuOpen}>
@@ -45,18 +50,42 @@ const Header = () => {
               open={Boolean(menuAnchor)}
               onClose={handleMenuClose}
             >
-              <ButtonHeader onClick={handleLoginClick}>
-                Fazer Login
-              </ButtonHeader>
-              <ButtonHeader onClick={handleRegisterClick}>
-                Cadastrar
-              </ButtonHeader>
+              <Nav>
+                {userIdCars ? (
+                  <ContactUserContainer>
+                    <span>{userIdCars.name[0]}</span>
+                    {userIdCars.name.split(" ")[0]}
+                  </ContactUserContainer>
+                ) : (
+                  <>
+                    <ButtonHeader onClick={handleLoginClick}>
+                      Fazer Login
+                    </ButtonHeader>
+                    <ButtonHeader onClick={handleRegisterClick}>
+                      Cadastrar
+                    </ButtonHeader>
+                  </>
+                )}
+              </Nav>
             </Menu>
           </MobileNav>
         ) : (
           <Nav>
-            <ButtonHeader onClick={handleLoginClick}>Fazer Login</ButtonHeader>
-            <ButtonHeader onClick={handleRegisterClick}>Cadastrar</ButtonHeader>
+            {userIdCars ? (
+              <ContactUserContainer>
+                <span>{userIdCars.name[0]}</span>
+                {userIdCars.name.split(" ")[0]}
+              </ContactUserContainer>
+            ) : (
+              <>
+                <ButtonHeader onClick={handleLoginClick}>
+                  Fazer Login
+                </ButtonHeader>
+                <ButtonHeader onClick={handleRegisterClick}>
+                  Cadastrar
+                </ButtonHeader>
+              </>
+            )}
           </Nav>
         )}
       </DivHeader>

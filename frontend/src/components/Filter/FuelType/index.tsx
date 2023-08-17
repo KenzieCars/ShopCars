@@ -1,12 +1,14 @@
 import { useContext } from "react";
-import { HomeContext } from "../../../providers/HomeProvider";
+import { HomeContext } from "../../../providers/HomeProvider/HomeProvider";
 import { FuelTypeCarsWrapper } from "./style";
 
 const FuelTypeCars = () => {
   const { selectedFuelType, setSelectedFuelType } = useContext(HomeContext);
 
   const handleOptionClick = (option: string) => {
-    setSelectedFuelType(option);
+    setSelectedFuelType((prevSelected) =>
+      prevSelected === option ? "" : option
+    );
   };
 
   return (
@@ -22,8 +24,8 @@ const FuelTypeCars = () => {
           Elétrico
         </div>
         <div
-          className={`option ${selectedFuelType === "Flex" ? "selected" : ""}`}
-          onClick={() => handleOptionClick("Flex")}
+          className={`option ${selectedFuelType === "flex" ? "selected" : ""}`}
+          onClick={() => handleOptionClick("flex")}
         >
           Flex
         </div>

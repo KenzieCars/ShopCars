@@ -1,5 +1,5 @@
-import { ICreateUser } from "../components/RegisterForm/@types";
-import { ICar, TUserCarsResponse } from "./CarProvider/@types";
+import { ICreateUser } from "../../components/RegisterForm/@types";
+import { ICar, TUserCarsResponse } from "../CarProvider/@types";
 
 export interface IUserContext {
   user: IUser | null;
@@ -33,6 +33,7 @@ export interface IUser {
   street: string;
   number: number;
   complement: string;
+  isAdmin: boolean;
 }
 
 export interface IRegister extends Omit<IUser, "id"> {}
