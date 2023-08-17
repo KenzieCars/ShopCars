@@ -4,9 +4,10 @@ import {
   ListCardUserPage,
   MainContainerUserProfile
 } from "./style";
-import { HeaderUserPage } from "../../components/Header";
+
 import Footer from "../../components/Footer";
 import SectionProfileView from "../../components/SectionProfileView";
+import { HeaderUserPage } from "../../components/Header";
 
 const UserPage = () => {
 

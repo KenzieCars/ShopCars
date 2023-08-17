@@ -15,28 +15,6 @@ export const UserProvider = ({ children }: IDefaultProviderProps) => {
   const [listCarsUser, setListCarsUser] = useState<ICar[] | []>([]);
   const [userIdCars, setUserIdCars] = useState<TUserCarsResponse | null>(null);
 
-  const userLogin = async (formData: ILogin) => {
-    try {
-      setLoading(true);
-      const res = await api.post("/login", formData);
-
-      setUser(res.data);
-
-      localStorage.setItem("@userToken", res.data.token);
-      localStorage.setItem("@userId", res.data.id);
-
-      toast.success("Logged in!");
-
-      navigate("/profile");
-    } catch (error) {
-      console.log(error);
-
-      toast.error("Something went wrong!");
-    } finally {
-      setLoading(false);
-    }
-  };
-
   useEffect(() => {
     const token = localStorage.getItem("@userToken");
     const userId = localStorage.getItem("@userId");
@@ -55,9 +33,16 @@ export const UserProvider = ({ children }: IDefaultProviderProps) => {
 
           setUserIdCars(response.data);
 
+
           setListCarsUser(response.data.cars);
 
-          // navigate("/dashboard");
+          if(!response.data.seller){
+            navigate("/userPage");
+          }
+          else {
+            navigate("/profile")
+          }
+
         } catch (error) {
           console.log(error);
         }
@@ -65,6 +50,35 @@ export const UserProvider = ({ children }: IDefaultProviderProps) => {
       userLogged();
     }
   }, []);
+  
+  const userLogin = async (formData: ILogin) => {
+    try {
+      setLoading(true);
+      const res = await api.post("/login", formData);
+
+      setUser(res.data);
+
+      localStorage.setItem("@userToken", res.data.token);
+      localStorage.setItem("@userId", res.data.id);
+      localStorage.setItem("@seller", res.data.seller);
+
+      toast.success("Logged in!");
+
+      if(!res.data.seller){
+        navigate("/userPage");
+      }
+      else {
+        navigate("/profile")
+      }
+      
+    } catch (error) {
+      console.log(error);
+
+      toast.error("Something went wrong!");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const userRegister = async (formData: ICreateUser) => {
     try {

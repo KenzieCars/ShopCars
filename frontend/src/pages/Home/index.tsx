@@ -9,7 +9,7 @@ import {
   NextButtonContainer,
   TitleContainer,
 } from "./style";
-import { Header } from "../../components/header";
+import { Header } from "../../components/Header";
 import ButtonHome from "../../components/Filter/butonModal";
 import ModalFilter from "../../components/Filter/modalRenderFilter";
 import FilterCars from "../../components/Filter";
