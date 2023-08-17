@@ -1,6 +1,6 @@
 import { createContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { IDefaultProviderProps, ILogin, IUserContext } from "./@types";
+import { IDefaultProviderProps, ILogin, IUser, IUserContext } from "./@types";
 import { api } from "../../services/api";
 import { toast } from "react-toastify";
 import { ICreateUser } from "../../components/RegisterForm/@types";
@@ -10,7 +10,7 @@ export const UserContext = createContext({} as IUserContext);
 
 export const UserProvider = ({ children }: IDefaultProviderProps) => {
   const navigate = useNavigate();
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState<IUser | null>(null);
   const [loading, setLoading] = useState(false);
   const [listCarsUser, setListCarsUser] = useState<ICar[] | []>([]);
   const [userIdCars, setUserIdCars] = useState<TUserCarsResponse | null>(null);
@@ -33,6 +33,7 @@ export const UserProvider = ({ children }: IDefaultProviderProps) => {
 
           setUserIdCars(response.data);
 
+          setUser(response.data);
 
           setListCarsUser(response.data.cars);
 
