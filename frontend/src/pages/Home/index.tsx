@@ -16,22 +16,13 @@ import FilterCars from "../../components/Filter";
 import CustomSwiperComponent from "../../components/Swiper";
 import { HomeContext } from "../../providers/HomeProvider/HomeProvider";
 import { useContext } from "react";
-// import { CarContext } from "../../providers/CarProvider/CarContext";
 
 const Home = () => {
-  // const { allcars } = useContext(CarContext);
   const { currentPage, setCurrentPage, allcarsPages } = useContext(HomeContext);
   const itemsPerPage = 12;
 
   const totalItems = allcarsPages.length + 1;
   const totalPages = Math.ceil(totalItems / itemsPerPage);
-
-  // if (currentPage == totalPages) {
-  //   totalPages = currentPage + 1;
-  // }
-
-  // totalPages = Math.ceil(totalPages);
-  // console.log(totalPages);
 
   return (
     <>
@@ -55,6 +46,7 @@ const Home = () => {
       <NextButtonContainer>
         {currentPage > 1 && (
           <ButtonNext
+            to="/"
             onClick={() => {
               setCurrentPage(currentPage - 1);
             }}
@@ -68,6 +60,7 @@ const Home = () => {
         </span>
         {currentPage < totalPages && (
           <ButtonNext
+            to="/"
             onClick={() => {
               setCurrentPage(currentPage + 1);
             }}

@@ -118,7 +118,7 @@ export const NextButtonContainer = styled.div`
   }
 `;
 
-export const ButtonNext = styled.button`
+export const ButtonNext = styled(Link)`
   display: flex;
   align-items: center;
   gap: 0.4rem;
