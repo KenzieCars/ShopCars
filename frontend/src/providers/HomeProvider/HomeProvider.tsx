@@ -34,7 +34,6 @@ interface HomeContextValues {
   setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
   currentPage: number;
   allcarsPages: [] | ICar[];
-  // totalPages: number;
 }
 
 export interface User {
@@ -72,7 +71,6 @@ export const HomeProvider = ({ children }: IHomeProviderProps) => {
   const [currentPage, setCurrentPage] = useState(1);
 
   const itemsPerPage = 12;
-  // let totalPages = 1;
 
   const [allcarsPages, setallcarsPages] = useState<ICar[] | []>([]);
 
@@ -83,53 +81,45 @@ export const HomeProvider = ({ children }: IHomeProviderProps) => {
 
       let filteredCars = response.data;
 
-      // const totalItems = filteredCars.length + 1;
-      // totalPages = Math.ceil(totalItems / itemsPerPage);
-
       if (selectedbrand !== "") {
         filteredCars = filteredCars.filter(
-          (car) => car.brand === selectedbrand
+          (car) => car.brand.toLowerCase() === selectedbrand.toLowerCase()
         );
-        // setCurrentPage(1);
       }
 
       if (selectedModel !== "") {
         filteredCars = filteredCars.filter(
-          (car) => car.model === selectedModel
+          (car) => car.model.toLowerCase() === selectedModel.toLowerCase()
         );
-        // setCurrentPage(1);
       }
       if (selectedColor !== "") {
         filteredCars = filteredCars.filter(
-          (car) => car.color === selectedColor
+          (car) => car.color.toLowerCase() === selectedColor.toLowerCase()
         );
-        // setCurrentPage(1);
       }
 
       if (selectedYear !== "") {
-        filteredCars = filteredCars.filter((car) => car.year === selectedYear);
-        // setCurrentPage(1);
+        filteredCars = filteredCars.filter(
+          (car) => car.year.toLowerCase() === selectedYear.toLowerCase()
+        );
       }
 
       if (selectedFuelType !== "") {
         filteredCars = filteredCars.filter(
-          (car) => car.fuel === selectedFuelType
+          (car) => car.fuel.toLowerCase() === selectedFuelType.toLowerCase()
         );
-        // setCurrentPage(1);
       }
 
       if (valueKmCar[0] > 0 || valueKmCar[1] < 650000) {
         filteredCars = filteredCars.filter(
           (car) => car.km >= valueKmCar[0] && car.km <= valueKmCar[1]
         );
-        // setCurrentPage(1);
       }
 
       if (valueCar[0] > 0 || valueCar[1] < 550000) {
         filteredCars = filteredCars.filter(
           (car) => car.price >= valueCar[0] && car.price <= valueCar[1]
         );
-        // setCurrentPage(1);
       }
 
       const startIndex = (currentPage - 1) * itemsPerPage;
