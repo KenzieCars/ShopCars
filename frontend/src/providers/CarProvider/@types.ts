@@ -3,10 +3,10 @@ import { IUser } from "../UserProvider/@types";
 export interface ICarContext {
   images: IImage[] | [];
   car: ICar | null;
-  allcars: [] | TCarUserResponse[];
+  allcars: [] | TDataCarResponse[]
   setImages: React.Dispatch<React.SetStateAction<IImage[] | []>>;
   setCar: React.Dispatch<React.SetStateAction<ICar | null>>;
-  setAllCars: React.Dispatch<React.SetStateAction<[] | TCarUserResponse[]>>;
+  setAllCars: React.Dispatch<React.SetStateAction<[] | TDataCarResponse[]>>
   carRegister: (formData: TCarRequest) => Promise<void>;
   editeCar: (formData: TCarUpdate, carId: string) => Promise<void>;
   deleteCar: (carId: string) => Promise<void>;

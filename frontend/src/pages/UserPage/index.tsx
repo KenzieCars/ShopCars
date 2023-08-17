@@ -30,7 +30,7 @@ const UserPage = () => {
             <h1>
               {userIdCars?.name.split(" ")[0]} {userIdCars?.name.split(" ")[1]}
             </h1>
-            <SpanAnuciant>Anuciante</SpanAnuciant>
+            <SpanAnuciant>Anunciante</SpanAnuciant>
           </DivNameUser>
 
           <span>
