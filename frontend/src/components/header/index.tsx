@@ -4,14 +4,15 @@ import LogoHeader from "../../../public/LogoHeader.png";
 import { useMediaQuery } from "@mui/material";
 import { IconButton } from "@mui/material";
 import { GiHamburgerMenu } from "react-icons/gi";
-import { DivHeader, MobileNav, ButtonHeader, Nav } from "./style";
+import { DivHeader, MobileNav, ButtonHeader, Nav, UserHeaderContainer } from "./style";
 import { Link, useNavigate } from "react-router-dom";
 import { UserContext } from "../../providers/UserProvider/UserContext";
-import { ContactUserContainer } from "../CardHome/style";
+import UserModalHeader from "./UserModalHeader";
 
 const Header = () => {
-  const { userIdCars } = useContext(UserContext);
+  const { user } = useContext(UserContext);
   const [menuAnchor, setMenuAnchor] = useState<null | HTMLElement>(null);
+  const [userModalHeader, setUserModalHeader] = useState(false)
 
   const navigate = useNavigate();
 
@@ -51,11 +52,12 @@ const Header = () => {
               onClose={handleMenuClose}
             >
               <Nav>
-                {userIdCars ? (
-                  <ContactUserContainer>
-                    <span>{userIdCars.name[0]}</span>
-                    {userIdCars.name.split(" ")[0]}
-                  </ContactUserContainer>
+                {user ? (
+                  <UserHeaderContainer onClick={() => setUserModalHeader(!userModalHeader)}>
+                    <span>{user.name[0]}</span>
+                    <span>{user.name.split(" ")[0]}</span>
+                    {userModalHeader && <UserModalHeader />}
+                  </UserHeaderContainer>
                 ) : (
                   <>
                     <ButtonHeader onClick={handleLoginClick}>
@@ -71,11 +73,12 @@ const Header = () => {
           </MobileNav>
         ) : (
           <Nav>
-            {userIdCars ? (
-              <ContactUserContainer>
-                <span>{userIdCars.name[0]}</span>
-                {userIdCars.name.split(" ")[0]}
-              </ContactUserContainer>
+            {user ? (
+              <UserHeaderContainer onClick={() => setUserModalHeader(!userModalHeader)}>
+                <span>{user.name[0]}</span>
+                <span>{user.name.split(" ")[0]}</span>
+                {userModalHeader && <UserModalHeader />}
+              </UserHeaderContainer>
             ) : (
               <>
                 <ButtonHeader onClick={handleLoginClick}>
