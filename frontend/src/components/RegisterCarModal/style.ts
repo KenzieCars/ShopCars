@@ -43,6 +43,7 @@ export const TitleModal = styled.div`
     > span {
         color: var(--light-gray);
         font-size: 1rem;
+        cursor: pointer;
     }
 `
 
@@ -57,9 +58,9 @@ export const DualFields = styled.div`
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: space-around;
+    justify-content: space-between;
     gap: .5rem;
-    width: fit-content;
+    width: 100%;
     
     
     > fieldset {
@@ -67,6 +68,7 @@ export const DualFields = styled.div`
         flex-direction: column;
         gap: .4rem;
         border: none;
+        width: 60%;
 
         > label {
         color: var(--gray);
@@ -76,8 +78,6 @@ export const DualFields = styled.div`
         > input {
             padding: .7rem 1rem;
             width: 100%;
-            max-width: 175px;
-            width: fit-content;
             border-radius: 8px;
             border: 2px solid var(--white);
             outline: none;
@@ -90,6 +90,10 @@ export const DualFields = styled.div`
 
             &::placeholder {
                 color: var(--light-gray);
+            }
+
+            &:disabled {
+                background-color: white;
             }
         }
     }
@@ -174,6 +178,14 @@ export const ModalButtonContainer = styled.div`
         &:hover {
             background: var(--black);
             color: var(--white);
+        }
+    }
+
+    > .cancel {
+        background-color: var(--light-gray);
+
+        &:hover{
+            background-color: var(--gray);
         }
     }
 `
