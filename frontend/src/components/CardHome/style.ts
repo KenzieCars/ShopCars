@@ -16,10 +16,29 @@ export const CardContainer = styled.li`
 
   position: relative;
 
+  ::-webkit-scrollbar {
+    width: 3px; /* Largura da barra de rolagem vertical */
+    height: 3px; /* Altura da barra de rolagem horizontal */
+  }
+
+  /* Para navegadores baseados em Chromium (Google Chrome, Microsoft Edge, etc.) */
+  ::-webkit-scrollbar-thumb {
+    background-color: #d3d3d3; /* Cor do "polegar" da barra de rolagem (a parte que o usuário arrasta) */
+    border-radius: 6px; /* Raio de borda para o "polegar" */
+  }
+
+  /* Para navegadores baseados em Chromium (Google Chrome, Microsoft Edge, etc.) */
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: #d3d3d3; /* Cor do "polegar" da barra de rolagem ao passar o mouse */
+  }
+
+  /* Para navegadores baseados em Firefox */
+  /* Apenas para personalização básica */
+  scrollbar-color: #d3d3d3 transparent; /* Cor da barra de rolagem vertical */
+
   @media (min-width: 768px) {
     width: 282px;
     height: fit-content;
-    min-height: 390px;
     max-height: 390px;
   }
 `;
@@ -47,22 +66,11 @@ export const ContainerInfo = styled.div`
     color: var(--black);
   }
 
-  > p {
-    font-size: 0.7rem;
-    color: var(--gray);
-    height: 90px;
-    line-height: 150%;
-  }
-
   @media (min-width: 768px) {
     gap: 0.7rem;
 
     > h3 {
       font-size: 1rem;
-    }
-
-    > p {
-      font-size: 0.8rem;
     }
   }
 `;
@@ -151,4 +159,37 @@ export const FlagGoodDeal = styled.div`
 
   color: var(--white);
   font-size: 1.2rem;
+`
+
+export const DescriptionWithOverFlow = styled.section`
+  > p {
+    font-size: 0.7rem;
+    color: var(--gray);
+    height: 75px;
+    line-height: 150%;
+
+    overflow-y: auto;
+
+  &:before {
+    content: '';
+    position: absolute;
+    bottom: 85px;
+    left: 0;
+    width: 100%;
+    height: 50px; /* Ajuste a altura do degradê conforme necessário */
+    background: linear-gradient(transparent, rgba(246, 246, 246, 0.8)); /* Defina as cores do degradê aqui */
+  }
+}
+
+  @media (min-width: 768px) {
+    gap: 0.7rem;
+
+    > h3 {
+      font-size: 1rem;
+    }
+
+    > p {
+      font-size: 0.8rem;
+    }
+  }
 `
