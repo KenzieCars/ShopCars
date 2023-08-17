@@ -86,7 +86,9 @@ const HeaderUserPage = () => {
   return (
     <>
       <DivHeader>
-        <img src={LogoHeader} alt="Logo" />
+        <Link to="/">
+          <img src={LogoHeader} alt="Logo" />
+        </Link>
         {isMobile ? (
           <MobileNav>
             <IconButton onClick={handleMenuOpen}>
@@ -112,12 +114,10 @@ const HeaderUserPage = () => {
         ) : (
           <Nav>
             {userIdCars && (
-              <span>
-                <ContactUserContainer>
-                  <span>{userIdCars.name[0]}</span>
-                  {userIdCars.name.split(" ")[0]}
-                </ContactUserContainer>
-              </span>
+              <ContactUserContainer>
+                <span>{userIdCars.name[0]}</span>
+                {userIdCars.name.split(" ")[0]}
+              </ContactUserContainer>
             )}
           </Nav>
         )}
