@@ -1,15 +1,15 @@
-import CardAdmin from "../../components/CardHome/CardAdmin"
-import Footer from "../../components/Footer"
-import { HeaderUserPage } from "../../components/Header"
-import SectionProfileInfo from "../../components/SectionProfileView"
-import { CardListProfile, MainContainerProfile } from "./style"
+import CardAdmin from "../../components/CardHome/CardAdmin";
+import Footer from "../../components/Footer";
+import { Header } from "../../components/Header";
+
+import SectionProfileInfo from "../../components/SectionProfileView";
+import { CardListProfile, MainContainerProfile } from "./style";
 
 const ProfileView = () => {
-
   return (
     <>
       <MainContainerProfile>
-        <HeaderUserPage />
+        <Header />
         <SectionProfileInfo />
         <CardListProfile>
           <CardAdmin />
@@ -17,7 +17,7 @@ const ProfileView = () => {
       </MainContainerProfile>
       <Footer />
     </>
-  )
-}
+  );
+};
 
-export default ProfileView
+export default ProfileView;
