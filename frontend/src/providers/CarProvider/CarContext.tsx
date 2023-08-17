@@ -14,14 +14,12 @@ import {
   TDataCarResponse,
   // TListPaginationCars,
 } from "./@types";
-
 export const CarContext = createContext({} as ICarContext);
 export const CarProvider = ({ children }: IDefaultProviderProps) => {
   // const navigate = useNavigate();
   const [images, setImages] = useState<IImage[] | []>([]);
   const [car, setCar] = useState<ICar | null>(null);
   const [allcars, setAllCars] = useState<TDataCarResponse[] | []>([]);
-
   const { setListCarsUser, listCarsUser } = useContext(UserContext);
   useEffect(() => {
     const allCars = async () => {
@@ -96,7 +94,6 @@ export const CarProvider = ({ children }: IDefaultProviderProps) => {
               return car;
             }
           });
-
           setListCarsUser(newListCars);
           toast.success("Successfully deleted!");
         }

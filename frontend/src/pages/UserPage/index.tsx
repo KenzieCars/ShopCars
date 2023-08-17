@@ -1,53 +1,28 @@
 import CardHome from "../../components/CardHome";
 import {
-  DivCar,
-  DivCard,
-  DivCardUser,
-  DivNameUser,
   Divanucios,
   ListCardUserPage,
-  SpanAnuciant,
-  UserPageSection,
+  MainContainerUserProfile
 } from "./style";
-import { HeaderUserPage } from "../../components/Header";
-import { useContext } from "react";
-import { UserContext } from "../../providers/UserProvider/UserContext";
+
 import Footer from "../../components/Footer";
+import SectionProfileView from "../../components/SectionProfileView";
+import { HeaderUserPage } from "../../components/Header";
 
 const UserPage = () => {
-  const { userIdCars } = useContext(UserContext);
 
   return (
     <>
-      <HeaderUserPage />
-      <UserPageSection>
-        <DivCard>
-          <DivCardUser>
-            <h2>{userIdCars?.name.slice(0, 2)}</h2>
-          </DivCardUser>
-
-          <DivNameUser>
-            <h1>
-              {userIdCars?.name.split(" ")[0]} {userIdCars?.name.split(" ")[1]}
-            </h1>
-            <SpanAnuciant>Anunciante</SpanAnuciant>
-          </DivNameUser>
-
-          <span>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore
-            obcaecati non maxime quaerat aut nihil rerum accusamus ipsa.
-            Similique quibusdam officiis
-          </span>
-        </DivCard>
-        <DivCar>
+      <MainContainerUserProfile>
+        <HeaderUserPage />
+        <SectionProfileView />
           <Divanucios>
             <h2>Anúncios</h2>
           </Divanucios>
           <ListCardUserPage>
             <CardHome />
           </ListCardUserPage>
-        </DivCar>
-      </UserPageSection>
+      </MainContainerUserProfile>
       <Footer />
     </>
   );

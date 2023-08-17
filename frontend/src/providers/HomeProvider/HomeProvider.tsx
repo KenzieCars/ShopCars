@@ -1,4 +1,13 @@
-import { createContext, ReactNode, useState } from "react";
+import {
+  createContext,
+  ReactNode,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
+import { CarContext } from "../CarProvider/CarContext";
+import { api } from "../../services/api";
+import { ICar, TDataCarResponse } from "../CarProvider/@types";
 
 interface IHomeProviderProps {
   children: ReactNode;
@@ -22,24 +31,27 @@ interface HomeContextValues {
   modalFilter: boolean;
   setModalFilter: React.Dispatch<React.SetStateAction<boolean>>;
   clearFilters: () => void;
+  setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
+  currentPage: number;
+  allcarsPages: [] | ICar[];
 }
 
 export interface User {
-  id: string
-  name: string
-  email: string
-  password: string
-  seller: boolean
-  isAdm: boolean
-  cellPhone: string
-  cpf: string
-  dateOfBirth: string
-  description: string
-  city: string
-  state: string
-  street: string
-  number: number
-  complement: string
+  id: string;
+  name: string;
+  email: string;
+  password: string;
+  seller: boolean;
+  isAdm: boolean;
+  cellPhone: string;
+  cpf: string;
+  dateOfBirth: string;
+  description: string;
+  city: string;
+  state: string;
+  street: string;
+  number: number;
+  complement: string;
 }
 
 export const HomeContext = createContext({} as HomeContextValues);
@@ -54,6 +66,101 @@ export const HomeProvider = ({ children }: IHomeProviderProps) => {
   const [valueKmCar, setValueKmCar] = useState<number[]>([0, 650000]);
   const [modalFilter, setModalFilter] = useState(false);
 
+  const { setAllCars } = useContext(CarContext);
+
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const itemsPerPage = 12;
+
+  const [allcarsPages, setallcarsPages] = useState<ICar[] | []>([]);
+
+  const filterCars = async () => {
+    try {
+      const response = await api.get<TDataCarResponse[]>("/cars");
+      setallcarsPages(response.data);
+
+      let filteredCars = response.data;
+
+      if (selectedbrand !== "") {
+        filteredCars = filteredCars.filter(
+          (car) => car.brand.toLowerCase() === selectedbrand.toLowerCase()
+        );
+      }
+
+      if (selectedModel !== "") {
+        filteredCars = filteredCars.filter(
+          (car) => car.model.toLowerCase() === selectedModel.toLowerCase()
+        );
+      }
+      if (selectedColor !== "") {
+        filteredCars = filteredCars.filter(
+          (car) => car.color.toLowerCase() === selectedColor.toLowerCase()
+        );
+      }
+
+      if (selectedYear !== "") {
+        filteredCars = filteredCars.filter(
+          (car) => car.year.toLowerCase() === selectedYear.toLowerCase()
+        );
+      }
+
+      if (selectedFuelType !== "") {
+        filteredCars = filteredCars.filter(
+          (car) => car.fuel.toLowerCase() === selectedFuelType.toLowerCase()
+        );
+      }
+
+      if (valueKmCar[0] > 0 || valueKmCar[1] < 650000) {
+        filteredCars = filteredCars.filter(
+          (car) => car.km >= valueKmCar[0] && car.km <= valueKmCar[1]
+        );
+      }
+
+      if (valueCar[0] > 0 || valueCar[1] < 550000) {
+        filteredCars = filteredCars.filter(
+          (car) => car.price >= valueCar[0] && car.price <= valueCar[1]
+        );
+      }
+
+      const startIndex = (currentPage - 1) * itemsPerPage;
+      const endIndex = startIndex + itemsPerPage;
+
+      setallcarsPages(filteredCars);
+
+      const listpagination = filteredCars.slice(startIndex, endIndex);
+      setAllCars(listpagination);
+    } catch (error) {
+      console.error("Error fetching cars:", error);
+    }
+  };
+
+  const totalItems = allcarsPages.length + 1;
+  const totalPages = Math.ceil(totalItems / itemsPerPage);
+
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [totalPages]);
+
+  useEffect(() => {
+    filterCars();
+  }, [
+    selectedbrand,
+    selectedModel,
+    selectedColor,
+    selectedYear,
+    selectedFuelType,
+    valueKmCar,
+    valueCar,
+    currentPage,
+    allcarsPages,
+  ]);
+
+  useEffect(() => {
+    filterCars();
+    setValueKmCar([0, 640000]);
+    setValueKmCar([0, 650000]);
+  }, []);
+
   const clearFilters = () => {
     setSelectedbrand("");
     setSelectedModel("");
@@ -62,6 +169,8 @@ export const HomeProvider = ({ children }: IHomeProviderProps) => {
     setSelectedFuelType("");
     setValueCar([0, 550000]);
     setValueKmCar([0, 650000]);
+
+    filterCars();
   };
 
   return (
@@ -83,7 +192,10 @@ export const HomeProvider = ({ children }: IHomeProviderProps) => {
         setValueKmCar,
         modalFilter,
         setModalFilter,
-        clearFilters
+        clearFilters,
+        currentPage,
+        setCurrentPage,
+        allcarsPages,
       }}
     >
       {children}
