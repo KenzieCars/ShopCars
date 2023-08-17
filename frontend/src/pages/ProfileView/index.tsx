@@ -1,4 +1,4 @@
-import CardHome from "../../components/CardHome"
+import CardAdmin from "../../components/CardHome/CardAdmin"
 import Footer from "../../components/Footer"
 import { HeaderUserPage } from "../../components/Header"
 import SectionProfileInfo from "../../components/SectionProfileView"
@@ -12,7 +12,7 @@ const ProfileView = () => {
         <HeaderUserPage />
         <SectionProfileInfo />
         <CardListProfile>
-          <CardHome />
+          <CardAdmin />
         </CardListProfile>
       </MainContainerProfile>
       <Footer />

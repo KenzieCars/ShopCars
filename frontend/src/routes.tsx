@@ -9,6 +9,7 @@ import { ImageProvider } from "./providers/ImageProvider/ImageContext";
 import { CommentProvider } from "./providers/CommentProvider/CommentContext";
 import ProfileView from "./pages/ProfileView";
 import UserPage from "./pages/UserPage";
+import ProductPage from "./pages/ProductPage";
 
 const AppRoutes = () => {
   return (
@@ -24,6 +25,7 @@ const AppRoutes = () => {
                 <Route path="/register" element={<Register />} />
                 <Route path="/profile" element={<ProfileView />} />
                 <Route path="/userPage" element={<UserPage />} />
+                <Route path="/product" element={<ProductPage />} />
               </Routes>
             </HomeProvider>
           </CommentProvider>

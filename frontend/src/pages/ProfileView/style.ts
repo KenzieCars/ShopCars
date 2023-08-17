@@ -17,6 +17,8 @@ export const CardListProfile = styled.ul`
   gap: 1rem;
   overflow-x: auto;
 
+  padding-top: .7rem;
+
   @media (min-width: 768px) {
     flex-direction: row;
     flex-wrap: wrap;
