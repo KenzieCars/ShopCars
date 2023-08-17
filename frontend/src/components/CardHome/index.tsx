@@ -6,6 +6,7 @@ import {
   ContainerInfoCar,
   FigureContainer,
   FlagGoodDeal,
+  DescriptionWithOverFlow
 } from "./style";
 import { CarContext } from "../../providers/CarProvider/CarContext";
 import NothingHere from "../NothingHere";
@@ -27,7 +28,10 @@ const CardHome = () => {
             <h3>
               {car.brand} - {car.model}
             </h3>
-            <p>{car.description}</p>
+            <DescriptionWithOverFlow>
+              <p>{car.description}</p>
+            </DescriptionWithOverFlow>
+           
             <ContactUserContainer>
               <span>{car.user.name[0]}</span>
               <span>{car.user.name}</span>
