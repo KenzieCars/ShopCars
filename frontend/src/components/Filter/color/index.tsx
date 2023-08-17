@@ -1,12 +1,12 @@
 import { useContext } from "react";
-import { HomeContext } from "../../../providers/HomeProvider";
+import { HomeContext } from "../../../providers/HomeProvider/HomeProvider";
 import { ColorCarsWrapper } from "./style";
 
 const ColorCars = () => {
   const { selectedColor, setSelectedColor } = useContext(HomeContext);
 
   const handleOptionClick = (option: string) => {
-    setSelectedColor(option);
+    setSelectedColor((prevSelected) => (prevSelected === option ? "" : option));
   };
 
   return (
@@ -44,10 +44,34 @@ const ColorCars = () => {
           Preta
         </div>
         <div
+          className={`option ${selectedColor === "amarela" ? "selected" : ""}`}
+          onClick={() => handleOptionClick("amarela")}
+        >
+          Amarela
+        </div>
+        <div
+          className={`option ${selectedColor === "vermelha" ? "selected" : ""}`}
+          onClick={() => handleOptionClick("vermelha")}
+        >
+          Vermelha
+        </div>
+        <div
+          className={`option ${selectedColor === "marrom" ? "selected" : ""}`}
+          onClick={() => handleOptionClick("marrom")}
+        >
+          Marrom
+        </div>
+        <div
           className={`option ${selectedColor === "verde" ? "selected" : ""}`}
           onClick={() => handleOptionClick("verde")}
         >
           Verde
+        </div>
+        <div
+          className={`option ${selectedColor === "laranja" ? "selected" : ""}`}
+          onClick={() => handleOptionClick("laranja")}
+        >
+          Laranja
         </div>
       </div>
     </ColorCarsWrapper>

@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { ButtonFilter } from "./style";
-import { HomeContext } from "../../../providers/HomeProvider";
+import { HomeContext } from "../../../providers/HomeProvider/HomeProvider";
 
 const ButtonHome = () => {
   const { setModalFilter } = useContext(HomeContext);

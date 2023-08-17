@@ -11,7 +11,8 @@ const GlobalStyle = createGlobalStyle`
     --black: #181818;
     --blue: #0077B5;
     --alert-negative: #EA4335;
-    --alert-success: #6FD660;
+    --alert-success: #0CF25D;
+    --black: #020202;
   }
 
   body {

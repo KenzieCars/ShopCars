@@ -19,7 +19,7 @@ export class CarPermissionGuard implements CanActivate {
     const carId = request.params.id;
 
     const user: User = request.user as User;
-    
+    console.log(user)
     const userId = user.id;
 
     const car = await this.prisma.car.findFirst({
@@ -32,4 +32,6 @@ export class CarPermissionGuard implements CanActivate {
     
     return true;
   }
+
+  
 }

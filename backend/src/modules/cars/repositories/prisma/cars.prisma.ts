@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/database/prisma.service';
-import { CarsRepository } from '../cars.repository';
+import { CarsRepository, PaginationCars } from '../cars.repository';
 import { CreateCarDto } from '../../dto/create-car.dto';
 import { Car } from '../../entities/car.entity';
 import { UpdateCarDto } from '../../dto/update-car.dto';
@@ -40,13 +40,45 @@ export class CarsPrismaRepository implements CarsRepository {
     return newCar;
   }
 
-  async findAll(): Promise<Car[]> {
+  async findAll(page: number, perPage: number): Promise<PaginationCars> {
+    const skip = (page - 1) * perPage;
+    const take = perPage;
+
+    const cars = await this.prisma.car.findMany({
+      skip,
+      take,
+      include: {
+        images: true,
+        comments: true,
+        user: true,
+      },
+    });
+    const totalCars = await this.prisma.car.count()
+    const totalPages = Math.ceil(totalCars / perPage);
+    const nextPage = Number(page) < totalPages && Number(page) + 1;
+    const prevPage = Number(page) > 1 && Number(page) <= totalPages + 1  && Number(page) - 1;
+    const nextPageUrl = nextPage ? `http://localhost:3000/cars/?page=${nextPage}` : null
+    const prevPageUrl = prevPage ? `http://localhost:3000/cars/?page=${prevPage}` : null
+
+    const returnCarsPagination = {
+      nextPage: nextPageUrl,
+      prevPage: prevPageUrl,
+      totalPages: totalPages,
+      totalCars: totalCars,
+      cars
+    }
+
+    return returnCarsPagination;
+  }
+
+  async findAllCars(): Promise<Car[]> {
+
     const cars = await this.prisma.car.findMany({
       include: {
         images: true,
         comments: true,
-        user: true
-      }
+        user: true,
+      },
     });
 
     return cars;
@@ -58,7 +90,8 @@ export class CarsPrismaRepository implements CarsRepository {
       include: {
         images: true,
         comments: true,
-      }
+        user: true,
+      },
     });
     return car;
   }
@@ -69,6 +102,7 @@ export class CarsPrismaRepository implements CarsRepository {
       include: {
         images: true,
         comments: true,
+        user: true,
       },
       data: { ...data },
     });

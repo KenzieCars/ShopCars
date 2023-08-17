@@ -47,8 +47,6 @@ const RegisterCarModal = ({ setModal }: IModalProps) => {
             .then((response) => {
                 setFipeOptions(response.data)
             }).catch((error) => console.log(error));
-
-
     }, [])
 
     const getModelOptions = async (model: string) => {

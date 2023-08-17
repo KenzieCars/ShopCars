@@ -10,6 +10,7 @@ import {
   UseGuards,
   UseInterceptors,
   ClassSerializerInterceptor,
+  HttpCode,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -63,5 +64,21 @@ export class UsersController {
   @ApiBearerAuth()
   remove(@Param('id') id: string) {
     return this.usersService.remove(id);
+  }
+
+  @HttpCode(200)
+  @Post('resetPassword')
+  async sendEmailResetPassword(@Body('email') email: string) {
+    await this.usersService.sendEmailResetPassword(email);
+    return { message: 'token send' };
+  }
+
+  @Patch('resetPassword/:token')
+  async resetPassword(
+    @Param('token') token: string,
+    @Body('password') password: string,
+  ) {
+    await this.usersService.resetPassword(password, token);
+    return { message: 'password change with sucess ' };
   }
 }

@@ -1,7 +1,7 @@
 import { useContext, ChangeEvent } from "react";
 import Typography from "@material-ui/core/Typography";
 import { RootContainer, StyledSlider } from "./style";
-import { HomeContext } from "../../../providers/HomeProvider";
+import { HomeContext } from "../../../providers/HomeProvider/HomeProvider";
 
 const valuetext = (value: number) => {
   return `R$ ${value}`;
@@ -10,7 +10,10 @@ const valuetext = (value: number) => {
 export const RangeSlider = () => {
   const { valueCar, setValueCar } = useContext(HomeContext);
 
-  const handleChange = (event: ChangeEvent<{}>, newValue: number | number[]) => {
+  const handleChange = (
+    event: ChangeEvent<{}>,
+    newValue: number | number[]
+  ) => {
     setValueCar(newValue as number[]);
   };
 

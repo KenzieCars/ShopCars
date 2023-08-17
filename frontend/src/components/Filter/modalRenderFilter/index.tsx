@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { ModalContainer, ModalContent, CloseButton, Title, TitleAndBtnCloseContainer, RangeContainer, CarFilters } from "./style";
-import { HomeContext } from "../../../providers/HomeProvider";
+import { HomeContext } from "../../../providers/HomeProvider/HomeProvider";
 import FilterBrand from "../brand";
 import ModelCars from "../model";
 import ColorCars from "../color";
