@@ -78,4 +78,9 @@ export class CreateUserDto {
   @IsOptional()
   complement: string | null;
 
+  @ApiProperty()
+  @IsString()
+  @IsOptional()
+  cep: string | null;
+
 }
