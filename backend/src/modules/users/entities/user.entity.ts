@@ -15,6 +15,7 @@ export class User {
   street: string | null;
   number: number | null;
   complement: string | null;
+  cep: string | null;
 
   @Exclude()
   password: string;
@@ -56,6 +57,9 @@ export class UserProfile {
 
   @Exclude()
   complement: string | null;
+
+  @Exclude()
+  cep: string;
 
   @Exclude()
   password: string;
