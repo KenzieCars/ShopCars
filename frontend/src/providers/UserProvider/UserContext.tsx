@@ -1,6 +1,6 @@
 import { createContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { IDefaultProviderProps, ILogin, IUserContext } from "./@types";
+import { IDefaultProviderProps, ILogin, IUser, IUserContext } from "./@types";
 import { api } from "../../services/api";
 import { toast } from "react-toastify";
 import { ICreateUser } from "../../components/RegisterForm/@types";
@@ -10,32 +10,10 @@ export const UserContext = createContext({} as IUserContext);
 
 export const UserProvider = ({ children }: IDefaultProviderProps) => {
   const navigate = useNavigate();
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState<IUser | null>(null);
   const [loading, setLoading] = useState(false);
   const [listCarsUser, setListCarsUser] = useState<ICar[] | []>([]);
   const [userIdCars, setUserIdCars] = useState<TUserCarsResponse | null>(null);
-
-  const userLogin = async (formData: ILogin) => {
-    try {
-      setLoading(true);
-      const res = await api.post("/login", formData);
-
-      setUser(res.data);
-
-      localStorage.setItem("@userToken", res.data.token);
-      localStorage.setItem("@userId", res.data.id);
-
-      toast.success("Logged in!");
-
-      navigate("/profile");
-    } catch (error) {
-      console.log(error);
-
-      toast.error("Something went wrong!");
-    } finally {
-      setLoading(false);
-    }
-  };
 
   useEffect(() => {
     const token = localStorage.getItem("@userToken");
@@ -52,12 +30,18 @@ export const UserProvider = ({ children }: IDefaultProviderProps) => {
               },
             }
           );
-
+          console.log(response.data.cars);
           setUserIdCars(response.data);
+
+          setUser(response.data);
 
           setListCarsUser(response.data.cars);
 
-          // navigate("/dashboard");
+          if (!response.data.seller) {
+            navigate("/userPage");
+          } else {
+            navigate("/profile");
+          }
         } catch (error) {
           console.log(error);
         }
@@ -65,6 +49,33 @@ export const UserProvider = ({ children }: IDefaultProviderProps) => {
       userLogged();
     }
   }, []);
+
+  const userLogin = async (formData: ILogin) => {
+    try {
+      setLoading(true);
+      const res = await api.post("/login", formData);
+
+      setUser(res.data);
+
+      localStorage.setItem("@userToken", res.data.token);
+      localStorage.setItem("@userId", res.data.id);
+      localStorage.setItem("@seller", res.data.seller);
+
+      toast.success("Logged in!");
+
+      if (!res.data.seller) {
+        navigate("/userPage");
+      } else {
+        navigate("/profile");
+      }
+    } catch (error) {
+      console.log(error);
+
+      toast.error("Something went wrong!");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const userRegister = async (formData: ICreateUser) => {
     try {

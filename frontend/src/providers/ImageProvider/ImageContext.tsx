@@ -8,7 +8,7 @@ import {
   TImageRequest,
   TListImages,
 } from "./@types";
-import { IDefaultProviderProps } from "../@types";
+import { IDefaultProviderProps } from "./@types";
 
 export interface IImageContext {
 	allImages: [] | TListImages

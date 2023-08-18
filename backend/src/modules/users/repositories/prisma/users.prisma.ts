@@ -71,20 +71,20 @@ export class UsersPrismaRepository implements UsersRepository {
   }
 
   async updateToken(email: string, token: string): Promise<void> {
-    await this.prisma.user.update({ 
+    await this.prisma.user.update({
       where: { email },
-      data: {reset_token: token}
+      data: { reset_token: token },
     });
   }
-  
+
   async updatePassword(id: string, password: string): Promise<void> {
-      await this.prisma.user.update({
-        where: {id},
-        data: {
-          password: hashSync(password, 10),
-          reset_token: null
-        }
-      })
+    await this.prisma.user.update({
+      where: { id },
+      data: {
+        password: hashSync(password, 10),
+        reset_token: null,
+      },
+    });
   }
 
   async delete(id: string): Promise<void> {

@@ -2,25 +2,24 @@ import CardHome from "../../components/CardHome";
 import {
   Divanucios,
   ListCardUserPage,
-  MainContainerUserProfile
+  MainContainerUserProfile,
 } from "./style";
-import { HeaderUserPage } from "../../components/Header";
 import Footer from "../../components/Footer";
 import SectionProfileView from "../../components/SectionProfileView";
+import { Header } from "../../components/Header";
 
 const UserPage = () => {
-
   return (
     <>
       <MainContainerUserProfile>
-        <HeaderUserPage />
+        <Header />
         <SectionProfileView />
-          <Divanucios>
-            <h2>Anúncios</h2>
-          </Divanucios>
-          <ListCardUserPage>
-            <CardHome />
-          </ListCardUserPage>
+        <Divanucios>
+          <h2>Anúncios</h2>
+        </Divanucios>
+        <ListCardUserPage>
+          <CardHome />
+        </ListCardUserPage>
       </MainContainerUserProfile>
       <Footer />
     </>

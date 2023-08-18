@@ -155,6 +155,7 @@ export const FlagGoodDeal = styled.div`
 
 export const ButtonContainer = styled.div`
   display: flex;
+  justify-content: space-between;
   gap: 1rem;
 
   margin-top: .7rem;
@@ -164,8 +165,8 @@ export const ButtonContainer = styled.div`
     
     padding: .4rem;
 
-    border: 1px solid var(--gray);
-    border-radius: 2px;
+    border: 1px solid var(--light-gray);
+    border-radius: 6px;
 
     transition: .2s ease;
 
