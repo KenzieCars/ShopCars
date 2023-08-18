@@ -1,9 +1,14 @@
-import { useContext } from "react"
-import { ButtonCreate, SectionProfileInfoComponent, SiglaUser, UserDiv } from "./style"
-import { UserContext } from "../../providers/UserProvider/UserContext"
+import { useContext } from "react";
+import {
+  ButtonCreate,
+  SectionProfileInfoComponent,
+  SiglaUser,
+  UserDiv,
+} from "./style";
+import { UserContext } from "../../providers/UserProvider/UserContext";
 
 const SectionProfileInfo = () => {
-  const { user, userIdCars } = useContext(UserContext)
+  const { user, userIdCars } = useContext(UserContext);
 
   return (
     <SectionProfileInfoComponent>
@@ -15,11 +20,18 @@ const SectionProfileInfo = () => {
         </div>
       </UserDiv>
       {/* <p>{userIdCarsser?.description}</p> */}
-      <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Tempora magnam eligendi eius perferendis nesciunt cumque ab, accusantium ratione voluptatibus? Quasi quia distinctio cupiditate velit numquam officiis pariatur autem quae alias?</p>
+      <p>
+        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Tempora magnam
+        eligendi eius perferendis nesciunt cumque ab, accusantium ratione
+        voluptatibus? Quasi quia distinctio cupiditate velit numquam officiis
+        pariatur autem quae alias?
+      </p>
       <ButtonCreate>Criar anúncio</ButtonCreate>
-      {user?.isAdmin === true ? <ButtonCreate>Criar anúncio</ButtonCreate> : null }
+      {user?.isAdmin === true ? (
+        <ButtonCreate>Criar anúncio</ButtonCreate>
+      ) : null}
     </SectionProfileInfoComponent>
-  )
-}
+  );
+};
 
-export default SectionProfileInfo
+export default SectionProfileInfo;

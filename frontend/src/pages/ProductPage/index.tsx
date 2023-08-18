@@ -141,8 +141,8 @@ const ProductPage = () => {
             <textarea
               name=""
               id=""
-              // cols="30"
-              // rows="10"
+              cols="30"
+              rows="10"
               placeholder="Me conte sua experiência com o carro"
             ></textarea>
             <button>Comentar</button>
