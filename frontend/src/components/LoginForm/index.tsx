@@ -84,7 +84,7 @@ const LoginForm = () => {
           <ButtonToRegister to="/register">
             Ainda não possui conta?
           </ButtonToRegister>
-          <button type="button">Cadastrar</button>
+          <ButtonToRegister type="button" to='/register'>Cadastrar</ButtonToRegister>
         </ButtonContainer>
       </FormLoginContainer>
     </MainContainerLogin>

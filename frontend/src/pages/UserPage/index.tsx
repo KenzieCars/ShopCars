@@ -7,8 +7,13 @@ import {
 import Footer from "../../components/Footer";
 import SectionProfileView from "../../components/SectionProfileView";
 import { Header } from "../../components/Header";
+import EditProfileModal from "../../components/EditProfileModal";
+import { useContext } from "react";
+import { UserContext } from "../../providers/UserProvider/UserContext";
 
 const UserPage = () => {
+  const { profileEditModal } = useContext(UserContext)
+  
   return (
     <>
       <MainContainerUserProfile>
@@ -21,6 +26,7 @@ const UserPage = () => {
           <CardHome />
         </ListCardUserPage>
       </MainContainerUserProfile>
+      {profileEditModal && <EditProfileModal />}
       <Footer />
     </>
   );
