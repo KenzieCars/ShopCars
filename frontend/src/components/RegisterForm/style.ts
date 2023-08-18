@@ -127,24 +127,14 @@ export const FieldsetRegister = styled.fieldset`
     }
   }
 
-<<<<<<< HEAD
   > svg {
     color: var(--gray);
     top: 35px;
     right: 20px;
     position: absolute;
+    cursor: pointer;
   }
 `;
-=======
-    > svg {
-        color: var(--gray);
-        top: 35px;
-        right: 20px;
-        position: absolute;
-        cursor: pointer;
-    }
-`
->>>>>>> 1daac47ae19945b087cfc3c9fc66b90702732920
 
 export const RegisterButtonContainer = styled.div`
   display: flex;
