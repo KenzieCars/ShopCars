@@ -40,4 +40,6 @@ export const ButtonToBeginning = styled.a`
   color: var(--white);
   
   font-size: 1.7rem;
+  cursor: pointer;
+
 `

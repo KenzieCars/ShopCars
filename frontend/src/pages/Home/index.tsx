@@ -34,7 +34,6 @@ const Home = () => {
         </TitleContainer>
         <CustomSwiperComponent />
       </BannerContainer>
-
       <MainContainerHome>
         <FilterCars />
         <ListCardContainer>
