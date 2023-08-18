@@ -1,4 +1,4 @@
-import { useEffect, useState, LegacyRef } from 'react'
+import { useEffect, useState, LegacyRef, useContext } from 'react'
 import {
     DualFields,
     FieldsetModal,
@@ -12,10 +12,12 @@ import {
 import { IModalProps } from './@types'
 import { useForm } from 'react-hook-form'
 import { fipeApi } from '../../services/api'
-import { zodResolver } from '@hookform/resolvers/zod'
+// import { zodResolver } from '@hookform/resolvers/zod'
 import useOutClick from '../../hooks/useOutclick'
 import useEscapeKey from '../../hooks/useEscapeKey'
 import { handleValue, numberToMoney } from './utils'
+import { CarContext } from '../../providers/CarProvider/CarContext'
+import { AxiosResponse } from 'axios'
 
 const carInfoDefault = {
     brand: 'brand',
@@ -36,6 +38,7 @@ const RegisterCarModal = ({ setModal }: IModalProps) => {
         // resolver: zodResolver()
     })
     const [carInfo, setCarInfo] = useState(carInfoDefault)
+    const { carRegister, registerCarImage } = useContext(CarContext)
 
     const modalRef = useOutClick(() => setModal(false));
     const buttonRef = useEscapeKey('Escape', (element) => {
@@ -47,10 +50,9 @@ const RegisterCarModal = ({ setModal }: IModalProps) => {
             .then((response) => {
                 setFipeOptions(response.data)
             }).catch((error) => console.log(error));
-
-
     }, [])
 
+    console.log(fipeOptions)
     const getModelOptions = async (model: string) => {
         const modelArray = fipeOptions[model]
         setModels(modelArray)
@@ -86,8 +88,38 @@ const RegisterCarModal = ({ setModal }: IModalProps) => {
         }
     }
 
-    const showData = (payload) => {
-        console.log(payload)
+    const showData = async (payload) => {
+        const createCarData = {
+            year: carInfo.year,
+            fuel: getFuelTipe(carInfo.fuel),
+            ...payload
+        }
+
+        let rectifyPrice = createCarData.price
+        rectifyPrice = rectifyPrice.split(' ')[1]
+        rectifyPrice = rectifyPrice.split(',')[0]
+        rectifyPrice = rectifyPrice.replace('.', '')
+
+        createCarData.price = Number(rectifyPrice)
+        createCarData.km = Number(createCarData.km)
+
+        const { imgs } = createCarData
+        delete createCarData.imgs
+
+        let carId: string = ''
+
+        await carRegister(createCarData).then((res: AxiosResponse<any>): void => {
+            carId = res.data.id
+        }).then(async () => {
+            for (let index = 0; index < imgs.length; index++) {
+                const addImageObject = {
+                    imgGalery: imgs[index],
+                    carId: carId
+                }
+                console.log(addImageObject)
+                await registerCarImage(addImageObject)
+            }
+        }).catch((error) => console.log(error))
     }
 
     return (
@@ -124,18 +156,18 @@ const RegisterCarModal = ({ setModal }: IModalProps) => {
                         <select disabled={loadModels} {...register('model')} onChange={(event) => getCarInfo(event.target.value)}>
                             <option value='none'>Selecione o modelo</option>
                             {models.map((model, index) => (
-                                <option key={`model${index}`}>{model.name}</option>
+                                <option key={`model${index}`} value={model.name}>{model.name}</option>
                             ))}
                         </select>
                     </FieldsetModal>
                     <DualFields>
                         <FieldsetModal>
                             <label>Ano</label>
-                            <input disabled placeholder={carInfo.year} {...register('year')} />
+                            <input disabled value={carInfo ? carInfo.year : carInfoDefault.year} />
                         </FieldsetModal>
                         <FieldsetModal>
                             <label>Combustível</label>
-                            <input disabled placeholder={getFuelTipe(carInfo.fuel)} {...register('fuel')} />
+                            <input disabled value={carInfo ? getFuelTipe(carInfo.fuel) : getFuelTipe(carInfoDefault.fuel)} />
                         </FieldsetModal>
                     </DualFields>
                     <DualFields>
@@ -145,23 +177,23 @@ const RegisterCarModal = ({ setModal }: IModalProps) => {
                         </FieldsetModal>
                         <FieldsetModal>
                             <label>Cor</label>
-                            <input placeholder='informe a cor' />
+                            <input placeholder='informe a cor' {...register('color')} />
                         </FieldsetModal>
                     </DualFields>
                     <DualFields>
                         <FieldsetModal>
                             <label>Preço tabela FIPE</label>
-                            <input disabled placeholder={numberToMoney(carInfo.value)} />
+                            <input disabled value={carInfo ? numberToMoney(carInfo.value) : numberToMoney(carInfoDefault.value)} />
                         </FieldsetModal>
                         <FieldsetModal>
                             <label>Preço</label>
                             <input placeholder='R$ 50.000,00' onKeyUp={(event) => handleValue(event)}
-                                maxLength={17} />
+                                {...register('price')} maxLength={17} />
                         </FieldsetModal>
                     </DualFields>
                     <FieldsetModal>
                         <label>descrição</label>
-                        <textarea placeholder='Digite a descrição' />
+                        <textarea placeholder='Digite a descrição' {...register('description')} />
                     </FieldsetModal>
                     <FieldsetModal>
                         <label>Imagem da capa</label>
@@ -169,11 +201,11 @@ const RegisterCarModal = ({ setModal }: IModalProps) => {
                     </FieldsetModal>
                     <FieldsetModal>
                         <label>1º imagem da galeria</label>
-                        <input placeholder='url da imagem' />
+                        <input placeholder='url da imagem' {...register('imgs.0')} />
                     </FieldsetModal>
                     <FieldsetModal>
                         <label>2º imagem da galeria</label>
-                        <input placeholder='url da imagem' />
+                        <input placeholder='url da imagem' {...register('imgs.1')} />
                     </FieldsetModal>
                     <ModalButtonContainer>
                         <button type='button' onClick={() => setModal(false)}

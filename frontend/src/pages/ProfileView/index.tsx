@@ -6,6 +6,7 @@ import SectionProfileInfo from "../../components/SectionProfileView";
 import { CardListProfile, MainContainerProfile } from "./style";
 
 const ProfileView = () => {
+
   return (
     <>
       <MainContainerProfile>

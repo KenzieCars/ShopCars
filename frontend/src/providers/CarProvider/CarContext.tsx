@@ -8,12 +8,14 @@ import {
   ICarContext,
   IDefaultProviderProps,
   IImage,
+  IImageRequest,
   TCarRequest,
   TCarUpdate,
   // TCarUserResponse,
   TDataCarResponse,
   // TListPaginationCars,
 } from "./@types";
+import { AxiosResponse } from "axios";
 export const CarContext = createContext({} as ICarContext);
 export const CarProvider = ({ children }: IDefaultProviderProps) => {
   // const navigate = useNavigate();
@@ -34,20 +36,22 @@ export const CarProvider = ({ children }: IDefaultProviderProps) => {
   }, []);
   const carRegister = async (formData: TCarRequest) => {
     const token = localStorage.getItem("@userToken");
+    let response: AxiosResponse<ICar> | '' = ''
     if (token) {
       try {
-        const res = await api.post<ICar>("/cars", formData, {
+        response = await api.post<ICar>("/cars", formData, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
         });
-        setCar(res.data);
+        setCar(response.data);
         toast.success("Car registered!");
       } catch (error) {
         console.log(error);
         toast.error("Car already exists.");
       }
     }
+    return response
   };
   const editeCar = async (formData: TCarUpdate, carId: string) => {
     const token = localStorage.getItem("@userToken");
@@ -103,6 +107,20 @@ export const CarProvider = ({ children }: IDefaultProviderProps) => {
       }
     }
   };
+  const registerCarImage = async (payload: IImageRequest) => {
+    const token = localStorage.getItem("@userToken");
+    try {
+      await api.post(`/images`, payload, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        }
+      })
+      toast.success('imagem cadastrada!')
+    } catch (error) {
+      console.log(error)
+      toast.error("Error on upload images")
+    }
+  };
   return (
     <CarContext.Provider
       value={{
@@ -115,6 +133,7 @@ export const CarProvider = ({ children }: IDefaultProviderProps) => {
         carRegister,
         editeCar,
         deleteCar,
+        registerCarImage
       }}
     >
       {children}

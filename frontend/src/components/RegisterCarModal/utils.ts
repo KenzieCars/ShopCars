@@ -17,7 +17,7 @@ function valueMask(value: string) {
     if (!value) return ''
 
     value = value.replace(/\D/g, '')
-    value = value.replace(/(\d{0})(\d)/, "$1 R$ $2")
+    value = value.replace(/(\d{0})(\d)/, "$1R$ $2")
     value = value.replace(/(\d)(\d{8})$/, "$1.$2")
     value = value.replace(/(\d)(\d{5})$/, "$1.$2")
     value = value.replace(/(\d)(\d{2})$/, "$1,$2")
