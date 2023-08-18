@@ -15,7 +15,7 @@ import { HomeContext } from "../../providers/HomeProvider/HomeProvider";
 import { useContext } from "react";
 import ButtonHome from "../../components/Filter/ButonModal";
 import ModalFilter from "../../components/Filter/ModalRenderFilter";
-import { Header } from "../../components/Header";
+import { Header } from "../../components/header";
 
 // import { CarContext } from "../../providers/CarProvider/CarContext";
 
