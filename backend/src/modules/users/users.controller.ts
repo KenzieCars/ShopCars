@@ -43,6 +43,12 @@ export class UsersController {
   }
 
   @UseInterceptors(ClassSerializerInterceptor)
+  @Get("profile")
+  findAllProfile() {
+    return this.usersService.findAllProfile();
+  }
+
+  @UseInterceptors(ClassSerializerInterceptor)
   @Get(':id')
   @UseGuards(JwtauthGuard, UserPermissionGuard)
   @ApiBearerAuth()

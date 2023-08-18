@@ -107,7 +107,7 @@ const RegisterCarModal = ({ setModal }: IModalProps) => {
         delete createCarData.imgs
 
         let carId: string = ''
-
+        
         await carRegister(createCarData).then((res: AxiosResponse<any>): void => {
             carId = res.data.id
         }).then(async () => {

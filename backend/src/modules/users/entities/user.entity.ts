@@ -26,3 +26,44 @@ export class User {
     this.id = randomUUID();
   }
 }
+
+export class UserProfile {
+  readonly id: string;
+  name: string;
+  email: string;
+  readonly seller: boolean;
+  cellPhone: string;
+
+  @Exclude()
+  cpf: string;
+  
+  dateOfBirth: string;
+
+  @Exclude()
+  description: string;
+
+  @Exclude()
+  city: string;
+
+  @Exclude()
+  state: string;
+
+  @Exclude()
+  street: string | null;
+
+  @Exclude()
+  number: number | null;
+
+  @Exclude()
+  complement: string | null;
+
+  @Exclude()
+  password: string;
+
+  @Exclude()
+  isAdm: boolean;
+
+  constructor() {
+    this.id = randomUUID();
+  }
+}
