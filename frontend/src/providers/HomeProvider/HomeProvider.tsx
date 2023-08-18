@@ -152,7 +152,7 @@ export const HomeProvider = ({ children }: IHomeProviderProps) => {
     valueKmCar,
     valueCar,
     currentPage,
-    allcarsPages,
+    // allcarsPages,
   ]);
 
   useEffect(() => {
