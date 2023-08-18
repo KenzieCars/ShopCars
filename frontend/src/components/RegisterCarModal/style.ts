@@ -13,10 +13,10 @@ export const ModalWrapper = styled.div`
 export const ModalContainer = styled.div`
     width: 95%;
     max-width: 520px;
-    max-height: 630px;
+    max-height: 570px;
     background-color: var(--white);
     border-radius: 8px;
-    margin: 4rem auto 0;
+    margin: .4rem auto 0;
     overflow-y: auto;
 `
 
