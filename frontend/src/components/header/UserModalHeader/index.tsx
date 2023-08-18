@@ -3,7 +3,7 @@ import { UserContext } from "../../../providers/UserProvider/UserContext"
 import { ModalHeaderContainer, ModalItem } from "./style"
 
 const UserModalHeader = () => {
-  const { logout, user } = useContext(UserContext) 
+  const { logout, user, profileEditModal, setProfileEditModal } = useContext(UserContext) 
 
   const [isVisible, setIsVisible] = useState(false)
 
@@ -13,7 +13,7 @@ const UserModalHeader = () => {
 
   return (
     <ModalHeaderContainer style={{ transform: isVisible ? "translateY(0)" : "translateY(-100%)", opacity: isVisible ? 1 : 0 }}>
-      <ModalItem>Editar Perfil</ModalItem>
+      <ModalItem onClick={() => { console.log("Botão clicado");  setProfileEditModal(!profileEditModal)}}>Editar Perfil</ModalItem>
       <ModalItem>Editar endereço</ModalItem>
       {user?.seller === true ? <ModalItem>Meus anúncios</ModalItem> : null}
       <ModalItem onClick={() => logout()}>Sair</ModalItem>
