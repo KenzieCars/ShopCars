@@ -1,23 +1,29 @@
-import CardHome from "../../components/CardHome"
-import Footer from "../../components/Footer"
-import { HeaderUserPage } from "../../components/Header"
-import SectionProfileInfo from "../../components/SectionProfileView"
-import { CardListProfile, MainContainerProfile } from "./style"
+import { useContext } from "react";
+import CardAdmin from "../../components/CardHome/CardAdmin";
+import EditProfileModal from "../../components/EditProfileModal";
+import Footer from "../../components/Footer";
+import { Header } from "../../components/Header";
+
+import SectionProfileInfo from "../../components/SectionProfileView";
+import { CardListProfile, MainContainerProfile } from "./style";
+import { UserContext } from "../../providers/UserProvider/UserContext";
 
 const ProfileView = () => {
+  const { profileEditModal } = useContext(UserContext)
 
   return (
     <>
       <MainContainerProfile>
-        <HeaderUserPage />
+        <Header />
         <SectionProfileInfo />
         <CardListProfile>
-          <CardHome />
+          <CardAdmin />
         </CardListProfile>
       </MainContainerProfile>
+      {profileEditModal && <EditProfileModal />}
       <Footer />
     </>
-  )
-}
+  );
+};
 
-export default ProfileView
+export default ProfileView;

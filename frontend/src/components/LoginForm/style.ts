@@ -41,6 +41,7 @@ export const FieldsetLogin = styled.fieldset`
   display: flex;
   flex-direction: column;
   gap: .4rem;
+  position: relative;
 
   border: none;
 
@@ -68,6 +69,13 @@ export const FieldsetLogin = styled.fieldset`
       color: var(--light-gray);
     }
   }
+
+  > svg {
+        color: var(--gray);
+        top: 36px;
+        right: 20px;
+        position: absolute;
+    }
 `
 
 export const ForgotMyPassword = styled.div`

@@ -31,6 +31,10 @@ export class UsersService {
     return this.usersRepository.findAll();
   }
 
+  async findAllProfile() {
+    return this.usersRepository.findAllProfile();
+  }
+
   async findOne(id: string) {
     const findUser = await this.usersRepository.findOne(id);
 

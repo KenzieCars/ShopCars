@@ -1,53 +1,32 @@
 import CardHome from "../../components/CardHome";
 import {
-  DivCar,
-  DivCard,
-  DivCardUser,
-  DivNameUser,
   Divanucios,
   ListCardUserPage,
-  SpanAnuciant,
-  UserPageSection,
+  MainContainerUserProfile,
 } from "./style";
-import { HeaderUserPage } from "../../components/Header";
+import Footer from "../../components/Footer";
+import SectionProfileView from "../../components/SectionProfileView";
+import { Header } from "../../components/Header";
+import EditProfileModal from "../../components/EditProfileModal";
 import { useContext } from "react";
 import { UserContext } from "../../providers/UserProvider/UserContext";
-import Footer from "../../components/Footer";
 
 const UserPage = () => {
-  const { userIdCars } = useContext(UserContext);
-
+  const { profileEditModal } = useContext(UserContext)
+  
   return (
     <>
-      <HeaderUserPage />
-      <UserPageSection>
-        <DivCard>
-          <DivCardUser>
-            <h2>{userIdCars?.name.slice(0, 2)}</h2>
-          </DivCardUser>
-
-          <DivNameUser>
-            <h1>
-              {userIdCars?.name.split(" ")[0]} {userIdCars?.name.split(" ")[1]}
-            </h1>
-            <SpanAnuciant>Anuciante</SpanAnuciant>
-          </DivNameUser>
-
-          <span>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore
-            obcaecati non maxime quaerat aut nihil rerum accusamus ipsa.
-            Similique quibusdam officiis
-          </span>
-        </DivCard>
-        <DivCar>
-          <Divanucios>
-            <h2>Anúncios</h2>
-          </Divanucios>
-          <ListCardUserPage>
-            <CardHome />
-          </ListCardUserPage>
-        </DivCar>
-      </UserPageSection>
+      <MainContainerUserProfile>
+        <Header />
+        <SectionProfileView />
+        <Divanucios>
+          <h2>Anúncios</h2>
+        </Divanucios>
+        <ListCardUserPage>
+          <CardHome />
+        </ListCardUserPage>
+      </MainContainerUserProfile>
+      {profileEditModal && <EditProfileModal />}
       <Footer />
     </>
   );

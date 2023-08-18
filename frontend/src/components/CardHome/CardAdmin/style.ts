@@ -16,30 +16,11 @@ export const CardContainer = styled.li`
 
   position: relative;
 
-  ::-webkit-scrollbar {
-    width: 3px; /* Largura da barra de rolagem vertical */
-    height: 3px; /* Altura da barra de rolagem horizontal */
-  }
-
-  /* Para navegadores baseados em Chromium (Google Chrome, Microsoft Edge, etc.) */
-  ::-webkit-scrollbar-thumb {
-    background-color: var(--light-gray); /* Cor do "polegar" da barra de rolagem (a parte que o usuário arrasta) */
-    border-radius: 6px; /* Raio de borda para o "polegar" */
-  }
-
-  /* Para navegadores baseados em Chromium (Google Chrome, Microsoft Edge, etc.) */
-  ::-webkit-scrollbar-thumb:hover {
-    background-color: var(--light-gray); /* Cor do "polegar" da barra de rolagem ao passar o mouse */
-  }
-
-  /* Para navegadores baseados em Firefox */
-  /* Apenas para personalização básica */
-  scrollbar-color: var(--light-gray) transparent; /* Cor da barra de rolagem vertical */
-
   @media (min-width: 768px) {
     width: 282px;
     height: fit-content;
-    max-height: 390px;
+    min-height: 390px;
+    max-height: fit-content;
   }
 `;
 
@@ -66,11 +47,22 @@ export const ContainerInfo = styled.div`
     color: var(--black);
   }
 
+  > p {
+    font-size: 0.7rem;
+    color: var(--gray);
+    height: 90px;
+    line-height: 150%;
+  }
+
   @media (min-width: 768px) {
     gap: 0.7rem;
 
     > h3 {
       font-size: 1rem;
+    }
+
+    > p {
+      font-size: 0.8rem;
     }
   }
 `;
@@ -161,35 +153,30 @@ export const FlagGoodDeal = styled.div`
   font-size: 1.2rem;
 `
 
-export const DescriptionWithOverFlow = styled.section`
-  > p {
-    font-size: 0.7rem;
+export const ButtonContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+
+  margin-top: .7rem;
+
+  > button {
+    background: var(--white);
+    
+    padding: .4rem;
+
+    border: 1px solid var(--light-gray);
+    border-radius: 6px;
+
+    transition: .2s ease;
+
+    font-weight: 600;
     color: var(--gray);
-    height: 75px;
-    line-height: 150%;
 
-    overflow-y: auto;
-
-  &:before {
-    content: '';
-    position: absolute;
-    bottom: 85px;
-    left: 0;
-    width: 100%;
-    height: 50px; /* Ajuste a altura do degradê conforme necessário */
-    background: linear-gradient(transparent, rgba(246, 246, 246, 0.8)); /* Defina as cores do degradê aqui */
-  }
-}
-
-  @media (min-width: 768px) {
-    gap: 0.7rem;
-
-    > h3 {
-      font-size: 1rem;
-    }
-
-    > p {
-      font-size: 0.8rem;
+    &:hover {
+      background: var(--black);
+      color: var(--white);
+      border: 1px solid var(--black);
     }
   }
 `

@@ -1,60 +1,29 @@
 import styled from "styled-components";
 
-export const UserPageSection = styled.section`
-  width: 100%;
-
-  &:before {
-    content: "";
-
-    width: 100%;
-    display: block;
-    min-height: 300px;
-    background: #4529e6;
-
-    @media (max-width: 768px) {
-      min-height: 308px;
-    }
-  }
-`;
-
-export const DivCar = styled.div`
-  width: 85%;
-  margin: 0 auto;
+export const MainContainerUserProfile = styled.main`
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  max-width: 1400px;
-  gap: 48px;
-  padding-top: 64px;
+  gap: 1rem;
 
-  @media (max-width: 768px) {
-    width: 85%;
-    flex-direction: column;
-    padding-left: 16px;
-    padding-right: 16px;
+  padding: 1rem;
+
+  @media (min-width: 768px) {
+    padding: 1.7rem 8rem;
   }
-`;
-
-export const DivCard = styled.div`
-  width: 100%;
-  max-width: 1240px;
-  height: 327px;
-  background-color: #ffffff;
-  margin: 0 auto;
-  padding: 15px;
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-  position: absolute;
-  top: 35%;
-  left: 54%;
-  transform: translate(-55%, -50%);
-  border-radius: 10px;
-  margin-left: 3px;
-`;
+`
 
 export const Divanucios = styled.div`
-  margin-top: 200px;
+  > h2 {
+    color: var(--black);
+    font-size: 1rem;
+  }
+
+  @media (min-width: 768px) {
+    padding: 2rem 0;
+    > h2 {
+      font-size: 1.4rem;
+    }
+  }
 `;
 
 export const ListCardUserPage = styled.ul`
@@ -64,41 +33,14 @@ export const ListCardUserPage = styled.ul`
 
   overflow-x: auto;
 
-  padding: 1rem;
+  padding-top: .7rem;
 
   @media (min-width: 768px) {
     flex-direction: row;
     flex-wrap: wrap;
+    justify-content: space-between;
 
-    margin-top: 1.4rem;
-
-    gap: 1.4rem;
+    width: 100%;
+    overflow-x: visible;
   }
-`;
-
-export const DivCardUser = styled.div`
-  width: 100px;
-  height: 100px;
-  background-color: #4529e6;
-  border-radius: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  > h2 {
-    color: #ffffff;
-  }
-`;
-
-export const DivNameUser = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 10px;
-`;
-
-export const SpanAnuciant = styled.span`
-  background-color: #edeafd;
-  color: #4529e6;
-  border-radius: 4px;
-  padding: 5px;
 `;

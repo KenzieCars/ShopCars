@@ -14,6 +14,7 @@ export const SectionProfileInfoComponent = styled.section`
   > p {
     color: var(--gray);
     font-size: .7rem;
+    line-height: 150%;
   }
 
   @media (min-width: 768px) {

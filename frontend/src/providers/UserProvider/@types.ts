@@ -16,8 +16,15 @@ export interface IUserContext {
   userLogin: (formData: ILogin) => Promise<void>;
   userRegister: (formData: ICreateUser) => Promise<void>;
   logout: () => void;
+<<<<<<< HEAD
   sendEmail: (sendEmailData: ResetEmailData) => void;
   resetPassword: (resetPasswordData: ResetPasswordData, token: string) => void;
+=======
+  updateUser: (formData: Partial<IUser>) => Promise<void>
+  profileEditModal: boolean
+  setProfileEditModal: React.Dispatch<React.SetStateAction<boolean>>
+  deleteUser: () => Promise<void>
+>>>>>>> 1daac47ae19945b087cfc3c9fc66b90702732920
 }
 
 export interface IDefaultProviderProps {

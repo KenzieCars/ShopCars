@@ -1,22 +1,22 @@
 import { useContext } from "react";
 import {
+  ButtonContainer,
   CardContainer,
   ContactUserContainer,
   ContainerInfo,
   ContainerInfoCar,
   FigureContainer,
   FlagGoodDeal,
-  DescriptionWithOverFlow
 } from "./style";
-import { CarContext } from "../../providers/CarProvider/CarContext";
-import NothingHere from "../NothingHere";
 import { TbFlag3Filled } from "react-icons/tb";
+import { CarContext } from "../../../providers/CarProvider/CarContext";
+import NothingHere from "../../NothingHere";
 
-const CardHome = () => {
-  const { allcars } = useContext(CarContext);
+const CardAdmin = () => {
+  const { allcars } = useContext(CarContext)
 
   if (allcars.length === 0) return <NothingHere />;
-  
+
   return (
     <>
       {allcars.map((car) => (
@@ -28,10 +28,7 @@ const CardHome = () => {
             <h3>
               {car.brand} - {car.model}
             </h3>
-            <DescriptionWithOverFlow>
-              <p>{car.description}</p>
-            </DescriptionWithOverFlow>
-           
+            <p>{car.description}</p>
             <ContactUserContainer>
               <span>{car.user.name[0]}</span>
               <span>{car.user.name}</span>
@@ -43,6 +40,10 @@ const CardHome = () => {
               </div>
               <span>R$ {car.price}</span>
             </ContainerInfoCar>
+            <ButtonContainer>
+              <button>Editar</button>
+              <button>Ver detalhes</button>
+            </ButtonContainer>
           </ContainerInfo>
           <FlagGoodDeal>
             <TbFlag3Filled />
@@ -52,4 +53,4 @@ const CardHome = () => {
     </>
   );
 };
-export default CardHome;
+export default CardAdmin;

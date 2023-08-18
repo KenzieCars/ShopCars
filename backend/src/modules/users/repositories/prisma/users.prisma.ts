@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { UsersRepository } from '../users.repository';
 import { PrismaService } from 'src/database/prisma.service';
 import { CreateUserDto } from '../../dto/create-user.dto';
-import { User } from '../../entities/user.entity';
+import { User, UserProfile } from '../../entities/user.entity';
 import { plainToInstance } from 'class-transformer';
 import { UpdateUserDto } from '../../dto/update-user.dto';
 import { hashSync } from 'bcryptjs';
@@ -29,6 +29,16 @@ export class UsersPrismaRepository implements UsersRepository {
     const users = await this.prisma.user.findMany();
 
     return plainToInstance(User, users);
+  }
+
+  async findAllProfile(): Promise<User[]> {
+    const users = await this.prisma.user.findMany({
+      include: {
+        cars: true
+      },
+    });
+
+    return plainToInstance(UserProfile, users);
   }
 
   async findOne(id: string): Promise<User> {
@@ -71,20 +81,20 @@ export class UsersPrismaRepository implements UsersRepository {
   }
 
   async updateToken(email: string, token: string): Promise<void> {
-    await this.prisma.user.update({ 
+    await this.prisma.user.update({
       where: { email },
-      data: {reset_token: token}
+      data: { reset_token: token },
     });
   }
-  
+
   async updatePassword(id: string, password: string): Promise<void> {
-      await this.prisma.user.update({
-        where: {id},
-        data: {
-          password: hashSync(password, 10),
-          reset_token: null
-        }
-      })
+    await this.prisma.user.update({
+      where: { id },
+      data: {
+        password: hashSync(password, 10),
+        reset_token: null,
+      },
+    });
   }
 
   async delete(id: string): Promise<void> {
