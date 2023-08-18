@@ -9,13 +9,13 @@ import {
   NextButtonContainer,
   TitleContainer,
 } from "./style";
-import { Header } from "../../components/Header";
 import FilterCars from "../../components/Filter";
 import CustomSwiperComponent from "../../components/Swiper";
 import { HomeContext } from "../../providers/HomeProvider/HomeProvider";
 import { useContext } from "react";
 import ButtonHome from "../../components/Filter/ButonModal";
 import ModalFilter from "../../components/Filter/ModalRenderFilter";
+import { Header } from "../../components/Header";
 
 // import { CarContext } from "../../providers/CarProvider/CarContext";
 

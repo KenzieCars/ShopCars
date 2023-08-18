@@ -4,21 +4,15 @@ import LogoHeader from "../../../public/LogoHeader.png";
 import { useMediaQuery } from "@mui/material";
 import { IconButton } from "@mui/material";
 import { GiHamburgerMenu } from "react-icons/gi";
-import {
-  DivHeader,
-  MobileNav,
-  ButtonHeader,
-  Nav,
-  UserHeaderContainer,
-} from "./style";
+import { DivHeader, MobileNav, ButtonHeader, Nav, UserHeaderContainer } from "./style";
 import { Link, useNavigate } from "react-router-dom";
 import { UserContext } from "../../providers/UserProvider/UserContext";
-import UserModalHeader from "../header/UserModalHeader";
+import UserModalHeader from "./UserModalHeader";
 
 const Header = () => {
   const { user } = useContext(UserContext);
   const [menuAnchor, setMenuAnchor] = useState<null | HTMLElement>(null);
-  const [userModalHeader, setUserModalHeader] = useState(false);
+  const [userModalHeader, setUserModalHeader] = useState(false)
 
   const navigate = useNavigate();
 
@@ -59,9 +53,7 @@ const Header = () => {
             >
               <Nav>
                 {user ? (
-                  <UserHeaderContainer
-                    onClick={() => setUserModalHeader(!userModalHeader)}
-                  >
+                  <UserHeaderContainer onClick={() => setUserModalHeader(!userModalHeader)}>
                     <span>{user.name[0]}</span>
                     <span>{user.name.split(" ")[0]}</span>
                     {userModalHeader && <UserModalHeader />}
@@ -82,9 +74,7 @@ const Header = () => {
         ) : (
           <Nav>
             {user ? (
-              <UserHeaderContainer
-                onClick={() => setUserModalHeader(!userModalHeader)}
-              >
+              <UserHeaderContainer onClick={() => setUserModalHeader(!userModalHeader)}>
                 <span>{user.name[0]}</span>
                 <span>{user.name.split(" ")[0]}</span>
                 {userModalHeader && <UserModalHeader />}
