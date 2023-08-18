@@ -16,6 +16,8 @@ export interface IUserContext {
   profileEditModal: boolean
   setProfileEditModal: React.Dispatch<React.SetStateAction<boolean>>
   deleteUser: () => Promise<void>
+  addressEditModal: boolean
+  setAddressEditModal: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 export interface IDefaultProviderProps {
@@ -35,7 +37,7 @@ export interface IUser {
   city: string;
   state: string;
   street: string;
-  number: number;
+  number: string | number;
   complement: string;
   isAdmin: boolean;
 }

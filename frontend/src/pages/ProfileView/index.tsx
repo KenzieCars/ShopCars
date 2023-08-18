@@ -7,9 +7,10 @@ import { Header } from "../../components/Header";
 import SectionProfileInfo from "../../components/SectionProfileView";
 import { CardListProfile, MainContainerProfile } from "./style";
 import { UserContext } from "../../providers/UserProvider/UserContext";
+import EditAddressModal from "../../components/EditProfileModal/EditAddressModal";
 
 const ProfileView = () => {
-  const { profileEditModal } = useContext(UserContext)
+  const { profileEditModal, addressEditModal } = useContext(UserContext)
 
   return (
     <>
@@ -21,6 +22,7 @@ const ProfileView = () => {
         </CardListProfile>
       </MainContainerProfile>
       {profileEditModal && <EditProfileModal />}
+      {addressEditModal && <EditAddressModal />}
       <Footer />
     </>
   );

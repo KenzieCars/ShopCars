@@ -15,6 +15,7 @@ export const UserProvider = ({ children }: IDefaultProviderProps) => {
   const [listCarsUser, setListCarsUser] = useState<ICar[] | []>([]);
   const [userIdCars, setUserIdCars] = useState<TUserCarsResponse | null>(null);
   const [profileEditModal, setProfileEditModal] = useState(false);
+  const [addressEditModal, setAddressEditModal] = useState(false);
 
   useEffect(() => {
     const token = localStorage.getItem("@userToken");
@@ -122,6 +123,11 @@ export const UserProvider = ({ children }: IDefaultProviderProps) => {
         }
       })
     
+      setUserIdCars(previousUser => ({
+        ...previousUser,
+        ...res.data
+      }))
+
       setUser(previousUser => ({
         ...previousUser,
         ...res.data
@@ -173,7 +179,9 @@ export const UserProvider = ({ children }: IDefaultProviderProps) => {
         updateUser,
         profileEditModal,
         setProfileEditModal,
-        deleteUser
+        deleteUser,
+        addressEditModal,
+        setAddressEditModal
       }}
     >
       {children}

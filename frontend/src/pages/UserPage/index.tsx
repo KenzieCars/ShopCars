@@ -10,9 +10,10 @@ import { Header } from "../../components/Header";
 import EditProfileModal from "../../components/EditProfileModal";
 import { useContext } from "react";
 import { UserContext } from "../../providers/UserProvider/UserContext";
+import EditAddressModal from "../../components/EditProfileModal/EditAddressModal";
 
 const UserPage = () => {
-  const { profileEditModal } = useContext(UserContext)
+  const { profileEditModal, addressEditModal } = useContext(UserContext)
   
   return (
     <>
@@ -27,6 +28,7 @@ const UserPage = () => {
         </ListCardUserPage>
       </MainContainerUserProfile>
       {profileEditModal && <EditProfileModal />}
+      {addressEditModal && <EditAddressModal />}
       <Footer />
     </>
   );

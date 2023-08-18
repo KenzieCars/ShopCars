@@ -3,17 +3,17 @@ import { UserContext } from "../../providers/UserProvider/UserContext"
 import { BackgroundModalEditProfile, ButtonContainer, FieldsetContainer, FormContainer, TitleContainer } from "./style"
 
 const EditProfileModal = () => {
-  const { updateUser, user, profileEditModal, setProfileEditModal, deleteUser } = useContext(UserContext)
+  const { updateUser, userIdCars, profileEditModal, setProfileEditModal, deleteUser } = useContext(UserContext)
   const [formData, setFormData] = useState({
-    name: user?.name || '',
-    email: user?.email || '',
-    cpf: user?.cpf || '',
-    cellPhone: user?.cellPhone || '',
-    dateOfBirth: user?.dateOfBirth || '',
-    description: user?.description || ''
+    name: userIdCars?.name || '',
+    email: userIdCars?.email || '',
+    cpf: userIdCars?.cpf || '',
+    cellPhone: userIdCars?.cellPhone || '',
+    dateOfBirth: userIdCars?.dateOfBirth || '',
+    description: userIdCars?.description || ''
   })
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement>) => {
     const { name, value } = event.target
     setFormData(prevFormData => ({
       ...prevFormData,
