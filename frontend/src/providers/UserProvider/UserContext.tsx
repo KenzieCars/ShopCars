@@ -5,6 +5,8 @@ import { api } from "../../services/api";
 import { toast } from "react-toastify";
 import { ICreateUser } from "../../components/RegisterForm/@types";
 import { ICar, TUserCarsResponse } from "../CarProvider/@types";
+import { ResetEmailData } from "../../components/ModalSendEmail/@types";
+import { ResetPasswordData } from "../../components/ModalResetPassword/@types";
 
 export const UserContext = createContext({} as IUserContext);
 
@@ -14,6 +16,7 @@ export const UserProvider = ({ children }: IDefaultProviderProps) => {
   const [loading, setLoading] = useState(false);
   const [listCarsUser, setListCarsUser] = useState<ICar[] | []>([]);
   const [userIdCars, setUserIdCars] = useState<TUserCarsResponse | null>(null);
+  const [modalForgottenOpen, setModalForgottenOpen] = useState<boolean>(false);
 
   const userLogin = async (formData: ILogin) => {
     try {
@@ -95,6 +98,35 @@ export const UserProvider = ({ children }: IDefaultProviderProps) => {
     navigate("/login");
   };
 
+  const sendEmail = (sendEmailData: ResetEmailData) => {
+    try {
+      api.post("/users/resetPassword", sendEmailData);
+
+      toast.success("Email successfully sent");
+    } catch (error) {
+      console.log(error);
+
+      toast.error("Error send email");
+    }
+  };
+
+  const resetPassword = (
+    resetPasswordData: ResetPasswordData,
+    token: string
+  ) => {
+    try {
+      api.patch(`/users/resetPassword/${token}`, resetPasswordData.password);
+
+      toast.success("Password changed successfully");
+
+      navigate("/login");
+    } catch (error) {
+      console.log(error);
+
+      toast.error("Password reset error, please try again");
+    }
+  };
+
   return (
     <UserContext.Provider
       value={{
@@ -108,6 +140,10 @@ export const UserProvider = ({ children }: IDefaultProviderProps) => {
         userIdCars,
         setListCarsUser,
         setUserIdCars,
+        modalForgottenOpen,
+        setModalForgottenOpen,
+        sendEmail,
+        resetPassword,
       }}
     >
       {children}

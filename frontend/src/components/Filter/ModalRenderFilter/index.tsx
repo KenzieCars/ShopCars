@@ -1,13 +1,21 @@
 import { useContext } from "react";
-import { ModalContainer, ModalContent, CloseButton, Title, TitleAndBtnCloseContainer, RangeContainer, CarFilters } from "./style";
+import {
+  ModalContainer,
+  ModalContent,
+  CloseButton,
+  Title,
+  TitleAndBtnCloseContainer,
+  RangeContainer,
+  CarFilters,
+} from "./style";
 import { HomeContext } from "../../../providers/HomeProvider/HomeProvider";
-import FilterBrand from "../brand";
-import ModelCars from "../model";
+import FilterBrand from "../Brand";
+import ModelCars from "../Model";
 import ColorCars from "../color";
-import YearCars from "../year";
-import FuelTypeCars from "../fuelType";
-import { RangeKMSlider } from "../km";
-import { RangeSlider } from "../price";
+import YearCars from "../Year";
+import FuelTypeCars from "../FuelType";
+import { RangeKMSlider } from "../Km";
+import { RangeSlider } from "../Price";
 
 const ModalFilter = () => {
   const { modalFilter, setModalFilter, clearFilters } = useContext(HomeContext);

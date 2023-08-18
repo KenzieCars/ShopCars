@@ -1,18 +1,22 @@
 import { styled } from "styled-components";
 
-export const MainContainerRegister = styled.main`
+export const DivContainerModal = styled.div`
   display: flex;
   flex-direction: column;
   padding: 1rem;
+  width: 100vw;
+  height: 100vh;
+
+  justify-content: center;
 
   @media (min-width: 768px) {
-    margin-top: 7rem;
     align-items: center;
     padding-bottom: 4rem;
   }
 `;
 
-export const FormRegisterContainer = styled.form`
+export const FormModalContainer = styled.form`
+  position: relative;
   width: 95%;
   display: flex;
   flex-direction: column;
@@ -25,7 +29,7 @@ export const FormRegisterContainer = styled.form`
   margin: 0 auto;
 `;
 
-export const TitleRegister = styled.div`
+export const TitleModal = styled.div`
   > h3 {
     color: var(--gray);
   }
@@ -38,50 +42,7 @@ export const TitleOptions = styled.div`
   }
 `;
 
-export const DualFields = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-around;
-  gap: 0.5rem;
-
-  > fieldset {
-    display: flex;
-    flex-direction: column;
-    gap: 0.4rem;
-    border: none;
-
-    > label {
-      color: var(--gray);
-      font-size: 0.8rem;
-    }
-
-    > input {
-      padding: 0.7rem 1rem;
-      width: 100%;
-      max-width: 175px;
-      width: fit-content;
-      border-radius: 8px;
-      border: 2px solid var(--white);
-      outline: none;
-      color: var(--gray);
-      transition: 0.2s ease;
-
-      &:focus {
-        border: 2px solid var(--primary-color);
-      }
-
-      &::placeholder {
-        color: var(--light-gray);
-      }
-    }
-    /* > p {
-            width: 40%;
-        } */
-  }
-`;
-
-export const FieldsetRegister = styled.fieldset`
+export const FieldsetModal = styled.fieldset`
   display: flex;
   flex-direction: column;
   gap: 0.4rem;
@@ -135,7 +96,7 @@ export const FieldsetRegister = styled.fieldset`
   }
 `;
 
-export const RegisterButtonContainer = styled.div`
+export const ModalButtonContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -153,35 +114,6 @@ export const RegisterButtonContainer = styled.div`
 
     &:hover {
       background: var(--black);
-      color: var(--white);
-    }
-  }
-`;
-
-export const AccountTypeField = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-around;
-  gap: 0.5rem;
-
-  > input {
-    display: none;
-  }
-
-  > label {
-    background: var(--primary-color);
-    padding: 0.8rem;
-    width: 100%;
-    color: var(--white);
-    font-size: 0.9rem;
-    font-weight: 600;
-    transition: 0.2s ease;
-    border-radius: 8px;
-    cursor: pointer;
-
-    &:hover {
-      background: var(--gray);
       color: var(--white);
     }
   }

@@ -9,6 +9,7 @@ import { ImageProvider } from "./providers/ImageProvider/ImageContext";
 import { CommentProvider } from "./providers/CommentProvider/CommentContext";
 import ProfileView from "./pages/ProfileView";
 import UserPage from "./pages/UserPage";
+import ResetPasswordPage from "./pages/resetPassword";
 
 const AppRoutes = () => {
   return (
@@ -24,6 +25,10 @@ const AppRoutes = () => {
                 <Route path="/register" element={<Register />} />
                 <Route path="/profile" element={<ProfileView />} />
                 <Route path="/userPage" element={<UserPage />} />
+                <Route
+                  path="/resetPassword/:token"
+                  element={<ResetPasswordPage />}
+                />
               </Routes>
             </HomeProvider>
           </CommentProvider>

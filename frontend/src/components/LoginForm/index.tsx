@@ -14,6 +14,7 @@ import { ILogin } from "../../providers/UserProvider/@types";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useContext } from "react";
 import { UserContext } from "../../providers/UserProvider/UserContext";
+import ModalSendEmail from "../ModalSendEmail";
 
 const LoginForm = () => {
   const { userLogin } = useContext(UserContext);
@@ -21,6 +22,8 @@ const LoginForm = () => {
     email: z.string().email("Deve ser um e-mail"),
     password: z.string().nonempty("Senha é obrigatória"),
   });
+
+  const { modalForgottenOpen, setModalForgottenOpen } = useContext(UserContext);
 
   const {
     register,
@@ -36,6 +39,7 @@ const LoginForm = () => {
 
   return (
     <MainContainerLogin>
+      {modalForgottenOpen && <ModalSendEmail />}
       <FormLoginContainer onSubmit={handleSubmit(submit)}>
         <TitleLogin>
           <h3>Login</h3>
@@ -63,7 +67,13 @@ const LoginForm = () => {
           ) : null}
         </FieldsetLogin>
         <ForgotMyPassword>
-          <span>Esqueci minha senha</span>
+          <span
+            onClick={() => {
+              setModalForgottenOpen(true);
+            }}
+          >
+            Esqueci minha senha
+          </span>
         </ForgotMyPassword>
         <ButtonContainer>
           <button type="submit">Entrar</button>
