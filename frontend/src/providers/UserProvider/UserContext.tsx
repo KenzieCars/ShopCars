@@ -98,9 +98,9 @@ export const UserProvider = ({ children }: IDefaultProviderProps) => {
     navigate("/login");
   };
 
-  const sendEmail = (sendEmailData: ResetEmailData) => {
+  const sendEmail = async (sendEmailData: ResetEmailData) => {
     try {
-      api.post("/users/resetPassword", sendEmailData);
+      await api.post("/users/resetPassword", sendEmailData);
 
       toast.success("Email successfully sent");
     } catch (error) {
@@ -110,12 +110,16 @@ export const UserProvider = ({ children }: IDefaultProviderProps) => {
     }
   };
 
-  const resetPassword = (
+  const resetPassword = async (
     resetPasswordData: ResetPasswordData,
     token: string
   ) => {
+    const passres = { password: resetPasswordData.password };
+    console.log(passres);
+    console.log(token);
+    console.log(resetPasswordData);
     try {
-      api.patch(`/users/resetPassword/${token}`, resetPasswordData.password);
+      await api.patch(`/users/resetPassword/${token}`, passres);
 
       toast.success("Password changed successfully");
 

@@ -23,8 +23,6 @@ const ResetPasswordForm = ({ token }: ResetPasswordProps) => {
   });
 
   const onFormSubmit = (formData: ResetPasswordData) => {
-    console.log(formData);
-    console.log(token);
     resetPassword(formData, token);
   };
   return (
