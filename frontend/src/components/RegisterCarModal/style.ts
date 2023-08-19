@@ -113,8 +113,12 @@ export const FieldsetModal = styled.fieldset`
     }
 
     > select {
-        max-height: 100px;
-
+        padding: .7rem 1rem;
+        border-radius: 8px;
+        border: 2px solid var(--white);
+        outline: none;
+        color: var(--gray);
+        transition: .2s ease;
         
 
         > option {
@@ -187,6 +191,41 @@ export const ModalButtonContainer = styled.div`
 
         &:hover{
             background-color: var(--gray);
+        }
+    }
+`
+
+export const AddImagesContainer = styled.div`
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    position: relative;
+
+    > button {
+        background-color: var(--primary-color-hover);
+        height: 2rem;
+        border-radius: 8px;
+        width: 60%;
+        color: var(--primary-color);
+        font-weight: 700;
+        transition: .2s ease;
+
+        &:hover {
+            background: var(--primary-color);
+            color: var(--white);
+        }
+    }
+
+    > .remove {
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 38%;
+        color: var(--white);
+        background-color: var(--alert-negative-hover);
+
+        &:hover {
+            background-color: var(--alert-negative);
         }
     }
 `

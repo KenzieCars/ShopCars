@@ -1,5 +1,6 @@
 import { useEffect, useState, LegacyRef, useContext } from 'react'
 import {
+    AddImagesContainer,
     DualFields,
     FieldsetModal,
     FormModalContainer,
@@ -15,7 +16,7 @@ import { fipeApi } from '../../services/api'
 // import { zodResolver } from '@hookform/resolvers/zod'
 import useOutClick from '../../hooks/useOutclick'
 import useEscapeKey from '../../hooks/useEscapeKey'
-import { handleValue, numberToMoney } from './utils'
+import { getFuelTipe, handleKm, handleValue, numberToMoney, rectifyKm, rectifyPrice } from './utils'
 import { CarContext } from '../../providers/CarProvider/CarContext'
 import { AxiosResponse } from 'axios'
 
@@ -38,6 +39,8 @@ const RegisterCarModal = ({ setModal }: IModalProps) => {
         // resolver: zodResolver()
     })
     const [carInfo, setCarInfo] = useState(carInfoDefault)
+    const [extraImagesFields, setExtraImagesFields] = useState(0)
+
     const { carRegister, registerCarImage } = useContext(CarContext)
 
     const modalRef = useOutClick(() => setModal(false));
@@ -52,7 +55,6 @@ const RegisterCarModal = ({ setModal }: IModalProps) => {
             }).catch((error) => console.log(error));
     }, [])
 
-    console.log(fipeOptions)
     const getModelOptions = async (model: string) => {
         const modelArray = fipeOptions[model]
         setModels(modelArray)
@@ -76,56 +78,53 @@ const RegisterCarModal = ({ setModal }: IModalProps) => {
         }
     }
 
-    const getFuelTipe = (number: number) => {
-        if (number === 1) {
-            return 'Flex'
-        } else if (number === 2) {
-            return 'Híbrido'
-        } else if (number === 3) {
-            return 'Elétrico'
-        } else {
-            return 'Indefinido'
-        }
-    }
 
-    const showData = async (payload) => {
+
+    const registerCar = async (payload) => {
         const createCarData = {
             year: carInfo.year,
             fuel: getFuelTipe(carInfo.fuel),
             ...payload
         }
 
-        let rectifyPrice = createCarData.price
-        rectifyPrice = rectifyPrice.split(' ')[1]
-        rectifyPrice = rectifyPrice.split(',')[0]
-        rectifyPrice = rectifyPrice.replace('.', '')
-
-        createCarData.price = Number(rectifyPrice)
-        createCarData.km = Number(createCarData.km)
+        createCarData.price = rectifyPrice(createCarData.price)
+        createCarData.km = rectifyKm(createCarData.km)
 
         const { imgs } = createCarData
         delete createCarData.imgs
 
         let carId: string = ''
-        
-        await carRegister(createCarData).then((res: AxiosResponse<any>): void => {
-            carId = res.data.id
-        }).then(async () => {
-            for (let index = 0; index < imgs.length; index++) {
-                const addImageObject = {
-                    imgGalery: imgs[index],
-                    carId: carId
-                }
-                console.log(addImageObject)
-                await registerCarImage(addImageObject)
-            }
-        }).catch((error) => console.log(error))
+
+        // await carRegister(createCarData)
+        //     .then((res: AxiosResponse) => {
+        //         carId = res.data.id
+        //     }).then(async () => {
+        //         for (let index = 0; index < imgs.length; index++) {
+        //             const addImageObject = {
+        //                 imgGalery: imgs[index],
+        //                 carId: carId
+        //             }
+        //             await registerCarImage(addImageObject)
+        //         }
+        //     }).catch((error) => console.log(error))
+
+        console.log(imgs)
+        console.log(createCarData)
+    }
+
+    const addImageField = (): number[] => {
+        // eslint-disable-next-line prefer-const
+        let result: number[] = []
+        for (let index: number = 0; index < extraImagesFields; index++) {
+            result.push(index)
+        }
+        return result
     }
 
     return (
         <ModalWrapper role='dialog'>
             <ModalContainer ref={modalRef as LegacyRef<HTMLDivElement>}>
-                <FormModalContainer onSubmit={handleSubmit(showData)}>
+                <FormModalContainer onSubmit={handleSubmit(registerCar)}>
                     <TitleModal>
                         <h3>Criar anúncio</h3>
                         <span ref={buttonRef as LegacyRef<HTMLDivElement>} onClick={() => setModal(false)}>X</span>
@@ -173,7 +172,8 @@ const RegisterCarModal = ({ setModal }: IModalProps) => {
                     <DualFields>
                         <FieldsetModal>
                             <label>Quilometragem</label>
-                            <input placeholder='informe a quilometragem' {...register('km')} />
+                            <input placeholder='informe a quilometragem' {...register('km')}
+                                onKeyUp={(event) => handleKm(event)} maxLength={12} />
                         </FieldsetModal>
                         <FieldsetModal>
                             <label>Cor</label>
@@ -207,6 +207,20 @@ const RegisterCarModal = ({ setModal }: IModalProps) => {
                         <label>2º imagem da galeria</label>
                         <input placeholder='url da imagem' {...register('imgs.1')} />
                     </FieldsetModal>
+                    {extraImagesFields > 0 ? (<>
+                        {addImageField().map((field) => (
+                            <FieldsetModal key={`extraField${field}`}>
+                                <label>{field + 3}º imagem da galeria</label>
+                                <input placeholder='url da imagem' {...register(`imgs.${field + 2}`)} />
+                            </FieldsetModal>
+                        ))}
+                    </>) : null}
+                    <AddImagesContainer>
+                        <button type='button' onClick={() => setExtraImagesFields(extraImagesFields + 1)}>Adicionar campo para imagem</button>
+                        {extraImagesFields > 0 ?
+                            <button type='button' className='remove' onClick={() => setExtraImagesFields(extraImagesFields - 1)}
+                            >Remover campo</button> : null}
+                    </AddImagesContainer>
                     <ModalButtonContainer>
                         <button type='button' onClick={() => setModal(false)}
                             className='cancel'>Cancelar</button>
