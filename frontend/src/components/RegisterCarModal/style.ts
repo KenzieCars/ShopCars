@@ -229,3 +229,9 @@ export const AddImagesContainer = styled.div`
         }
     }
 `
+export const ErrorModal = styled.p`
+    color: var(--alert-negative);
+    font-size: .5rem;
+    letter-spacing: .04rem;
+    transition: .4s ease;
+`

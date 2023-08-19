@@ -1,3 +1,5 @@
+import { z } from "zod"
+
 export const numberToMoney = (value: number) => {
 
     let result: string = value.toLocaleString()
@@ -54,7 +56,6 @@ export const rectifyKm = (payload: string) => {
     payload = payload.split(' ')[1]
     payload = payload.replace('.', '')
 
-    // return Number(payload)
     return Number(payload)
 }
 
@@ -69,3 +70,14 @@ export const getFuelTipe = (number: number) => {
         return 'Indefinido'
     }
 }
+
+export const registerCarSchema = z.object({
+    brand: z.string().nonempty('Marca é obrigatória *'),
+    color: z.string().nonempty('Cor é obrigatória *'),
+    description: z.string().nonempty('Descrição é obrigatória *'),
+    imgCover: z.string().nonempty('Imagem da capa é obrigatória *').url('Deve ser uma fonte url da imagem *'),
+    km: z.string().nonempty('Quilometragem é obrigatória *'),
+    model: z.string().nonempty('Modelo é obrigatório *'),
+    price: z.string().nonempty('Preço é obrigatório *'),
+    imgs: z.string().nonempty('Imagem da galeria é obrigatório *').url('Deve ser uma fonte url da imagem *').array()
+})
