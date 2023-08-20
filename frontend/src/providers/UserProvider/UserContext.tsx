@@ -5,6 +5,8 @@ import { api } from "../../services/api";
 import { toast } from "react-toastify";
 import { ICreateUser } from "../../components/RegisterForm/@types";
 import { ICar, TUserCarsResponse } from "../CarProvider/@types";
+import { ResetEmailData } from "../../components/ModalSendEmail/@types";
+import { ResetPasswordData } from "../../components/ModalResetPassword/@types";
 
 export const UserContext = createContext({} as IUserContext);
 
@@ -14,6 +16,29 @@ export const UserProvider = ({ children }: IDefaultProviderProps) => {
   const [loading, setLoading] = useState(false);
   const [listCarsUser, setListCarsUser] = useState<ICar[] | []>([]);
   const [userIdCars, setUserIdCars] = useState<TUserCarsResponse | null>(null);
+  const [modalForgottenOpen, setModalForgottenOpen] = useState<boolean>(false);
+
+  const userLogin = async (formData: ILogin) => {
+    try {
+      setLoading(true);
+      const res = await api.post("/login", formData);
+
+      setUser(res.data);
+
+      localStorage.setItem("@userToken", res.data.token);
+      localStorage.setItem("@userId", res.data.id);
+
+      toast.success("Logged in!");
+
+      navigate("/profile");
+    } catch (error) {
+      console.log(error);
+
+      toast.error("Something went wrong!");
+    } finally {
+      setLoading(false);
+    }
+  };
   const [profileEditModal, setProfileEditModal] = useState(false);
 
   useEffect(() => {
@@ -39,11 +64,9 @@ export const UserProvider = ({ children }: IDefaultProviderProps) => {
 
           if (!response.data.seller) {
             navigate("/userPage");
+          } else {
+            navigate("/profile");
           }
-          else {
-            navigate("/profile")
-          }
-
         } catch (error) {
           console.log(error);
         }
@@ -51,35 +74,6 @@ export const UserProvider = ({ children }: IDefaultProviderProps) => {
       userLogged();
     }
   }, []);
-
-  const userLogin = async (formData: ILogin) => {
-    try {
-      setLoading(true);
-      const res = await api.post("/login", formData);
-
-      setUser(res.data);
-
-      localStorage.setItem("@userToken", res.data.token);
-      localStorage.setItem("@userId", res.data.id);
-      localStorage.setItem("@seller", res.data.seller);
-
-      toast.success("Logged in!");
-
-      if (!res.data.seller) {
-        navigate("/userPage");
-      }
-      else {
-        navigate("/profile")
-      }
-
-    } catch (error) {
-      console.log(error);
-
-      toast.error("Something went wrong!");
-    } finally {
-      setLoading(false);
-    }
-  };
 
   const userRegister = async (formData: ICreateUser) => {
     try {
@@ -110,6 +104,38 @@ export const UserProvider = ({ children }: IDefaultProviderProps) => {
     navigate("/login");
   };
 
+  const sendEmail = async (sendEmailData: ResetEmailData) => {
+    try {
+      await api.post("/users/resetPassword", sendEmailData);
+
+      toast.success("Email successfully sent");
+    } catch (error) {
+      console.log(error);
+
+      toast.error("Error send email");
+    }
+  };
+
+  const resetPassword = async (
+    resetPasswordData: ResetPasswordData,
+    token: string
+  ) => {
+    const passres = { password: resetPasswordData.password };
+    console.log(passres);
+    console.log(token);
+    console.log(resetPasswordData);
+    try {
+      await api.patch(`/users/resetPassword/${token}`, passres);
+
+      toast.success("Password changed successfully");
+
+      navigate("/login");
+    } catch (error) {
+      console.log(error);
+
+      toast.error("Password reset error, please try again");
+    }
+  };
   const updateUser = async (formData: Partial<IUser>) => {
     const token = localStorage.getItem("@userToken");
     const id = localStorage.getItem("@userId");
@@ -117,19 +143,19 @@ export const UserProvider = ({ children }: IDefaultProviderProps) => {
     try {
       const res = await api.patch(`/users/${id}`, formData, {
         headers: {
-          Authorization: `Bearer ${token}`
-        }
-      })
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
-      setUser(previousUser => ({
+      setUser((previousUser) => ({
         ...previousUser,
-        ...res.data
-      }))
+        ...res.data,
+      }));
 
-      toast.success('Usuário atualizado')
+      toast.success("Usuário atualizado");
     } catch (error) {
-      console.log(error)
-      toast.error('Falha ao atualizar usuário')
+      console.log(error);
+      toast.error("Falha ao atualizar usuário");
     }
   };
 
@@ -140,21 +166,21 @@ export const UserProvider = ({ children }: IDefaultProviderProps) => {
     try {
       await api.delete(`/users/${id}`, {
         headers: {
-          Authorization: `Bearer ${token}`
-        }
-      })
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
-      setUser(null)
-      localStorage.clear()
+      setUser(null);
+      localStorage.clear();
 
-      toast.success('Conta deletada')
+      toast.success("Conta deletada");
 
-      navigate('/login')
+      navigate("/login");
     } catch (error) {
-      console.log(error)
-      toast.error('Algo deu errado :(')
+      console.log(error);
+      toast.error("Algo deu errado :(");
     }
-  }
+  };
 
   return (
     <UserContext.Provider
@@ -169,10 +195,14 @@ export const UserProvider = ({ children }: IDefaultProviderProps) => {
         userIdCars,
         setListCarsUser,
         setUserIdCars,
+        modalForgottenOpen,
+        setModalForgottenOpen,
+        sendEmail,
+        resetPassword,
         updateUser,
         profileEditModal,
         setProfileEditModal,
-        deleteUser
+        deleteUser,
       }}
     >
       {children}

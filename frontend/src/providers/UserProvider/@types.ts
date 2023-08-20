@@ -1,3 +1,5 @@
+import { ResetPasswordData } from "../../components/ModalResetPassword/@types";
+import { ResetEmailData } from "../../components/ModalSendEmail/@types";
 import { ICreateUser } from "../../components/RegisterForm/@types";
 import { ICar, TUserCarsResponse } from "../CarProvider/@types";
 
@@ -9,13 +11,19 @@ export interface IUserContext {
   setLoading: React.Dispatch<React.SetStateAction<boolean>>;
   setListCarsUser: React.Dispatch<React.SetStateAction<[] | ICar[]>>;
   setUserIdCars: React.Dispatch<React.SetStateAction<TUserCarsResponse | null>>;
+  modalForgottenOpen: boolean;
+  setModalForgottenOpen: React.Dispatch<React.SetStateAction<boolean>>;
   userLogin: (formData: ILogin) => Promise<void>;
   userRegister: (formData: ICreateUser) => Promise<void>;
   logout: () => void;
-  updateUser: (formData: Partial<IUser>) => Promise<void>
-  profileEditModal: boolean
-  setProfileEditModal: React.Dispatch<React.SetStateAction<boolean>>
-  deleteUser: () => Promise<void>
+
+  sendEmail: (sendEmailData: ResetEmailData) => void;
+  resetPassword: (resetPasswordData: ResetPasswordData, token: string) => void;
+
+  updateUser: (formData: Partial<IUser>) => Promise<void>;
+  profileEditModal: boolean;
+  setProfileEditModal: React.Dispatch<React.SetStateAction<boolean>>;
+  deleteUser: () => Promise<void>;
 }
 
 export interface IDefaultProviderProps {
