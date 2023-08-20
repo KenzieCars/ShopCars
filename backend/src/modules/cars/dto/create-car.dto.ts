@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsInt, IsString } from 'class-validator';
+import { IsBoolean, IsInt, IsString } from 'class-validator';
 
 export class CreateCarDto {
   @ApiProperty()
@@ -37,5 +37,9 @@ export class CreateCarDto {
   @ApiProperty()
   @IsString()
   imgCover: string;
+
+  @ApiProperty()
+  @IsBoolean()
+  bestPrice: boolean
 
 }
