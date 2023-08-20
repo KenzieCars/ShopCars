@@ -56,7 +56,6 @@ export const UserProvider = ({ children }: IDefaultProviderProps) => {
               },
             }
           );
-          console.log(response.data);
           setUserIdCars(response.data);
 
           setUser(response.data);
