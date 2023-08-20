@@ -38,12 +38,13 @@ export interface IUser {
   seller: boolean;
   cellPhone: string;
   cpf: string;
+  cep: string;
   dateOfBirth: string;
   description: string;
   city: string;
   state: string;
   street: string;
-  number: string | number;
+  number: string | number | any;
   complement: string;
   isAdmin: boolean;
 }

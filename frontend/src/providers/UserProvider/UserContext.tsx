@@ -57,7 +57,6 @@ export const UserProvider = ({ children }: IDefaultProviderProps) => {
               },
             }
           );
-          console.log(response.data);
           setUserIdCars(response.data);
 
           setUser(response.data);
@@ -138,6 +137,7 @@ export const UserProvider = ({ children }: IDefaultProviderProps) => {
       toast.error("Password reset error, please try again");
     }
   };
+
   const updateUser = async (formData: Partial<IUser>) => {
     const token = localStorage.getItem("@userToken");
     const id = localStorage.getItem("@userId");
@@ -158,11 +158,6 @@ export const UserProvider = ({ children }: IDefaultProviderProps) => {
         ...previousUser,
         ...res.data
       }))
-
-      setUser((previousUser) => ({
-        ...previousUser,
-        ...res.data,
-      }));
 
       toast.success("Usuário atualizado");
     } catch (error) {
