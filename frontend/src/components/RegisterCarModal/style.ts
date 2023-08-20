@@ -110,23 +110,15 @@ export const FieldsetModal = styled.fieldset`
     > label {
         color: var(--gray);
         font-size: .8rem;
-    }
+        }
 
-    > select {
+        > select {
         padding: .7rem 1rem;
         border-radius: 8px;
         border: 2px solid var(--white);
         outline: none;
         color: var(--gray);
         transition: .2s ease;
-        
-
-        > option {
-            max-height: 100px;
-            height: 100px;
-
-            
-        }
     }
 
     > textarea {
@@ -235,3 +227,4 @@ export const ErrorModal = styled.p`
     letter-spacing: .04rem;
     transition: .4s ease;
 `
+

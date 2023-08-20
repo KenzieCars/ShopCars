@@ -30,9 +30,13 @@ const GlobalStyle = createGlobalStyle`
     border-radius: 6px;
   }
 
-  /* *{
+  option {
+    max-height: 100px;
+  }
+
+  *{
     scrollbar-width: thin;
-    scrollbar-color: var(--light-gray) ;
+    scrollbar-color: var(--primary-color) ;
   }
   *::-webkit-scrollbar {
     width: 5px; 
@@ -41,8 +45,8 @@ const GlobalStyle = createGlobalStyle`
     background: none;
   }
   *::-webkit-scrollbar-thumb {
-    background-color: var(--light-gray);    
-  } */
+    background-color: var(--primary-color);    
+  }
 `
 
 export default GlobalStyle

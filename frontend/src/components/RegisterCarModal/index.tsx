@@ -18,11 +18,13 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import useOutClick from '../../hooks/useOutclick'
 import useEscapeKey from '../../hooks/useEscapeKey'
 import {
+    bestPriceReckoning,
     getFuelTipe, handleKm, handleValue, numberToMoney,
     rectifyKm, rectifyPrice, registerCarSchema
 } from './utils'
 import { AxiosResponse } from 'axios'
 import { CarContext } from '../../providers/CarProvider/CarContext'
+import { UserContext } from '../../providers/UserProvider/UserContext'
 
 const carInfoDefault = {
     brand: 'brand',
@@ -45,7 +47,8 @@ const RegisterCarModal = ({ setModal }: IModalProps) => {
     const [carInfo, setCarInfo] = useState(carInfoDefault)
     const [extraImagesFields, setExtraImagesFields] = useState(0)
 
-    const { carRegister, registerCarImage } = useContext(CarContext)
+    const { carRegister, registerCarImage, allcars, setAllCars } = useContext(CarContext)
+    const { user } = useContext(UserContext)
 
     const modalRef = useOutClick(() => setModal(false));
     const buttonRef = useEscapeKey('Escape', (element) => {
@@ -91,27 +94,30 @@ const RegisterCarModal = ({ setModal }: IModalProps) => {
 
         createCarData.price = rectifyPrice(createCarData.price)
         createCarData.km = rectifyKm(createCarData.km)
+        createCarData.bestPrice = bestPriceReckoning(carInfo.value, createCarData.price)
 
         const { imgs } = createCarData
         delete createCarData.imgs
 
         let carId: string = ''
 
-        // await carRegister(createCarData)
-        //     .then((res: AxiosResponse) => {
-        //         carId = res.data.id
-        //     }).then(async () => {
-        //         for (let index = 0; index < imgs.length; index++) {
-        //             const addImageObject = {
-        //                 imgGalery: imgs[index],
-        //                 carId: carId
-        //             }
-        //             await registerCarImage(addImageObject)
-        //         }
-        //     }).catch((error) => console.log(error))
-
-        console.log(imgs)
-        console.log(createCarData)
+        await carRegister(createCarData)
+            .then((res: AxiosResponse) => {
+                carId = res.data.id
+                let newCarsArray = allcars
+                newCarsArray.push({ ...res.data, user: user })
+                setAllCars(newCarsArray)
+                console.log(allcars)
+            }).then(async () => {
+                for (let index = 0; index < imgs.length; index++) {
+                    const addImageObject = {
+                        imgGalery: imgs[index],
+                        carId: carId
+                    }
+                    await registerCarImage(addImageObject)
+                }
+                setModal(false)
+            }).catch((error) => console.log(error))
     }
 
     const addImageField = (): number[] => {
@@ -127,7 +133,8 @@ const RegisterCarModal = ({ setModal }: IModalProps) => {
         const errorField = errors.imgs || null
 
         if (errorField) {
-            return <ErrorModal>{errors.imgs[field]?.message}</ErrorModal>
+            const errorMessage = errors.imgs![field]?.message
+            return <ErrorModal>{errorMessage}</ErrorModal>
         }
         return null
     }
@@ -191,7 +198,7 @@ const RegisterCarModal = ({ setModal }: IModalProps) => {
                         </FieldsetModal>
                         <FieldsetModal>
                             <label>Cor</label>
-                            <select disabled={loadModels} {...register('color')}>
+                            <select disabled={loadModels} {...register('color')} >
                                 <option value=''>Selecione a cor</option>
                                 <option value='branca'>Branca</option>
                                 <option value='preta'>Preta</option>
@@ -214,7 +221,7 @@ const RegisterCarModal = ({ setModal }: IModalProps) => {
                         </FieldsetModal>
                         <FieldsetModal>
                             <label>Preço</label>
-                            <input placeholder='R$ 50.000,00' onKeyUp={(event) => handleValue(event)}
+                            <input placeholder={carInfo ? `${numberToMoney(Math.round((carInfo.value * 1.1)))} (Bom preço)` : 'R$ 50.000,00'} onKeyUp={(event) => handleValue(event)}
                                 {...register('price')} maxLength={17} />
                             {errors.price?.message && <ErrorModal>{errors.price.message}</ErrorModal>}
                         </FieldsetModal>
@@ -232,13 +239,11 @@ const RegisterCarModal = ({ setModal }: IModalProps) => {
                     <FieldsetModal>
                         <label>1º imagem da galeria</label>
                         <input placeholder='url da imagem' {...register('imgs.0')} />
-                        {/* {errors.imgs?.message ? <ErrorModal>{errors.imgs[0]!.message}</ErrorModal> : null} */}
                         {handleErrorField(0)}
                     </FieldsetModal>
                     <FieldsetModal>
                         <label>2º imagem da galeria</label>
                         <input placeholder='url da imagem' {...register('imgs.1')} />
-                        {/* {errors.imgs?.message && <ErrorModal>{errors.imgs[1]!.message}</ErrorModal>} */}
                         {handleErrorField(1)}
                     </FieldsetModal>
                     {extraImagesFields > 0 ? (<>
@@ -246,13 +251,12 @@ const RegisterCarModal = ({ setModal }: IModalProps) => {
                             <FieldsetModal key={`extraField${field}`}>
                                 <label>{field + 3}º imagem da galeria</label>
                                 <input placeholder='url da imagem' {...register(`imgs.${field + 2}`)} />
-                                {/* {errors.imgs[field + 2]?.message && <ErrorModal>{errors.imgs[field + 2].message}</ErrorModal>} */}
                                 {handleErrorField(field + 2)}
                             </FieldsetModal>
                         ))}
                     </>) : null}
                     <AddImagesContainer>
-                        <button type='button' onClick={() => setExtraImagesFields(extraImagesFields + 1)}>Adicionar campo para imagem</button>
+                        {extraImagesFields < 8 ? <button type='button' onClick={() => setExtraImagesFields(extraImagesFields + 1)}>Adicionar campo para imagem</button> : null}
                         {/* {extraImagesFields > 0 ?
                             <button type='button' className='remove' onClick={() => setExtraImagesFields(extraImagesFields - 1)}
                             >Remover campo</button> : null} */}

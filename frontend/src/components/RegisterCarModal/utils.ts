@@ -81,3 +81,9 @@ export const registerCarSchema = z.object({
     price: z.string().nonempty('Preço é obrigatório *'),
     imgs: z.string().nonempty('Imagem da galeria é obrigatório *').url('Deve ser uma fonte url da imagem *').array()
 })
+
+export const bestPriceReckoning = (fipePrice: number, inputPrice: number) => {
+    const result = inputPrice > fipePrice * 1.1 ?
+        false : true
+    return result
+}

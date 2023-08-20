@@ -31,14 +31,13 @@ export const UserProvider = ({ children }: IDefaultProviderProps) => {
               },
             }
           );
-            console.log(response.data)
           setUserIdCars(response.data);
 
           setUser(response.data);
 
           setListCarsUser(response.data.cars);
 
-          if(!response.data.seller){
+          if (!response.data.seller) {
             navigate("/userPage");
           }
           else {
@@ -52,7 +51,7 @@ export const UserProvider = ({ children }: IDefaultProviderProps) => {
       userLogged();
     }
   }, []);
-  
+
   const userLogin = async (formData: ILogin) => {
     try {
       setLoading(true);
@@ -66,13 +65,13 @@ export const UserProvider = ({ children }: IDefaultProviderProps) => {
 
       toast.success("Logged in!");
 
-      if(!res.data.seller){
+      if (!res.data.seller) {
         navigate("/userPage");
       }
       else {
         navigate("/profile")
       }
-      
+
     } catch (error) {
       console.log(error);
 
@@ -121,7 +120,7 @@ export const UserProvider = ({ children }: IDefaultProviderProps) => {
           Authorization: `Bearer ${token}`
         }
       })
-    
+
       setUser(previousUser => ({
         ...previousUser,
         ...res.data
