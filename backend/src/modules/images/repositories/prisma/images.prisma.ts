@@ -60,4 +60,5 @@ export class ImagesPrismaRepository implements ImagesRepository {
       where: { id },
     });
   }
+
 }
