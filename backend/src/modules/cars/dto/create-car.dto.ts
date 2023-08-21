@@ -2,40 +2,45 @@ import { ApiProperty } from '@nestjs/swagger';
 import { IsInt, IsString } from 'class-validator';
 
 export class CreateCarDto {
-  @ApiProperty()
+  @ApiProperty({ default: 'Zonda' })
   @IsString()
   brand: string;
 
-  @ApiProperty()
+  @ApiProperty({ default: 'Pagani Zonda HP Barchetta' })
   @IsString()
   model: string;
 
-  @ApiProperty()
+  @ApiProperty({ default: '2022' })
   @IsString()
   year: string;
 
-  @ApiProperty()
+  @ApiProperty({ default: 0 })
   @IsInt()
   km: number;
 
-  @ApiProperty()
+  @ApiProperty({ default: 'azul' })
   @IsString()
   color: string;
 
-  @ApiProperty()
+  @ApiProperty({ default: 'elétrico' })
   @IsString()
   fuel: string;
 
-  @ApiProperty()
+  @ApiProperty({ default: 140000 })
   @IsInt()
   price: number;
 
-  @ApiProperty()
+  @ApiProperty({
+    default:
+      'O Pagani Zonda HP Barchetta é um superesportivo que teve apenas três unidades produzidas.',
+  })
   @IsString()
   description: string;
 
-  @ApiProperty()
+  @ApiProperty({
+    default:
+      'https://www.otempo.com.br/image/policy:1.2890015:1686947541/pagani_zonda_hp_barchetta_745.jpeg?f=3x2&w=400&q=0.3',
+  })
   @IsString()
   imgCover: string;
-
 }

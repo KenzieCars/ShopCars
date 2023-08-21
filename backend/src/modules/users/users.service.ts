@@ -8,6 +8,7 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { UsersRepository } from './repositories/users.repository';
 import { MailService } from '../utils/mail.service';
 import { randomUUID } from 'crypto';
+import { InformEmailDto, InformNewPasswordDto, TokenDto } from './dto/send-email.dto';
 
 @Injectable()
 export class UsersService {
@@ -71,8 +72,8 @@ export class UsersService {
     return this.usersRepository.delete(id);
   }
 
-  async sendEmailResetPassword(email: string) {
-    const user = await this.usersRepository.findByEmail(email);
+  async sendEmailResetPassword(informEmailDto: InformEmailDto) {
+    const user = await this.usersRepository.findByEmail(informEmailDto.email);
 
     if (!user) {
       throw new NotFoundException('User Not found');
@@ -80,23 +81,23 @@ export class UsersService {
 
     const resetToken = randomUUID();
 
-    await this.usersRepository.updateToken(email, resetToken);
+    await this.usersRepository.updateToken(informEmailDto.email, resetToken);
 
     const resetPasswordTemplate = await this.mailService.resetPasswordTemplate(
-      email,
+      informEmailDto.email,
       user.name,
       resetToken,
     );
     await this.mailService.sendEmail(resetPasswordTemplate);
   }
 
-  async resetPassword(password: string, resetToken: string) {
-    const user = await this.usersRepository.findByToken(resetToken);
+  async resetPassword(informNewPasswordDto: InformNewPasswordDto, tokenDto: TokenDto) {
+    const user = await this.usersRepository.findByToken(tokenDto.token);
 
     if (!user) {
       throw new NotFoundException('User Not found');
     }
 
-    await this.usersRepository.updatePassword(user.id, password);
+    await this.usersRepository.updatePassword(user.id, informNewPasswordDto.password);
   }
 }
