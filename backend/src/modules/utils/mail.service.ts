@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { MailerService } from '@nestjs-modules/mailer';
-import { SendEmaildto } from '../users/dto/send-email.dto';
+import { SendEmailDto } from '../users/dto/send-email.dto';
 import * as Mailgen from 'mailgen';
 
 const mailGenerator = new Mailgen({
@@ -15,7 +15,7 @@ const mailGenerator = new Mailgen({
 export class MailService {
   constructor(private readonly mailerService: MailerService) {}
 
-  async sendEmail({ to, subject, text }: SendEmaildto) {
+  async sendEmail({ to, subject, text }: SendEmailDto) {
     await this.mailerService
       .sendMail({
         to,

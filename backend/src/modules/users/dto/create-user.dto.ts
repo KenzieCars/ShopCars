@@ -1,4 +1,4 @@
-import { ApiProperty } from '@nestjs/swagger';
+import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { Transform } from 'class-transformer';
 import {
   IsString,
@@ -12,15 +12,15 @@ import {
 import { hashSync } from 'bcryptjs';
 
 export class CreateUserDto {
-  @ApiProperty()
+  @ApiProperty({ default: 'Fulano de Tal' })
   @IsString()
   name: string;
 
-  @ApiProperty()
+  @ApiProperty({ default: 'fulanodetal@mail.com' })
   @IsEmail()
   email: string;
 
-  @ApiProperty()
+  @ApiProperty({ default: '12345678' })
   @IsString()
   @MinLength(8)
   @IsNotEmpty()
@@ -29,56 +29,56 @@ export class CreateUserDto {
   })
   password: string;
 
-  @ApiProperty()
+  @ApiPropertyOptional({ default: false })
   @IsOptional()
   @IsBoolean()
   seller: boolean;
 
-  @ApiProperty()
+  @ApiPropertyOptional({ default: false })
   @IsOptional()
   @IsBoolean()
   isAdm: boolean;
 
-  @ApiProperty()
+  @ApiProperty({ default: '(11) 92345-6789' })
   @IsString()
   cellPhone: string;
 
-  @ApiProperty()
+  @ApiProperty({ default: '012.345.678-90' })
   @IsString()
   cpf: string;
 
-  @ApiProperty()
+  @ApiProperty({ default: '1985/10/30' })
   @IsString()
   dateOfBirth: string;
 
-  @ApiProperty()
+  @ApiProperty({ default: 'Vendedora de ...' })
   @IsString()
   description: string;
 
-  @ApiProperty()
+  @ApiProperty({ default: 'Florianópolis' })
   @IsString()
   city: string;
 
-  @ApiProperty()
+  @ApiProperty({ default: 'SC' })
   @IsString()
   state: string;
 
-  @ApiProperty()
+  @ApiPropertyOptional({ default: 'São Bento' })
   @IsString()
   @IsOptional()
   street: string | null;
 
-  @ApiProperty()
+  @ApiPropertyOptional({ default: 15 })
   @IsInt()
   @IsOptional()
   number: number | null;
 
-  @ApiProperty()
+  @ApiPropertyOptional({ default: 'Casa tal' })
   @IsString()
   @IsOptional()
   complement: string | null;
 
-  @ApiProperty()
+  @ApiPropertyOptional({ default: '99.999-999' })
   @IsString()
   @IsOptional()
   cep: string | null;
