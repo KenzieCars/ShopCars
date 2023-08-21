@@ -45,6 +45,7 @@ export interface IUser {
   street: string;
   number: number;
   complement: string;
+  cep: string;
   isAdmin: boolean;
 }
 
