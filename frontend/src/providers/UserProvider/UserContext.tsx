@@ -4,7 +4,11 @@ import { IDefaultProviderProps, ILogin, IUser, IUserContext } from "./@types";
 import { api } from "../../services/api";
 import { toast } from "react-toastify";
 import { ICreateUser } from "../../components/RegisterForm/@types";
-import { ICar, TUserCarsResponse } from "../CarProvider/@types";
+import {
+  ICar,
+  // TDataCarResponse,
+  TUserCarsResponse,
+} from "../CarProvider/@types";
 
 export const UserContext = createContext({} as IUserContext);
 
@@ -30,7 +34,6 @@ export const UserProvider = ({ children }: IDefaultProviderProps) => {
               },
             }
           );
-          console.log(response.data.cars);
           setUserIdCars(response.data);
 
           setUser(response.data);
@@ -105,6 +108,9 @@ export const UserProvider = ({ children }: IDefaultProviderProps) => {
 
     navigate("/login");
   };
+
+  // logica Gedson para sear a lista e paginar página Profile
+  // const [allcarsUser, setAllcarsUser] = useState<TDataCarResponse[] | []>([]);
 
   return (
     <UserContext.Provider
