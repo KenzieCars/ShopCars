@@ -65,4 +65,5 @@ export class CommentsPrismaRepository implements CommentsRepository {
       where: { id },
     });
   }
+
 }
