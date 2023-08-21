@@ -46,6 +46,9 @@ export class CarsService {
       throw new NotFoundException('Car not found');
     }
 
+    // await this.imagesRepository.deleteMany(id);
+    // await this.commentsRepository.deleteMany(id);
+
     return this.carsRepository.delete(id);
   }
 }
