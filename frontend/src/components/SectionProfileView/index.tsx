@@ -4,21 +4,21 @@ import { UserContext } from "../../providers/UserProvider/UserContext"
 import RegisterCarModal from "../RegisterCarModal"
 
 const SectionProfileInfo = () => {
-  const { user } = useContext(UserContext)
+  const { userIdCars } = useContext(UserContext)
   const [modal, setModal] = useState(false)
 
   return (
     <SectionProfileInfoComponent>
       {modal && <RegisterCarModal setModal={setModal} />}
       <UserDiv>
-        <SiglaUser>{user?.name[0]}</SiglaUser>
+        <SiglaUser>{userIdCars?.name[0]}</SiglaUser>
         <div>
-          <span>{user?.name}</span>
-          {user?.seller === true ? <span>Anunciante</span> : <span>Comprador</span>}
+          <span>{userIdCars?.name}</span>
+          {userIdCars?.seller === true ? <span>Anunciante</span> : <span>Comprador</span>}
         </div>
       </UserDiv>
-      <p>{user?.description}</p>
-      {user?.seller === true ? <ButtonCreate onClick={() => setModal(true)}>Criar anúncio</ButtonCreate> : null}
+      <p>{userIdCars?.description}</p>
+      {userIdCars?.seller === true ? <ButtonCreate onClick={() => setModal(true)}>Criar anúncio</ButtonCreate> : null}
     </SectionProfileInfoComponent>
   )
 }

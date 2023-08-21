@@ -1,4 +1,4 @@
-import { createContext, useState, useEffect } from "react";
+import { createContext, useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { IDefaultProviderProps, ILogin, IUser, IUserContext } from "./@types";
 import { api } from "../../services/api";
@@ -11,6 +11,7 @@ import {
 } from "../CarProvider/@types";
 import { ResetEmailData } from "../../components/ModalSendEmail/@types";
 import { ResetPasswordData } from "../../components/ModalResetPassword/@types";
+import { CarContext } from "../CarProvider/CarContext";
 
 export const UserContext = createContext({} as IUserContext);
 
@@ -21,8 +22,14 @@ export const UserProvider = ({ children }: IDefaultProviderProps) => {
   const [listCarsUser, setListCarsUser] = useState<ICar[] | []>([]);
   const [userIdCars, setUserIdCars] = useState<TUserCarsResponse | null>(null);
   const [modalForgottenOpen, setModalForgottenOpen] = useState<boolean>(false);
-
+  const [profileEditModal, setProfileEditModal] = useState(false);
+  const [addressEditModal, setAddressEditModal] = useState(false);
+  const [allcarsUser, setAllcarsUser] = useState<TDataCarResponse[] | []>([]);
+  const [allcarsUserPerPage, setAllcarsUserPerPage] = useState<TDataCarResponse[] | []>([]);
+  const [cardModal, setCardModal] = useState(false)
+  
   const [currentPageprofile, setCurrentPageprofile] = useState(1);
+  const { allcars } = useContext(CarContext)
 
   const userLogin = async (formData: ILogin) => {
     try {
@@ -30,6 +37,8 @@ export const UserProvider = ({ children }: IDefaultProviderProps) => {
       const res = await api.post("/login", formData);
 
       setUser(res.data);
+
+      setUserIdCars(res.data);
 
       localStorage.setItem("@userToken", res.data.token);
       localStorage.setItem("@userId", res.data.id);
@@ -50,8 +59,6 @@ export const UserProvider = ({ children }: IDefaultProviderProps) => {
       setLoading(false);
     }
   };
-  const [profileEditModal, setProfileEditModal] = useState(false);
-  const [addressEditModal, setAddressEditModal] = useState(false);
 
   useEffect(() => {
     const token = localStorage.getItem("@userToken");
@@ -85,7 +92,7 @@ export const UserProvider = ({ children }: IDefaultProviderProps) => {
       };
       userLogged();
     }
-  }, []);
+  }, [allcarsUserPerPage, allcars]);
 
   const userRegister = async (formData: ICreateUser) => {
     try {
@@ -200,11 +207,6 @@ export const UserProvider = ({ children }: IDefaultProviderProps) => {
     }
   };
 
-  const [allcarsUser, setAllcarsUser] = useState<TDataCarResponse[] | []>([]);
-  const [allcarsUserPerPage, setAllcarsUserPerPage] = useState<
-    TDataCarResponse[] | []
-  >([]);
-
   const itemsPerPage = 12;
 
   const carUser = async () => {
@@ -269,6 +271,8 @@ export const UserProvider = ({ children }: IDefaultProviderProps) => {
         currentPageprofile,
         setCurrentPageprofile,
         allcarsUser,
+        cardModal,
+        setCardModal
       }}
     >
       {children}

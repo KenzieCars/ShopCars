@@ -1,4 +1,4 @@
-import React, { LegacyRef, useContext, useEffect, useRef, useState } from "react";
+import React, { useContext, useState } from "react";
 import { Menu } from "@mui/material";
 import LogoHeader from "../../../public/LogoHeader.png";
 import { useMediaQuery } from "@mui/material";
@@ -8,13 +8,11 @@ import { DivHeader, MobileNav, ButtonHeader, Nav, UserHeaderContainer } from "./
 import { Link, useNavigate } from "react-router-dom";
 import { UserContext } from "../../providers/UserProvider/UserContext";
 import UserModalHeader from "./UserModalHeader";
-import useOutClick from "../../hooks/useOutclick";
 
 const Header = () => {
   const { user } = useContext(UserContext);
   const [menuAnchor, setMenuAnchor] = useState<null | HTMLElement>(null);
   const [userModalHeader, setUserModalHeader] = useState(false)
-  const modalRef = useOutClick(() => setUserModalHeader(false));
 
   const navigate = useNavigate();
 
@@ -37,20 +35,6 @@ const Header = () => {
 
   const isMobile = useMediaQuery("(max-width: 700px)");
 
-  useEffect(() => {
-    const handleOutClick = (e: any) => {
-      if (!modalRef.current?.contains(e.target)) {
-        setUserModalHeader(false)
-      }
-    }
-
-    window.addEventListener('mousedown', handleOutClick)
-
-    return () => {
-      window.removeEventListener('mousedown', handleOutClick)
-    }
-  }, [])
-
   return (
     <>
       <DivHeader>
@@ -72,7 +56,7 @@ const Header = () => {
                   <UserHeaderContainer onClick={() => setUserModalHeader(!userModalHeader)}>
                     <span>{user.name[0]}</span>
                     <span>{user.name.split(" ")[0]}</span>
-                    {userModalHeader && <UserModalHeader ref={modalRef as LegacyRef<HTMLDivElement>} />}
+                    {userModalHeader && <UserModalHeader />}
                   </UserHeaderContainer>
                 ) : (
                   <>
@@ -93,7 +77,7 @@ const Header = () => {
               <UserHeaderContainer onClick={() => setUserModalHeader(!userModalHeader)}>
                 <span>{user.name[0]}</span>
                 <span>{user.name.split(" ")[0]}</span>
-                  {userModalHeader && <UserModalHeader ref={modalRef as LegacyRef<HTMLDivElement>} />}
+                  {userModalHeader && <UserModalHeader />}
               </UserHeaderContainer>
             ) : (
               <>

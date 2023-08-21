@@ -1,4 +1,4 @@
-import { useContext, useState } from "react"
+import { useContext, useState, useEffect } from "react"
 import { UserContext } from "../../providers/UserProvider/UserContext"
 import { BackgroundModalEditProfile, ButtonContainer, FieldsetContainer, FormContainer, TitleContainer } from "./style"
 

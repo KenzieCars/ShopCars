@@ -32,6 +32,8 @@ export interface IUserContext {
   currentPageprofile: number;
   setCurrentPageprofile: React.Dispatch<React.SetStateAction<number>>;
   allcarsUser: [] | TDataCarResponse[];
+  cardModal: boolean;
+  setCardModal: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export interface IDefaultProviderProps {

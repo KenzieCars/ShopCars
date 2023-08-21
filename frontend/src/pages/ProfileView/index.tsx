@@ -1,4 +1,4 @@
-import { useContext, useEffect, useRef } from "react";
+import { useContext } from "react";
 import CardAdmin from "../../components/CardHome/CardAdmin";
 import EditProfileModal from "../../components/EditProfileModal";
 import Footer from "../../components/Footer";
@@ -12,30 +12,12 @@ import EditAddressModal from "../../components/EditProfileModal/EditAddressModal
 import { ButtonNext, NextButtonContainer } from "../Home/style";
 
 const ProfileView = () => {
-  const { setProfileEditModal, setAddressEditModal, addressEditModal } = useContext(UserContext)
-  const modalRef = useRef(null)
-
-  useEffect(() => {
-    const handleOutClick = (event: any) => {
-      if (!modalRef.current?.contains(event.target)) {
-        setProfileEditModal(false)
-        setAddressEditModal(false)
-      }
-    }
-
-    window.addEventListener('mousedown', handleOutClick)
-
-    return () => {
-      window.removeEventListener('mousedown', handleOutClick)
-    }
-  }, [])
-
-const ProfileView = () => {
   const {
     profileEditModal,
     currentPageprofile,
     setCurrentPageprofile,
     allcarsUser,
+    addressEditModal
   } = useContext(UserContext);
 
   const itemsPerPage = 12;
@@ -52,9 +34,8 @@ const ProfileView = () => {
           <CardAdmin />
         </CardListProfile>
       </MainContainerProfile>
-      {profileEditModal && <EditProfileModal ref={modalRef} />}
-      {addressEditModal && <EditAddressModal ref={modalRef} />}
       {profileEditModal && <EditProfileModal />}
+      {addressEditModal && <EditAddressModal />}
 
       <NextButtonContainer>
         {currentPageprofile > 1 && (
