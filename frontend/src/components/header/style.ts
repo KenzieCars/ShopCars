@@ -58,3 +58,27 @@ export const MobileNav = styled.div`
   gap: 10px;
   align-items: flex-end;
 `;
+
+export const UserHeaderContainer = styled.div`
+  display: flex;
+  align-items: center;
+  gap: .4rem;
+  
+  cursor: pointer;
+
+  > span:nth-child(1) {
+    background: var(--primary-color);
+
+    color: var(--white);
+
+    border-radius: 50%;
+
+    padding: .4rem .7rem;
+  }
+
+  > span:nth-child(2) {
+    color: var(--gray);
+
+    font-size: .8rem;
+  }
+`

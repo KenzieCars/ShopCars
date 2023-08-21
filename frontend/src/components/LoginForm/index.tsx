@@ -12,11 +12,14 @@ import {
 } from "./style";
 import { ILogin } from "../../providers/UserProvider/@types";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { UserContext } from "../../providers/UserProvider/UserContext";
+import { BsEyeFill, BsEyeSlashFill } from 'react-icons/bs'
 
 const LoginForm = () => {
   const { userLogin } = useContext(UserContext);
+  const [showPass, setShowPass] = useState<'text' | 'password'>('password');
+
   const schema = z.object({
     email: z.string().email("Deve ser um e-mail"),
     password: z.string().nonempty("Senha é obrigatória"),
@@ -33,6 +36,14 @@ const LoginForm = () => {
   const submit: SubmitHandler<ILogin> = async (data: ILogin) => {
     await userLogin(data);
   };
+
+  const togglePassVisibility = (): void => {
+    if (showPass === 'password') {
+      setShowPass('text')
+    } else {
+      setShowPass('password')
+    }
+  }
 
   return (
     <MainContainerLogin>
@@ -54,13 +65,16 @@ const LoginForm = () => {
         <FieldsetLogin>
           <label>Password</label>
           <input
-            type="password"
+            type={showPass}
             placeholder="Your password"
             {...register("password")}
           />
           {errors.password?.message ? (
             <Error>{errors.password.message} *</Error>
           ) : null}
+          {showPass === 'password' ?
+            <BsEyeFill onClick={() => togglePassVisibility()} /> :
+            <BsEyeSlashFill onClick={() => togglePassVisibility()} />}
         </FieldsetLogin>
         <ForgotMyPassword>
           <span>Esqueci minha senha</span>
@@ -70,7 +84,7 @@ const LoginForm = () => {
           <ButtonToRegister to="/register">
             Ainda não possui conta?
           </ButtonToRegister>
-          <button type="button">Cadastrar</button>
+          <ButtonToRegister type="button" to='/register'>Cadastrar</ButtonToRegister>
         </ButtonContainer>
       </FormLoginContainer>
     </MainContainerLogin>

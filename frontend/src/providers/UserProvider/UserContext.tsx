@@ -1,6 +1,6 @@
 import { createContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { IDefaultProviderProps, ILogin, IUserContext } from "./@types";
+import { IDefaultProviderProps, ILogin, IUser, IUserContext } from "./@types";
 import { api } from "../../services/api";
 import { toast } from "react-toastify";
 import { ICreateUser } from "../../components/RegisterForm/@types";
@@ -10,10 +10,11 @@ export const UserContext = createContext({} as IUserContext);
 
 export const UserProvider = ({ children }: IDefaultProviderProps) => {
   const navigate = useNavigate();
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState<IUser | null>(null);
   const [loading, setLoading] = useState(false);
   const [listCarsUser, setListCarsUser] = useState<ICar[] | []>([]);
   const [userIdCars, setUserIdCars] = useState<TUserCarsResponse | null>(null);
+  const [profileEditModal, setProfileEditModal] = useState(false);
 
   useEffect(() => {
     const token = localStorage.getItem("@userToken");
@@ -33,6 +34,7 @@ export const UserProvider = ({ children }: IDefaultProviderProps) => {
 
           setUserIdCars(response.data);
 
+          setUser(response.data);
 
           setListCarsUser(response.data.cars);
 
@@ -109,6 +111,52 @@ export const UserProvider = ({ children }: IDefaultProviderProps) => {
     navigate("/login");
   };
 
+  const updateUser = async (formData: Partial<IUser>) => {
+    const token = localStorage.getItem("@userToken");
+    const id = localStorage.getItem("@userId");
+
+    try {
+      const res = await api.patch(`/users/${id}`, formData, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      })
+    
+      setUser(previousUser => ({
+        ...previousUser,
+        ...res.data
+      }))
+
+      toast.success('Usuário atualizado')
+    } catch (error) {
+      console.log(error)
+      toast.error('Falha ao atualizar usuário')
+    }
+  };
+
+  const deleteUser = async () => {
+    const token = localStorage.getItem("@userToken");
+    const id = localStorage.getItem("@userId");
+
+    try {
+      await api.delete(`/users/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      })
+
+      setUser(null)
+      localStorage.clear()
+
+      toast.success('Conta deletada')
+
+      navigate('/login')
+    } catch (error) {
+      console.log(error)
+      toast.error('Algo deu errado :(')
+    }
+  }
+
   return (
     <UserContext.Provider
       value={{
@@ -122,6 +170,10 @@ export const UserProvider = ({ children }: IDefaultProviderProps) => {
         userIdCars,
         setListCarsUser,
         setUserIdCars,
+        updateUser,
+        profileEditModal,
+        setProfileEditModal,
+        deleteUser
       }}
     >
       {children}
