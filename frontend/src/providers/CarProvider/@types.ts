@@ -11,6 +11,8 @@ export interface ICarContext {
   editeCar: (formData: TCarUpdate, carId: string) => Promise<void>;
   deleteCar: (carId: string) => Promise<void>;
   registerCarImage: (payload: IImageRequest) => Promise<void>;
+  profile: ICar[];
+  setProfile: React.Dispatch<React.SetStateAction<[] | ICar[]>>;
 }
 export interface IDefaultProviderProps {
   children: React.ReactNode;

@@ -13,7 +13,7 @@ import { CarContext } from "../../../providers/CarProvider/CarContext";
 import NothingHere from "../../NothingHere";
 
 const CardAdmin = () => {
-  const { allcars } = useContext(CarContext)
+  const { profile, allcars } = useContext(CarContext)
 
   if (allcars.length === 0) return <NothingHere />;
 
@@ -30,8 +30,8 @@ const CardAdmin = () => {
             </h3>
             <p>{car.description}</p>
             <ContactUserContainer>
-              <span>{car.user.name[0]}</span>
-              <span>{car.user.name}</span>
+              {/* <span>{car.user.name[0]}</span>
+              <span>{car.user.name}</span> */}
             </ContactUserContainer>
             <ContainerInfoCar>
               <div>

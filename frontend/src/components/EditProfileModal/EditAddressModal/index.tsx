@@ -6,7 +6,6 @@ const EditAddressModal = () => {
   const { updateUser, user, userIdCars, addressEditModal, setAddressEditModal } = useContext(UserContext)
 
   const [formData, setFormData] = useState({
-    // OBS: alterar CPF para CEP
     cep: user?.cep || '',
     state: user?.state || '',
     city: user?.city || '',

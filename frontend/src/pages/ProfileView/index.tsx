@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useEffect, useRef } from "react";
 import CardAdmin from "../../components/CardHome/CardAdmin";
 import EditProfileModal from "../../components/EditProfileModal";
 import Footer from "../../components/Footer";
@@ -10,7 +10,23 @@ import { UserContext } from "../../providers/UserProvider/UserContext";
 import EditAddressModal from "../../components/EditProfileModal/EditAddressModal";
 
 const ProfileView = () => {
-  const { profileEditModal, addressEditModal } = useContext(UserContext)
+  const { profileEditModal, setProfileEditModal, setAddressEditModal, addressEditModal } = useContext(UserContext)
+  const modalRef = useRef(null)
+
+  useEffect(() => {
+    const handleOutClick = (event: any) => {
+      if (!modalRef.current?.contains(event.target)) {
+        setProfileEditModal(false)
+        setAddressEditModal(false)
+      }
+    }
+
+    window.addEventListener('mousedown', handleOutClick)
+
+    return () => {
+      window.removeEventListener('mousedown', handleOutClick)
+    }
+  }, [])
 
   return (
     <>
@@ -21,8 +37,8 @@ const ProfileView = () => {
           <CardAdmin />
         </CardListProfile>
       </MainContainerProfile>
-      {profileEditModal && <EditProfileModal />}
-      {addressEditModal && <EditAddressModal />}
+      {profileEditModal && <EditProfileModal ref={modalRef} />}
+      {addressEditModal && <EditAddressModal ref={modalRef} />}
       <Footer />
     </>
   );
