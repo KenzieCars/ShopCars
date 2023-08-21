@@ -36,7 +36,7 @@ export const CarProvider = ({ children }: IDefaultProviderProps) => {
   }, []);
   const carRegister = async (formData: TCarRequest) => {
     const token = localStorage.getItem("@userToken");
-    let response: AxiosResponse<ICar> | '' = ''
+    let response: AxiosResponse<ICar> | "" = "";
     if (token) {
       try {
         response = await api.post<ICar>("/cars", formData, {
@@ -51,7 +51,7 @@ export const CarProvider = ({ children }: IDefaultProviderProps) => {
         toast.error("Car already exists.");
       }
     }
-    return response
+    return response;
   };
   const editeCar = async (formData: TCarUpdate, carId: string) => {
     const token = localStorage.getItem("@userToken");
@@ -113,12 +113,12 @@ export const CarProvider = ({ children }: IDefaultProviderProps) => {
       await api.post(`/images`, payload, {
         headers: {
           Authorization: `Bearer ${token}`,
-        }
-      })
-      toast.success('imagem cadastrada!')
+        },
+      });
+      toast.success("imagem cadastrada!");
     } catch (error) {
-      console.log(error)
-      toast.error("Error on upload images")
+      console.log(error);
+      toast.error("Error on upload images");
     }
   };
   return (
@@ -133,7 +133,7 @@ export const CarProvider = ({ children }: IDefaultProviderProps) => {
         carRegister,
         editeCar,
         deleteCar,
-        registerCarImage
+        registerCarImage,
       }}
     >
       {children}
