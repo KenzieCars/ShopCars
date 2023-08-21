@@ -37,7 +37,11 @@ export const UserProvider = ({ children }: IDefaultProviderProps) => {
 
       toast.success("Logged in!");
 
-      navigate("/profile");
+      if (!res.data.seller) {
+        navigate("/userPage");
+      } else {
+        navigate("/profile");
+      }
     } catch (error) {
       console.log(error);
 
