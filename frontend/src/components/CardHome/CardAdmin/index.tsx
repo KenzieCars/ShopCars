@@ -9,17 +9,18 @@ import {
   FlagGoodDeal,
 } from "./style";
 import { TbFlag3Filled } from "react-icons/tb";
-import { CarContext } from "../../../providers/CarProvider/CarContext";
+// import { CarContext } from "../../../providers/CarProvider/CarContext";
 import NothingHere from "../../NothingHere";
+import { UserContext } from "../../../providers/UserProvider/UserContext";
 
 const CardAdmin = () => {
-  const { allcars } = useContext(CarContext)
+  const { allcarsUserPerPage, user } = useContext(UserContext);
 
-  if (allcars.length === 0) return <NothingHere />;
-
+  if (allcarsUserPerPage.length === 0) return <NothingHere />;
+  // const user = localStorage.getItem("UserData")!;
   return (
     <>
-      {allcars.map((car) => (
+      {allcarsUserPerPage.map((car) => (
         <CardContainer key={car.id}>
           <FigureContainer>
             <img src={car.imgCover} alt={car.model} />
@@ -30,8 +31,8 @@ const CardAdmin = () => {
             </h3>
             <p>{car.description}</p>
             <ContactUserContainer>
-              <span>{car.user.name[0]}</span>
-              <span>{car.user.name}</span>
+              <span>{user?.name[0]}</span>
+              <span>{user?.name}</span>
             </ContactUserContainer>
             <ContainerInfoCar>
               <div>

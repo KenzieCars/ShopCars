@@ -14,16 +14,19 @@ import { ILogin } from "../../providers/UserProvider/@types";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useContext, useState } from "react";
 import { UserContext } from "../../providers/UserProvider/UserContext";
-import { BsEyeFill, BsEyeSlashFill } from 'react-icons/bs'
+import ModalSendEmail from "../ModalSendEmail";
+import { BsEyeFill, BsEyeSlashFill } from "react-icons/bs";
 
 const LoginForm = () => {
   const { userLogin } = useContext(UserContext);
-  const [showPass, setShowPass] = useState<'text' | 'password'>('password');
+  const [showPass, setShowPass] = useState<"text" | "password">("password");
 
   const schema = z.object({
     email: z.string().email("Deve ser um e-mail"),
     password: z.string().nonempty("Senha é obrigatória"),
   });
+
+  const { modalForgottenOpen, setModalForgottenOpen } = useContext(UserContext);
 
   const {
     register,
@@ -38,15 +41,16 @@ const LoginForm = () => {
   };
 
   const togglePassVisibility = (): void => {
-    if (showPass === 'password') {
-      setShowPass('text')
+    if (showPass === "password") {
+      setShowPass("text");
     } else {
-      setShowPass('password')
+      setShowPass("password");
     }
-  }
+  };
 
   return (
     <MainContainerLogin>
+      {modalForgottenOpen && <ModalSendEmail />}
       <FormLoginContainer onSubmit={handleSubmit(submit)}>
         <TitleLogin>
           <h3>Login</h3>
@@ -72,19 +76,29 @@ const LoginForm = () => {
           {errors.password?.message ? (
             <Error>{errors.password.message} *</Error>
           ) : null}
-          {showPass === 'password' ?
-            <BsEyeFill onClick={() => togglePassVisibility()} /> :
-            <BsEyeSlashFill onClick={() => togglePassVisibility()} />}
+          {showPass === "password" ? (
+            <BsEyeFill onClick={() => togglePassVisibility()} />
+          ) : (
+            <BsEyeSlashFill onClick={() => togglePassVisibility()} />
+          )}
         </FieldsetLogin>
         <ForgotMyPassword>
-          <span>Esqueci minha senha</span>
+          <span
+            onClick={() => {
+              setModalForgottenOpen(true);
+            }}
+          >
+            Esqueci minha senha
+          </span>
         </ForgotMyPassword>
         <ButtonContainer>
           <button type="submit">Entrar</button>
           <ButtonToRegister to="/register">
             Ainda não possui conta?
           </ButtonToRegister>
-          <button type="button">Cadastrar</button>
+          <ButtonToRegister type="button" to="/register">
+            Cadastrar
+          </ButtonToRegister>
         </ButtonContainer>
       </FormLoginContainer>
     </MainContainerLogin>

@@ -16,7 +16,7 @@ const CardHome = () => {
   const { allcars } = useContext(CarContext);
 
   if (allcars.length === 0) return <NothingHere />;
-  
+
   return (
     <>
       {allcars.map((car) => (
@@ -31,7 +31,7 @@ const CardHome = () => {
             <DescriptionWithOverFlow>
               <p>{car.description}</p>
             </DescriptionWithOverFlow>
-           
+
             <ContactUserContainer>
               <span>{car.user.name[0]}</span>
               <span>{car.user.name}</span>

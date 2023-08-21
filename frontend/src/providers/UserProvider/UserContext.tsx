@@ -6,9 +6,11 @@ import { toast } from "react-toastify";
 import { ICreateUser } from "../../components/RegisterForm/@types";
 import {
   ICar,
-  // TDataCarResponse,
+  TDataCarResponse,
   TUserCarsResponse,
 } from "../CarProvider/@types";
+import { ResetEmailData } from "../../components/ModalSendEmail/@types";
+import { ResetPasswordData } from "../../components/ModalResetPassword/@types";
 
 export const UserContext = createContext({} as IUserContext);
 
@@ -18,6 +20,33 @@ export const UserProvider = ({ children }: IDefaultProviderProps) => {
   const [loading, setLoading] = useState(false);
   const [listCarsUser, setListCarsUser] = useState<ICar[] | []>([]);
   const [userIdCars, setUserIdCars] = useState<TUserCarsResponse | null>(null);
+  const [modalForgottenOpen, setModalForgottenOpen] = useState<boolean>(false);
+
+  const [currentPageprofile, setCurrentPageprofile] = useState(1);
+
+  const userLogin = async (formData: ILogin) => {
+    try {
+      setLoading(true);
+      const res = await api.post("/login", formData);
+
+      setUser(res.data);
+
+      localStorage.setItem("@userToken", res.data.token);
+      localStorage.setItem("@userId", res.data.id);
+      setCurrentPageprofile(1);
+
+      toast.success("Logged in!");
+
+      navigate("/profile");
+    } catch (error) {
+      console.log(error);
+
+      toast.error("Something went wrong!");
+    } finally {
+      setLoading(false);
+    }
+  };
+  const [profileEditModal, setProfileEditModal] = useState(false);
 
   useEffect(() => {
     const token = localStorage.getItem("@userToken");
@@ -53,33 +82,6 @@ export const UserProvider = ({ children }: IDefaultProviderProps) => {
     }
   }, []);
 
-  const userLogin = async (formData: ILogin) => {
-    try {
-      setLoading(true);
-      const res = await api.post("/login", formData);
-
-      setUser(res.data);
-
-      localStorage.setItem("@userToken", res.data.token);
-      localStorage.setItem("@userId", res.data.id);
-      localStorage.setItem("@seller", res.data.seller);
-
-      toast.success("Logged in!");
-
-      if (!res.data.seller) {
-        navigate("/userPage");
-      } else {
-        navigate("/profile");
-      }
-    } catch (error) {
-      console.log(error);
-
-      toast.error("Something went wrong!");
-    } finally {
-      setLoading(false);
-    }
-  };
-
   const userRegister = async (formData: ICreateUser) => {
     try {
       setLoading(true);
@@ -109,8 +111,125 @@ export const UserProvider = ({ children }: IDefaultProviderProps) => {
     navigate("/login");
   };
 
-  // logica Gedson para sear a lista e paginar página Profile
-  // const [allcarsUser, setAllcarsUser] = useState<TDataCarResponse[] | []>([]);
+  const sendEmail = async (sendEmailData: ResetEmailData) => {
+    try {
+      await api.post("/users/resetPassword", sendEmailData);
+
+      toast.success("Email successfully sent");
+    } catch (error) {
+      console.log(error);
+
+      toast.error("Error send email");
+    }
+  };
+
+  const resetPassword = async (
+    resetPasswordData: ResetPasswordData,
+    token: string
+  ) => {
+    const passres = { password: resetPasswordData.password };
+    console.log(passres);
+    console.log(token);
+    console.log(resetPasswordData);
+    try {
+      await api.patch(`/users/resetPassword/${token}`, passres);
+
+      toast.success("Password changed successfully");
+
+      navigate("/login");
+    } catch (error) {
+      console.log(error);
+
+      toast.error("Password reset error, please try again");
+    }
+  };
+  const updateUser = async (formData: Partial<IUser>) => {
+    const token = localStorage.getItem("@userToken");
+    const id = localStorage.getItem("@userId");
+
+    try {
+      const res = await api.patch(`/users/${id}`, formData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      setUser((previousUser) => ({
+        ...previousUser,
+        ...res.data,
+      }));
+
+      toast.success("Usuário atualizado");
+    } catch (error) {
+      console.log(error);
+      toast.error("Falha ao atualizar usuário");
+    }
+  };
+
+  const deleteUser = async () => {
+    const token = localStorage.getItem("@userToken");
+    const id = localStorage.getItem("@userId");
+
+    try {
+      await api.delete(`/users/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      setUser(null);
+      localStorage.clear();
+
+      toast.success("Conta deletada");
+
+      navigate("/login");
+    } catch (error) {
+      console.log(error);
+      toast.error("Algo deu errado :(");
+    }
+  };
+
+  const [allcarsUser, setAllcarsUser] = useState<TDataCarResponse[] | []>([]);
+  const [allcarsUserPerPage, setAllcarsUserPerPage] = useState<
+    TDataCarResponse[] | []
+  >([]);
+
+  const itemsPerPage = 12;
+
+  const carUser = async () => {
+    const token = localStorage.getItem("@userToken");
+    const id = localStorage.getItem("@userId");
+
+    try {
+      const response = await api.get(`/users/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      const carsUser = response.data.cars;
+      setAllcarsUser(response.data.cars);
+
+      const startIndex = (currentPageprofile - 1) * itemsPerPage;
+      const endIndex = startIndex + itemsPerPage;
+
+      setAllcarsUser(carsUser);
+
+      const listpagination = carsUser.slice(startIndex, endIndex);
+
+      setAllcarsUserPerPage(listpagination);
+    } catch (error) {
+      console.log(error);
+      toast.error("Algo deu errado :(");
+    }
+  };
+
+  useEffect(() => {
+    carUser();
+  }, []);
+
+  useEffect(() => {
+    carUser();
+  }, [currentPageprofile]);
 
   return (
     <UserContext.Provider
@@ -125,6 +244,18 @@ export const UserProvider = ({ children }: IDefaultProviderProps) => {
         userIdCars,
         setListCarsUser,
         setUserIdCars,
+        modalForgottenOpen,
+        setModalForgottenOpen,
+        sendEmail,
+        resetPassword,
+        updateUser,
+        profileEditModal,
+        setProfileEditModal,
+        deleteUser,
+        allcarsUserPerPage,
+        currentPageprofile,
+        setCurrentPageprofile,
+        allcarsUser,
       }}
     >
       {children}

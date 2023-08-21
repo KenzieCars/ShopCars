@@ -13,10 +13,10 @@ export const ModalWrapper = styled.div`
 export const ModalContainer = styled.div`
     width: 95%;
     max-width: 520px;
-    max-height: 630px;
+    max-height: 570px;
     background-color: var(--white);
     border-radius: 8px;
-    margin: 4rem auto 0;
+    margin: .4rem auto 0;
     overflow-y: auto;
 `
 
@@ -110,19 +110,15 @@ export const FieldsetModal = styled.fieldset`
     > label {
         color: var(--gray);
         font-size: .8rem;
-    }
-
-    > select {
-        max-height: 100px;
-
-        
-
-        > option {
-            max-height: 100px;
-            height: 100px;
-
-            
         }
+
+        > select {
+        padding: .7rem 1rem;
+        border-radius: 8px;
+        border: 2px solid var(--white);
+        outline: none;
+        color: var(--gray);
+        transition: .2s ease;
     }
 
     > textarea {
@@ -190,3 +186,45 @@ export const ModalButtonContainer = styled.div`
         }
     }
 `
+
+export const AddImagesContainer = styled.div`
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    position: relative;
+
+    > button {
+        background-color: var(--primary-color-hover);
+        height: 2rem;
+        border-radius: 8px;
+        width: 60%;
+        color: var(--primary-color);
+        font-weight: 700;
+        transition: .2s ease;
+
+        &:hover {
+            background: var(--primary-color);
+            color: var(--white);
+        }
+    }
+
+    > .remove {
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 38%;
+        color: var(--white);
+        background-color: var(--alert-negative-hover);
+
+        &:hover {
+            background-color: var(--alert-negative);
+        }
+    }
+`
+export const ErrorModal = styled.p`
+    color: var(--alert-negative);
+    font-size: .5rem;
+    letter-spacing: .04rem;
+    transition: .4s ease;
+`
+

@@ -1,5 +1,11 @@
+import { ResetPasswordData } from "../../components/ModalResetPassword/@types";
+import { ResetEmailData } from "../../components/ModalSendEmail/@types";
 import { ICreateUser } from "../../components/RegisterForm/@types";
-import { ICar, TUserCarsResponse } from "../CarProvider/@types";
+import {
+  ICar,
+  TDataCarResponse,
+  TUserCarsResponse,
+} from "../CarProvider/@types";
 
 export interface IUserContext {
   user: IUser | null;
@@ -9,9 +15,23 @@ export interface IUserContext {
   setLoading: React.Dispatch<React.SetStateAction<boolean>>;
   setListCarsUser: React.Dispatch<React.SetStateAction<[] | ICar[]>>;
   setUserIdCars: React.Dispatch<React.SetStateAction<TUserCarsResponse | null>>;
+  modalForgottenOpen: boolean;
+  setModalForgottenOpen: React.Dispatch<React.SetStateAction<boolean>>;
   userLogin: (formData: ILogin) => Promise<void>;
   userRegister: (formData: ICreateUser) => Promise<void>;
   logout: () => void;
+
+  sendEmail: (sendEmailData: ResetEmailData) => void;
+  resetPassword: (resetPasswordData: ResetPasswordData, token: string) => void;
+
+  updateUser: (formData: Partial<IUser>) => Promise<void>;
+  profileEditModal: boolean;
+  setProfileEditModal: React.Dispatch<React.SetStateAction<boolean>>;
+  deleteUser: () => Promise<void>;
+  allcarsUserPerPage: [] | TDataCarResponse[];
+  currentPageprofile: number;
+  setCurrentPageprofile: React.Dispatch<React.SetStateAction<number>>;
+  allcarsUser: [] | TDataCarResponse[];
 }
 
 export interface IDefaultProviderProps {
