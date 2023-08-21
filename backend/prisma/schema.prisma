@@ -26,6 +26,7 @@ datasource db {
     street String?
     number Int?
     complement String?
+    cep String?
     reset_token String?
 
     cars Car[]

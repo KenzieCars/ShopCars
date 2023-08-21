@@ -1,14 +1,14 @@
 import { useContext } from "react";
-import FilterBrand from "./brand";
-import ModelCars from "./model";
+import FilterBrand from "./Brand";
+import ModelCars from "./Model";
 import ColorCars from "./color";
-import YearCars from "./year";
-import FuelTypeCars from "./fuelType";
-import { RangeSlider } from "./price";
-import { RangeKMSlider } from "./km";
+import { RangeSlider } from "./Price";
+import { RangeKMSlider } from "./Km";
 import { FilterStyle } from "./style";
-import ModalFilter from "./modalRenderFilter";
+import ModalFilter from "./ModalRenderFilter";
 import { HomeContext } from "../../providers/HomeProvider/HomeProvider";
+import YearCars from "./Year";
+import FuelTypeCars from "./FuelType";
 
 const FilterCars = () => {
   const { clearFilters } = useContext(HomeContext);
