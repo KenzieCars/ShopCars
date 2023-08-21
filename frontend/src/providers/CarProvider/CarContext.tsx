@@ -11,22 +11,18 @@ import {
   IImageRequest,
   TCarRequest,
   TCarUpdate,
-  // TCarUserResponse,
   TDataCarResponse,
-  TUserCarsResponse,
-  // TListPaginationCars,
 } from "./@types";
 import { AxiosResponse } from "axios";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 
 export const CarContext = createContext({} as ICarContext);
 
 export const CarProvider = ({ children }: IDefaultProviderProps) => {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const [images, setImages] = useState<IImage[] | []>([]);
   const [car, setCar] = useState<ICar | null>(null);
   const [allcars, setAllCars] = useState<TDataCarResponse[] | []>([]);
-  const [profile, setProfile] = useState<ICar[] | []>([]);
 
   const { setListCarsUser, listCarsUser } = useContext(UserContext);
 
@@ -42,40 +38,9 @@ export const CarProvider = ({ children }: IDefaultProviderProps) => {
     allCars();
   }, []);
 
-  useEffect(() => {
-    const token = localStorage.getItem("@userToken");
-    const userId = localStorage.getItem("@userId");
-
-    if (token) {
-      const getUserCars = async () => {
-        try {
-          const res = await api.get(`/users/${userId}`, {
-            headers: {
-              Authorization: `Bearer ${token}`
-            }
-          })
-
-          setProfile(res.data)
-
-          if (!res.data.seller) {
-            navigate("/userPage");
-          } else {
-            navigate("/profile");
-          }
-        } catch (error) {
-          console.log(error)
-
-          navigate('/')
-          localStorage.clear()
-        }
-      }
-      getUserCars()
-    }
-  }, []) // allcars? user?
-
   const carRegister = async (formData: TCarRequest) => {
     const token = localStorage.getItem("@userToken");
-    let response: AxiosResponse<ICar> | '' = ''
+    let response: AxiosResponse<ICar> | "" = "";
     if (token) {
       try {
         response = await api.post<ICar>("/cars", formData, {
@@ -90,7 +55,7 @@ export const CarProvider = ({ children }: IDefaultProviderProps) => {
         toast.error("Car already exists.");
       }
     }
-    return response
+    return response;
   };
 
   const editeCar = async (formData: TCarUpdate, carId: string) => {
@@ -155,12 +120,12 @@ export const CarProvider = ({ children }: IDefaultProviderProps) => {
       await api.post(`/images`, payload, {
         headers: {
           Authorization: `Bearer ${token}`,
-        }
-      })
-      toast.success('imagem cadastrada!')
+        },
+      });
+      toast.success("imagem cadastrada!");
     } catch (error) {
-      console.log(error)
-      toast.error("Error on upload images")
+      console.log(error);
+      toast.error("Error on upload images");
     }
   };
 
@@ -177,8 +142,6 @@ export const CarProvider = ({ children }: IDefaultProviderProps) => {
         editeCar,
         deleteCar,
         registerCarImage,
-        profile,
-        setProfile
       }}
     >
       {children}

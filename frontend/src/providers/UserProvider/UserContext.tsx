@@ -4,7 +4,11 @@ import { IDefaultProviderProps, ILogin, IUser, IUserContext } from "./@types";
 import { api } from "../../services/api";
 import { toast } from "react-toastify";
 import { ICreateUser } from "../../components/RegisterForm/@types";
-import { ICar, TUserCarsResponse } from "../CarProvider/@types";
+import {
+  ICar,
+  TDataCarResponse,
+  TUserCarsResponse,
+} from "../CarProvider/@types";
 import { ResetEmailData } from "../../components/ModalSendEmail/@types";
 import { ResetPasswordData } from "../../components/ModalResetPassword/@types";
 
@@ -18,6 +22,8 @@ export const UserProvider = ({ children }: IDefaultProviderProps) => {
   const [userIdCars, setUserIdCars] = useState<TUserCarsResponse | null>(null);
   const [modalForgottenOpen, setModalForgottenOpen] = useState<boolean>(false);
 
+  const [currentPageprofile, setCurrentPageprofile] = useState(1);
+
   const userLogin = async (formData: ILogin) => {
     try {
       setLoading(true);
@@ -27,6 +33,7 @@ export const UserProvider = ({ children }: IDefaultProviderProps) => {
 
       localStorage.setItem("@userToken", res.data.token);
       localStorage.setItem("@userId", res.data.id);
+      setCurrentPageprofile(1);
 
       toast.success("Logged in!");
 
@@ -193,6 +200,48 @@ export const UserProvider = ({ children }: IDefaultProviderProps) => {
     }
   };
 
+  const [allcarsUser, setAllcarsUser] = useState<TDataCarResponse[] | []>([]);
+  const [allcarsUserPerPage, setAllcarsUserPerPage] = useState<
+    TDataCarResponse[] | []
+  >([]);
+
+  const itemsPerPage = 12;
+
+  const carUser = async () => {
+    const token = localStorage.getItem("@userToken");
+    const id = localStorage.getItem("@userId");
+
+    try {
+      const response = await api.get(`/users/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      const carsUser = response.data.cars;
+      setAllcarsUser(response.data.cars);
+
+      const startIndex = (currentPageprofile - 1) * itemsPerPage;
+      const endIndex = startIndex + itemsPerPage;
+
+      setAllcarsUser(carsUser);
+
+      const listpagination = carsUser.slice(startIndex, endIndex);
+
+      setAllcarsUserPerPage(listpagination);
+    } catch (error) {
+      console.log(error);
+      toast.error("Algo deu errado :(");
+    }
+  };
+
+  useEffect(() => {
+    carUser();
+  }, []);
+
+  useEffect(() => {
+    carUser();
+  }, [currentPageprofile]);
+
   return (
     <UserContext.Provider
       value={{
@@ -215,7 +264,11 @@ export const UserProvider = ({ children }: IDefaultProviderProps) => {
         setProfileEditModal,
         deleteUser,
         addressEditModal,
-        setAddressEditModal
+        setAddressEditModal,
+        allcarsUserPerPage,
+        currentPageprofile,
+        setCurrentPageprofile,
+        allcarsUser,
       }}
     >
       {children}

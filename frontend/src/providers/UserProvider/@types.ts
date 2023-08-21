@@ -1,7 +1,11 @@
 import { ResetPasswordData } from "../../components/ModalResetPassword/@types";
 import { ResetEmailData } from "../../components/ModalSendEmail/@types";
 import { ICreateUser } from "../../components/RegisterForm/@types";
-import { ICar, TUserCarsResponse } from "../CarProvider/@types";
+import {
+  ICar,
+  TDataCarResponse,
+  TUserCarsResponse,
+} from "../CarProvider/@types";
 
 export interface IUserContext {
   user: IUser | null;
@@ -24,6 +28,10 @@ export interface IUserContext {
   profileEditModal: boolean;
   setProfileEditModal: React.Dispatch<React.SetStateAction<boolean>>;
   deleteUser: () => Promise<void>;
+  allcarsUserPerPage: [] | TDataCarResponse[];
+  currentPageprofile: number;
+  setCurrentPageprofile: React.Dispatch<React.SetStateAction<number>>;
+  allcarsUser: [] | TDataCarResponse[];
 }
 
 export interface IDefaultProviderProps {
@@ -38,7 +46,6 @@ export interface IUser {
   seller: boolean;
   cellPhone: string;
   cpf: string;
-  cep: string;
   dateOfBirth: string;
   description: string;
   city: string;
