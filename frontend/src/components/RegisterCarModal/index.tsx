@@ -48,6 +48,7 @@ const RegisterCarModal = ({ setModal }: IModalProps) => {
     const [extraImagesFields, setExtraImagesFields] = useState(0)
 
     const { carRegister, registerCarImage, allcars, setAllCars } = useContext(CarContext)
+    const { allcarsUserPerPage } = useContext(UserContext)
     const { user } = useContext(UserContext)
 
     const modalRef = useOutClick(() => setModal(false));

@@ -242,7 +242,7 @@ export const UserProvider = ({ children }: IDefaultProviderProps) => {
 
   useEffect(() => {
     carUser();
-  }, [currentPageprofile]);
+  }, [currentPageprofile, allcarsUserPerPage]);
 
   return (
     <UserContext.Provider
@@ -272,7 +272,8 @@ export const UserProvider = ({ children }: IDefaultProviderProps) => {
         setCurrentPageprofile,
         allcarsUser,
         cardModal,
-        setCardModal
+        setCardModal,
+        setAllcarsUserPerPage
       }}
     >
       {children}
