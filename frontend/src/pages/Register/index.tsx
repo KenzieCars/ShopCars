@@ -1,16 +1,15 @@
-import RegisterFooter from "../../components/RegisterFooter"
-import RegisteForm from "../../components/RegisterForm"
-import RegisterHeader from "../../components/RegisterHeader"
+import Footer from "../../components/Footer";
+import RegisteForm from "../../components/RegisterForm";
+import RegisterHeader from "../../components/RegisterHeader";
 
 const Register = () => {
-
   return (
     <>
       <RegisterHeader />
       <RegisteForm />
-      <RegisterFooter />
+      <Footer />
     </>
-  )
-}
+  );
+};
 
-export default Register
+export default Register;
