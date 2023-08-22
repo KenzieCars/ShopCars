@@ -41,6 +41,7 @@ export const CarProvider = ({ children }: IDefaultProviderProps) => {
   const carRegister = async (formData: TCarRequest) => {
     const token = localStorage.getItem("@userToken");
     let response: AxiosResponse<ICar> | "" = "";
+    console.log(formData)
     if (token) {
       try {
         response = await api.post<ICar>("/cars", formData, {
@@ -55,6 +56,7 @@ export const CarProvider = ({ children }: IDefaultProviderProps) => {
         toast.error("Car already exists.");
       }
     }
+    console.log(response)
     return response;
   };
 

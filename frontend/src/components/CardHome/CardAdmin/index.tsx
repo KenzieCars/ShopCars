@@ -14,15 +14,16 @@ import { TbFlag3Filled } from "react-icons/tb";
 // import { CarContext } from "../../../providers/CarProvider/CarContext";
 import NothingHere from "../../NothingHere";
 import { UserContext } from "../../../providers/UserProvider/UserContext";
-import { MdMoreVert } from 'react-icons/md'
+import { MdMoreVert } from "react-icons/md";
 import CardModalAdmin from "./CardModalAdmin";
 
 const CardAdmin = () => {
-  const { allcarsUserPerPage, user, cardModal, setCardModal } = useContext(UserContext);
+  const { allcarsUserPerPage, user, cardModal, setCardModal } =
+    useContext(UserContext);
 
   if (allcarsUserPerPage.length === 0) return <NothingHere />;
   // const user = localStorage.getItem("UserData")!;
-  
+
   return (
     <>
       {allcarsUserPerPage.map((car) => (
