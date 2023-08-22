@@ -10,7 +10,7 @@ export interface ICarContext {
   carRegister: (formData: TCarRequest) => Promise<"" | AxiosResponse<ICar>>;
   editeCar: (formData: TCarUpdate, carId: string) => Promise<void>;
   deleteCar: (carId: string) => Promise<void>;
-  // registerCarImage: (payload: IImageRequest) => Promise<void>;
+  registerCarImage: (payload: IImageRequest) => Promise<void>;
 }
 export interface IDefaultProviderProps {
   children: React.ReactNode;

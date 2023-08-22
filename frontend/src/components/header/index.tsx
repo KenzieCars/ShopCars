@@ -77,7 +77,7 @@ const Header = () => {
               <UserHeaderContainer onClick={() => setUserModalHeader(!userModalHeader)}>
                 <span>{user.name[0]}</span>
                 <span>{user.name.split(" ")[0]}</span>
-                {userModalHeader && <UserModalHeader />}
+                  {userModalHeader && <UserModalHeader />}
               </UserHeaderContainer>
             ) : (
               <>

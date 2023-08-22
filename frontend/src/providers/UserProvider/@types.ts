@@ -20,10 +20,10 @@ export interface IUserContext {
   userLogin: (formData: ILogin) => Promise<void>;
   userRegister: (formData: ICreateUser) => Promise<void>;
   logout: () => void;
-
+  addressEditModal: boolean
+  setAddressEditModal: React.Dispatch<React.SetStateAction<boolean>>
   sendEmail: (sendEmailData: ResetEmailData) => void;
   resetPassword: (resetPasswordData: ResetPasswordData, token: string) => void;
-
   updateUser: (formData: Partial<IUser>) => Promise<void>;
   profileEditModal: boolean;
   setProfileEditModal: React.Dispatch<React.SetStateAction<boolean>>;
@@ -32,6 +32,8 @@ export interface IUserContext {
   currentPageprofile: number;
   setCurrentPageprofile: React.Dispatch<React.SetStateAction<number>>;
   allcarsUser: [] | TDataCarResponse[];
+  cardModal: boolean;
+  setCardModal: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export interface IDefaultProviderProps {
@@ -51,7 +53,7 @@ export interface IUser {
   city: string;
   state: string;
   street: string;
-  number: number;
+  number: string | number | any;
   complement: string;
   cep: string;
   isAdmin: boolean;

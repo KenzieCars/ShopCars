@@ -19,7 +19,7 @@ export const CardContainer = styled.li`
   @media (min-width: 768px) {
     width: 282px;
     height: fit-content;
-    min-height: 390px;
+    /* min-height: 390px; */
     max-height: fit-content;
   }
 `;
@@ -178,5 +178,57 @@ export const ButtonContainer = styled.div`
       color: var(--white);
       border: 1px solid var(--black);
     }
+  }
+`
+
+export const DescriptionWithOverFlowAdm = styled.section`
+  > p {
+    font-size: 0.7rem;
+    color: var(--gray);
+    height: 58px;
+    line-height: 150%;
+
+    overflow-y: auto;
+
+  &:before {
+    content: '';
+    position: absolute;
+    bottom: 86px;
+    left: 0;
+    width: 100%;
+    height: 38px; /* Ajuste a altura do degradê conforme necessário */
+    background: linear-gradient(transparent, rgba(246, 246, 246, 0.8) ); /* Defina as cores do degradê aqui */
+  }
+}
+
+  @media (min-width: 768px) {
+    gap: 0.7rem;
+
+    > h3 {
+      font-size: 1rem;
+    }
+
+    > p {
+      font-size: 0.8rem;
+    }
+  }
+`
+
+export const TresPontinhos = styled.button`
+  position: absolute;
+  top: 170px;
+  right: 5px;
+
+  background: transparent;
+
+  font-size: 1.7rem;
+  color: var(--gray);
+
+  cursor: pointer;
+
+  transition: .2s ease;
+
+  &:hover {
+    color: var(--black);
   }
 `
