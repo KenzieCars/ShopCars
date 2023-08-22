@@ -8,6 +8,7 @@ import { BsArrowRightShort, BsArrowLeftShort } from "react-icons/bs";
 import SectionProfileInfo from "../../components/SectionProfileView";
 import { CardListProfile, MainContainerProfile } from "./style";
 import { UserContext } from "../../providers/UserProvider/UserContext";
+import EditAddressModal from "../../components/EditProfileModal/EditAddressModal";
 import { ButtonNext, NextButtonContainer } from "../Home/style";
 
 const ProfileView = () => {
@@ -16,6 +17,7 @@ const ProfileView = () => {
     currentPageprofile,
     setCurrentPageprofile,
     allcarsUser,
+    addressEditModal
   } = useContext(UserContext);
 
   const itemsPerPage = 12;
@@ -33,6 +35,7 @@ const ProfileView = () => {
         </CardListProfile>
       </MainContainerProfile>
       {profileEditModal && <EditProfileModal />}
+      {addressEditModal && <EditAddressModal />}
 
       <NextButtonContainer>
         {currentPageprofile > 1 && (
