@@ -216,8 +216,8 @@ export const DescriptionWithOverFlowAdm = styled.section`
 
 export const TresPontinhos = styled.button`
   position: absolute;
-  top: 170px;
-  right: 5px;
+  top: 152px;
+  right: 8px;
 
   background: transparent;
 

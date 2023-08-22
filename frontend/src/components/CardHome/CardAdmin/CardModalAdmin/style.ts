@@ -6,8 +6,8 @@ export const ModalCardContainer = styled.ul`
   gap: .7rem;
 
   position: absolute;
-  top: 194.5px;
-  right: 10px;
+  top: 170.5px;
+  right: 5px;
 
   padding: 1rem;
 

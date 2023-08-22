@@ -1,6 +1,5 @@
 import { useContext, useState } from "react";
 import {
-  ButtonContainer,
   CardContainer,
   ContactUserContainer,
   ContainerInfo,
@@ -14,7 +13,7 @@ import { TbFlag3Filled } from "react-icons/tb";
 // import { CarContext } from "../../../providers/CarProvider/CarContext";
 import NothingHere from "../../NothingHere";
 import { UserContext } from "../../../providers/UserProvider/UserContext";
-import { MdMoreVert } from 'react-icons/md'
+import { MdMoreHoriz } from 'react-icons/md';
 import CardModalAdmin from "./CardModalAdmin";
 
 const CardAdmin = () => {
@@ -57,7 +56,7 @@ const CardAdmin = () => {
             <TbFlag3Filled />
           </FlagGoodDeal>
           <TresPontinhos onClick={() => setCardModal(!cardModal)}>
-            <MdMoreVert />
+            <MdMoreHoriz />
           </TresPontinhos>
           {cardModal && <CardModalAdmin />}
         </CardContainer>

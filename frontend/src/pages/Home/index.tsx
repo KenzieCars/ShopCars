@@ -16,9 +16,13 @@ import { useContext } from "react";
 import ButtonHome from "../../components/Filter/ButonModal";
 import ModalFilter from "../../components/Filter/ModalRenderFilter";
 import { Header } from "../../components/Header";
+import { UserContext } from "../../providers/UserProvider/UserContext";
+import EditProfileModal from "../../components/EditProfileModal";
+import EditAddressModal from "../../components/EditProfileModal/EditAddressModal";
 
 const Home = () => {
   const { currentPage, setCurrentPage, allcarsPages } = useContext(HomeContext);
+  const { profileEditModal, addressEditModal } = useContext(UserContext)
   const itemsPerPage = 12;
 
   const totalItems = allcarsPages.length + 1;
@@ -69,6 +73,8 @@ const Home = () => {
           </ButtonNext>
         )}
       </NextButtonContainer>
+      {profileEditModal && <EditProfileModal />}
+      {addressEditModal && <EditAddressModal />}
       <Footer />
     </>
   );
