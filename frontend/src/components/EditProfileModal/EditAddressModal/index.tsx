@@ -3,15 +3,15 @@ import { BackgroundModalEditAddress, ButtonAddressContainer, FieldsetAddressCont
 import { UserContext } from '../../../providers/UserProvider/UserContext'
 
 const EditAddressModal = () => {
-  const { updateUser, user, userIdCars, addressEditModal, setAddressEditModal } = useContext(UserContext)
+  const { updateUser, userIdCars, addressEditModal, setAddressEditModal } = useContext(UserContext)
 
   const [formData, setFormData] = useState({
-    cep: user?.cep || '',
-    state: user?.state || '',
-    city: user?.city || '',
-    street: user?.street || '',
-    number: user?.number || '',
-    complement: user?.complement || '',
+    cep: userIdCars?.cep || '',
+    state: userIdCars?.state || '',
+    city: userIdCars?.city || '',
+    street: userIdCars?.street || '',
+    number: userIdCars?.number || '',
+    complement: userIdCars?.complement || '',
   })
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
