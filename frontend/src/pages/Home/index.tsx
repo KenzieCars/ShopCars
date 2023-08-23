@@ -17,11 +17,13 @@ import ButtonHome from "../../components/Filter/ButonModal";
 import ModalFilter from "../../components/Filter/ModalRenderFilter";
 import { Header } from "../../components/Header";
 
+// import { CarContext } from "../../providers/CarProvider/CarContext";
+
 const Home = () => {
   const { currentPage, setCurrentPage, allcarsPages } = useContext(HomeContext);
   const itemsPerPage = 12;
 
-  const totalItems = allcarsPages.length + 1;
+  const totalItems = allcarsPages.length;
   const totalPages = Math.ceil(totalItems / itemsPerPage);
 
   return (

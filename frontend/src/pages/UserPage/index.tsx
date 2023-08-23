@@ -25,7 +25,7 @@ const UserPage = () => {
 
   const itemsPerPage = 12;
 
-  const totalItems = allcarsComumProfile.length + 1;
+  const totalItems = allcarsComumProfile.length;
   const totalPages = Math.ceil(totalItems / itemsPerPage);
 
   return (
