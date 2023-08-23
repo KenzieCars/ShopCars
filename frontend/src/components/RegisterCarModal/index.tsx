@@ -25,6 +25,7 @@ import {
 import { AxiosResponse } from 'axios'
 import { CarContext } from '../../providers/CarProvider/CarContext'
 import { UserContext } from '../../providers/UserProvider/UserContext'
+import Loading from '../Loading'
 
 const carInfoDefault = {
     brand: 'brand',
@@ -48,7 +49,7 @@ const RegisterCarModal = ({ setModal }: IModalProps) => {
     const [extraImagesFields, setExtraImagesFields] = useState(0)
 
     const { carRegister, registerCarImage, allcars, setAllCars } = useContext(CarContext)
-    const { user } = useContext(UserContext)
+    const { user, allcarsUserPerPage, loading } = useContext(UserContext)
 
     const modalRef = useOutClick(() => setModal(false));
     const buttonRef = useEscapeKey('Escape', (element) => {
@@ -264,7 +265,7 @@ const RegisterCarModal = ({ setModal }: IModalProps) => {
                     <ModalButtonContainer>
                         <button type='button' onClick={() => setModal(false)}
                             className='cancel'>Cancelar</button>
-                        <button type='submit'>Criar anúncio</button>
+                        <button type='submit' disabled={loading}>{loading ? <Loading /> : 'Criar anúncio'}</button>
                     </ModalButtonContainer>
                 </FormModalContainer>
             </ModalContainer>
