@@ -25,11 +25,13 @@ export const UserProvider = ({ children }: IDefaultProviderProps) => {
   const [profileEditModal, setProfileEditModal] = useState(false);
   const [addressEditModal, setAddressEditModal] = useState(false);
   const [allcarsUser, setAllcarsUser] = useState<TDataCarResponse[] | []>([]);
-  const [allcarsUserPerPage, setAllcarsUserPerPage] = useState<TDataCarResponse[] | []>([]);
-  const [cardModal, setCardModal] = useState(false)
-  
+  const [allcarsUserPerPage, setAllcarsUserPerPage] = useState<
+    TDataCarResponse[] | []
+  >([]);
+  const [cardModal, setCardModal] = useState(false);
+
   const [currentPageprofile, setCurrentPageprofile] = useState(1);
-  const { allcars } = useContext(CarContext)
+  const { allcars } = useContext(CarContext);
 
   const userLogin = async (formData: ILogin) => {
     try {
@@ -163,19 +165,19 @@ export const UserProvider = ({ children }: IDefaultProviderProps) => {
     try {
       const res = await api.patch(`/users/${id}`, formData, {
         headers: {
-          Authorization: `Bearer ${token}`
-        }
-      })
-    
-      setUserIdCars(previousUser => ({
-        ...previousUser,
-        ...res.data
-      }))
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
-      setUser(previousUser => ({
+      setUserIdCars((previousUser) => ({
         ...previousUser,
-        ...res.data
-      }))
+        ...res.data,
+      }));
+
+      setUser((previousUser) => ({
+        ...previousUser,
+        ...res.data,
+      }));
 
       toast.success("Usuário atualizado");
     } catch (error) {
@@ -272,7 +274,7 @@ export const UserProvider = ({ children }: IDefaultProviderProps) => {
         setCurrentPageprofile,
         allcarsUser,
         cardModal,
-        setCardModal
+        setCardModal,
       }}
     >
       {children}
