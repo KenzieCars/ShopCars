@@ -18,9 +18,9 @@ import { MdMoreVert } from "react-icons/md";
 import CardModalAdmin from "./CardModalAdmin";
 
 const CardAdmin = () => {
-  const { allcarsUserPerPage, user, cardModal, setCardModal } =
+  const { allcarsUserPerPage, userIdCars, cardModal, setCardModal } =
     useContext(UserContext);
-
+  // console.log(user)
   if (allcarsUserPerPage.length === 0) return <NothingHere />;
   // const user = localStorage.getItem("UserData")!;
 
@@ -39,8 +39,8 @@ const CardAdmin = () => {
               <p>{car.description}</p>
             </DescriptionWithOverFlowAdm>
             <ContactUserContainer>
-              <span>{user?.name[0]}</span>
-              <span>{user?.name}</span>
+              <span>{userIdCars?.name[0]}</span>
+              <span>{userIdCars?.name}</span>
             </ContactUserContainer>
             <ContainerInfoCar>
               <div>
