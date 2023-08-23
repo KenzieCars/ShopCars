@@ -10,19 +10,17 @@ import {
   FlagAvailable,
   FlagGoodDeal,
   FlagNotAvailable,
-  TresPontinhos,
 } from "./style";
 import { TbFlag3Filled } from "react-icons/tb";
 import NothingHere from "../../NothingHere";
 import { UserContext } from "../../../providers/UserProvider/UserContext";
-import { MdMoreHoriz } from "react-icons/md";
 import CardModalAdmin from "./CardModalAdmin";
 import { Link } from "react-router-dom";
 
 const CardAdmin = () => {
   const { allcarsUserPerPage, userIdCars, cardModal, setCardModal } =
     useContext(UserContext);
-
+  // console.log(user)
   if (allcarsUserPerPage.length === 0) return <NothingHere />;
 
   return (
@@ -60,9 +58,6 @@ const CardAdmin = () => {
             <FlagGoodDeal>
               <TbFlag3Filled />
             </FlagGoodDeal>
-            {/* <TresPontinhos onClick={() => setCardModal(!cardModal)}>
-              <MdMoreHoriz />
-            </TresPontinhos> */}
             {cardModal && <CardModalAdmin />}
           </CardContainer>
         </Link>

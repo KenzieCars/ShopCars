@@ -24,13 +24,15 @@ export const CarProvider = ({ children }: IDefaultProviderProps) => {
   const [car, setCar] = useState<ICar | null>(null);
   const [allcars, setAllCars] = useState<TDataCarResponse[] | []>([]);
 
-  const { setListCarsUser, listCarsUser } = useContext(UserContext);
+  const { setListCarsUser, listCarsUser, setAllcarsUserPerPage, allcarsUserPerPage } = useContext(UserContext);
 
   useEffect(() => {
     const allCars = async () => {
       try {
         const response = await api.get<TDataCarResponse[]>(`/cars`);
         setAllCars(response.data);
+
+        console.log(response.data)
       } catch (error) {
         console.log(error);
       }
@@ -41,7 +43,6 @@ export const CarProvider = ({ children }: IDefaultProviderProps) => {
   const carRegister = async (formData: TCarRequest) => {
     const token = localStorage.getItem("@userToken");
     let response: AxiosResponse<ICar> | "" = "";
-    console.log(formData)
     if (token) {
       try {
         response = await api.post<ICar>("/cars", formData, {
@@ -50,6 +51,7 @@ export const CarProvider = ({ children }: IDefaultProviderProps) => {
           },
         });
         setCar(response.data);
+        setAllcarsUserPerPage([...allcarsUserPerPage, response.data])
         toast.success("Car registered!");
       } catch (error) {
         console.log(error);
