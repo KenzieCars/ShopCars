@@ -74,15 +74,21 @@ export const UserProvider = ({ children }: IDefaultProviderProps) => {
           );
 
           setUserIdCars(response.data); //Todas as informações do user logado
+
           const carsUser = response.data.cars;
+
           setAllcarsUser(response.data.cars);
+
           setListCarsUser(response.data.cars); // Todos os carros do user logado
+
           const startIndex = (currentPageprofile - 1) * itemsPerPage;
+
           const endIndex = startIndex + itemsPerPage;
+
           setAllcarsUser(carsUser);
 
           const listpagination = carsUser.slice(startIndex, endIndex);
-          console.log(listpagination);
+          
           setAllcarsUserPerPage(listpagination);
           if (!response.data.seller) {
             navigate("/userPage");
