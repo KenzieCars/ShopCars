@@ -14,13 +14,12 @@ import {
 import { TbFlag3Filled } from "react-icons/tb";
 import NothingHere from "../../NothingHere";
 import { UserContext } from "../../../providers/UserProvider/UserContext";
-import CardModalAdmin from "./CardModalAdmin";
 import { Link } from "react-router-dom";
 
 const CardAdmin = () => {
-  const { allcarsUserPerPage, userIdCars, cardModal, setCardModal } =
+  const { allcarsUserPerPage, userIdCars } =
     useContext(UserContext);
-  // console.log(user)
+
   if (allcarsUserPerPage.length === 0) return <NothingHere />;
 
   return (
@@ -58,7 +57,6 @@ const CardAdmin = () => {
             <FlagGoodDeal>
               <TbFlag3Filled />
             </FlagGoodDeal>
-            {cardModal && <CardModalAdmin />}
           </CardContainer>
         </Link>
       ))}
