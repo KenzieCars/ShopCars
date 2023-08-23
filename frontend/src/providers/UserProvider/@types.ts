@@ -34,7 +34,6 @@ export interface IUserContext {
   allcarsUser: [] | TDataCarResponse[];
   cardModal: boolean;
   setCardModal: React.Dispatch<React.SetStateAction<boolean>>;
-  userLogged: () => Promise<void>
 }
 
 export interface IDefaultProviderProps {

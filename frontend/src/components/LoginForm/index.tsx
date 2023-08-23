@@ -16,9 +16,10 @@ import { useContext, useState } from "react";
 import { UserContext } from "../../providers/UserProvider/UserContext";
 import ModalSendEmail from "../ModalSendEmail";
 import { BsEyeFill, BsEyeSlashFill } from "react-icons/bs";
+import Loading from "../Loading";
 
 const LoginForm = () => {
-  const { userLogin } = useContext(UserContext);
+  const { userLogin, loading } = useContext(UserContext);
   const [showPass, setShowPass] = useState<"text" | "password">("password");
 
   const schema = z.object({
@@ -92,10 +93,9 @@ const LoginForm = () => {
           </span>
         </ForgotMyPassword>
         <ButtonContainer>
-          <button type="submit">Entrar</button>
-          {/* <ButtonToRegister to="*">
-            Ainda não possui conta?
-          </ButtonToRegister> */}
+          <button type="submit"
+            disabled={loading}
+          >{loading ? <Loading /> : 'Entrar'}</button>
           <ButtonToRegister to="/register">
             Cadastrar
           </ButtonToRegister>

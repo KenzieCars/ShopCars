@@ -37,11 +37,9 @@ export const UserProvider = ({ children }: IDefaultProviderProps) => {
       const res = await api.post("/login", formData);
 
       setUser(res.data);
-      console.log(res.data);
 
       localStorage.setItem("@userToken", res.data.token);
       localStorage.setItem("@userId", res.data.id);
-      setCurrentPageprofile(1);
 
       toast.success("Logged in!");
 
@@ -59,41 +57,49 @@ export const UserProvider = ({ children }: IDefaultProviderProps) => {
     }
   };
 
-  const token = localStorage.getItem("@userToken");
-  const userId = localStorage.getItem("@userId");
+  useEffect(() => {
+    const token = localStorage.getItem("@userToken");
+    const userId = localStorage.getItem("@userId");
 
-
-  const userLogged = async () => {
     if (token) {
-      try {
-        const response = await api.get<TUserCarsResponse>(`/users/${userId}`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-        setUserIdCars(response.data); //Todas as informações do user logado
+      const userLogged = async () => {
+        try {
+          const response = await api.get<TUserCarsResponse>(
+            `/users/${userId}`,
+            {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            }
+          );
 
-        setListCarsUser(response.data.cars); // Todos os carros do user logado
+          setUserIdCars(response.data); //Todas as informações do user logado
+          const carsUser = response.data.cars;
+          setAllcarsUser(response.data.cars);
+          setListCarsUser(response.data.cars); // Todos os carros do user logado
+          const startIndex = (currentPageprofile - 1) * itemsPerPage;
+          const endIndex = startIndex + itemsPerPage;
+          setAllcarsUser(carsUser);
 
-        if (!response.data.seller) {
-          navigate("/userPage");
-        } else {
-          navigate("/profile");
+          const listpagination = carsUser.slice(startIndex, endIndex);
+          setAllcarsUserPerPage(listpagination);
+          if (!response.data.seller) {
+            navigate("/userPage");
+          } else {
+            navigate("/profile");
+          }
+        } catch (error) {
+          console.log(error);
         }
-
-      } catch (error) {
-        console.log(error);
-      }
+      };
+      userLogged();
     }
-  }
-
+  }, [user, currentPageprofile]);
 
   const userRegister = async (formData: ICreateUser) => {
     try {
       setLoading(true);
       const res = await api.post("/users", formData);
-
-      console.log(res);
 
       setUser(res.data);
 
@@ -111,10 +117,10 @@ export const UserProvider = ({ children }: IDefaultProviderProps) => {
 
   const logout = () => {
     setUser(null);
-
-    localStorage.clear();
-
+    setUserIdCars(null);
+    console.log("Entrou no logout");
     navigate("/login");
+    localStorage.clear();
   };
 
   const sendEmail = async (sendEmailData: ResetEmailData) => {
@@ -134,9 +140,7 @@ export const UserProvider = ({ children }: IDefaultProviderProps) => {
     token: string
   ) => {
     const passres = { password: resetPasswordData.password };
-    console.log(passres);
-    console.log(token);
-    console.log(resetPasswordData);
+
     try {
       await api.patch(`/users/resetPassword/${token}`, passres);
 
@@ -153,7 +157,7 @@ export const UserProvider = ({ children }: IDefaultProviderProps) => {
   const updateUser = async (formData: Partial<IUser>) => {
     const token = localStorage.getItem("@userToken");
     const id = localStorage.getItem("@userId");
-
+    console.log(formData);
     try {
       const res = await api.patch(`/users/${id}`, formData, {
         headers: {
@@ -203,41 +207,6 @@ export const UserProvider = ({ children }: IDefaultProviderProps) => {
 
   const itemsPerPage = 12;
 
-  const carUser = async () => {
-    const token = localStorage.getItem("@userToken");
-    const id = localStorage.getItem("@userId");
-
-    try {
-      const response = await api.get(`/users/${id}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      const carsUser = response.data.cars;
-      setAllcarsUser(response.data.cars);
-
-      const startIndex = (currentPageprofile - 1) * itemsPerPage;
-      const endIndex = startIndex + itemsPerPage;
-
-      setAllcarsUser(carsUser);
-
-      const listpagination = carsUser.slice(startIndex, endIndex);
-
-      setAllcarsUserPerPage(listpagination);
-    } catch (error) {
-      console.log(error);
-      toast.error("Algo deu errado :(");
-    }
-  };
-
-  // useEffect(() => {
-  //   carUser();
-  // }, []);
-
-  useEffect(() => {
-    carUser();
-  }, [currentPageprofile]);
-
   return (
     <UserContext.Provider
       value={{
@@ -267,7 +236,6 @@ export const UserProvider = ({ children }: IDefaultProviderProps) => {
         allcarsUser,
         cardModal,
         setCardModal,
-        userLogged,
       }}
     >
       {children}

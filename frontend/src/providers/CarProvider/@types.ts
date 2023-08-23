@@ -47,12 +47,15 @@ export interface IComment {
   carId: string;
   userId: string;
 }
+
 export type TCarUpdate = Partial<TCarRequest>;
+
 export interface TDataCarResponse extends ICar {
   images: IImage[] | [];
   comments: IComment[] | [];
   user: IUser;
 }
+
 export interface TListPaginationCars {
   nextPage: number | null;
   prevPage: number | null;

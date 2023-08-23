@@ -3,12 +3,9 @@ import { createGlobalStyle } from "styled-components"
 const GlobalStyle = createGlobalStyle`
 
   :root {
-    /* --primary-color: #0353A4; */ //cor oficial
-    --primary-color: #fd4d56; //cor teste
+    --primary-color: #0353A4;
     --primary-color-hover: #EDEAFD;
-    --white: #EBEEE4; //cor teste
-;
-    /* --white: #F6F6F6; */ //cor oficial
+    --white: #F6F6F6;
     --gray: #5F7067;
     --light-gray: #d3d3d3;
     --green: #6FD660;
