@@ -1,6 +1,13 @@
 import { createContext, useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import { IDefaultProviderProps, ILogin, IUser, IUserContext } from "./@types";
+import {
+  ICarSeller,
+  IDefaultProviderProps,
+  ILogin,
+  IUser,
+  IUserContext,
+  IUserSeller,
+} from "./@types";
 import { api } from "../../services/api";
 import { toast } from "react-toastify";
 import { ICreateUser } from "../../components/RegisterForm/@types";
@@ -24,12 +31,22 @@ export const UserProvider = ({ children }: IDefaultProviderProps) => {
   const [modalForgottenOpen, setModalForgottenOpen] = useState<boolean>(false);
   const [profileEditModal, setProfileEditModal] = useState(false);
   const [addressEditModal, setAddressEditModal] = useState(false);
-  const [allcarsUser, setAllcarsUser] = useState<TDataCarResponse[] | []>([]);
-  const [allcarsUserPerPage, setAllcarsUserPerPage] = useState<TDataCarResponse[] | []>([]);
-  const [cardModal, setCardModal] = useState(false)
-  
+  const [allcarsUser, setAllcarsUser] = useState<ICarSeller[] | []>([]);
+  const [allcarsUserPerPage, setAllcarsUserPerPage] = useState<
+    ICarSeller[] | []
+  >([]);
+  const [cardModal, setCardModal] = useState(false);
+
   const [currentPageprofile, setCurrentPageprofile] = useState(1);
-  const { allcars } = useContext(CarContext)
+
+  const [currentPageprofileComum, setCurrentPageprofileComum] = useState(1);
+  const [allcarsComumProfile, setAllCarsComumProfile] = useState<
+    TDataCarResponse[] | []
+  >([]);
+  const [allcarsComumProfilePerPage, setAllCarsComumProfilePerPage] = useState<
+    TDataCarResponse[] | []
+  >([]);
+  const { allcars } = useContext(CarContext);
 
   const userLogin = async (formData: ILogin) => {
     try {
@@ -43,6 +60,7 @@ export const UserProvider = ({ children }: IDefaultProviderProps) => {
       localStorage.setItem("@userToken", res.data.token);
       localStorage.setItem("@userId", res.data.id);
       setCurrentPageprofile(1);
+      setCurrentPageprofileComum(1);
 
       toast.success("Logged in!");
 
@@ -119,7 +137,8 @@ export const UserProvider = ({ children }: IDefaultProviderProps) => {
     setUser(null);
 
     localStorage.clear();
-
+    setCurrentPageprofile(2);
+    setCurrentPageprofileComum(2);
     navigate("/login");
   };
 
@@ -163,19 +182,19 @@ export const UserProvider = ({ children }: IDefaultProviderProps) => {
     try {
       const res = await api.patch(`/users/${id}`, formData, {
         headers: {
-          Authorization: `Bearer ${token}`
-        }
-      })
-    
-      setUserIdCars(previousUser => ({
-        ...previousUser,
-        ...res.data
-      }))
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
-      setUser(previousUser => ({
+      setUserIdCars((previousUser) => ({
         ...previousUser,
-        ...res.data
-      }))
+        ...res.data,
+      }));
+
+      setUser((previousUser) => ({
+        ...previousUser,
+        ...res.data,
+      }));
 
       toast.success("Usuário atualizado");
     } catch (error) {
@@ -209,18 +228,22 @@ export const UserProvider = ({ children }: IDefaultProviderProps) => {
 
   const itemsPerPage = 12;
 
-  const carUser = async () => {
+  const carUserSeller = async () => {
     const token = localStorage.getItem("@userToken");
     const id = localStorage.getItem("@userId");
 
     try {
-      const response = await api.get(`/users/${id}`, {
+      const response = await api.get<IUserSeller[]>(`/users/profile`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
-      const carsUser = response.data.cars;
-      setAllcarsUser(response.data.cars);
+
+      const carsUser2 = response.data.filter((user) => user.id == id);
+
+      const carsUser = carsUser2[0].cars;
+
+      setAllcarsUser(carsUser);
 
       const startIndex = (currentPageprofile - 1) * itemsPerPage;
       const endIndex = startIndex + itemsPerPage;
@@ -237,12 +260,42 @@ export const UserProvider = ({ children }: IDefaultProviderProps) => {
   };
 
   useEffect(() => {
+    carUserSeller();
+  }, []);
+
+  useEffect(() => {
+    carUserSeller();
+  }, [currentPageprofile]);
+
+  const carUser = async () => {
+    try {
+      const response = await api.get<TDataCarResponse[]>("/cars");
+
+      const carsUser = response.data;
+
+      setAllCarsComumProfile(carsUser);
+
+      const startIndex = (currentPageprofileComum - 1) * itemsPerPage;
+      const endIndex = startIndex + itemsPerPage;
+
+      setAllCarsComumProfile(carsUser);
+
+      const listpagination = carsUser.slice(startIndex, endIndex);
+
+      setAllCarsComumProfilePerPage(listpagination);
+    } catch (error) {
+      console.log(error);
+      toast.error("Algo deu errado :(");
+    }
+  };
+
+  useEffect(() => {
     carUser();
   }, []);
 
   useEffect(() => {
     carUser();
-  }, [currentPageprofile]);
+  }, [currentPageprofileComum]);
 
   return (
     <UserContext.Provider
@@ -272,7 +325,11 @@ export const UserProvider = ({ children }: IDefaultProviderProps) => {
         setCurrentPageprofile,
         allcarsUser,
         cardModal,
-        setCardModal
+        setCardModal,
+        allcarsComumProfilePerPage,
+        currentPageprofileComum,
+        setCurrentPageprofileComum,
+        allcarsComumProfile,
       }}
     >
       {children}
