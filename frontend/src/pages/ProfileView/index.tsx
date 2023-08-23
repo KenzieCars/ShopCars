@@ -17,7 +17,7 @@ const ProfileView = () => {
     currentPageprofile,
     setCurrentPageprofile,
     allcarsUser,
-    addressEditModal
+    addressEditModal,
   } = useContext(UserContext);
 
   const itemsPerPage = 12;

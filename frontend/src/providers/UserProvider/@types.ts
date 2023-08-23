@@ -28,16 +28,22 @@ export interface IUserContext {
   profileEditModal: boolean;
   setProfileEditModal: React.Dispatch<React.SetStateAction<boolean>>;
   deleteUser: () => Promise<void>;
-  allcarsUserPerPage: [] | ICarSeller[];
+  allcarsUserPerPage2: [] | ICarSeller[];
   currentPageprofile: number;
   setCurrentPageprofile: React.Dispatch<React.SetStateAction<number>>;
-  allcarsUser: [] | ICarSeller[];
+  allcarsUser2: [] | ICarSeller[];
   cardModal: boolean;
   setCardModal: React.Dispatch<React.SetStateAction<boolean>>;
   allcarsComumProfilePerPage: [] | TDataCarResponse[];
   currentPageprofileComum: number;
   setCurrentPageprofileComum: React.Dispatch<React.SetStateAction<number>>;
   allcarsComumProfile: [] | TDataCarResponse[];
+  allcarsUser: [] | TDataCarResponse[];
+  setAllcarsUser: React.Dispatch<React.SetStateAction<[] | TDataCarResponse[]>>;
+  allcarsUserPerPage: [] | TDataCarResponse[];
+  setAllcarsUserPerPage: React.Dispatch<
+    React.SetStateAction<[] | TDataCarResponse[]>
+  >;
 }
 
 export interface IDefaultProviderProps {
