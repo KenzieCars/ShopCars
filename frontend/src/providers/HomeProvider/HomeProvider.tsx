@@ -72,11 +72,12 @@ export const HomeProvider = ({ children }: IHomeProviderProps) => {
 
   const itemsPerPage = 12;
 
-  const [allcarsPages, setallcarsPages] = useState<ICar[] | []>([]);
+  const [allcarsPages, setallcarsPages] = useState<TDataCarResponse[] | []>([]);
 
   const filterCars = async () => {
     try {
       const response = await api.get<TDataCarResponse[]>("/cars");
+
       setallcarsPages(response.data);
 
       let filteredCars = response.data;

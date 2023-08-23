@@ -63,7 +63,7 @@ export interface IUser {
   city: string;
   state: string;
   street: string;
-  number: string | number;
+  number: number;
   complement: string;
   cep: string;
   isAdmin: boolean;

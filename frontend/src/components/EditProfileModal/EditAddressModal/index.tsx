@@ -10,7 +10,7 @@ const EditAddressModal = () => {
     state: userIdCars?.state || '',
     city: userIdCars?.city || '',
     street: userIdCars?.street || '',
-    number: userIdCars?.number || '',
+    number: userIdCars?.number || 0,
     complement: userIdCars?.complement || '',
   })
 
@@ -24,6 +24,7 @@ const EditAddressModal = () => {
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
+    formData.number = Number(formData.number)
     await updateUser(formData)
     setAddressEditModal(!addressEditModal)
   }

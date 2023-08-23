@@ -96,15 +96,21 @@ export const UserProvider = ({ children }: IDefaultProviderProps) => {
           );
 
           setUserIdCars(response.data); //Todas as informações do user logado
+
           const carsUser = response.data.cars;
+
           setAllcarsUser(response.data.cars);
+
           setListCarsUser(response.data.cars); // Todos os carros do user logado
+
           const startIndex = (currentPageprofile - 1) * itemsPerPage;
+
           const endIndex = startIndex + itemsPerPage;
+
           setAllcarsUser(carsUser);
 
           const listpagination = carsUser.slice(startIndex, endIndex);
-          console.log(listpagination);
+
           setAllcarsUserPerPage(listpagination);
           if (!response.data.seller) {
             navigate("/userPage");
@@ -184,28 +190,26 @@ export const UserProvider = ({ children }: IDefaultProviderProps) => {
   const updateUser = async (formData: Partial<IUser>) => {
     const token = localStorage.getItem("@userToken");
     const id = localStorage.getItem("@userId");
-    console.log(formData);
-    try {
-      const res = await api.patch(`/users/${id}`, formData, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+    
+    if (token) {
+      try {
+        const res = await api.patch(`/users/${id}`, formData, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
 
-      setUserIdCars((previousUser) => ({
-        ...previousUser,
-        ...res.data,
-      }));
+        setUserIdCars((previousUser) => ({
+          ...previousUser,
+          ...res.data,
+        }));
+        
 
-      setUser((previousUser) => ({
-        ...previousUser,
-        ...res.data,
-      }));
-
-      toast.success("Usuário atualizado");
-    } catch (error) {
-      console.log(error);
-      toast.error("Falha ao atualizar usuário");
+        toast.success("Usuário atualizado");
+      } catch (error) {
+        console.log(error);
+        toast.error("Falha ao atualizar usuário");
+      }
     }
   };
 
@@ -238,30 +242,32 @@ export const UserProvider = ({ children }: IDefaultProviderProps) => {
     const token = localStorage.getItem("@userToken");
     const id = localStorage.getItem("@userId");
 
-    try {
-      const response = await api.get<IUserSeller[]>(`/users/profile`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+    if (token) {
+      try {
+        const response = await api.get<IUserSeller[]>(`/users/profile`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
 
-      const carsUser2 = response.data.filter((user) => user.id == id);
+        const carsUser2 = response.data.filter((user) => user.id == id);
 
-      const carsUser = carsUser2[0].cars;
+        const carsUser = carsUser2[0].cars;
 
-      setAllcarsUser2(carsUser);
+        setAllcarsUser2(carsUser);
 
-      const startIndex = (currentPageprofile - 1) * itemsPerPage;
-      const endIndex = startIndex + itemsPerPage;
+        const startIndex = (currentPageprofile - 1) * itemsPerPage;
+        const endIndex = startIndex + itemsPerPage;
 
-      setAllcarsUser2(carsUser);
+        setAllcarsUser2(carsUser);
 
-      const listpagination = carsUser.slice(startIndex, endIndex);
+        const listpagination = carsUser.slice(startIndex, endIndex);
 
-      setAllcarsUserPerPage2(listpagination);
-    } catch (error) {
-      console.log(error);
-      toast.error("Algo deu errado :(");
+        setAllcarsUserPerPage2(listpagination);
+      } catch (error) {
+        console.log(error);
+        toast.error("Algo deu errado :(");
+      }
     }
   };
 
@@ -339,7 +345,7 @@ export const UserProvider = ({ children }: IDefaultProviderProps) => {
         allcarsUser,
         setAllcarsUser,
         allcarsUserPerPage,
-        setAllcarsUserPerPage,
+        setAllcarsUserPerPage
       }}
     >
       {children}
