@@ -104,9 +104,6 @@ export const UserProvider = ({ children }: IDefaultProviderProps) => {
           // const startIndex = (currentPageprofile - 1) * itemsPerPage;
 
           // const endIndex = startIndex + itemsPerPage;
-
-          // setAllcarsUser(carsUser);
-
           // const listpagination = carsUser.slice(startIndex, endIndex);
 
           // setAllcarsUserPerPage(listpagination);
