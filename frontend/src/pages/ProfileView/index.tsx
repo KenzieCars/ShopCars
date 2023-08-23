@@ -18,15 +18,12 @@ const ProfileView = () => {
     setCurrentPageprofile,
     allcarsUser,
     addressEditModal,
-    userLogged,
   } = useContext(UserContext);
 
   const itemsPerPage = 12;
 
   const totalItems = allcarsUser.length + 1;
   const totalPages = Math.ceil(totalItems / itemsPerPage);
-
-  userLogged();
 
   return (
     <>

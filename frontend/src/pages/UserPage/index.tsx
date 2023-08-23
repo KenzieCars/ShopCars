@@ -13,10 +13,8 @@ import { UserContext } from "../../providers/UserProvider/UserContext";
 import EditAddressModal from "../../components/EditProfileModal/EditAddressModal";
 
 const UserPage = () => {
-  const { profileEditModal, addressEditModal, userLogged } =
+  const { profileEditModal, addressEditModal } =
     useContext(UserContext);
-
-  userLogged();
 
   return (
     <>
