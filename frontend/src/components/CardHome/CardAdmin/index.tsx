@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import {
   CardContainer,
   ContactUserContainer,
@@ -17,7 +17,7 @@ import { MdMoreHoriz } from 'react-icons/md';
 import CardModalAdmin from "./CardModalAdmin";
 
 const CardAdmin = () => {
-  const { allcarsUserPerPage, user, cardModal, setCardModal } = useContext(UserContext);
+  const { allcarsUserPerPage, userIdCars, cardModal, setCardModal } = useContext(UserContext);
 
   if (allcarsUserPerPage.length === 0) return <NothingHere />;
   // const user = localStorage.getItem("UserData")!;
@@ -37,8 +37,8 @@ const CardAdmin = () => {
               <p>{car.description}</p>
             </DescriptionWithOverFlowAdm>
             <ContactUserContainer>
-              <span>{user?.name[0]}</span>
-              <span>{user?.name}</span>
+              <span>{userIdCars?.name[0]}</span>
+              <span>{userIdCars?.name}</span>
             </ContactUserContainer>
             <ContainerInfoCar>
               <div>

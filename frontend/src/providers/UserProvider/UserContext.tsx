@@ -1,4 +1,4 @@
-import { createContext, useState, useEffect, useContext } from "react";
+import { createContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { IDefaultProviderProps, ILogin, IUser, IUserContext } from "./@types";
 import { api } from "../../services/api";
@@ -11,7 +11,6 @@ import {
 } from "../CarProvider/@types";
 import { ResetEmailData } from "../../components/ModalSendEmail/@types";
 import { ResetPasswordData } from "../../components/ModalResetPassword/@types";
-import { CarContext } from "../CarProvider/CarContext";
 
 export const UserContext = createContext({} as IUserContext);
 
@@ -25,11 +24,12 @@ export const UserProvider = ({ children }: IDefaultProviderProps) => {
   const [profileEditModal, setProfileEditModal] = useState(false);
   const [addressEditModal, setAddressEditModal] = useState(false);
   const [allcarsUser, setAllcarsUser] = useState<TDataCarResponse[] | []>([]);
-  const [allcarsUserPerPage, setAllcarsUserPerPage] = useState<TDataCarResponse[] | []>([]);
-  const [cardModal, setCardModal] = useState(false)
-  
+  const [allcarsUserPerPage, setAllcarsUserPerPage] = useState<
+    TDataCarResponse[] | []
+  >([]);
+  const [cardModal, setCardModal] = useState(false);
+
   const [currentPageprofile, setCurrentPageprofile] = useState(1);
-  const { allcars } = useContext(CarContext)
 
   const userLogin = async (formData: ILogin) => {
     try {
@@ -37,8 +37,7 @@ export const UserProvider = ({ children }: IDefaultProviderProps) => {
       const res = await api.post("/login", formData);
 
       setUser(res.data);
-
-      setUserIdCars(res.data);
+      console.log(res.data);
 
       localStorage.setItem("@userToken", res.data.token);
       localStorage.setItem("@userId", res.data.id);
@@ -60,39 +59,34 @@ export const UserProvider = ({ children }: IDefaultProviderProps) => {
     }
   };
 
-  useEffect(() => {
-    const token = localStorage.getItem("@userToken");
-    const userId = localStorage.getItem("@userId");
+  const token = localStorage.getItem("@userToken");
+  const userId = localStorage.getItem("@userId");
 
+
+  const userLogged = async () => {
     if (token) {
-      const userLogged = async () => {
-        try {
-          const response = await api.get<TUserCarsResponse>(
-            `/users/${userId}`,
-            {
-              headers: {
-                Authorization: `Bearer ${token}`,
-              },
-            }
-          );
-          setUserIdCars(response.data);
+      try {
+        const response = await api.get<TUserCarsResponse>(`/users/${userId}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        setUserIdCars(response.data); //Todas as informações do user logado
 
-          setUser(response.data);
+        setListCarsUser(response.data.cars); // Todos os carros do user logado
 
-          setListCarsUser(response.data.cars);
-
-          if (!response.data.seller) {
-            navigate("/userPage");
-          } else {
-            navigate("/profile");
-          }
-        } catch (error) {
-          console.log(error);
+        if (!response.data.seller) {
+          navigate("/userPage");
+        } else {
+          navigate("/profile");
         }
-      };
-      userLogged();
+
+      } catch (error) {
+        console.log(error);
+      }
     }
-  }, [allcarsUserPerPage, allcars]);
+  }
+
 
   const userRegister = async (formData: ICreateUser) => {
     try {
@@ -163,19 +157,19 @@ export const UserProvider = ({ children }: IDefaultProviderProps) => {
     try {
       const res = await api.patch(`/users/${id}`, formData, {
         headers: {
-          Authorization: `Bearer ${token}`
-        }
-      })
-    
-      setUserIdCars(previousUser => ({
-        ...previousUser,
-        ...res.data
-      }))
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
-      setUser(previousUser => ({
+      setUserIdCars((previousUser) => ({
         ...previousUser,
-        ...res.data
-      }))
+        ...res.data,
+      }));
+
+      setUser((previousUser) => ({
+        ...previousUser,
+        ...res.data,
+      }));
 
       toast.success("Usuário atualizado");
     } catch (error) {
@@ -236,13 +230,13 @@ export const UserProvider = ({ children }: IDefaultProviderProps) => {
     }
   };
 
-  useEffect(() => {
-    carUser();
-  }, []);
+  // useEffect(() => {
+  //   carUser();
+  // }, []);
 
   useEffect(() => {
     carUser();
-  }, [currentPageprofile, allcarsUserPerPage]);
+  }, [currentPageprofile]);
 
   return (
     <UserContext.Provider
@@ -273,7 +267,7 @@ export const UserProvider = ({ children }: IDefaultProviderProps) => {
         allcarsUser,
         cardModal,
         setCardModal,
-        setAllcarsUserPerPage
+        userLogged,
       }}
     >
       {children}

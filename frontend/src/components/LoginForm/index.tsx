@@ -93,10 +93,10 @@ const LoginForm = () => {
         </ForgotMyPassword>
         <ButtonContainer>
           <button type="submit">Entrar</button>
-          <ButtonToRegister to="/register">
+          {/* <ButtonToRegister to="*">
             Ainda não possui conta?
-          </ButtonToRegister>
-          <ButtonToRegister type="button" to="/register">
+          </ButtonToRegister> */}
+          <ButtonToRegister to="/register">
             Cadastrar
           </ButtonToRegister>
         </ButtonContainer>
