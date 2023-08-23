@@ -23,8 +23,17 @@ const Home = () => {
   const { currentPage, setCurrentPage, allcarsPages } = useContext(HomeContext);
   const itemsPerPage = 12;
 
-  const totalItems = allcarsPages.length;
-  const totalPages = Math.ceil(totalItems / itemsPerPage);
+  // const totalItems = allcarsPages.length + 1;
+  // const totalPages = Math.ceil(totalItems / itemsPerPage);
+
+  let totalPages = 1;
+  if (allcarsPages.length < 12) {
+    const totalItems = allcarsPages.length + 1;
+    totalPages = Math.ceil(totalItems / itemsPerPage);
+  } else {
+    const totalItems = allcarsPages.length;
+    totalPages = Math.ceil(totalItems / itemsPerPage);
+  }
 
   return (
     <>

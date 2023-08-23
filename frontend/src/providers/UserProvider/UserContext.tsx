@@ -94,24 +94,22 @@ export const UserProvider = ({ children }: IDefaultProviderProps) => {
               },
             }
           );
-
           setUserIdCars(response.data); //Todas as informações do user logado
+          // const carsUser = response.data.cars;
 
-          const carsUser = response.data.cars;
-
-          setAllcarsUser(response.data.cars);
+          // setAllcarsUser(response.data.cars);
 
           setListCarsUser(response.data.cars); // Todos os carros do user logado
 
-          const startIndex = (currentPageprofile - 1) * itemsPerPage;
+          // const startIndex = (currentPageprofile - 1) * itemsPerPage;
 
-          const endIndex = startIndex + itemsPerPage;
+          // const endIndex = startIndex + itemsPerPage;
 
-          setAllcarsUser(carsUser);
+          // setAllcarsUser(carsUser);
 
-          const listpagination = carsUser.slice(startIndex, endIndex);
+          // const listpagination = carsUser.slice(startIndex, endIndex);
 
-          setAllcarsUserPerPage(listpagination);
+          // setAllcarsUserPerPage(listpagination);
           if (!response.data.seller) {
             navigate("/userPage");
           } else {
@@ -190,7 +188,7 @@ export const UserProvider = ({ children }: IDefaultProviderProps) => {
   const updateUser = async (formData: Partial<IUser>) => {
     const token = localStorage.getItem("@userToken");
     const id = localStorage.getItem("@userId");
-    
+
     if (token) {
       try {
         const res = await api.patch(`/users/${id}`, formData, {
@@ -203,7 +201,6 @@ export const UserProvider = ({ children }: IDefaultProviderProps) => {
           ...previousUser,
           ...res.data,
         }));
-        
 
         toast.success("Usuário atualizado");
       } catch (error) {
@@ -253,8 +250,6 @@ export const UserProvider = ({ children }: IDefaultProviderProps) => {
         const carsUser2 = response.data.filter((user) => user.id == id);
 
         const carsUser = carsUser2[0].cars;
-
-        setAllcarsUser2(carsUser);
 
         const startIndex = (currentPageprofile - 1) * itemsPerPage;
         const endIndex = startIndex + itemsPerPage;
@@ -345,7 +340,9 @@ export const UserProvider = ({ children }: IDefaultProviderProps) => {
         allcarsUser,
         setAllcarsUser,
         allcarsUserPerPage,
-        setAllcarsUserPerPage
+        setAllcarsUserPerPage,
+        setAllcarsUserPerPage2,
+        carUserSeller,
       }}
     >
       {children}
