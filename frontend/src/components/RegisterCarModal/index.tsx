@@ -58,7 +58,12 @@ const RegisterCarModal = ({ setModal }: IModalProps) => {
 
   const { carRegister, registerCarImage, allcars, setAllCars } =
     useContext(CarContext);
-  const { user } = useContext(UserContext);
+  const { user, loading } = useContext(UserContext);
+
+  const modalRef = useOutClick(() => setModal(false));
+    const buttonRef = useEscapeKey('Escape', (element) => {
+        element.click();
+    });
 
   useEffect(() => {
     fipeApi

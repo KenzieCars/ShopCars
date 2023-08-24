@@ -45,7 +45,7 @@ export const CarProvider = ({ children }: IDefaultProviderProps) => {
 
   const carRegister = async (formData: TCarRequest) => {
     const token = localStorage.getItem("@userToken");
-
+    console.log(formData)
     let response: AxiosResponse<ICar> | "" = "";
 
     if (token) {

@@ -19,7 +19,7 @@ const Header = () => {
   const { userIdCars } = useContext(UserContext);
   const [menuAnchor, setMenuAnchor] = useState<null | HTMLElement>(null);
   const [userModalHeader, setUserModalHeader] = useState(false);
-
+  const path = window.location.pathname
   const navigate = useNavigate();
 
   const handleMenuOpen = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -68,9 +68,12 @@ const Header = () => {
                   </UserHeaderContainer>
                 ) : (
                   <>
-                    <ButtonHeader onClick={handleLoginClick}>
-                      Fazer Login
-                    </ButtonHeader>
+                    {path !== '/login' && 
+                      <ButtonHeader onClick={handleLoginClick}>
+                        Fazer Login
+                      </ButtonHeader>
+                    }
+
                     <ButtonHeader onClick={handleRegisterClick}>
                       Cadastrar
                     </ButtonHeader>
@@ -91,9 +94,11 @@ const Header = () => {
               </UserHeaderContainer>
             ) : (
               <>
-                <ButtonHeader onClick={handleLoginClick}>
-                  Fazer Login
-                </ButtonHeader>
+                 {path !== '/login' &&
+                      <ButtonHeader onClick={handleLoginClick}>
+                        Fazer Login
+                      </ButtonHeader>
+                    }
                 <ButtonHeader onClick={handleRegisterClick}>
                   Cadastrar
                 </ButtonHeader>
