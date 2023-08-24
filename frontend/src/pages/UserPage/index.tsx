@@ -25,8 +25,17 @@ const UserPage = () => {
 
   const itemsPerPage = 12;
 
-  const totalItems = allcarsComumProfile.length + 1;
-  const totalPages = Math.ceil(totalItems / itemsPerPage);
+  // const totalItems = allcarsComumProfile.length + 1;
+  // const totalPages = Math.ceil(totalItems / itemsPerPage);
+
+  let totalPages = 1;
+  if (allcarsComumProfile.length < 12) {
+    const totalItems = allcarsComumProfile.length + 1;
+    totalPages = Math.ceil(totalItems / itemsPerPage);
+  } else {
+    const totalItems = allcarsComumProfile.length;
+    totalPages = Math.ceil(totalItems / itemsPerPage);
+  }
 
   return (
     <>

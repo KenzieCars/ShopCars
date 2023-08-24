@@ -135,8 +135,17 @@ export const HomeProvider = ({ children }: IHomeProviderProps) => {
     }
   };
 
-  const totalItems = allcarsPages.length + 1;
-  const totalPages = Math.ceil(totalItems / itemsPerPage);
+  // const totalItems = allcarsPages.length + 1;
+  // const totalPages = Math.ceil(totalItems / itemsPerPage);
+
+  let totalPages = 1;
+  if (allcarsPages.length < 12) {
+    const totalItems = allcarsPages.length + 1;
+    totalPages = Math.ceil(totalItems / itemsPerPage);
+  } else {
+    const totalItems = allcarsPages.length;
+    totalPages = Math.ceil(totalItems / itemsPerPage);
+  }
 
   useEffect(() => {
     setCurrentPage(1);
@@ -153,7 +162,7 @@ export const HomeProvider = ({ children }: IHomeProviderProps) => {
     valueKmCar,
     valueCar,
     currentPage,
-    // allcarsPages,
+    allcarsPages,
   ]);
 
   useEffect(() => {
