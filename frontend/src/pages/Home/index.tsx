@@ -12,7 +12,7 @@ import {
 import FilterCars from "../../components/Filter";
 import CustomSwiperComponent from "../../components/Swiper";
 import { HomeContext } from "../../providers/HomeProvider/HomeProvider";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import ButtonHome from "../../components/Filter/ButonModal";
 import ModalFilter from "../../components/Filter/ModalRenderFilter";
 import { Header } from "../../components/Header";
@@ -38,6 +38,11 @@ const Home = () => {
     const totalItems = allcarsPages.length;
     totalPages = Math.ceil(totalItems / itemsPerPage);
   }
+
+  useEffect(() => {
+    // Rolar para o topo da página quando o componente for montado
+    window.scrollTo(0, 0);
+  }, []);
 
   return (
     <>
