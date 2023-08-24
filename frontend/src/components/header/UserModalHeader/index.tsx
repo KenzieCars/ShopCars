@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 const UserModalHeader = () => {
   const {
     logout,
-    user,
+    userIdCars,
     profileEditModal,
     setProfileEditModal,
     setAddressEditModal,
@@ -37,7 +37,7 @@ const UserModalHeader = () => {
       <ModalItem onClick={() => setAddressEditModal(!addressEditModal)}>
         Editar endereço
       </ModalItem>
-      {user?.seller === true ? (
+      {userIdCars?.seller === true ? (
         <ModalItem onClick={() => handleClickNavigate()}>
           Meus anúncios
         </ModalItem>

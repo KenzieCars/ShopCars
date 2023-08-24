@@ -30,6 +30,7 @@ import {
 import { AxiosResponse } from "axios";
 import { CarContext } from "../../providers/CarProvider/CarContext";
 import { UserContext } from "../../providers/UserProvider/UserContext";
+import Loading from "../Loading";
 
 const carInfoDefault = {
   brand: "brand",
@@ -58,11 +59,6 @@ const RegisterCarModal = ({ setModal }: IModalProps) => {
   const { carRegister, registerCarImage, allcars, setAllCars } =
     useContext(CarContext);
   const { user } = useContext(UserContext);
-
-  const modalRef = useOutClick(() => setModal(false));
-  const buttonRef = useEscapeKey("Escape", (element) => {
-    element.click();
-  });
 
   useEffect(() => {
     fipeApi
@@ -359,7 +355,9 @@ const RegisterCarModal = ({ setModal }: IModalProps) => {
             >
               Cancelar
             </button>
-            <button type="submit">Criar anúncio</button>
+            <button type="submit" disabled={loading}>
+              {loading ? <Loading /> : "Criar anúncio"}
+            </button>
           </ModalButtonContainer>
         </FormModalContainer>
       </ModalContainer>

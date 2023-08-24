@@ -39,7 +39,6 @@ export const UserProvider = ({ children }: IDefaultProviderProps) => {
   const [allcarsUserPerPage2, setAllcarsUserPerPage2] = useState<
     ICarSeller[] | []
   >([]);
-  const [cardModal, setCardModal] = useState(false);
 
   const [currentPageprofile, setCurrentPageprofile] = useState(1);
 
@@ -110,7 +109,6 @@ export const UserProvider = ({ children }: IDefaultProviderProps) => {
           setAllcarsUser(carsUser);
 
           const listpagination = carsUser.slice(startIndex, endIndex);
-
           setAllcarsUserPerPage(listpagination);
           if (!response.data.seller) {
             navigate("/userPage");
@@ -335,8 +333,6 @@ export const UserProvider = ({ children }: IDefaultProviderProps) => {
         currentPageprofile,
         setCurrentPageprofile,
         allcarsUser2,
-        cardModal,
-        setCardModal,
         allcarsComumProfilePerPage,
         currentPageprofileComum,
         setCurrentPageprofileComum,

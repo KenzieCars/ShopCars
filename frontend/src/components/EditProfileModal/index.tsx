@@ -52,64 +52,30 @@ const EditProfileModal = () => {
             X
           </button>
         </TitleContainer>
-        <FieldsetContainer>
-          <label>Nome</label>
-          <input
-            type="text"
-            name="name"
-            placeholder="Nome"
-            value={formData.name}
-            onChange={handleChange}
-          />
-        </FieldsetContainer>
-        <FieldsetContainer>
-          <label>Email</label>
-          <input
-            type="email"
-            name="email"
-            placeholder="Email"
-            value={formData.email}
-            onChange={handleChange}
-          />
-        </FieldsetContainer>
-        <FieldsetContainer>
-          <label>CPF</label>
-          <input
-            type="text"
-            name="cpf"
-            placeholder="900.800.090-00"
-            value={formData.cpf}
-            onChange={handleChange}
-          />
-        </FieldsetContainer>
-        <FieldsetContainer>
-          <label>Celular</label>
-          <input
-            type="tel"
-            name="cellPhone"
-            placeholder="(084)90909-9092"
-            value={formData.cellPhone}
-            onChange={handleChange}
-          />
-        </FieldsetContainer>
-        <FieldsetContainer>
-          <label>Data de nascimento</label>
-          <input
-            type="date"
-            name="dateOfBirth"
-            placeholder="09/12/99"
-            value={formData.dateOfBirth}
-            onChange={handleChange}
-          />
-        </FieldsetContainer>
-        <FieldsetContainer>
-          <label>Descrição</label>
-          <textarea
-            value={formData.description}
-            name="description"
-            onChange={handleChange}
-          ></textarea>
-        </FieldsetContainer>
+          <FieldsetContainer>
+            <label>Nome</label>
+            <input type="text" name='name' placeholder="Nome" value={formData.name} onChange={handleChange} />
+          </FieldsetContainer>
+          <FieldsetContainer>
+            <label>Email</label>
+            <input type="email" name='email' placeholder="Email" value={formData.email} onChange={handleChange} />
+          </FieldsetContainer>
+          <FieldsetContainer>
+            <label>CPF</label>
+            <input type="text" name='cpf' placeholder="900.800.090-00" value={formData.cpf} onChange={handleChange} />
+          </FieldsetContainer>
+          <FieldsetContainer>
+            <label>Celular</label>
+            <input type="tel" name='cellPhone' placeholder="(084)90909-9092" value={formData.cellPhone} onChange={handleChange} />
+          </FieldsetContainer>
+          <FieldsetContainer>
+            <label>Data de nascimento</label>
+            <input type="date" name='dateOfBirth' placeholder="09/12/99" value={formData.dateOfBirth} onChange={handleChange} />
+          </FieldsetContainer>
+          <FieldsetContainer>
+            <label>Descrição</label>
+            <textarea value={formData.description} name='description' onChange={handleChange}></textarea>
+          </FieldsetContainer>
         <ButtonContainer>
           <button onClick={() => setProfileEditModal(!profileEditModal)}>
             Cancelar
