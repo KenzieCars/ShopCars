@@ -20,13 +20,24 @@ import { UserContext } from "../../providers/UserProvider/UserContext";
 import EditProfileModal from "../../components/EditProfileModal";
 import EditAddressModal from "../../components/EditProfileModal/EditAddressModal";
 
+// import { CarContext } from "../../providers/CarProvider/CarContext";
+
 const Home = () => {
   const { currentPage, setCurrentPage, allcarsPages } = useContext(HomeContext);
   const { profileEditModal, addressEditModal } = useContext(UserContext)
   const itemsPerPage = 12;
 
-  const totalItems = allcarsPages.length + 1;
-  const totalPages = Math.ceil(totalItems / itemsPerPage);
+  // const totalItems = allcarsPages.length + 1;
+  // const totalPages = Math.ceil(totalItems / itemsPerPage);
+
+  let totalPages = 1;
+  if (allcarsPages.length < 12) {
+    const totalItems = allcarsPages.length + 1;
+    totalPages = Math.ceil(totalItems / itemsPerPage);
+  } else {
+    const totalItems = allcarsPages.length;
+    totalPages = Math.ceil(totalItems / itemsPerPage);
+  }
 
   useEffect(() => {
     // Rolar para o topo da página quando o componente for montado
