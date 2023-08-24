@@ -25,8 +25,8 @@ export const CarProvider = ({ children }: IDefaultProviderProps) => {
   const {
     setListCarsUser,
     listCarsUser,
-    setAllcarsUserPerPage,
-    allcarsUserPerPage,
+
+    carUserSeller,
   } = useContext(UserContext);
 
   useEffect(() => {
@@ -57,9 +57,7 @@ export const CarProvider = ({ children }: IDefaultProviderProps) => {
         });
 
         setCar(response.data);
-
-        setAllcarsUserPerPage([...allcarsUserPerPage, response.data]);
-
+        carUserSeller();
         toast.success("Car registered!");
       } catch (error) {
         console.log(error);
@@ -67,7 +65,7 @@ export const CarProvider = ({ children }: IDefaultProviderProps) => {
         toast.error("Car already exists.");
       }
     }
-
+    console.log(response);
     return response;
   };
 
