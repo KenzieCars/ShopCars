@@ -14,18 +14,19 @@ import {
 import { TbFlag3Filled } from "react-icons/tb";
 import NothingHere from "../../NothingHere";
 import { UserContext } from "../../../providers/UserProvider/UserContext";
-import { Link } from "react-router-dom";
+import Loading from "../../Loading";
 
 const CardAdmin = () => {
-  const { allcarsUserPerPage, userIdCars } =
+  const { allcarsUserPerPage, userIdCars, loading } =
     useContext(UserContext);
 
   if (allcarsUserPerPage.length === 0) return <NothingHere />;
 
+  if(loading) return <h1><Loading /></h1>
+
   return (
     <>
       {allcarsUserPerPage.map((car) => (
-        <Link to={`/product/${car.id}`} key={car.id}>
           <CardContainer key={car.id}>
             {car.status === false ? <FlagNotAvailable>Inativo</FlagNotAvailable> : <FlagAvailable>Ativo</FlagAvailable>}
             <FigureContainer>
@@ -58,7 +59,6 @@ const CardAdmin = () => {
               <TbFlag3Filled />
             </FlagGoodDeal>
           </CardContainer>
-        </Link>
       ))}
     </>
   );

@@ -166,6 +166,8 @@ export const ButtonContainer = styled.div`
 
   margin-top: .7rem;
 
+  z-index: 200;
+
   > button {
     background: var(--white);
     
@@ -178,6 +180,9 @@ export const ButtonContainer = styled.div`
 
     font-weight: 600;
     color: var(--gray);
+
+  z-index: 200;
+
 
     &:hover {
       background: var(--black);

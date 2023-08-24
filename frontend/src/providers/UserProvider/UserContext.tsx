@@ -85,6 +85,7 @@ export const UserProvider = ({ children }: IDefaultProviderProps) => {
     if (token) {
       const userLogged = async () => {
         try {
+          setLoading(true);
           const response = await api.get<TUserCarsResponse>(
             `/users/${userId}`,
             {
@@ -117,6 +118,8 @@ export const UserProvider = ({ children }: IDefaultProviderProps) => {
           }
         } catch (error) {
           console.log(error);
+        } finally {
+          setLoading(false);
         }
       };
       userLogged();
@@ -149,9 +152,7 @@ export const UserProvider = ({ children }: IDefaultProviderProps) => {
     setCurrentPageprofile(2);
     setCurrentPageprofileComum(2);
     setUserIdCars(null);
-    console.log("Entrou no logout");
     navigate("/login");
-    localStorage.clear();
   };
 
   const sendEmail = async (sendEmailData: ResetEmailData) => {
@@ -191,6 +192,7 @@ export const UserProvider = ({ children }: IDefaultProviderProps) => {
     
     if (token) {
       try {
+        setLoading(true);
         const res = await api.patch(`/users/${id}`, formData, {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -207,6 +209,8 @@ export const UserProvider = ({ children }: IDefaultProviderProps) => {
       } catch (error) {
         console.log(error);
         toast.error("Falha ao atualizar usuário");
+      } finally {
+        setLoading(false);
       }
     }
   };
@@ -216,6 +220,7 @@ export const UserProvider = ({ children }: IDefaultProviderProps) => {
     const id = localStorage.getItem("@userId");
 
     try {
+      setLoading(true);
       await api.delete(`/users/${id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -231,6 +236,8 @@ export const UserProvider = ({ children }: IDefaultProviderProps) => {
     } catch (error) {
       console.log(error);
       toast.error("Algo deu errado :(");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -242,6 +249,7 @@ export const UserProvider = ({ children }: IDefaultProviderProps) => {
 
     if (token) {
       try {
+        setLoading(true);
         const response = await api.get<IUserSeller[]>(`/users/profile`, {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -265,6 +273,8 @@ export const UserProvider = ({ children }: IDefaultProviderProps) => {
       } catch (error) {
         console.log(error);
         toast.error("Algo deu errado :(");
+      } finally {
+        setLoading(false);
       }
     }
   };
@@ -279,6 +289,7 @@ export const UserProvider = ({ children }: IDefaultProviderProps) => {
 
   const carUser = async () => {
     try {
+      setLoading(true);
       const response = await api.get<TDataCarResponse[]>("/cars");
 
       const carsUser = response.data;
@@ -296,6 +307,8 @@ export const UserProvider = ({ children }: IDefaultProviderProps) => {
     } catch (error) {
       console.log(error);
       toast.error("Algo deu errado :(");
+    } finally {
+      setLoading(false);
     }
   };
 

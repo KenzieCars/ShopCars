@@ -74,6 +74,13 @@ export const UserHeaderContainer = styled.div`
     border-radius: 50%;
 
     padding: .4rem .7rem;
+
+    transition: .2s ease;
+
+    &:hover {
+      background: var(--black);
+      color: var(--white);
+    }
   }
 
   > span:nth-child(2) {
