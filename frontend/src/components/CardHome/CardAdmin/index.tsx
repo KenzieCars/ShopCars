@@ -7,26 +7,28 @@ import {
   ContainerInfoCar,
   DescriptionWithOverFlowAdm,
   FigureContainer,
+  FlagAvailable,
   FlagGoodDeal,
+  FlagNotAvailable,
 } from "./style";
 import { TbFlag3Filled } from "react-icons/tb";
 import NothingHere from "../../NothingHere";
 import { UserContext } from "../../../providers/UserProvider/UserContext";
-
+import Loading from "../../Loading";
 const CardAdmin = () => {
-  const { allcarsUserPerPage2, userIdCars } = useContext(UserContext);
-
+  const { allcarsUserPerPage2, userIdCars, loading } = useContext(UserContext);
   if (allcarsUserPerPage2.length === 0) return <NothingHere />;
-
+  if(loading) return <h1><Loading /></h1>
   return (
     <>
       {allcarsUserPerPage2.map((car) => (
         <CardContainer key={car.id}>
+          {car.status === false ? <FlagNotAvailable>Inativo</FlagNotAvailable> : <FlagAvailable>Ativo</FlagAvailable>}
           <FigureContainer>
             <img src={car.imgCover} alt={car.model} />
           </FigureContainer>
           <ContainerInfo>
-            <h3>
+            <h3 className="truncated-title">
               {car.brand} - {car.model}
             </h3>
             <DescriptionWithOverFlowAdm>
@@ -51,14 +53,9 @@ const CardAdmin = () => {
           <FlagGoodDeal>
             <TbFlag3Filled />
           </FlagGoodDeal>
-          {/* <TresPontinhos onClick={() => setCardModal(!cardModal)}>
-            <MdMoreVert />
-          </TresPontinhos>
-          {cardModal && <CardModalAdmin />} */}
         </CardContainer>
       ))}
     </>
   );
 };
-
 export default CardAdmin;

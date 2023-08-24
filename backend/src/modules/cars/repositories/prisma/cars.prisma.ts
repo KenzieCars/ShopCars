@@ -89,7 +89,11 @@ export class CarsPrismaRepository implements CarsRepository {
       where: { id },
       include: {
         images: true,
-        comments: true,
+        comments: {
+          include: {
+            user: true
+          }
+        },
         user: true,
       },
     });

@@ -13,6 +13,8 @@ const UserModalHeader = () => {
     addressEditModal,
   } = useContext(UserContext);
 
+  const path = window.location.pathname
+
   const [isVisible, setIsVisible] = useState(false);
   const navigate = useNavigate();
 
@@ -37,7 +39,7 @@ const UserModalHeader = () => {
       <ModalItem onClick={() => setAddressEditModal(!addressEditModal)}>
         Editar endereço
       </ModalItem>
-      {userIdCars?.seller === true ? (
+      {userIdCars?.seller === true && path !== "/profile" ? (
         <ModalItem onClick={() => handleClickNavigate()}>
           Meus anúncios
         </ModalItem>
