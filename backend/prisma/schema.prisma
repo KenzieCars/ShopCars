@@ -42,7 +42,7 @@ datasource db {
     year String
     km Int
     color String
-    status Boolean? @default(false)
+    status Boolean? @default(true)
     fuel String
     price Int
     description String

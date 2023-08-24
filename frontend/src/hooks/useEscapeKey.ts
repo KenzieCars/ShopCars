@@ -1,27 +1,26 @@
-import { KeyboardEvent, useEffect, useRef } from 'react';
+import { KeyboardEvent, useEffect, useRef } from "react";
 
+const useEscapeKey = (
+  keyId: string,
+  callback: (element: React.KeyboardEvent<Element>) => void
+) => {
+  const ref = useRef<null | KeyboardEvent>(null);
 
-const useEscapeKey = (keyId: string, callback: (element: React.KeyboardEvent<Element>) => void) => {
+  useEffect(() => {
+    const keyEvent = (event: KeyboardEvent) => {
+      if (event.key === keyId) {
+        if (callback) callback(ref.current!);
+      }
+    };
 
-    const ref = useRef<null | KeyboardEvent>(null);
+    window.addEventListener("keydown", keyEvent);
 
-    useEffect(() => {
+    return () => {
+      window.removeEventListener("keydown", keyEvent);
+    };
+  });
 
-        const keyEvent = (event: KeyboardEvent) => {
-            if (event.key === keyId) {
-                if (callback) callback(ref.current!);
-            }
-        }
-
-        window.addEventListener('keydown', keyEvent);
-
-        return () => {
-            window.removeEventListener('keydown', keyEvent);
-        };
-
-    })
-
-    return ref;
+  return ref;
 };
 
 export default useEscapeKey;

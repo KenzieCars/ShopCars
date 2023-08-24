@@ -35,7 +35,3 @@ export interface ICommentUpdate{
 	description: string;
 }
 
-// export interface TCarResponse extends ICar {
-//   images: IImage[] | [];
-//   comments: IComment[] | [];
-// }

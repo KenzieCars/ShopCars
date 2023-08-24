@@ -22,7 +22,7 @@ const CardAdmin = () => {
   if (allcarsUserPerPage2.length === 0) return <NothingHere />;
 
   if(loading) return <h1><Loading /></h1>
-
+  
   return (
     <>
       {allcarsUserPerPage2.map((car) => (
@@ -62,5 +62,4 @@ const CardAdmin = () => {
     </>
   );
 };
-
 export default CardAdmin;

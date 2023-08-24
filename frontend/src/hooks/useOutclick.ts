@@ -1,27 +1,23 @@
-import { MouseEvent, useEffect, useRef } from 'react';
-
+import { MouseEvent, useEffect, useRef } from "react";
 
 const useOutClick = (callback: () => void) => {
+  const ref = useRef<null | HTMLElement>(null);
 
-    const ref = useRef<null | HTMLElement>(null);
+  useEffect(() => {
+    const handOutEvent = (event: MouseEvent) => {
+      if (!ref.current?.contains(event.target)) {
+        if (callback) callback();
+      }
+    };
 
-    useEffect(() => {
+    window.addEventListener("mousedown", handOutEvent);
 
-        const handOutEvent = (event: MouseEvent) => {
-            if (!ref.current?.contains(event.target)) {
-                if (callback) callback();
-            }
-        }
+    return () => {
+      window.removeEventListener("mousedown", handOutEvent);
+    };
+  });
 
-        window.addEventListener('mousedown', handOutEvent);
-
-        return () => {
-            window.removeEventListener('mousedown', handOutEvent);
-        };
-
-    })
-
-    return ref;
+  return ref;
 };
 
 export default useOutClick;

@@ -1,5 +1,6 @@
 import { AxiosResponse } from "axios";
 import { IUser } from "../UserProvider/@types";
+
 export interface ICarContext {
   images: IImage[] | [];
   car: ICar | null;
@@ -27,7 +28,7 @@ export interface ICar {
   price: number;
   description: string;
   imgCover: string;
-  "bestPrice?": boolean;
+  bestPrice?: boolean;
   userId: number;
 }
 export type TCarRequest = Omit<ICar, "id" | "userId">;

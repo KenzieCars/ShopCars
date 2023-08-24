@@ -1,5 +1,4 @@
 import { createContext, useEffect, useState } from "react";
-// import { useNavigate } from "react-router-dom";
 import { api } from "../../services/api";
 import { toast } from "react-toastify";
 import {
@@ -23,7 +22,6 @@ export interface IImageContext {
 export const ImageContext = createContext({} as IImageContext);
 
 export const ImageProvider = ({ children }: IDefaultProviderProps) => {
-  // const navigate = useNavigate();
 
   const [allImages, setAllImages] = useState<TListImages | []>([]);
   const [newImageCar, setNewImageCar] = useState<IImage | null>(null);
