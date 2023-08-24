@@ -228,7 +228,7 @@ const RegisterCarModal = ({ setModal }: IModalProps) => {
                         </FieldsetModal>
                     </DualFields>
                     <FieldsetModal>
-                        <label>descrição</label>
+                        <label>Descrição</label>
                         <textarea placeholder='Digite a descrição' {...register('description')} />
                         {errors.description?.message && <ErrorModal>{errors.description.message}</ErrorModal>}
                     </FieldsetModal>
