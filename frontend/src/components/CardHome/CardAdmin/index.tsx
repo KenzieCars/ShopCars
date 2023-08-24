@@ -1,4 +1,5 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   ButtonContainer,
   CardContainer,
@@ -14,18 +15,33 @@ import {
 import { TbFlag3Filled } from "react-icons/tb";
 import NothingHere from "../../NothingHere";
 import { UserContext } from "../../../providers/UserProvider/UserContext";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
+import UpdateOrDeleteCarModal from "../../UpdateOrDeleteCarModal";
+import { TDataCarResponse } from "../../../providers/CarProvider/@types";
 
 const CardAdmin = () => {
   const { allcarsUserPerPage, userIdCars } =
     useContext(UserContext);
 
+  const navigate = useNavigate();
+
+  const [updateOrDeleteModal, setUpdateOrDeleteModal] = useState<boolean>(false);
+  const [carToUpdate, setCarToUpdate] = useState<null | TDataCarResponse>(null);
+
   if (allcarsUserPerPage.length === 0) return <NothingHere />;
+
+  const handleUpdateOrDeleteCarModal = (car: TDataCarResponse,
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent>): void => {
+    event.stopPropagation();
+    setCarToUpdate(car);
+    setUpdateOrDeleteModal(true);
+  };
 
   return (
     <>
       {allcarsUserPerPage.map((car) => (
-        <Link to={`/product/${car.id}`} key={car.id}>
+        <div onClick={() => navigate(`/product/${car.id}`)} key={car.id}
+          style={{ cursor: "pointer" }}>
           <CardContainer key={car.id}>
             {car.status === false ? <FlagNotAvailable>Inativo</FlagNotAvailable> : <FlagAvailable>Ativo</FlagAvailable>}
             <FigureContainer>
@@ -50,7 +66,7 @@ const CardAdmin = () => {
                 <span>R$ {car.price}</span>
               </ContainerInfoCar>
               <ButtonContainer>
-                <button>Editar</button>
+                <button onClick={(event) => handleUpdateOrDeleteCarModal(car, event)}>Editar</button>
                 <button>Ver detalhes</button>
               </ButtonContainer>
             </ContainerInfo>
@@ -58,8 +74,10 @@ const CardAdmin = () => {
               <TbFlag3Filled />
             </FlagGoodDeal>
           </CardContainer>
-        </Link>
+        </div >
       ))}
+      {updateOrDeleteModal && <UpdateOrDeleteCarModal
+        setModal={setUpdateOrDeleteModal} car={carToUpdate} />}
     </>
   );
 };
