@@ -6,7 +6,7 @@ export const CardContainer = styled.li`
 
   width: 250px;
 
-  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 
   background: var(--white);
 
@@ -19,7 +19,6 @@ export const CardContainer = styled.li`
   @media (min-width: 768px) {
     width: 282px;
     height: fit-content;
-    /* min-height: 390px; */
     max-height: fit-content;
   }
 `;
@@ -45,6 +44,13 @@ export const ContainerInfo = styled.div`
   > h3 {
     font-size: 0.8rem;
     color: var(--black);
+  }
+
+  > h3.truncated-title {
+  // Adicione as propriedades para texto truncado
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
   }
 
   > p {
@@ -193,11 +199,11 @@ export const DescriptionWithOverFlowAdm = styled.section`
   &:before {
     content: '';
     position: absolute;
-    bottom: 86px;
+    bottom: 139px;
     left: 0;
     width: 100%;
     height: 38px; /* Ajuste a altura do degradê conforme necessário */
-    background: linear-gradient(transparent, rgba(246, 246, 246, 0.8) ); /* Defina as cores do degradê aqui */
+    background: linear-gradient(transparent, rgba(246, 246, 246, 0.8)); /* Defina as cores do degradê aqui */
   }
 }
 
@@ -216,8 +222,8 @@ export const DescriptionWithOverFlowAdm = styled.section`
 
 export const TresPontinhos = styled.button`
   position: absolute;
-  top: 170px;
-  right: 5px;
+  top: 152px;
+  right: 8px;
 
   background: transparent;
 
@@ -231,4 +237,38 @@ export const TresPontinhos = styled.button`
   &:hover {
     color: var(--black);
   }
+`
+
+export const FlagNotAvailable = styled.span`
+  position: absolute;
+  top: 10px;
+  left: 10px;
+
+  background: var(--black);
+
+  border-radius: 15px;
+
+  padding: .3rem .8rem;
+
+  opacity: .8;
+
+  font-size: .7rem;
+  color: var(--white);
+`
+
+export const FlagAvailable = styled.span`
+  position: absolute;
+  top: 10px;
+  left: 10px;
+
+  background: var(--primary-color);
+
+  border-radius: 15px;
+
+  padding: .3rem .8rem;
+
+  opacity: .8;
+
+  font-size: .7rem;
+  color: var(--white);
 `

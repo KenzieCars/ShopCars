@@ -1,5 +1,6 @@
 import { useContext } from "react";
 import {
+  ButtonContainer,
   CardContainer,
   ContactUserContainer,
   ContainerInfo,
@@ -7,18 +8,13 @@ import {
   DescriptionWithOverFlowAdm,
   FigureContainer,
   FlagGoodDeal,
-  TresPontinhos,
 } from "./style";
 import { TbFlag3Filled } from "react-icons/tb";
-// import { CarContext } from "../../../providers/CarProvider/CarContext";
 import NothingHere from "../../NothingHere";
 import { UserContext } from "../../../providers/UserProvider/UserContext";
-import { MdMoreVert } from "react-icons/md";
-import CardModalAdmin from "./CardModalAdmin";
 
 const CardAdmin = () => {
-  const { allcarsUserPerPage2, userIdCars, cardModal, setCardModal } =
-    useContext(UserContext);
+  const { allcarsUserPerPage2, userIdCars } = useContext(UserContext);
 
   if (allcarsUserPerPage2.length === 0) return <NothingHere />;
 
@@ -47,21 +43,22 @@ const CardAdmin = () => {
               </div>
               <span>R$ {car.price}</span>
             </ContainerInfoCar>
-            {/* <ButtonContainer>
+            <ButtonContainer>
               <button>Editar</button>
               <button>Ver detalhes</button>
-            </ButtonContainer> */}
+            </ButtonContainer>
           </ContainerInfo>
           <FlagGoodDeal>
             <TbFlag3Filled />
           </FlagGoodDeal>
-          <TresPontinhos onClick={() => setCardModal(!cardModal)}>
+          {/* <TresPontinhos onClick={() => setCardModal(!cardModal)}>
             <MdMoreVert />
           </TresPontinhos>
-          {cardModal && <CardModalAdmin />}
+          {cardModal && <CardModalAdmin />} */}
         </CardContainer>
       ))}
     </>
   );
 };
+
 export default CardAdmin;

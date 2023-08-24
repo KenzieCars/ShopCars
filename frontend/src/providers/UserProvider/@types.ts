@@ -32,8 +32,6 @@ export interface IUserContext {
   currentPageprofile: number;
   setCurrentPageprofile: React.Dispatch<React.SetStateAction<number>>;
   allcarsUser2: [] | ICarSeller[];
-  cardModal: boolean;
-  setCardModal: React.Dispatch<React.SetStateAction<boolean>>;
   allcarsComumProfilePerPage: [] | TDataCarResponse[];
   currentPageprofileComum: number;
   setCurrentPageprofileComum: React.Dispatch<React.SetStateAction<number>>;

@@ -48,15 +48,15 @@ const EditProfileModal = () => {
           </FieldsetContainer>
           <FieldsetContainer>
             <label>Celular</label>
-          <input type="tel" name='cellPhone' placeholder="(084)90909-9092" value={formData.cellPhone} onChange={handleChange} />
+            <input type="tel" name='cellPhone' placeholder="(084)90909-9092" value={formData.cellPhone} onChange={handleChange} />
           </FieldsetContainer>
           <FieldsetContainer>
             <label>Data de nascimento</label>
-          <input type="date" name='dateOfBirth' placeholder="09/12/99" value={formData.dateOfBirth} onChange={handleChange} />
+            <input type="date" name='dateOfBirth' placeholder="09/12/99" value={formData.dateOfBirth} onChange={handleChange} />
           </FieldsetContainer>
           <FieldsetContainer>
             <label>Descrição</label>
-          <textarea value={formData.description} name='description' onChange={handleChange}></textarea>
+            <textarea value={formData.description} name='description' onChange={handleChange}></textarea>
           </FieldsetContainer>
         <ButtonContainer>
           <button onClick={() => setProfileEditModal(!profileEditModal)}>Cancelar</button>

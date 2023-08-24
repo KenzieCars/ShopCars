@@ -131,16 +131,26 @@ export const ButtonContainer = styled.div`
 `
 
 export const ButtonToRegister = styled(Link)`
-  color: var(--gray);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--primary-color);
   font-size: .7rem;
   font-weight: 600;
+
+  border-radius: 6px;
+  border: 1.5px solid var(--primary-color);
+
+  width: 100%;
+  padding: .8rem;
 
   cursor: pointer;
 
   transition: .2s ease;
 
   &:hover {
-      color: var(--primary-color);
+    color: var(--black);
+    border: 1.5px solid var(--black);
   }
 
   @media (min-width: 768px) {

@@ -9,7 +9,10 @@ export const NothingHereContainer = styled.div`
 
   font-size: 2.9rem;
 
-  padding: 1rem;
+  padding: 1rem 4rem;
+  margin: 0 auto;
+  
+  color: var(--gray);
 
   > p {
     color: var(--black);
@@ -18,12 +21,11 @@ export const NothingHereContainer = styled.div`
   }
 
   @media (min-width: 768px) {
-    font-size: 7rem;
-    color: var(--gray);
+    font-size: 5rem;
     margin: 2rem 4rem;
 
     > P {
-      font-size: 1.7rem;
+      font-size: 1.4rem;
     }
   }
 `
