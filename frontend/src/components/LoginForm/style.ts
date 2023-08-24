@@ -10,6 +10,8 @@ export const MainContainerLogin = styled.main`
     margin-top: 7rem;
     align-items: center;
 
+    height: 100vh;
+
     padding-bottom: 4rem;
   }
 `

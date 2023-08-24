@@ -396,6 +396,8 @@ export const PostAComment = styled.section`
     color: var(--gray);
     
     transition: .2s ease;
+
+    resize: none;
     
     &:focus {
       border: 2px solid var(--primary-color);

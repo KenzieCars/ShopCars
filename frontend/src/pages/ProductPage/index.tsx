@@ -31,6 +31,7 @@ const ProductPage = () => {
   const { allcars } = useContext(CarContext)
   const { userIdCars } = useContext(UserContext)
   const [productDetails, setProductDetails] = useState<TDataCarResponse | null>(null)
+  const token = localStorage.getItem('@userToken')
 
   useEffect(() => {
     const product: any = allcars.find((car) => car.id === productId)
@@ -105,16 +106,18 @@ const ProductPage = () => {
               </CardComment>
             </ListOfComments>
           </CommentsSection>
-          <PostAComment>
-            <div>
-              <span>{userIdCars?.name[0]}</span>
-              <span>{userIdCars?.name}</span>
-            </div>
-            <textarea
-              placeholder="Me conte sua experiência com o carro"
-            ></textarea>
-            <button>Comentar</button>
-          </PostAComment>
+          { token && 
+            <PostAComment>
+              <div>
+                <span>{userIdCars?.name[0]}</span>
+                <span>{userIdCars?.name}</span>
+              </div>
+              <textarea
+                placeholder="Me conte sua experiência com o carro"
+              ></textarea>
+              <button>Comentar</button>
+            </PostAComment>
+          }
         </ProductMainContainer>
         <Aside>
           <PicturesContainerDesktop>
