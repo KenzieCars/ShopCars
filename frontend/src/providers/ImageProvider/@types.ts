@@ -17,8 +17,3 @@ export type TListImages = IImage[]
 export interface IImageUpdate{
 	imgGalery: string;
 }
-
-// export interface TCarResponse extends ICar {
-//   images: IImage[] | [];
-//   comments: IImage[] | [];
-// }

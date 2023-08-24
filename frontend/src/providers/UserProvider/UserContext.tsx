@@ -190,7 +190,7 @@ export const UserProvider = ({ children }: IDefaultProviderProps) => {
   const updateUser = async (formData: Partial<IUser>) => {
     const token = localStorage.getItem("@userToken");
     const id = localStorage.getItem("@userId");
-    
+
     if (token) {
       try {
         const res = await api.patch(`/users/${id}`, formData, {
@@ -203,7 +203,6 @@ export const UserProvider = ({ children }: IDefaultProviderProps) => {
           ...previousUser,
           ...res.data,
         }));
-        
 
         toast.success("Usuário atualizado");
       } catch (error) {
@@ -345,7 +344,7 @@ export const UserProvider = ({ children }: IDefaultProviderProps) => {
         allcarsUser,
         setAllcarsUser,
         allcarsUserPerPage,
-        setAllcarsUserPerPage
+        setAllcarsUserPerPage,
       }}
     >
       {children}

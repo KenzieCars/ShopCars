@@ -1,6 +1,5 @@
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import {
-  ButtonContainer,
   CardContainer,
   ContactUserContainer,
   ContainerInfo,
@@ -11,7 +10,6 @@ import {
   TresPontinhos,
 } from "./style";
 import { TbFlag3Filled } from "react-icons/tb";
-// import { CarContext } from "../../../providers/CarProvider/CarContext";
 import NothingHere from "../../NothingHere";
 import { UserContext } from "../../../providers/UserProvider/UserContext";
 import { MdMoreVert } from "react-icons/md";
@@ -20,9 +18,8 @@ import CardModalAdmin from "./CardModalAdmin";
 const CardAdmin = () => {
   const { allcarsUserPerPage, userIdCars, cardModal, setCardModal } =
     useContext(UserContext);
-  // console.log(user)
+
   if (allcarsUserPerPage.length === 0) return <NothingHere />;
-  // const user = localStorage.getItem("UserData")!;
 
   return (
     <>
@@ -49,10 +46,6 @@ const CardAdmin = () => {
               </div>
               <span>R$ {car.price}</span>
             </ContainerInfoCar>
-            {/* <ButtonContainer>
-              <button>Editar</button>
-              <button>Ver detalhes</button>
-            </ButtonContainer> */}
           </ContainerInfo>
           <FlagGoodDeal>
             <TbFlag3Filled />
