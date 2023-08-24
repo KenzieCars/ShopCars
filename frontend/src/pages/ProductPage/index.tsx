@@ -29,20 +29,20 @@ import { UserContext } from "../../providers/UserProvider/UserContext";
 const ProductPage = () => {
   const { productId } = useParams()
   const { allcars } = useContext(CarContext)
-  const { userIdCars, allcarsUserPerPage } = useContext(UserContext)
+  const { userIdCars } = useContext(UserContext)
   const [productDetails, setProductDetails] = useState<TDataCarResponse | null>(null)
 
   useEffect(() => {
     const product: any = allcars.find((car) => car.id === productId)
-    // const productAdmin: any = allcarsUserPerPage.find((car) => car.id === productId)
     
     if (product) setProductDetails(product)
 
-    // if (productAdmin) setProductDetails(productAdmin)
-
   }, [allcars, productId, productDetails])
 
-  console.log(productDetails)
+  useEffect(() => {
+    // Rolar para o topo da página quando o componente for montado
+    window.scrollTo(0, 0);
+  }, []);
   
   return (
     <>
