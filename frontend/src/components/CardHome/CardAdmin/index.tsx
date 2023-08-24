@@ -15,10 +15,14 @@ import { TbFlag3Filled } from "react-icons/tb";
 import NothingHere from "../../NothingHere";
 import { UserContext } from "../../../providers/UserProvider/UserContext";
 import Loading from "../../Loading";
+
 const CardAdmin = () => {
   const { allcarsUserPerPage2, userIdCars, loading } = useContext(UserContext);
+
   if (allcarsUserPerPage2.length === 0) return <NothingHere />;
+
   if(loading) return <h1><Loading /></h1>
+
   return (
     <>
       {allcarsUserPerPage2.map((car) => (
