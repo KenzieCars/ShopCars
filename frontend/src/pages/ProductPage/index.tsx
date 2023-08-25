@@ -25,25 +25,34 @@ import { useContext, useEffect, useState } from "react";
 import { CarContext } from "../../providers/CarProvider/CarContext";
 import { TDataCarResponse } from "../../providers/CarProvider/@types";
 import { UserContext } from "../../providers/UserProvider/UserContext";
+import { ModalImageProduct } from "../../components/ModalImageProduct";
+import { ImageContext } from "../../providers/ImageProvider/ImageContext";
 
 const ProductPage = () => {
-  const { productId } = useParams()
-  const { allcars } = useContext(CarContext)
-  const { userIdCars } = useContext(UserContext)
-  const [productDetails, setProductDetails] = useState<TDataCarResponse | null>(null)
+  const { productId } = useParams();
+  const { allcars } = useContext(CarContext);
+  const { userIdCars } = useContext(UserContext);
+  const { modalImage, setModalImage, setImageById} = useContext(ImageContext);
+  const [productDetails, setProductDetails] = useState<TDataCarResponse | null>(
+    null
+  );
 
   useEffect(() => {
-    const product: any = allcars.find((car) => car.id === productId)
-    
-    if (product) setProductDetails(product)
+    const product: any = allcars.find((car) => car.id === productId);
 
-  }, [allcars, productId, productDetails])
+    if (product) setProductDetails(product);
+  }, [allcars, productId, productDetails]);
 
   useEffect(() => {
     // Rolar para o topo da página quando o componente for montado
     window.scrollTo(0, 0);
   }, []);
-  
+
+  const getImageProduct = (img: string) => {
+    setModalImage(!modalImage)
+    setImageById(img)
+  }
+
   return (
     <>
       <ContainerShop>
@@ -54,7 +63,9 @@ const ProductPage = () => {
           </FigureContainer>
           <InfoAndDescriptionContainer>
             <InfoSection>
-              <h2>{productDetails?.brand} - {productDetails?.model}</h2>
+              <h2>
+                {productDetails?.brand} - {productDetails?.model}
+              </h2>
               <KmContainer>
                 <span>{productDetails?.year}</span>
                 <span>{productDetails?.km}</span>
@@ -74,7 +85,12 @@ const ProductPage = () => {
             <div>
               {productDetails?.images && productDetails.images.length > 0 ? (
                 productDetails.images.map((img) => (
-                  <img key={img.id} src={img.imgGalery} alt="Imagens do carro do anunciante" />
+                  <img
+                    key={img.id}
+                    src={img.imgGalery}
+                    alt="Imagens do carro do anunciante"
+                    onClick={() => getImageProduct(img.imgGalery)}
+                  />
                 ))
               ) : (
                 <span>Sem fotos</span>
@@ -85,7 +101,9 @@ const ProductPage = () => {
             <span>{productDetails?.user.name[0]}</span>
             <span>{productDetails?.user.name}</span>
             <p>{productDetails?.user.description}</p>
-            <LinkTag to={`/userPage/${productDetails?.user.id}`}>Ver todos os anúncios</LinkTag>
+            <LinkTag to={`/userPage/${productDetails?.user.id}`}>
+              Ver todos os anúncios
+            </LinkTag>
           </AdvertiserSection>
           <CommentsSection>
             <h3>Comentários</h3>
@@ -110,9 +128,7 @@ const ProductPage = () => {
               <span>{userIdCars?.name[0]}</span>
               <span>{userIdCars?.name}</span>
             </div>
-            <textarea
-              placeholder="Me conte sua experiência com o carro"
-            ></textarea>
+            <textarea placeholder="Me conte sua experiência com o carro"></textarea>
             <button>Comentar</button>
           </PostAComment>
         </ProductMainContainer>
@@ -122,7 +138,12 @@ const ProductPage = () => {
             <div>
               {productDetails?.images && productDetails.images.length > 0 ? (
                 productDetails.images.map((img) => (
-                  <img key={img.id} src={img.imgGalery} alt="Imagens do carro do anunciante" />
+                  <img
+                    key={img.id}
+                    src={img.imgGalery}
+                    alt="Imagens do carro do anunciante"
+                    onClick={() => getImageProduct(img.imgGalery)}
+                  />
                 ))
               ) : (
                 <span>Sem fotos</span>
@@ -133,9 +154,12 @@ const ProductPage = () => {
             <span>{productDetails?.user.name[0]}</span>
             <span>{productDetails?.user.name}</span>
             <p>{productDetails?.user.description}</p>
-            <LinkTag to={`/userPage/${productDetails?.user.id}`}>Ver todos os anúncios</LinkTag>
+            <LinkTag to={`/userPage/${productDetails?.user.id}`}>
+              Ver todos os anúncios
+            </LinkTag>
           </AdvertiserSectionDesktop>
         </Aside>
+        {modalImage && <ModalImageProduct />}
       </ContainerShop>
       <Footer />
     </>
