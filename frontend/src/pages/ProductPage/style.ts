@@ -212,6 +212,7 @@ export const PicturesContainer = styled.ul`
 
     > img {
       width: 28%;
+      cursor: pointer;
     }
   }
 
@@ -477,6 +478,7 @@ export const PicturesContainerDesktop = styled.ul`
       width: 28%;
       border-radius: 2px;
       object-fit: contain;
+      cursor: pointer;
     }
   }
 
