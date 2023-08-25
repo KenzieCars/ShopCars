@@ -6,7 +6,7 @@ export interface IDefaultProviderProps {
 export interface IImage {
   id: string;
   imgGalery: string;
-  carId: number;
+  carId: string;
 }
 
 export type TImageRequest = Omit<IImage, "id">;

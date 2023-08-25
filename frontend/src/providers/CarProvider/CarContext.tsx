@@ -9,11 +9,14 @@ import {
   IDefaultProviderProps,
   IImage,
   IImageRequest,
+  TCarDataIdResponse,
   TCarRequest,
   TCarUpdate,
   TDataCarResponse,
 } from "./@types";
 import { AxiosResponse } from "axios";
+// import { CommentContext } from "../CommentProvider/CommentContext";
+import { TCommentUserResponse } from "../CommentProvider/@types";
 
 export const CarContext = createContext({} as ICarContext);
 
@@ -22,12 +25,18 @@ export const CarProvider = ({ children }: IDefaultProviderProps) => {
   const [car, setCar] = useState<ICar | null>(null);
   const [allcars, setAllCars] = useState<TDataCarResponse[] | []>([]);
 
+  //Vem todos os carros cadastrado em um array só
+  //Sem paginação
+  const [allCarsRegistered, setAllCarsRegistered] = useState<
+    TDataCarResponse[] | []
+  >([]);
+
   const {
     setListCarsUser,
     listCarsUser,
-
     carUserSeller,
   } = useContext(UserContext);
+
 
   useEffect(() => {
     const allCars = async () => {
@@ -35,6 +44,7 @@ export const CarProvider = ({ children }: IDefaultProviderProps) => {
         const response = await api.get<TDataCarResponse[]>(`/cars`);
 
         setAllCars(response.data);
+        setAllCarsRegistered(response.data);
       } catch (error) {
         console.log(error);
       }
@@ -43,9 +53,29 @@ export const CarProvider = ({ children }: IDefaultProviderProps) => {
     allCars();
   }, []);
 
+  const carsSellerId = async (carId: string) => {
+    try {
+      const response = await api.get<TCarDataIdResponse>(`/cars/${carId}`);
+
+      const allCommentsForCarId: TCommentUserResponse[] =
+        response.data.comments;
+
+      //Salva todos os comentários relacionados
+      //a um determinado anúncio
+      localStorage.setItem(
+        "@commentsCarID",
+        JSON.stringify(allCommentsForCarId)
+      );
+
+      return allCommentsForCarId;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const carRegister = async (formData: TCarRequest) => {
     const token = localStorage.getItem("@userToken");
-    console.log(formData)
+
     let response: AxiosResponse<ICar> | "" = "";
 
     if (token) {
@@ -159,13 +189,16 @@ export const CarProvider = ({ children }: IDefaultProviderProps) => {
         images,
         car,
         allcars,
+        allCarsRegistered,
         setImages,
         setCar,
         setAllCars,
+        setAllCarsRegistered,
         carRegister,
         editeCar,
         deleteCar,
         registerCarImage,
+        carsSellerId,
       }}
     >
       {children}
