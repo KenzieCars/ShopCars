@@ -133,7 +133,8 @@ export const UserProvider = ({ children }: IDefaultProviderProps) => {
   const logout = () => {
     setUser(null);
 
-    localStorage.clear();
+    localStorage.removeItem("@userToken")
+    localStorage.removeItem("@userId")
     setCurrentPageprofile(2);
     setCurrentPageprofileComum(2);
     setUserIdCars(null);

@@ -16,6 +16,7 @@ export const CommentProvider = ({ children }: IDefaultProviderProps) => {
   const [allComments, setAllComments] = useState<TListComments | []>([]);
   const [newCommentUser, setNewCommentUser] = useState<IComment | null>(null);
 
+
   useEffect(() => {
     const allComments = async () => {
       try {

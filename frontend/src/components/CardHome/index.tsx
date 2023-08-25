@@ -6,7 +6,7 @@ import {
   ContainerInfoCar,
   FigureContainer,
   FlagGoodDeal,
-  DescriptionWithOverFlow
+  DescriptionWithOverFlow,
 } from "./style";
 import { CarContext } from "../../providers/CarProvider/CarContext";
 import NothingHere from "../NothingHere";
@@ -15,13 +15,18 @@ import { Link } from "react-router-dom";
 
 const CardHome = () => {
   const { allcars } = useContext(CarContext);
+  const { carsSellerId } = useContext(CarContext);
+
+  const searchDataCar = async (carId: string) => {
+    await carsSellerId(carId)
+  }
 
   if (allcars.length === 0) return <NothingHere />;
 
   return (
     <>
       {allcars.map((car) => (
-        <Link to={`/product/${car.id}`} key={car.id}>
+        <Link to={`/product/${car.id}`} key={car.id} onClick={() => searchDataCar(car.id)}>
           <CardContainer key={car.id}>
             <FigureContainer>
               <img src={car.imgCover} alt={car.model} />
@@ -33,7 +38,7 @@ const CardHome = () => {
               <DescriptionWithOverFlow>
                 <p>{car.description}</p>
               </DescriptionWithOverFlow>
-  
+
               <ContactUserContainer>
                 <span>{car.user.name[0]}</span>
                 <span>{car.user.name}</span>
@@ -46,9 +51,11 @@ const CardHome = () => {
                 <span>R$ {car.price}</span>
               </ContainerInfoCar>
             </ContainerInfo>
-            <FlagGoodDeal>
-              <TbFlag3Filled />
-            </FlagGoodDeal>
+            {car.bestPrice && (
+              <FlagGoodDeal>
+                <TbFlag3Filled />
+              </FlagGoodDeal>
+            )}
           </CardContainer>
         </Link>
       ))}

@@ -1,3 +1,4 @@
+// import { IUser } from "../UserProvider/@types";
 
 export interface IDefaultProviderProps {
   children: React.ReactNode;
@@ -17,8 +18,8 @@ export interface IComment {
   id: string;
   description: string;
   createdAt: Date;
-  carId: number;
-  userId: number;
+  carId: string;
+  userId: string;
 }
 
 export type TCommentRequest = Omit<IComment, "id" | "createdAt" | "userId">;
@@ -35,3 +36,35 @@ export interface ICommentUpdate{
 	description: string;
 }
 
+// export interface TCommentUserResponse extends IComment {
+//   user: IUser
+// }
+
+interface User {
+  id: string;
+  name: string;
+  email: string;
+  password: string;
+  seller: boolean;
+  isAdm: boolean;
+  cellPhone: string;
+  cpf: string;
+  dateOfBirth: string;
+  description: string;
+  city: string;
+  state: string;
+  street: string;
+  number: number;
+  complement: string;
+  cep: string;
+  reset_token: string | null;
+}
+
+export interface TCommentUserResponse {
+  id: string;
+  description: string;
+  createdAt: string;
+  carId: string;
+  userId: string;
+  user: User;
+}

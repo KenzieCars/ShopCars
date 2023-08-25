@@ -21,13 +21,22 @@ const CardAdmin = () => {
 
   if (allcarsUserPerPage2.length === 0) return <NothingHere />;
 
-  if(loading) return <h1><Loading /></h1>
-  
+  if (loading)
+    return (
+      <h1>
+        <Loading />
+      </h1>
+    );
+
   return (
     <>
       {allcarsUserPerPage2.map((car) => (
         <CardContainer key={car.id}>
-          {car.status === false ? <FlagNotAvailable>Inativo</FlagNotAvailable> : <FlagAvailable>Ativo</FlagAvailable>}
+          {car.status === false ? (
+            <FlagNotAvailable>Inativo</FlagNotAvailable>
+          ) : (
+            <FlagAvailable>Ativo</FlagAvailable>
+          )}
           <FigureContainer>
             <img src={car.imgCover} alt={car.model} />
           </FigureContainer>
@@ -54,9 +63,11 @@ const CardAdmin = () => {
               <button>Ver detalhes</button>
             </ButtonContainer>
           </ContainerInfo>
-          <FlagGoodDeal>
-            <TbFlag3Filled />
-          </FlagGoodDeal>
+          {car.bestPrice && (
+            <FlagGoodDeal>
+              <TbFlag3Filled />
+            </FlagGoodDeal>
+          )}
         </CardContainer>
       ))}
     </>

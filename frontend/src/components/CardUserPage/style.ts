@@ -184,7 +184,7 @@ export const DescriptionWithOverFlow = styled.section`
     left: 0;
     width: 100%;
     height: 50px; /* Ajuste a altura do degradê conforme necessário */
-    background: linear-gradient(transparent, rgba(246, 246, 246, 0.8)); /* Defina as cores do degradê aqui */
+    background: linear-gradient(transparent, var(--white)); /* Defina as cores do degradê aqui */
   }
 }
 
