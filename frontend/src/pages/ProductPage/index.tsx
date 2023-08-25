@@ -27,18 +27,27 @@ import { TDataCarResponse } from "../../providers/CarProvider/@types";
 import { UserContext } from "../../providers/UserProvider/UserContext";
 import { ModalImageProduct } from "../../components/ModalImageProduct";
 import { ImageContext } from "../../providers/ImageProvider/ImageContext";
+import { TCommentUserResponse } from "../../providers/CommentProvider/@types";
 
 const ProductPage = () => {
   const { productId } = useParams();
-  const { allcars } = useContext(CarContext);
+  const { allcars, allCarsRegistered } = useContext(CarContext);
   const { userIdCars } = useContext(UserContext);
   const { modalImage, setModalImage, setImageById} = useContext(ImageContext);
   const [productDetails, setProductDetails] = useState<TDataCarResponse | null>(
     null
   );
+  const token = localStorage.getItem("@userToken");
+
+
+  const allCommentsForCarId: TCommentUserResponse[] | null = JSON.parse(
+    localStorage.getItem("@commentsCarID") || "null"
+  );
 
   useEffect(() => {
-    const product: any = allcars.find((car) => car.id === productId);
+    const product: TDataCarResponse | undefined = allcars.find(
+      (car) => car.id === productId
+    );
 
     if (product) setProductDetails(product);
   }, [allcars, productId, productDetails]);
@@ -47,6 +56,13 @@ const ProductPage = () => {
     // Rolar para o topo da página quando o componente for montado
     window.scrollTo(0, 0);
   }, []);
+
+  const searchCarsUserId = (userId: string ) => {
+    const carsSearch = allCarsRegistered.filter(
+      (car) => car.user.id === userId
+    );
+    localStorage.setItem("@carsSellerSelect", JSON.stringify(carsSearch));
+  };
 
   const getImageProduct = (img: string) => {
     setModalImage(!modalImage)
@@ -108,29 +124,28 @@ const ProductPage = () => {
           <CommentsSection>
             <h3>Comentários</h3>
             <ListOfComments>
-              <CardComment>
-                <section>
-                  <div>JL</div>
-                  <span>John Lennon</span>
-                  <span>há 3 dias</span>
-                </section>
-                <p>
-                  Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                  Asperiores sequi totam consequatur non libero ad sit
-                  voluptatem ipsam, quam tempora iure voluptatibus debitis,
-                  beatae, maxime optio officiis! Dolorem, numquam id?
-                </p>
-              </CardComment>
+              {allCommentsForCarId?.map((comment) => (
+                <CardComment key={comment.id}>
+                  <section>
+                    <div>JL</div>
+                    <span>{comment.user.name}</span>
+                    <span>criado em {comment.createdAt}</span>
+                  </section>
+                  <p>{comment.description}</p>
+                </CardComment>
+              ))}
             </ListOfComments>
           </CommentsSection>
-          <PostAComment>
-            <div>
-              <span>{userIdCars?.name[0]}</span>
-              <span>{userIdCars?.name}</span>
-            </div>
-            <textarea placeholder="Me conte sua experiência com o carro"></textarea>
-            <button>Comentar</button>
-          </PostAComment>
+          {token && (
+            <PostAComment>
+              <div>
+                <span>{userIdCars?.name[0]}</span>
+                <span>{userIdCars?.name}</span>
+              </div>
+              <textarea placeholder="Me conte sua experiência com o carro"></textarea>
+              <button>Comentar</button>
+            </PostAComment>
+          )}
         </ProductMainContainer>
         <Aside>
           <PicturesContainerDesktop>
@@ -154,7 +169,10 @@ const ProductPage = () => {
             <span>{productDetails?.user.name[0]}</span>
             <span>{productDetails?.user.name}</span>
             <p>{productDetails?.user.description}</p>
-            <LinkTag to={`/userPage/${productDetails?.user.id}`}>
+            <LinkTag
+              to={`/userPage/${productDetails?.user.id}`}
+              onClick={() => searchCarsUserId(productDetails!.user.id)}
+            >
               Ver todos os anúncios
             </LinkTag>
           </AdvertiserSectionDesktop>
