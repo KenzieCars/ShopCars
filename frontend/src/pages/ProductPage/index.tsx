@@ -25,13 +25,15 @@ import { useContext, useEffect, useState } from "react";
 import { CarContext } from "../../providers/CarProvider/CarContext";
 import { TDataCarResponse } from "../../providers/CarProvider/@types";
 import { UserContext } from "../../providers/UserProvider/UserContext";
+import { ModalImageProduct } from "../../components/ModalImageProduct";
+import { ImageContext } from "../../providers/ImageProvider/ImageContext";
 import { TCommentUserResponse } from "../../providers/CommentProvider/@types";
-// import { Card } from "@material-ui/core";
 
 const ProductPage = () => {
   const { productId } = useParams();
   const { allcars, allCarsRegistered } = useContext(CarContext);
   const { userIdCars } = useContext(UserContext);
+  const { modalImage, setModalImage, setImageById} = useContext(ImageContext);
   const [productDetails, setProductDetails] = useState<TDataCarResponse | null>(
     null
   );
@@ -61,6 +63,11 @@ const ProductPage = () => {
     );
     localStorage.setItem("@carsSellerSelect", JSON.stringify(carsSearch));
   };
+
+  const getImageProduct = (img: string) => {
+    setModalImage(!modalImage)
+    setImageById(img)
+  }
 
   return (
     <>
@@ -98,6 +105,7 @@ const ProductPage = () => {
                     key={img.id}
                     src={img.imgGalery}
                     alt="Imagens do carro do anunciante"
+                    onClick={() => getImageProduct(img.imgGalery)}
                   />
                 ))
               ) : (
@@ -149,6 +157,7 @@ const ProductPage = () => {
                     key={img.id}
                     src={img.imgGalery}
                     alt="Imagens do carro do anunciante"
+                    onClick={() => getImageProduct(img.imgGalery)}
                   />
                 ))
               ) : (
@@ -168,6 +177,7 @@ const ProductPage = () => {
             </LinkTag>
           </AdvertiserSectionDesktop>
         </Aside>
+        {modalImage && <ModalImageProduct />}
       </ContainerShop>
       <Footer />
     </>
