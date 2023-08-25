@@ -4,7 +4,7 @@ export const CardContainer = styled.li`
   display: flex;
   flex-direction: column;
 
-  width: 250px;
+  width: 244px;
 
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 
@@ -17,7 +17,7 @@ export const CardContainer = styled.li`
   position: relative;
 
   @media (min-width: 768px) {
-    width: 282px;
+    width: 262px;
     height: fit-content;
     max-height: fit-content;
   }
@@ -164,8 +164,6 @@ export const ButtonContainer = styled.div`
   justify-content: space-between;
   gap: 1rem;
 
-  margin-top: .7rem;
-
   > button {
     background: var(--white);
     
@@ -189,9 +187,9 @@ export const ButtonContainer = styled.div`
 
 export const DescriptionWithOverFlowAdm = styled.section`
   > p {
-    font-size: 0.7rem;
+    font-size: .6rem;
     color: var(--gray);
-    height: 58px;
+    height: 47px;
     line-height: 150%;
 
     overflow-y: auto;
@@ -203,7 +201,7 @@ export const DescriptionWithOverFlowAdm = styled.section`
     left: 0;
     width: 100%;
     height: 38px; /* Ajuste a altura do degradê conforme necessário */
-    background: linear-gradient(transparent, rgba(246, 246, 246, 0.8)); /* Defina as cores do degradê aqui */
+    background: linear-gradient(transparent, var(--white)); /* Defina as cores do degradê aqui */
   }
 }
 
@@ -215,27 +213,8 @@ export const DescriptionWithOverFlowAdm = styled.section`
     }
 
     > p {
-      font-size: 0.8rem;
+      font-size: .74rem;
     }
-  }
-`
-
-export const TresPontinhos = styled.button`
-  position: absolute;
-  top: 152px;
-  right: 8px;
-
-  background: transparent;
-
-  font-size: 1.7rem;
-  color: var(--gray);
-
-  cursor: pointer;
-
-  transition: .2s ease;
-
-  &:hover {
-    color: var(--black);
   }
 `
 

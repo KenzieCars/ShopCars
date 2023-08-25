@@ -38,7 +38,7 @@ const ProductPage = () => {
     
     if (product) setProductDetails(product)
 
-  }, [allcars, productId, productDetails])
+  }, [])
 
   useEffect(() => {
     // Rolar para o topo da página quando o componente for montado

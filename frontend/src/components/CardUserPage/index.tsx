@@ -25,7 +25,7 @@ const CardUserProfile = () => {
             <img src={car.imgCover} alt={car.model} />
           </FigureContainer>
           <ContainerInfo>
-            <h3>
+            <h3 className="truncated-title">
               {car.brand} - {car.model}
             </h3>
             <DescriptionWithOverFlow>
