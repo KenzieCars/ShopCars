@@ -27,6 +27,7 @@ export const Modal = styled.div`
     width: 95%;
     height: 75%;
     margin-top: 20px;
+    object-fit: contain;
 
     @media (min-width: 768px) {
       width: 100%;

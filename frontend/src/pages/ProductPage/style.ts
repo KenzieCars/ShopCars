@@ -214,7 +214,19 @@ export const PicturesContainer = styled.ul`
       width: 28%;
       cursor: pointer;
     }
+
+    > span {
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+
+      font-size: .9rem;
+      font-style: italic;
+
+      color: var(--gray);
+    }
   }
+
 
   @media (min-width: 768px) {
     display: none;
@@ -248,7 +260,7 @@ export const AdvertiserSection = styled.section`
 
       border-radius: 50%;
 
-      padding: .4rem;
+      padding: .4rem .7rem;
     }
 
     &:nth-child(2) {
@@ -309,6 +321,12 @@ export const ListOfComments = styled.ul`
   display: flex;
   flex-direction: column;
   gap: 1.7rem;
+
+  > h3 {
+    font-size: .7rem;
+    color: var(--primary-color);
+    opacity: .6;
+  }
 `
 
 export const CardComment = styled.li`
@@ -397,6 +415,8 @@ export const PostAComment = styled.section`
     color: var(--gray);
     
     transition: .2s ease;
+
+    resize: none;
     
     &:focus {
       border: 2px solid var(--primary-color);
@@ -468,8 +488,12 @@ export const PicturesContainerDesktop = styled.ul`
 
     > span {
       color: var(--gray);
-      font-size: .8rem;
-      align-self: center;
+      font-size: .9rem;
+      font-style: italic;
+
+      display: flex;
+      align-items: center;
+      gap: 1rem;
     }
 
     > img {

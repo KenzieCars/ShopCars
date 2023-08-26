@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import CardAdmin from "../../components/CardHome/CardAdmin";
 import EditProfileModal from "../../components/EditProfileModal";
 import Footer from "../../components/Footer";
@@ -29,6 +29,10 @@ const ProfileView = () => {
     const totalItems = allcarsUser2.length;
     totalPages = Math.ceil(totalItems / itemsPerPage);
   }
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   return (
     <>

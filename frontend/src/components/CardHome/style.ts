@@ -4,7 +4,7 @@ export const CardContainer = styled.li`
   display: flex;
   flex-direction: column;
 
-  width: 250px;
+  width: 244px;
 
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 
@@ -37,7 +37,7 @@ export const CardContainer = styled.li`
   scrollbar-color: var(--light-gray) transparent; /* Cor da barra de rolagem vertical */
 
   @media (min-width: 768px) {
-    width: 282px;
+    width: 262px;
     height: fit-content;
     max-height: 390px;
   }
@@ -169,7 +169,7 @@ export const FlagGoodDeal = styled.div`
 
 export const DescriptionWithOverFlow = styled.section`
   > p {
-    font-size: 0.7rem;
+    font-size: .6rem;
     color: var(--gray);
     height: 75px;
     line-height: 150%;
@@ -183,8 +183,10 @@ export const DescriptionWithOverFlow = styled.section`
     left: 0;
     width: 100%;
     height: 50px; /* Ajuste a altura do degradê conforme necessário */
-    background: linear-gradient(transparent, rgba(246, 246, 246, 0.8)); /* Defina as cores do degradê aqui */
+    background: linear-gradient(transparent, var(--white)); /* Defina as cores do degradê aqui */
   }
+
+  /* rgba(246, 246, 246, 0.8) */
 }
 
   @media (min-width: 768px) {
@@ -195,7 +197,7 @@ export const DescriptionWithOverFlow = styled.section`
     }
 
     > p {
-      font-size: 0.8rem;
+      font-size: .7rem;
     }
   }
 `
