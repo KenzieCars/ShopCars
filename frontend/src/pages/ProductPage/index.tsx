@@ -28,6 +28,7 @@ import { UserContext } from "../../providers/UserProvider/UserContext";
 import { ModalImageProduct } from "../../components/ModalImageProduct";
 import { ImageContext } from "../../providers/ImageProvider/ImageContext";
 import { TCommentUserResponse } from "../../providers/CommentProvider/@types";
+import { GiFlatTire } from 'react-icons/gi'
 
 const ProductPage = () => {
   const { productId } = useParams();
@@ -109,7 +110,7 @@ const ProductPage = () => {
                   />
                 ))
               ) : (
-                <span>Sem fotos</span>
+                  <span>Sem fotos adicionais <GiFlatTire /></span>
               )}
             </div>
           </PicturesContainer>
@@ -124,16 +125,20 @@ const ProductPage = () => {
           <CommentsSection>
             <h3>Comentários</h3>
             <ListOfComments>
-              {allCommentsForCarId?.map((comment) => (
-                <CardComment key={comment.id}>
-                  <section>
-                    <div>JL</div>
-                    <span>{comment.user.name}</span>
-                    <span>criado em {comment.createdAt}</span>
-                  </section>
-                  <p>{comment.description}</p>
-                </CardComment>
-              ))}
+              {allCommentsForCarId?.length === 0 ? (
+                <h3>Seja o primeiro a comentar</h3>
+              ) : (
+                allCommentsForCarId?.map((comment) => (
+                  <CardComment key={comment.id}>
+                    <section>
+                      <div>JL</div>
+                      <span>{comment.user.name}</span>
+                      <span>criado em {comment.createdAt}</span>
+                    </section>
+                    <p>{comment.description}</p>
+                  </CardComment>
+                ))
+              )}
             </ListOfComments>
           </CommentsSection>
           {token && (
@@ -161,7 +166,7 @@ const ProductPage = () => {
                   />
                 ))
               ) : (
-                <span>Sem fotos</span>
+                  <span>Sem fotos adicionais <GiFlatTire /></span>
               )}
             </div>
           </PicturesContainerDesktop>

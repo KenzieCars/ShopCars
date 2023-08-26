@@ -40,7 +40,6 @@ const Home = () => {
   }
 
   useEffect(() => {
-    // Rolar para o topo da página quando o componente for montado
     window.scrollTo(0, 0);
   }, []);
 

@@ -68,8 +68,10 @@ export const SiglaUser = styled.span`
 `
 
 export const ButtonCreate = styled.button`
-  color: var(--primary-color);
+  color: var(--white);
   border: 1px solid var(--primary-color);
+
+  background: var(--primary-color);
 
   width: fit-content;
 

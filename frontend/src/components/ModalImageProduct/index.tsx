@@ -10,7 +10,7 @@ export const ModalImageProduct = () => {
     <ModalBackgound>
       <Modal>
         <ModalTitle>
-        <h2>Imagem do veiculo</h2>
+        <h2>Imagem do veículo</h2>
         <AiOutlineClose className="close-btn-modalImage" onClick={() => setModalImage(false)}/>
         </ModalTitle>  
         <img src={imageById && imageById} alt="imagem do carro" className="image-car"/> 
