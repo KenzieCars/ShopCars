@@ -12,6 +12,10 @@ export interface ICommentContext {
   registerComment: (formData: TCommentRequest) => Promise<void>;
   editeComment: (formData: ICommentUpdate, commentId: string) => Promise<void>;
   deleteComment: (commentId: string) => Promise<void>;
+  setIsModalComment: React.Dispatch<React.SetStateAction<boolean>>,
+  isModalComment: boolean,
+  setCommentOneById: React.Dispatch<React.SetStateAction<TCommentUserResponse | null>>,
+  commentOneById: TCommentUserResponse | null
 }
 
 export interface IComment {
