@@ -5,12 +5,12 @@ import { TCommentUserResponse } from "../CommentProvider/@types";
 export interface ICarContext {
   images: IImage[] | [];
   car: ICar | null;
-  allcars: [] | TDataCarResponse[];
-  allCarsRegistered: [] | TDataCarResponse[]
+  allcars: [] | TCarDataIdResponse[]
+  allCarsRegistered: [] | TCarDataIdResponse[]
   setImages: React.Dispatch<React.SetStateAction<IImage[] | []>>;
   setCar: React.Dispatch<React.SetStateAction<ICar | null>>;
-  setAllCars: React.Dispatch<React.SetStateAction<[] | TDataCarResponse[]>>;
-  setAllCarsRegistered: React.Dispatch<React.SetStateAction<[] | TDataCarResponse[]>>
+  setAllCars: React.Dispatch<React.SetStateAction<[] | TCarDataIdResponse[]>>
+  setAllCarsRegistered: React.Dispatch<React.SetStateAction<[] | TCarDataIdResponse[]>>
   carRegister: (formData: TCarRequest) => Promise<"" | AxiosResponse<ICar>>;
   editeCar: (formData: TCarUpdate, carId: string) => Promise<void>;
   deleteCar: (carId: string) => Promise<void>;
@@ -36,15 +36,19 @@ export interface ICar {
   userId: string;
 }
 export type TCarRequest = Omit<ICar, "id" | "userId">;
+
 export interface TUserCarsResponse extends IUser {
   cars: ICar[] | [];
 }
+
 export interface IImage {
   id: string;
   imgGalery: string;
   carId: string;
 }
+
 export type IImageRequest = Omit<IImage, "id">;
+
 export interface IComment {
   id: string;
   description: string;

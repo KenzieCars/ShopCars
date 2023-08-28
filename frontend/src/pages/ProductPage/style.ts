@@ -432,7 +432,7 @@ export const PostAComment = styled.section`
     }
   }
 
-  > button {
+  > input {// Alterei, era um button 
     background-color: var(--black);
     
     color: var(--white);
