@@ -16,176 +16,173 @@ import {
   PriceContainer,
   ProductMainContainer,
   InfoAndDescriptionContainer,
+  LinkTag,
 } from "./style";
 import Footer from "../../components/Footer";
-import { Header } from "../../components/header";
+import { Header } from "../../components/Header";
+import { useParams } from "react-router-dom";
+import { useContext, useEffect, useState } from "react";
+import { CarContext } from "../../providers/CarProvider/CarContext";
+import { TDataCarResponse } from "../../providers/CarProvider/@types";
+import { UserContext } from "../../providers/UserProvider/UserContext";
+import { ModalImageProduct } from "../../components/ModalImageProduct";
+import { ImageContext } from "../../providers/ImageProvider/ImageContext";
+import { TCommentUserResponse } from "../../providers/CommentProvider/@types";
+import { GiFlatTire } from 'react-icons/gi'
 
 const ProductPage = () => {
+  const { productId } = useParams();
+  const { allcars, allCarsRegistered } = useContext(CarContext);
+  const { userIdCars } = useContext(UserContext);
+  const { modalImage, setModalImage, setImageById} = useContext(ImageContext);
+  const [productDetails, setProductDetails] = useState<TDataCarResponse | null>(
+    null
+  );
+  const token = localStorage.getItem("@userToken");
+
+
+  const allCommentsForCarId: TCommentUserResponse[] | null = JSON.parse(
+    localStorage.getItem("@commentsCarID") || "null"
+  );
+
+  useEffect(() => {
+    const product: TDataCarResponse | undefined = allcars.find(
+      (car) => car.id === productId
+    );
+
+    if (product) setProductDetails(product);
+  }, [allcars, productId, productDetails]);
+
+  useEffect(() => {
+    // Rolar para o topo da página quando o componente for montado
+    window.scrollTo(0, 0);
+  }, []);
+
+  const searchCarsUserId = (userId: string ) => {
+    const carsSearch = allCarsRegistered.filter(
+      (car) => car.user.id === userId
+    );
+    localStorage.setItem("@carsSellerSelect", JSON.stringify(carsSearch));
+  };
+
+  const getImageProduct = (img: string) => {
+    setModalImage(!modalImage)
+    setImageById(img)
+  }
+
   return (
     <>
       <ContainerShop>
         <ProductMainContainer>
           <Header />
           <FigureContainer>
-            <img
-              src="https://cdn.motor1.com/images/mgl/m7k2v/s3/2022-kia-sportage.jpg"
-              alt="car image"
-            />
+            <img src={productDetails?.imgCover} alt={productDetails?.model} />
           </FigureContainer>
           <InfoAndDescriptionContainer>
             <InfoSection>
-              <h2>Mercedes Benz A 200 CGI ADVANCE SEDAN Mercedes Benz A 200</h2>
+              <h2>
+                {productDetails?.brand} - {productDetails?.model}
+              </h2>
               <KmContainer>
-                <span>2013</span>
-                <span>45.900 KM</span>
+                <span>{productDetails?.year}</span>
+                <span>{productDetails?.km}</span>
               </KmContainer>
               <PriceContainer>
-                <span>R$00.0000.00</span>
+                <span>R$ {productDetails?.price}</span>
               </PriceContainer>
               <button>Comprar</button>
             </InfoSection>
             <Description>
               <h3>Descrição</h3>
-              <p>
-                Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                Ratione eos sit consequuntur fugit! Temporibus tempora vero aut
-                magnam facere distinctio ratione quia! Doloremque cupiditate
-                quasi fugiat asperiores expedita illum rem.
-              </p>
+              <p>{productDetails?.description}</p>
             </Description>
           </InfoAndDescriptionContainer>
           <PicturesContainer>
             <h3>Fotos</h3>
             <div>
-              <img
-                src="https://www.usnews.com/object/image/00000182-a544-dc41-a1db-a56f118e0000/2a_2021_kia_telluride.jpg?update-time=&size=responsive640"
-                alt=""
-              />
-              <img
-                src="https://www.usnews.com/object/image/00000182-a544-dc41-a1db-a56f118e0000/2a_2021_kia_telluride.jpg?update-time=&size=responsive640"
-                alt=""
-              />
-              <img
-                src="https://www.usnews.com/object/image/00000182-a544-dc41-a1db-a56f118e0000/2a_2021_kia_telluride.jpg?update-time=&size=responsive640"
-                alt=""
-              />
-              <img
-                src="https://www.usnews.com/object/image/00000182-a544-dc41-a1db-a56f118e0000/2a_2021_kia_telluride.jpg?update-time=&size=responsive640"
-                alt=""
-              />
-              <img
-                src="https://www.usnews.com/object/image/00000182-a544-dc41-a1db-a56f118e0000/2a_2021_kia_telluride.jpg?update-time=&size=responsive640"
-                alt=""
-              />
-              <img
-                src="https://www.usnews.com/object/image/00000182-a544-dc41-a1db-a56f118e0000/2a_2021_kia_telluride.jpg?update-time=&size=responsive640"
-                alt=""
-              />
+              {productDetails?.images && productDetails.images.length > 0 ? (
+                productDetails.images.map((img) => (
+                  <img
+                    key={img.id}
+                    src={img.imgGalery}
+                    alt="Imagens do carro do anunciante"
+                    onClick={() => getImageProduct(img.imgGalery)}
+                  />
+                ))
+              ) : (
+                  <span>Sem fotos adicionais <GiFlatTire /></span>
+              )}
             </div>
           </PicturesContainer>
           <AdvertiserSection>
-            <span>SL</span>
-            <span>Samuel Leao</span>
-            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit.</p>
-            <button>Ver todos os anúncios</button>
+            <span>{productDetails?.user.name[0]}</span>
+            <span>{productDetails?.user.name}</span>
+            <p>{productDetails?.user.description}</p>
+            <LinkTag to={`/userPage/${productDetails?.user.id}`}>
+              Ver todos os anúncios
+            </LinkTag>
           </AdvertiserSection>
           <CommentsSection>
             <h3>Comentários</h3>
             <ListOfComments>
-              <CardComment>
-                <section>
-                  <div>JL</div>
-                  <span>John Lennon</span>
-                  <span>há 3 dias</span>
-                </section>
-                <p>
-                  Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                  Asperiores sequi totam consequatur non libero ad sit
-                  voluptatem ipsam, quam tempora iure voluptatibus debitis,
-                  beatae, maxime optio officiis! Dolorem, numquam id?
-                </p>
-              </CardComment>
-              <CardComment>
-                <section>
-                  <div>JL</div>
-                  <span>John Lennon</span>
-                  <span>há 3 dias</span>
-                </section>
-                <p>
-                  Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                  Asperiores sequi totam consequatur non libero ad sit
-                  voluptatem ipsam, quam tempora iure voluptatibus debitis,
-                  beatae, maxime optio officiis! Dolorem, numquam id?
-                </p>
-              </CardComment>
-              <CardComment>
-                <section>
-                  <div>JL</div>
-                  <span>John Lennon</span>
-                  <span>há 3 dias</span>
-                </section>
-                <p>
-                  Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                  Asperiores sequi totam consequatur non libero ad sit
-                  voluptatem ipsam, quam tempora iure voluptatibus debitis,
-                  beatae, maxime optio officiis! Dolorem, numquam id?
-                </p>
-              </CardComment>
+              {allCommentsForCarId?.length === 0 ? (
+                <h3>Seja o primeiro a comentar</h3>
+              ) : (
+                allCommentsForCarId?.map((comment) => (
+                  <CardComment key={comment.id}>
+                    <section>
+                      <div>JL</div>
+                      <span>{comment.user.name}</span>
+                      <span>criado em {comment.createdAt}</span>
+                    </section>
+                    <p>{comment.description}</p>
+                  </CardComment>
+                ))
+              )}
             </ListOfComments>
           </CommentsSection>
-          <PostAComment>
-            <div>
-              <span>SL</span>
-              <span>Samuel Leao</span>
-            </div>
-            <textarea
-              name=""
-              id=""
-              cols="30"
-              rows="10"
-              placeholder="Me conte sua experiência com o carro"
-            ></textarea>
-            <button>Comentar</button>
-          </PostAComment>
+          {token && (
+            <PostAComment>
+              <div>
+                <span>{userIdCars?.name[0]}</span>
+                <span>{userIdCars?.name}</span>
+              </div>
+              <textarea placeholder="Me conte sua experiência com o carro"></textarea>
+              <button>Comentar</button>
+            </PostAComment>
+          )}
         </ProductMainContainer>
-
         <Aside>
           <PicturesContainerDesktop>
             <h3>Fotos</h3>
             <div>
-              <img
-                src="https://www.usnews.com/object/image/00000182-a544-dc41-a1db-a56f118e0000/2a_2021_kia_telluride.jpg?update-time=&size=responsive640"
-                alt=""
-              />
-              <img
-                src="https://www.usnews.com/object/image/00000182-a544-dc41-a1db-a56f118e0000/2a_2021_kia_telluride.jpg?update-time=&size=responsive640"
-                alt=""
-              />
-              <img
-                src="https://www.usnews.com/object/image/00000182-a544-dc41-a1db-a56f118e0000/2a_2021_kia_telluride.jpg?update-time=&size=responsive640"
-                alt=""
-              />
-              <img
-                src="https://www.usnews.com/object/image/00000182-a544-dc41-a1db-a56f118e0000/2a_2021_kia_telluride.jpg?update-time=&size=responsive640"
-                alt=""
-              />
-              <img
-                src="https://www.usnews.com/object/image/00000182-a544-dc41-a1db-a56f118e0000/2a_2021_kia_telluride.jpg?update-time=&size=responsive640"
-                alt=""
-              />
-              <img
-                src="https://www.usnews.com/object/image/00000182-a544-dc41-a1db-a56f118e0000/2a_2021_kia_telluride.jpg?update-time=&size=responsive640"
-                alt=""
-              />
+              {productDetails?.images && productDetails.images.length > 0 ? (
+                productDetails.images.map((img) => (
+                  <img
+                    key={img.id}
+                    src={img.imgGalery}
+                    alt="Imagens do carro do anunciante"
+                    onClick={() => getImageProduct(img.imgGalery)}
+                  />
+                ))
+              ) : (
+                  <span>Sem fotos adicionais <GiFlatTire /></span>
+              )}
             </div>
           </PicturesContainerDesktop>
           <AdvertiserSectionDesktop>
-            <span>SL</span>
-            <span>Samuel Leao</span>
-            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit.</p>
-            <button>Ver todos os anúncios</button>
+            <span>{productDetails?.user.name[0]}</span>
+            <span>{productDetails?.user.name}</span>
+            <p>{productDetails?.user.description}</p>
+            <LinkTag
+              to={`/userPage/${productDetails?.user.id}`}
+              onClick={() => searchCarsUserId(productDetails!.user.id)}
+            >
+              Ver todos os anúncios
+            </LinkTag>
           </AdvertiserSectionDesktop>
         </Aside>
+        {modalImage && <ModalImageProduct />}
       </ContainerShop>
       <Footer />
     </>

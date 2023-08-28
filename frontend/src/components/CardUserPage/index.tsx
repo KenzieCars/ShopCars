@@ -8,24 +8,26 @@ import {
   FlagGoodDeal,
   DescriptionWithOverFlow,
 } from "./style";
-import { CarContext } from "../../providers/CarProvider/CarContext";
 import NothingHere from "../NothingHere";
 import { TbFlag3Filled } from "react-icons/tb";
+import { UserContext } from "../../providers/UserProvider/UserContext";
 import { Link } from "react-router-dom";
+import { CarContext } from "../../providers/CarProvider/CarContext";
 
-const CardHome = () => {
-  const { allcars } = useContext(CarContext);
+const 
+CardUserProfile = () => {
+  const { allcarsComumProfilePerPage } = useContext(UserContext);
   const { carsSellerId } = useContext(CarContext);
 
   const searchDataCar = async (carId: string) => {
     await carsSellerId(carId)
   }
 
-  if (allcars.length === 0) return <NothingHere />;
+  if (allcarsComumProfilePerPage.length === 0) return <NothingHere />;
 
   return (
     <>
-      {allcars.map((car) => (
+      {allcarsComumProfilePerPage.map((car) => (
         <Link to={`/product/${car.id}`} key={car.id} onClick={() => searchDataCar(car.id)}>
           <CardContainer key={car.id}>
             <FigureContainer>
@@ -38,7 +40,7 @@ const CardHome = () => {
               <DescriptionWithOverFlow>
                 <p>{car.description}</p>
               </DescriptionWithOverFlow>
-
+  
               <ContactUserContainer>
                 <span>{car.user.name[0]}</span>
                 <span>{car.user.name}</span>
@@ -63,4 +65,4 @@ const CardHome = () => {
   );
 };
 
-export default CardHome;
+export default CardUserProfile;

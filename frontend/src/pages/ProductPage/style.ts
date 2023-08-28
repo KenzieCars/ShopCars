@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { styled } from "styled-components";
 
 export const ContainerShop = styled.div`
@@ -25,17 +26,25 @@ export const ProductMainContainer = styled.main`
 
 export const FigureContainer = styled.figure`
   width: 100%;
-  
+
+  border-radius: 10px;
+
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+
   > img {  
     width: 100%;
     
-    border-radius: 6px;
+    border-radius: 10px;
     
-    object-fit: contain;
+    object-fit: cover;
   }
   
   @media (min-width: 768px) {
     max-width: 100%;
+
+    > img {
+      height: 403px;
+    }
   }
 `
 
@@ -203,8 +212,21 @@ export const PicturesContainer = styled.ul`
 
     > img {
       width: 28%;
+      cursor: pointer;
+    }
+
+    > span {
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+
+      font-size: .9rem;
+      font-style: italic;
+
+      color: var(--gray);
     }
   }
+
 
   @media (min-width: 768px) {
     display: none;
@@ -238,7 +260,7 @@ export const AdvertiserSection = styled.section`
 
       border-radius: 50%;
 
-      padding: .4rem;
+      padding: .4rem .7rem;
     }
 
     &:nth-child(2) {
@@ -299,6 +321,12 @@ export const ListOfComments = styled.ul`
   display: flex;
   flex-direction: column;
   gap: 1.7rem;
+
+  > h3 {
+    font-size: .7rem;
+    color: var(--primary-color);
+    opacity: .6;
+  }
 `
 
 export const CardComment = styled.li`
@@ -367,7 +395,7 @@ export const PostAComment = styled.section`
       
       border-radius: 50%;
 
-      padding: .4rem;
+      padding: .4rem .7rem;
     }
 
     :nth-child(2) {
@@ -387,6 +415,8 @@ export const PostAComment = styled.section`
     color: var(--gray);
     
     transition: .2s ease;
+
+    resize: none;
     
     &:focus {
       border: 2px solid var(--primary-color);
@@ -394,6 +424,11 @@ export const PostAComment = styled.section`
 
     &::placeholder {
       color: var(--light-gray);
+    }
+
+    @media (min-width: 768px) {
+      padding: 1.4rem;
+      height: 140px;
     }
   }
 
@@ -448,12 +483,24 @@ export const PicturesContainerDesktop = styled.ul`
   > div {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
+    /* justify-content: space-between; */
     gap: 1rem;
+
+    > span {
+      color: var(--gray);
+      font-size: .9rem;
+      font-style: italic;
+
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
 
     > img {
       width: 28%;
       border-radius: 2px;
+      object-fit: contain;
+      cursor: pointer;
     }
   }
 
@@ -490,7 +537,7 @@ export const AdvertiserSectionDesktop = styled.section`
 
       border-radius: 50%;
 
-      padding: 1rem;
+      padding: 1rem 1.4rem;
     }
 
     &:nth-child(2) {
@@ -508,23 +555,25 @@ export const AdvertiserSectionDesktop = styled.section`
     line-height: 150%;
   }
 
-  > button {
-    background-color: var(--black);
-    
-    color: var(--white);
-    font-weight: 600;
-    font-size: .9rem;
-    
-    padding: .7rem;
-    width: fit-content;
-    transition: .2s ease;
-
-    &:hover {
-      background-color: var(--primary-color);
-    }
-  }
-
    @media (max-width: 768px) {
     display: none;
+  }
+`
+
+export const LinkTag = styled(Link)`
+  background-color: var(--black);
+  
+  color: var(--white);
+  font-weight: 600;
+  font-size: .9rem;
+  
+  padding: .7rem;
+  width: fit-content;
+  transition: .2s ease;
+
+  border-radius: 6px;
+
+  &:hover {
+    background-color: var(--primary-color);
   }
 `

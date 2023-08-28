@@ -20,20 +20,32 @@ export interface IUserContext {
   userLogin: (formData: ILogin) => Promise<void>;
   userRegister: (formData: ICreateUser) => Promise<void>;
   logout: () => void;
-  addressEditModal: boolean
-  setAddressEditModal: React.Dispatch<React.SetStateAction<boolean>>
+  addressEditModal: boolean;
+  setAddressEditModal: React.Dispatch<React.SetStateAction<boolean>>;
   sendEmail: (sendEmailData: ResetEmailData) => void;
   resetPassword: (resetPasswordData: ResetPasswordData, token: string) => void;
   updateUser: (formData: Partial<IUser>) => Promise<void>;
   profileEditModal: boolean;
   setProfileEditModal: React.Dispatch<React.SetStateAction<boolean>>;
   deleteUser: () => Promise<void>;
-  allcarsUserPerPage: [] | TDataCarResponse[];
+  allcarsUserPerPage2: [] | ICarSeller[];
   currentPageprofile: number;
   setCurrentPageprofile: React.Dispatch<React.SetStateAction<number>>;
+  allcarsUser2: [] | ICarSeller[];
+  allcarsComumProfilePerPage: [] | TDataCarResponse[];
+  currentPageprofileComum: number;
+  setCurrentPageprofileComum: React.Dispatch<React.SetStateAction<number>>;
+  allcarsComumProfile: [] | TDataCarResponse[];
   allcarsUser: [] | TDataCarResponse[];
-  cardModal: boolean;
-  setCardModal: React.Dispatch<React.SetStateAction<boolean>>;
+  setAllcarsUser: React.Dispatch<React.SetStateAction<[] | TDataCarResponse[]>>;
+  allcarsUserPerPage: [] | TDataCarResponse[];
+  setAllcarsUserPerPage: React.Dispatch<
+    React.SetStateAction<[] | TDataCarResponse[]>
+  >;
+  setAllcarsUserPerPage2: (
+    value: React.SetStateAction<[] | ICarSeller[]>
+  ) => void;
+  carUserSeller: () => Promise<void>;
 }
 
 export interface IDefaultProviderProps {
@@ -53,7 +65,7 @@ export interface IUser {
   city: string;
   state: string;
   street: string;
-  number: string | number ;
+  number: number;
   complement: string;
   cep: string;
   isAdmin: boolean;
@@ -64,4 +76,31 @@ export interface IRegister extends Omit<IUser, "id"> {}
 export interface ILogin {
   email: string;
   password: string;
+}
+
+export interface ICarSeller {
+  id: string;
+  brand: string;
+  model: string;
+  year: string;
+  km: number;
+  color: string;
+  status: boolean;
+  fuel: string;
+  price: number;
+  description: string;
+  imgCover: string;
+  bestPrice: boolean;
+  userId: string;
+}
+
+export interface IUserSeller {
+  id: string;
+  name: string;
+  email: string;
+  seller: boolean;
+  cellPhone: string;
+  dateOfBirth: string;
+  reset_token: string | null;
+  cars: ICarSeller[];
 }

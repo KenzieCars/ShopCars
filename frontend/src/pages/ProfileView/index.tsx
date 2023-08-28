@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import CardAdmin from "../../components/CardHome/CardAdmin";
 import EditProfileModal from "../../components/EditProfileModal";
 import Footer from "../../components/Footer";
@@ -16,14 +16,23 @@ const ProfileView = () => {
     profileEditModal,
     currentPageprofile,
     setCurrentPageprofile,
-    allcarsUser,
+    allcarsUser2,
     addressEditModal,
   } = useContext(UserContext);
 
   const itemsPerPage = 12;
+  let totalPages = 1;
+  if (allcarsUser2.length < 12) {
+    const totalItems = allcarsUser2.length + 1;
+    totalPages = Math.ceil(totalItems / itemsPerPage);
+  } else {
+    const totalItems = allcarsUser2.length;
+    totalPages = Math.ceil(totalItems / itemsPerPage);
+  }
 
-  const totalItems = allcarsUser.length + 1;
-  const totalPages = Math.ceil(totalItems / itemsPerPage);
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   return (
     <>

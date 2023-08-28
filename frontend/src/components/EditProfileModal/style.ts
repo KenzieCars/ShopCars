@@ -58,22 +58,23 @@ export const FieldsetContainer = styled.fieldset`
     font-size: .8rem;
   }
 
-    /* > textarea {
-        padding: .7rem 1rem;
-        border-radius: 8px;
-        border: 2px solid var(--white);
-        outline: none;
-        color: var(--gray);
-        transition: .2s ease;
+  > textarea {
+    padding: .7rem 1rem;
+    border-radius: 8px;
+    border: 2px solid var(--white);
+    outline: none;
+    color: var(--gray);
+    transition: .2s ease;
+    resize: none;
 
-        &:focus {
-            border: 2px solid var(--primary-color);
-        }
+    &:focus {
+        border: 2px solid var(--primary-color);
+    }
 
-        &::placeholder {
-            color: var(--light-gray);
-        }
-    } */
+    &::placeholder {
+        color: var(--light-gray);
+    }
+  }
 
   > input {
       padding: .7rem 1rem;

@@ -36,24 +36,6 @@ interface HomeContextValues {
   allcarsPages: [] | ICar[];
 }
 
-export interface User {
-  id: string;
-  name: string;
-  email: string;
-  password: string;
-  seller: boolean;
-  isAdm: boolean;
-  cellPhone: string;
-  cpf: string;
-  dateOfBirth: string;
-  description: string;
-  city: string;
-  state: string;
-  street: string;
-  number: number;
-  complement: string;
-}
-
 export const HomeContext = createContext({} as HomeContextValues);
 
 export const HomeProvider = ({ children }: IHomeProviderProps) => {
@@ -72,11 +54,12 @@ export const HomeProvider = ({ children }: IHomeProviderProps) => {
 
   const itemsPerPage = 12;
 
-  const [allcarsPages, setallcarsPages] = useState<ICar[] | []>([]);
+  const [allcarsPages, setallcarsPages] = useState<TDataCarResponse[] | []>([]);
 
   const filterCars = async () => {
     try {
       const response = await api.get<TDataCarResponse[]>("/cars");
+
       setallcarsPages(response.data);
 
       let filteredCars = response.data;
@@ -134,8 +117,17 @@ export const HomeProvider = ({ children }: IHomeProviderProps) => {
     }
   };
 
-  const totalItems = allcarsPages.length + 1;
-  const totalPages = Math.ceil(totalItems / itemsPerPage);
+  // const totalItems = allcarsPages.length + 1;
+  // const totalPages = Math.ceil(totalItems / itemsPerPage);
+
+  let totalPages = 1;
+  if (allcarsPages.length < 12) {
+    const totalItems = allcarsPages.length + 1;
+    totalPages = Math.ceil(totalItems / itemsPerPage);
+  } else {
+    const totalItems = allcarsPages.length;
+    totalPages = Math.ceil(totalItems / itemsPerPage);
+  }
 
   useEffect(() => {
     setCurrentPage(1);
@@ -152,7 +144,6 @@ export const HomeProvider = ({ children }: IHomeProviderProps) => {
     valueKmCar,
     valueCar,
     currentPage,
-    // allcarsPages,
   ]);
 
   useEffect(() => {

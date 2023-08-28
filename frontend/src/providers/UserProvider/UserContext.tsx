@@ -1,6 +1,13 @@
 import { createContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { IDefaultProviderProps, ILogin, IUser, IUserContext } from "./@types";
+import {
+  ICarSeller,
+  IDefaultProviderProps,
+  ILogin,
+  IUser,
+  IUserContext,
+  IUserSeller,
+} from "./@types";
 import { api } from "../../services/api";
 import { toast } from "react-toastify";
 import { ICreateUser } from "../../components/RegisterForm/@types";
@@ -27,9 +34,21 @@ export const UserProvider = ({ children }: IDefaultProviderProps) => {
   const [allcarsUserPerPage, setAllcarsUserPerPage] = useState<
     TDataCarResponse[] | []
   >([]);
-  const [cardModal, setCardModal] = useState(false);
+
+  const [allcarsUser2, setAllcarsUser2] = useState<ICarSeller[] | []>([]);
+  const [allcarsUserPerPage2, setAllcarsUserPerPage2] = useState<
+    ICarSeller[] | []
+  >([]);
 
   const [currentPageprofile, setCurrentPageprofile] = useState(1);
+
+  const [currentPageprofileComum, setCurrentPageprofileComum] = useState(1);
+  const [allcarsComumProfile, setAllCarsComumProfile] = useState<
+    TDataCarResponse[] | []
+  >([]);
+  const [allcarsComumProfilePerPage, setAllCarsComumProfilePerPage] = useState<
+    TDataCarResponse[] | []
+  >([]);
 
   const userLogin = async (formData: ILogin) => {
     try {
@@ -40,7 +59,9 @@ export const UserProvider = ({ children }: IDefaultProviderProps) => {
 
       localStorage.setItem("@userToken", res.data.token);
       localStorage.setItem("@userId", res.data.id);
-
+      setCurrentPageprofile(1);
+      setCurrentPageprofileComum(1);
+      carUserSeller();
       toast.success("Logged in!");
 
       if (!res.data.seller) {
@@ -64,6 +85,7 @@ export const UserProvider = ({ children }: IDefaultProviderProps) => {
     if (token) {
       const userLogged = async () => {
         try {
+          setLoading(true);
           const response = await api.get<TUserCarsResponse>(
             `/users/${userId}`,
             {
@@ -72,18 +94,8 @@ export const UserProvider = ({ children }: IDefaultProviderProps) => {
               },
             }
           );
-
           setUserIdCars(response.data); //Todas as informações do user logado
-          const carsUser = response.data.cars;
-          setAllcarsUser(response.data.cars);
-          setListCarsUser(response.data.cars); // Todos os carros do user logado
-          const startIndex = (currentPageprofile - 1) * itemsPerPage;
-          const endIndex = startIndex + itemsPerPage;
-          setAllcarsUser(carsUser);
 
-          const listpagination = carsUser.slice(startIndex, endIndex);
-          console.log(listpagination);
-          setAllcarsUserPerPage(listpagination);
           if (!response.data.seller) {
             navigate("/userPage");
           } else {
@@ -91,6 +103,8 @@ export const UserProvider = ({ children }: IDefaultProviderProps) => {
           }
         } catch (error) {
           console.log(error);
+        } finally {
+          setLoading(false);
         }
       };
       userLogged();
@@ -118,10 +132,13 @@ export const UserProvider = ({ children }: IDefaultProviderProps) => {
 
   const logout = () => {
     setUser(null);
+
+    localStorage.removeItem("@userToken")
+    localStorage.removeItem("@userId")
+    setCurrentPageprofile(2);
+    setCurrentPageprofileComum(2);
     setUserIdCars(null);
-    console.log("Entrou no logout");
     navigate("/login");
-    localStorage.clear();
   };
 
   const sendEmail = async (sendEmailData: ResetEmailData) => {
@@ -158,28 +175,28 @@ export const UserProvider = ({ children }: IDefaultProviderProps) => {
   const updateUser = async (formData: Partial<IUser>) => {
     const token = localStorage.getItem("@userToken");
     const id = localStorage.getItem("@userId");
-    console.log(formData);
-    try {
-      const res = await api.patch(`/users/${id}`, formData, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
 
-      setUserIdCars((previousUser) => ({
-        ...previousUser,
-        ...res.data,
-      }));
+    if (token) {
+      try {
+        setLoading(true);
+        const res = await api.patch(`/users/${id}`, formData, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
 
-      setUser((previousUser) => ({
-        ...previousUser,
-        ...res.data,
-      }));
+        setUserIdCars((previousUser) => ({
+          ...previousUser,
+          ...res.data,
+        }));
 
-      toast.success("Usuário atualizado");
-    } catch (error) {
-      console.log(error);
-      toast.error("Falha ao atualizar usuário");
+        toast.success("Usuário atualizado");
+      } catch (error) {
+        console.log(error);
+        toast.error("Falha ao atualizar usuário");
+      } finally {
+        setLoading(false);
+      }
     }
   };
 
@@ -188,6 +205,7 @@ export const UserProvider = ({ children }: IDefaultProviderProps) => {
     const id = localStorage.getItem("@userId");
 
     try {
+      setLoading(true);
       await api.delete(`/users/${id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -203,10 +221,87 @@ export const UserProvider = ({ children }: IDefaultProviderProps) => {
     } catch (error) {
       console.log(error);
       toast.error("Algo deu errado :(");
+    } finally {
+      setLoading(false);
     }
   };
 
   const itemsPerPage = 12;
+
+  const carUserSeller = async () => {
+    const token = localStorage.getItem("@userToken");
+    const id = localStorage.getItem("@userId");
+
+    if (token) {
+      try {
+        setLoading(true);
+        const response = await api.get<IUserSeller[]>(`/users/profile`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        const carsUser2 = response.data.filter((user) => user.id == id);
+
+        const carsUser = carsUser2[0].cars;
+
+        const startIndex = (currentPageprofile - 1) * itemsPerPage;
+        const endIndex = startIndex + itemsPerPage;
+
+        setAllcarsUser2(carsUser);
+
+        const listpagination = carsUser.slice(startIndex, endIndex);
+
+        setAllcarsUserPerPage2(listpagination);
+      } catch (error) {
+        console.log(error);
+        toast.error("Algo deu errado :(");
+      } finally {
+        setLoading(false);
+      }
+    }
+  };
+
+  useEffect(() => {
+    carUserSeller();
+  }, []);
+
+  useEffect(() => {
+    carUserSeller();
+  }, [currentPageprofile]);
+
+  const carUser = async () => {
+    try {
+      setLoading(true);
+      const response = await api.get<TDataCarResponse[]>("/cars");
+
+      const carsUser = response.data;
+
+      setAllCarsComumProfile(carsUser);
+
+      const startIndex = (currentPageprofileComum - 1) * itemsPerPage;
+      const endIndex = startIndex + itemsPerPage;
+
+      setAllCarsComumProfile(carsUser);
+
+      const listpagination = carsUser.slice(startIndex, endIndex);
+
+      setAllCarsComumProfilePerPage(listpagination);
+    } catch (error) {
+      console.log(error);
+      toast.error("Algo deu errado :(");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    carUser();
+  }, []);
+  
+  useEffect(() => {
+    carUser();
+  }, [currentPageprofileComum]);
 
   return (
     <UserContext.Provider
@@ -231,12 +326,20 @@ export const UserProvider = ({ children }: IDefaultProviderProps) => {
         deleteUser,
         addressEditModal,
         setAddressEditModal,
-        allcarsUserPerPage,
+        allcarsUserPerPage2,
         currentPageprofile,
         setCurrentPageprofile,
+        allcarsUser2,
+        allcarsComumProfilePerPage,
+        currentPageprofileComum,
+        setCurrentPageprofileComum,
+        allcarsComumProfile,
         allcarsUser,
-        cardModal,
-        setCardModal,
+        setAllcarsUser,
+        allcarsUserPerPage,
+        setAllcarsUserPerPage,
+        setAllcarsUserPerPage2,
+        carUserSeller,
       }}
     >
       {children}

@@ -65,6 +65,7 @@ export const ContainerInfo = styled.div`
     font-size: 0.8rem;
     color: var(--black);
   }
+
   > h3.truncated-title {
   // Adicione as propriedades para texto truncado
   white-space: nowrap;
@@ -185,8 +186,6 @@ export const DescriptionWithOverFlow = styled.section`
     height: 50px; /* Ajuste a altura do degradê conforme necessário */
     background: linear-gradient(transparent, var(--white)); /* Defina as cores do degradê aqui */
   }
-
-  /* rgba(246, 246, 246, 0.8) */
 }
 
   @media (min-width: 768px) {

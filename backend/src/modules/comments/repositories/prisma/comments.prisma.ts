@@ -47,6 +47,9 @@ export class CommentsPrismaRepository implements CommentsRepository {
   async findOne(id: string): Promise<Comment> {
     const comment = await this.prisma.comment.findFirst({
       where: { id },
+      include: {
+        user: true
+      }
     });
     return comment;
   }

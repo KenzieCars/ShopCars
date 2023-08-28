@@ -1,5 +1,4 @@
 import { createContext, useEffect, useState } from "react";
-// import { useNavigate } from "react-router-dom";
 import { api } from "../../services/api";
 import { toast } from "react-toastify";
 import {
@@ -14,10 +13,9 @@ import {
 export const CommentContext = createContext({} as ICommentContext);
 
 export const CommentProvider = ({ children }: IDefaultProviderProps) => {
-  // const navigate = useNavigate();
-
   const [allComments, setAllComments] = useState<TListComments | []>([]);
   const [newCommentUser, setNewCommentUser] = useState<IComment | null>(null);
+
 
   useEffect(() => {
     const allComments = async () => {
