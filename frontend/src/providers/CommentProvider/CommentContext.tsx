@@ -7,6 +7,7 @@ import {
   ICommentUpdate,
   IDefaultProviderProps,
   TCommentRequest,
+  TCommentUserResponse,
   TListComments,
 } from "./@types";
 
@@ -14,7 +15,9 @@ export const CommentContext = createContext({} as ICommentContext);
 
 export const CommentProvider = ({ children }: IDefaultProviderProps) => {
   const [allComments, setAllComments] = useState<TListComments | []>([]);
-  const [newCommentUser, setNewCommentUser] = useState<IComment | null>(null);
+  const [commentsCarId, setCommentsCarId] = useState<TCommentUserResponse[] | []>(
+    []
+  );
 
 
   useEffect(() => {
@@ -36,14 +39,12 @@ export const CommentProvider = ({ children }: IDefaultProviderProps) => {
 
     if (token) {
       try {
-        const response = await api.post<IComment>("/comments", formData, {
+        const response = await api.post<TCommentUserResponse>("/comments", formData, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
         });
-
-        setNewCommentUser(response.data);
-
+        setCommentsCarId([...commentsCarId, response.data])
         toast.success("Comment registered!");
       } catch (error) {
         console.log(error);
@@ -125,9 +126,9 @@ export const CommentProvider = ({ children }: IDefaultProviderProps) => {
     <CommentContext.Provider
       value={{
         allComments,
-        newCommentUser,
+        commentsCarId,
         setAllComments,
-        setNewCommentUser,
+        setCommentsCarId,
         registerComment,
         editeComment,
         deleteComment,

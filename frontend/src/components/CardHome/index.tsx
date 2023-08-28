@@ -18,15 +18,19 @@ const CardHome = () => {
   const { carsSellerId } = useContext(CarContext);
 
   const searchDataCar = async (carId: string) => {
-    await carsSellerId(carId)
-  }
+    await carsSellerId(carId);
+  };
 
   if (allcars.length === 0) return <NothingHere />;
 
   return (
     <>
       {allcars.map((car) => (
-        <Link to={`/product/${car.id}`} key={car.id} onClick={() => searchDataCar(car.id)}>
+        <Link
+          to={`/product/${car.id}`}
+          key={car.id}
+          onClick={() => searchDataCar(car.id)}
+        >
           <CardContainer key={car.id}>
             <FigureContainer>
               <img src={car.imgCover} alt={car.model} />
