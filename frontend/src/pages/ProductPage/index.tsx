@@ -30,12 +30,15 @@ import { ImageContext } from "../../providers/ImageProvider/ImageContext";
 import {
   IFormComment,
   TCommentRequest,
+  TCommentUserResponse,
 } from "../../providers/CommentProvider/@types";
 import { GiFlatTire } from "react-icons/gi";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { CommentContext } from "../../providers/CommentProvider/CommentContext";
 import { useForm, SubmitHandler } from "react-hook-form";
+import { ModalEditAndDeleteComments } from "../../components/ModalEditAndDeleteComments";
+import {BsThreeDotsVertical} from "react-icons/bs"
 
 const ProductPage = () => {
   const { productId } = useParams();
@@ -47,7 +50,7 @@ const ProductPage = () => {
 
   const token = localStorage.getItem("@userToken");
 
-  const { registerComment, commentsCarId, setCommentsCarId } = useContext(CommentContext);
+  const { registerComment, commentsCarId, setCommentsCarId, isModalComment, setIsModalComment, setCommentOneById } = useContext(CommentContext);
 
   const schema = z.object({
     description: z.string().nonempty("Diga algo sobre o anúncio"),
@@ -91,6 +94,11 @@ const ProductPage = () => {
     setModalImage(!modalImage);
     setImageById(img);
   };
+
+  const getCommentById = (comment: TCommentUserResponse ) => {
+    setIsModalComment(!isModalComment)
+    setCommentOneById(comment)
+  }
 
   const submit: SubmitHandler<IFormComment> = async (formData) => {
     const commentData: TCommentRequest = {
@@ -162,13 +170,14 @@ const ProductPage = () => {
                 <h3>Seja o primeiro a comentar</h3>
               ) : (
                 commentsCarId?.map((comment) => (
-                  <CardComment key={comment.id}>
+                  <CardComment key={comment.id} >
                     <section>
                       <div>JL</div>
                       <span>{comment.user.name}</span>
                       <span>criado em {comment.createdAt}</span>
                     </section>
                     <p>{comment.description}</p>
+                    <BsThreeDotsVertical className="open_modal_comments" onClick={() => getCommentById(comment)}/>
                   </CardComment>
                 ))
               )}
@@ -225,6 +234,7 @@ const ProductPage = () => {
           </AdvertiserSectionDesktop>
         </Aside>
         {modalImage && <ModalImageProduct />}
+        {isModalComment && <ModalEditAndDeleteComments />}
       </ContainerShop>
       <Footer />
     </>
