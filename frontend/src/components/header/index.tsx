@@ -10,7 +10,7 @@ import { UserContext } from "../../providers/UserProvider/UserContext";
 import UserModalHeader from "./UserModalHeader";
 
 const Header = () => {
-  const { user } = useContext(UserContext);
+  const { userIdCars } = useContext(UserContext);
   const [menuAnchor, setMenuAnchor] = useState<null | HTMLElement>(null);
   const [userModalHeader, setUserModalHeader] = useState(false)
 
@@ -52,10 +52,10 @@ const Header = () => {
               onClose={handleMenuClose}
             >
               <Nav>
-                {user ? (
+                {userIdCars ? (
                   <UserHeaderContainer onClick={() => setUserModalHeader(!userModalHeader)}>
-                    <span>{user.name[0]}</span>
-                    <span>{user.name.split(" ")[0]}</span>
+                    <span>{userIdCars.name[0]}</span>
+                    <span>{userIdCars.name.split(" ")[0]}</span>
                     {userModalHeader && <UserModalHeader />}
                   </UserHeaderContainer>
                 ) : (
@@ -73,10 +73,10 @@ const Header = () => {
           </MobileNav>
         ) : (
           <Nav>
-            {user ? (
+            {userIdCars ? (
               <UserHeaderContainer onClick={() => setUserModalHeader(!userModalHeader)}>
-                <span>{user.name[0]}</span>
-                <span>{user.name.split(" ")[0]}</span>
+                <span>{userIdCars.name[0]}</span>
+                <span>{userIdCars.name.split(" ")[0]}</span>
                   {userModalHeader && <UserModalHeader />}
               </UserHeaderContainer>
             ) : (
