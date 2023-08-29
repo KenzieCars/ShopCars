@@ -333,6 +333,7 @@ export const CardComment = styled.li`
   display: flex;
   flex-direction: column;
   gap: .8rem;
+  position: relative;
 
   > section {
     display: flex;
@@ -368,6 +369,13 @@ export const CardComment = styled.li`
     color: var(--gray);
     font-size: .8rem;
     line-height: 150%;
+  }
+
+  .open_modal_comments{
+    position: absolute;
+    top: 0;
+    right: 0;
+    cursor: pointer;
   }
 `
 
@@ -432,7 +440,7 @@ export const PostAComment = styled.section`
     }
   }
 
-  > button {
+  > input {// Alterei, era um button 
     background-color: var(--black);
     
     color: var(--white);

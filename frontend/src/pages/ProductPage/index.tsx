@@ -23,42 +23,67 @@ import { Header } from "../../components/Header";
 import { useParams } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
 import { CarContext } from "../../providers/CarProvider/CarContext";
-import { TDataCarResponse } from "../../providers/CarProvider/@types";
+import { TCarDataIdResponse } from "../../providers/CarProvider/@types";
 import { UserContext } from "../../providers/UserProvider/UserContext";
 import { ModalImageProduct } from "../../components/ModalImageProduct";
 import { ImageContext } from "../../providers/ImageProvider/ImageContext";
-import { TCommentUserResponse } from "../../providers/CommentProvider/@types";
-import { GiFlatTire } from 'react-icons/gi'
+import {
+  IFormComment,
+  TCommentRequest,
+  TCommentUserResponse,
+} from "../../providers/CommentProvider/@types";
+import { GiFlatTire } from "react-icons/gi";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { CommentContext } from "../../providers/CommentProvider/CommentContext";
+import { useForm, SubmitHandler } from "react-hook-form";
+import { ModalEditAndDeleteComments } from "../../components/ModalEditAndDeleteComments";
+import {BsThreeDotsVertical} from "react-icons/bs"
 
 const ProductPage = () => {
   const { productId } = useParams();
   const { allcars, allCarsRegistered } = useContext(CarContext);
   const { userIdCars } = useContext(UserContext);
-  const { modalImage, setModalImage, setImageById} = useContext(ImageContext);
-  const [productDetails, setProductDetails] = useState<TDataCarResponse | null>(
-    null
-  );
+  const { modalImage, setModalImage, setImageById } = useContext(ImageContext);
+  const [productDetails, setProductDetails] =
+    useState<TCarDataIdResponse | null>(null);
+
   const token = localStorage.getItem("@userToken");
 
+  const { registerComment, commentsCarId, setCommentsCarId, isModalComment, setIsModalComment, setCommentOneById } = useContext(CommentContext);
 
-  const allCommentsForCarId: TCommentUserResponse[] | null = JSON.parse(
-    localStorage.getItem("@commentsCarID") || "null"
-  );
+  const schema = z.object({
+    description: z.string().nonempty("Diga algo sobre o anúncio"),
+  });
+
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm<IFormComment>({
+    resolver: zodResolver(schema),
+  });
 
   useEffect(() => {
-    const product: TDataCarResponse | undefined = allcars.find(
+    const product: TCarDataIdResponse | undefined = allcars.find(
       (car) => car.id === productId
     );
 
-    if (product) setProductDetails(product);
-  }, [allcars, productId, productDetails]);
+    if (product) {
+      setProductDetails(product);
 
+      setCommentsCarId(product.comments);
+    }
+  }, [allcars, productId, productDetails]);
+  
+  
   useEffect(() => {
     // Rolar para o topo da página quando o componente for montado
     window.scrollTo(0, 0);
   }, []);
 
-  const searchCarsUserId = (userId: string ) => {
+  const searchCarsUserId = (userId: string) => {
     const carsSearch = allCarsRegistered.filter(
       (car) => car.user.id === userId
     );
@@ -66,9 +91,23 @@ const ProductPage = () => {
   };
 
   const getImageProduct = (img: string) => {
-    setModalImage(!modalImage)
-    setImageById(img)
+    setModalImage(!modalImage);
+    setImageById(img);
+  };
+
+  const getCommentById = (comment: TCommentUserResponse ) => {
+    setIsModalComment(!isModalComment)
+    setCommentOneById(comment)
   }
+
+  const submit: SubmitHandler<IFormComment> = async (formData) => {
+    const commentData: TCommentRequest = {
+      ...formData,
+      carId: productId!,
+    };
+    reset();
+    await registerComment(commentData);
+  };
 
   return (
     <>
@@ -110,7 +149,9 @@ const ProductPage = () => {
                   />
                 ))
               ) : (
-                  <span>Sem fotos adicionais <GiFlatTire /></span>
+                <span>
+                  Sem fotos adicionais <GiFlatTire />
+                </span>
               )}
             </div>
           </PicturesContainer>
@@ -125,17 +166,19 @@ const ProductPage = () => {
           <CommentsSection>
             <h3>Comentários</h3>
             <ListOfComments>
-              {allCommentsForCarId?.length === 0 ? (
-                <h3>Nenhum comentário ainda</h3>
+
+              {commentsCarId?.length === 0 ? (
+                <h3>Seja o primeiro a comentar</h3>
               ) : (
-                allCommentsForCarId?.map((comment) => (
-                  <CardComment key={comment.id}>
+                commentsCarId?.map((comment) => (
+                  <CardComment key={comment.id} >
                     <section>
                       <div>JL</div>
                       <span>{comment.user.name}</span>
                       <span>criado em {comment.createdAt}</span>
                     </section>
                     <p>{comment.description}</p>
+                    <BsThreeDotsVertical className="open_modal_comments" onClick={() => getCommentById(comment)}/>
                   </CardComment>
                 ))
               )}
@@ -147,8 +190,15 @@ const ProductPage = () => {
                 <span>{userIdCars?.name[0]}</span>
                 <span>{userIdCars?.name}</span>
               </div>
-              <textarea placeholder="Me conte sua experiência com o carro"></textarea>
-              <button>Comentar</button>
+              <textarea
+                form="form-description"
+                placeholder="Me conte sua experiência com o carro"
+                {...register("description")}
+              />
+              {errors.description?.message}
+              <form id="form-description" onClick={handleSubmit(submit)}>
+                <input type="submit" value="Comentar" />
+              </form>
             </PostAComment>
           )}
         </ProductMainContainer>
@@ -166,7 +216,9 @@ const ProductPage = () => {
                   />
                 ))
               ) : (
-                  <span>Sem fotos adicionais <GiFlatTire /></span>
+                <span>
+                  Sem fotos adicionais <GiFlatTire />
+                </span>
               )}
             </div>
           </PicturesContainerDesktop>
@@ -183,6 +235,7 @@ const ProductPage = () => {
           </AdvertiserSectionDesktop>
         </Aside>
         {modalImage && <ModalImageProduct />}
+        {isModalComment && <ModalEditAndDeleteComments />}
       </ContainerShop>
       <Footer />
     </>
