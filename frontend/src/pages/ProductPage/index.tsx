@@ -126,7 +126,7 @@ const ProductPage = () => {
             <h3>Comentários</h3>
             <ListOfComments>
               {allCommentsForCarId?.length === 0 ? (
-                <h3>Seja o primeiro a comentar</h3>
+                <h3>Nenhum comentário ainda</h3>
               ) : (
                 allCommentsForCarId?.map((comment) => (
                   <CardComment key={comment.id}>

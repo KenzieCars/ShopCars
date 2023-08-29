@@ -157,6 +157,11 @@ export const RegisterButtonContainer = styled.div`
       background: var(--black);
       color: var(--white);
     }
+
+    &:disabled {
+      background: var(--light-gray); // Change background color when disabled
+      cursor: none;
+    }
   }
 `;
 

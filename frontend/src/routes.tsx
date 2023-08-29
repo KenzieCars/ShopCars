@@ -12,6 +12,7 @@ import UserPage from "./pages/UserPage";
 import ResetPasswordPage from "./pages/resetPassword";
 import { ProtectedRoutes } from "./components/ProtectedRoutes";
 import ProductPage from "./pages/ProductPage";
+import Welcome from "./pages/Welcome";
 
 const AppRoutes = () => {
   return (
@@ -21,6 +22,7 @@ const AppRoutes = () => {
           <CommentProvider>
             <HomeProvider>
               <Routes>
+                <Route path='welcome' element={<Welcome />} />
                 <Route path="/" element={<Home />} />
                 <Route path="*" element={<Login />} />
                 <Route path="/login" element={<Login />} />
