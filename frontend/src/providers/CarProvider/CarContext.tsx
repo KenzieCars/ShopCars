@@ -15,7 +15,7 @@ import {
   TDataCarResponse,
 } from "./@types";
 import { AxiosResponse } from "axios";
-// import { CommentContext } from "../CommentProvider/CommentContext";
+
 import { TCommentUserResponse } from "../CommentProvider/@types";
 
 export const CarContext = createContext({} as ICarContext);
@@ -23,12 +23,12 @@ export const CarContext = createContext({} as ICarContext);
 export const CarProvider = ({ children }: IDefaultProviderProps) => {
   const [images, setImages] = useState<IImage[] | []>([]);
   const [car, setCar] = useState<ICar | null>(null);
-  const [allcars, setAllCars] = useState<TDataCarResponse[] | []>([]);
+  const [allcars, setAllCars] = useState<TCarDataIdResponse[] | []>([]);
 
   //Vem todos os carros cadastrado em um array só
   //Sem paginação
   const [allCarsRegistered, setAllCarsRegistered] = useState<
-    TDataCarResponse[] | []
+    TCarDataIdResponse[] | []
   >([]);
 
   const {
@@ -41,7 +41,7 @@ export const CarProvider = ({ children }: IDefaultProviderProps) => {
   useEffect(() => {
     const allCars = async () => {
       try {
-        const response = await api.get<TDataCarResponse[]>(`/cars`);
+        const response = await api.get<TCarDataIdResponse[]>(`/cars`);
 
         setAllCars(response.data);
         setAllCarsRegistered(response.data);
@@ -59,13 +59,6 @@ export const CarProvider = ({ children }: IDefaultProviderProps) => {
 
       const allCommentsForCarId: TCommentUserResponse[] =
         response.data.comments;
-
-      //Salva todos os comentários relacionados
-      //a um determinado anúncio
-      localStorage.setItem(
-        "@commentsCarID",
-        JSON.stringify(allCommentsForCarId)
-      );
 
       return allCommentsForCarId;
     } catch (error) {

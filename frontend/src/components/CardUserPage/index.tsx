@@ -14,8 +14,8 @@ import { UserContext } from "../../providers/UserProvider/UserContext";
 import { Link } from "react-router-dom";
 import { CarContext } from "../../providers/CarProvider/CarContext";
 
-const 
-CardUserProfile = () => {
+
+const CardUserProfile = () => {
   const { allcarsComumProfilePerPage } = useContext(UserContext);
   const { carsSellerId } = useContext(CarContext);
 

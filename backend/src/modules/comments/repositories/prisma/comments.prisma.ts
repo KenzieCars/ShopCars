@@ -34,6 +34,9 @@ export class CommentsPrismaRepository implements CommentsRepository {
         carId: comment.carId,
         userId: comment.userId,
       },
+      include: {
+        user: true
+      }
     });
 
     return newComment;

@@ -76,7 +76,11 @@ export class CarsPrismaRepository implements CarsRepository {
     const cars = await this.prisma.car.findMany({
       include: {
         images: true,
-        comments: true,
+        comments: {
+          include: {
+            user: true
+          }
+        },
         user: true,
       },
     });

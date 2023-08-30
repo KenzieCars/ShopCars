@@ -23,8 +23,6 @@ const UserPage = () => {
     allcarsComumProfile,
   } = useContext(UserContext);
 
-  console.log("UserPage")
-
   const itemsPerPage = 12;
 
   useEffect(() => {
