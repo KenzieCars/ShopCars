@@ -7,16 +7,13 @@ import {
   IDefaultProviderProps,
   TCommentRequest,
   TCommentUserResponse,
-  TListComments,
 } from "./@types";
 
 export const CommentContext = createContext({} as ICommentContext);
 
 export const CommentProvider = ({ children }: IDefaultProviderProps) => {
-  const [allComments, setAllComments] = useState<TListComments | []>([]);
-  const [commentsCarId, setCommentsCarId] = useState<
-    TCommentUserResponse[] | []
-  >([]);
+  const [allComments, setAllComments] = useState<TCommentUserResponse[] | []>([]);
+  const [commentsCarId, setCommentsCarId] = useState<TCommentUserResponse[] | []>([]);
 
   const [isModalComment, setIsModalComment] = useState<boolean>(false);
   const [commentOneById, setCommentOneById] =
@@ -25,8 +22,7 @@ export const CommentProvider = ({ children }: IDefaultProviderProps) => {
   useEffect(() => {
     const allComments = async () => {
       try {
-        const response = await api.get<TListComments | []>(`/comments`);
-
+        const response = await api.get<TCommentUserResponse[] | []>(`/comments`);
         setAllComments(response.data);
       } catch (error) {
         console.log(error);
@@ -50,6 +46,7 @@ export const CommentProvider = ({ children }: IDefaultProviderProps) => {
             },
           }
         );
+        console.log(response.data)
         setCommentsCarId([...commentsCarId, response.data]);
         toast.success("Comment registered!");
       } catch (error) {
