@@ -25,18 +25,16 @@ const AppRoutes = () => {
                 <Route path="*" element={<Login />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register />} />
-                <Route path="/profile" element={<ProfileView />} />
-                <Route path="/userPage" element={<UserPage />} />
                 <Route
                   path="/resetPassword/:token"
                   element={<ResetPasswordPage />}
                 />
                 <Route path="/product/:productId" element={<ProductPage />} />
-                <Route path="/userPage" element={<UserPage />} />
                 <Route path="/userPage/:userId" element={<UserPage />} />
 
                 <Route path="/" element={<ProtectedRoutes />}>
                   <Route path="/profile" element={<ProfileView />} />
+                  <Route path="/userPage" element={<UserPage />} />
                 </Route>
               </Routes>
             </HomeProvider>

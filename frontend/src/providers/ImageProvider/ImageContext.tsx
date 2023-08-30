@@ -1,32 +1,30 @@
 import { createContext, useEffect, useState } from "react";
-// import { useNavigate } from "react-router-dom";
 import { api } from "../../services/api";
 import { toast } from "react-toastify";
-import {
-  IImage,
-  IImageUpdate,
-  TImageRequest,
-  TListImages,
-} from "./@types";
+import { IImage, IImageUpdate, TImageRequest, TListImages } from "./@types";
 import { IDefaultProviderProps } from "./@types";
 
 export interface IImageContext {
-	allImages: [] | TListImages
-	newImageCar: IImage | null
-	setAllImages: React.Dispatch<React.SetStateAction<[] | TListImages>>
-	setNewImageCar: React.Dispatch<React.SetStateAction<IImage | null>>
-	registerImage: (formData: TImageRequest) => Promise<void>
-	editeImage: (formData: IImageUpdate, imageId: string) => Promise<void>
-	deleteImage: (imageId: string) => Promise<void>
-  }
+  allImages: [] | TListImages;
+  newImageCar: IImage | null;
+  setAllImages: React.Dispatch<React.SetStateAction<[] | TListImages>>;
+  setNewImageCar: React.Dispatch<React.SetStateAction<IImage | null>>;
+  registerImage: (formData: TImageRequest) => Promise<void>;
+  editeImage: (formData: IImageUpdate, imageId: string) => Promise<void>;
+  deleteImage: (imageId: string) => Promise<void>;
+  setModalImage: React.Dispatch<React.SetStateAction<boolean>>;
+  modalImage: boolean;
+  imageById: string;
+  setImageById: React.Dispatch<React.SetStateAction<string>>;
+}
 
 export const ImageContext = createContext({} as IImageContext);
 
 export const ImageProvider = ({ children }: IDefaultProviderProps) => {
-  // const navigate = useNavigate();
-
   const [allImages, setAllImages] = useState<TListImages | []>([]);
   const [newImageCar, setNewImageCar] = useState<IImage | null>(null);
+  const [modalImage, setModalImage] = useState<boolean>(false);
+  const [imageById, setImageById] = useState<string>("");
 
   useEffect(() => {
     const allImages = async () => {
@@ -107,14 +105,11 @@ export const ImageProvider = ({ children }: IDefaultProviderProps) => {
           },
         });
 
-        const imageFind = allImages.find(
-          (image) => image.id === imageId
-        );
+        const imageFind = allImages.find((image) => image.id === imageId);
 
         if (!imageFind) {
           toast.error("Image Not Found!");
-        } 
-        else {
+        } else {
           const newListImages = allImages.filter((image) => {
             if (image !== imageFind) {
               return image;
@@ -143,6 +138,10 @@ export const ImageProvider = ({ children }: IDefaultProviderProps) => {
         registerImage,
         editeImage,
         deleteImage,
+        setModalImage,
+        modalImage,
+        imageById,
+        setImageById,
       }}
     >
       {children}

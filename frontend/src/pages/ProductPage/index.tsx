@@ -23,27 +23,92 @@ import { Header } from "../../components/Header";
 import { useParams } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
 import { CarContext } from "../../providers/CarProvider/CarContext";
-import { TDataCarResponse } from "../../providers/CarProvider/@types";
+import { TCarDataIdResponse } from "../../providers/CarProvider/@types";
 import { UserContext } from "../../providers/UserProvider/UserContext";
+import { ModalImageProduct } from "../../components/ModalImageProduct";
+import { ImageContext } from "../../providers/ImageProvider/ImageContext";
+import {
+  IFormComment,
+  TCommentRequest,
+  TCommentUserResponse,
+} from "../../providers/CommentProvider/@types";
+import { GiFlatTire } from "react-icons/gi";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { CommentContext } from "../../providers/CommentProvider/CommentContext";
+import { useForm, SubmitHandler } from "react-hook-form";
+import { ModalEditAndDeleteComments } from "../../components/ModalEditAndDeleteComments";
+import {BsThreeDotsVertical} from "react-icons/bs"
 
 const ProductPage = () => {
-  const { productId } = useParams()
-  const { allcars } = useContext(CarContext)
-  const { userIdCars, allcarsUserPerPage } = useContext(UserContext)
-  const [productDetails, setProductDetails] = useState<TDataCarResponse | null>(null)
+  const { productId } = useParams();
+  const { allcars, allCarsRegistered } = useContext(CarContext);
+  const { userIdCars } = useContext(UserContext);
+  const { modalImage, setModalImage, setImageById } = useContext(ImageContext);
+  const [productDetails, setProductDetails] =
+    useState<TCarDataIdResponse | null>(null);
+
+  const token = localStorage.getItem("@userToken");
+
+  const { registerComment, commentsCarId, setCommentsCarId, isModalComment, setIsModalComment, setCommentOneById } = useContext(CommentContext);
+
+  const schema = z.object({
+    description: z.string().nonempty("Diga algo sobre o anúncio"),
+  });
+
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm<IFormComment>({
+    resolver: zodResolver(schema),
+  });
 
   useEffect(() => {
-    const product: any = allcars.find((car) => car.id === productId)
-    // const productAdmin: any = allcarsUserPerPage.find((car) => car.id === productId)
-    
-    if (product) setProductDetails(product)
+    const product: TCarDataIdResponse | undefined = allcars.find(
+      (car) => car.id === productId
+    );
 
-    // if (productAdmin) setProductDetails(productAdmin)
+    if (product) {
+      setProductDetails(product);
 
-  }, [allcars, productId, productDetails])
-
-  console.log(productDetails)
+      setCommentsCarId(product.comments);
+    }
+  }, [allcars, productId, productDetails]);
   
+  
+  useEffect(() => {
+    // Rolar para o topo da página quando o componente for montado
+    window.scrollTo(0, 0);
+  }, []);
+
+  const searchCarsUserId = (userId: string) => {
+    const carsSearch = allCarsRegistered.filter(
+      (car) => car.user.id === userId
+    );
+    localStorage.setItem("@carsSellerSelect", JSON.stringify(carsSearch));
+  };
+
+  const getImageProduct = (img: string) => {
+    setModalImage(!modalImage);
+    setImageById(img);
+  };
+
+  const getCommentById = (comment: TCommentUserResponse ) => {
+    setIsModalComment(!isModalComment)
+    setCommentOneById(comment)
+  }
+
+  const submit: SubmitHandler<IFormComment> = async (formData) => {
+    const commentData: TCommentRequest = {
+      ...formData,
+      carId: productId!,
+    };
+    reset();
+    await registerComment(commentData);
+  };
+
   return (
     <>
       <ContainerShop>
@@ -54,7 +119,9 @@ const ProductPage = () => {
           </FigureContainer>
           <InfoAndDescriptionContainer>
             <InfoSection>
-              <h2>{productDetails?.brand} - {productDetails?.model}</h2>
+              <h2>
+                {productDetails?.brand} - {productDetails?.model}
+              </h2>
               <KmContainer>
                 <span>{productDetails?.year}</span>
                 <span>{productDetails?.km}</span>
@@ -74,10 +141,17 @@ const ProductPage = () => {
             <div>
               {productDetails?.images && productDetails.images.length > 0 ? (
                 productDetails.images.map((img) => (
-                  <img key={img.id} src={img.imgGalery} alt="Imagens do carro do anunciante" />
+                  <img
+                    key={img.id}
+                    src={img.imgGalery}
+                    alt="Imagens do carro do anunciante"
+                    onClick={() => getImageProduct(img.imgGalery)}
+                  />
                 ))
               ) : (
-                <span>Sem fotos</span>
+                <span>
+                  Sem fotos adicionais <GiFlatTire />
+                </span>
               )}
             </div>
           </PicturesContainer>
@@ -85,36 +159,47 @@ const ProductPage = () => {
             <span>{productDetails?.user.name[0]}</span>
             <span>{productDetails?.user.name}</span>
             <p>{productDetails?.user.description}</p>
-            <LinkTag to={`/userPage/${productDetails?.user.id}`}>Ver todos os anúncios</LinkTag>
+            <LinkTag to={`/userPage/${productDetails?.user.id}`}>
+              Ver todos os anúncios
+            </LinkTag>
           </AdvertiserSection>
           <CommentsSection>
             <h3>Comentários</h3>
             <ListOfComments>
-              <CardComment>
-                <section>
-                  <div>JL</div>
-                  <span>John Lennon</span>
-                  <span>há 3 dias</span>
-                </section>
-                <p>
-                  Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                  Asperiores sequi totam consequatur non libero ad sit
-                  voluptatem ipsam, quam tempora iure voluptatibus debitis,
-                  beatae, maxime optio officiis! Dolorem, numquam id?
-                </p>
-              </CardComment>
+              {commentsCarId?.length === 0 ? (
+                <h3>Seja o primeiro a comentar</h3>
+              ) : (
+                commentsCarId?.map((comment) => (
+                  <CardComment key={comment.id} >
+                    <section>
+                      <div>JL</div>
+                      <span>{comment.user.name}</span>
+                      <span>criado em {comment.createdAt}</span>
+                    </section>
+                    <p>{comment.description}</p>
+                    <BsThreeDotsVertical className="open_modal_comments" onClick={() => getCommentById(comment)}/>
+                  </CardComment>
+                ))
+              )}
             </ListOfComments>
           </CommentsSection>
-          <PostAComment>
-            <div>
-              <span>{userIdCars?.name[0]}</span>
-              <span>{userIdCars?.name}</span>
-            </div>
-            <textarea
-              placeholder="Me conte sua experiência com o carro"
-            ></textarea>
-            <button>Comentar</button>
-          </PostAComment>
+          {token && (
+            <PostAComment>
+              <div>
+                <span>{userIdCars?.name[0]}</span>
+                <span>{userIdCars?.name}</span>
+              </div>
+              <textarea
+                form="form-description"
+                placeholder="Me conte sua experiência com o carro"
+                {...register("description")}
+              />
+              {errors.description?.message}
+              <form id="form-description" onClick={handleSubmit(submit)}>
+                <input type="submit" value="Comentar" />
+              </form>
+            </PostAComment>
+          )}
         </ProductMainContainer>
         <Aside>
           <PicturesContainerDesktop>
@@ -122,10 +207,17 @@ const ProductPage = () => {
             <div>
               {productDetails?.images && productDetails.images.length > 0 ? (
                 productDetails.images.map((img) => (
-                  <img key={img.id} src={img.imgGalery} alt="Imagens do carro do anunciante" />
+                  <img
+                    key={img.id}
+                    src={img.imgGalery}
+                    alt="Imagens do carro do anunciante"
+                    onClick={() => getImageProduct(img.imgGalery)}
+                  />
                 ))
               ) : (
-                <span>Sem fotos</span>
+                <span>
+                  Sem fotos adicionais <GiFlatTire />
+                </span>
               )}
             </div>
           </PicturesContainerDesktop>
@@ -133,9 +225,16 @@ const ProductPage = () => {
             <span>{productDetails?.user.name[0]}</span>
             <span>{productDetails?.user.name}</span>
             <p>{productDetails?.user.description}</p>
-            <LinkTag to={`/userPage/${productDetails?.user.id}`}>Ver todos os anúncios</LinkTag>
+            <LinkTag
+              to={`/userPage/${productDetails?.user.id}`}
+              onClick={() => searchCarsUserId(productDetails!.user.id)}
+            >
+              Ver todos os anúncios
+            </LinkTag>
           </AdvertiserSectionDesktop>
         </Aside>
+        {modalImage && <ModalImageProduct />}
+        {isModalComment && <ModalEditAndDeleteComments />}
       </ContainerShop>
       <Footer />
     </>

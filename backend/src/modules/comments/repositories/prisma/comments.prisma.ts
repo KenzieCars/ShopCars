@@ -34,6 +34,9 @@ export class CommentsPrismaRepository implements CommentsRepository {
         carId: comment.carId,
         userId: comment.userId,
       },
+      include: {
+        user: true
+      }
     });
 
     return newComment;
@@ -47,6 +50,9 @@ export class CommentsPrismaRepository implements CommentsRepository {
   async findOne(id: string): Promise<Comment> {
     const comment = await this.prisma.comment.findFirst({
       where: { id },
+      include: {
+        user: true
+      }
     });
     return comment;
   }

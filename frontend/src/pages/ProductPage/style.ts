@@ -212,8 +212,21 @@ export const PicturesContainer = styled.ul`
 
     > img {
       width: 28%;
+      cursor: pointer;
+    }
+
+    > span {
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+
+      font-size: .9rem;
+      font-style: italic;
+
+      color: var(--gray);
     }
   }
+
 
   @media (min-width: 768px) {
     display: none;
@@ -247,7 +260,7 @@ export const AdvertiserSection = styled.section`
 
       border-radius: 50%;
 
-      padding: .4rem;
+      padding: .4rem .7rem;
     }
 
     &:nth-child(2) {
@@ -308,12 +321,19 @@ export const ListOfComments = styled.ul`
   display: flex;
   flex-direction: column;
   gap: 1.7rem;
+
+  > h3 {
+    font-size: .7rem;
+    color: var(--primary-color);
+    opacity: .6;
+  }
 `
 
 export const CardComment = styled.li`
   display: flex;
   flex-direction: column;
   gap: .8rem;
+  position: relative;
 
   > section {
     display: flex;
@@ -349,6 +369,13 @@ export const CardComment = styled.li`
     color: var(--gray);
     font-size: .8rem;
     line-height: 150%;
+  }
+
+  .open_modal_comments{
+    position: absolute;
+    top: 0;
+    right: 0;
+    cursor: pointer;
   }
 `
 
@@ -396,6 +423,8 @@ export const PostAComment = styled.section`
     color: var(--gray);
     
     transition: .2s ease;
+
+    resize: none;
     
     &:focus {
       border: 2px solid var(--primary-color);
@@ -411,7 +440,7 @@ export const PostAComment = styled.section`
     }
   }
 
-  > button {
+  > input {// Alterei, era um button 
     background-color: var(--black);
     
     color: var(--white);
@@ -467,14 +496,19 @@ export const PicturesContainerDesktop = styled.ul`
 
     > span {
       color: var(--gray);
-      font-size: .8rem;
-      align-self: center;
+      font-size: .9rem;
+      font-style: italic;
+
+      display: flex;
+      align-items: center;
+      gap: 1rem;
     }
 
     > img {
       width: 28%;
       border-radius: 2px;
       object-fit: contain;
+      cursor: pointer;
     }
   }
 
