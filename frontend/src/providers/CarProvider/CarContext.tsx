@@ -45,6 +45,7 @@ export const CarProvider = ({ children }: IDefaultProviderProps) => {
 
         setAllCars(response.data);
         setAllCarsRegistered(response.data);
+        
       } catch (error) {
         console.log(error);
       }
@@ -88,7 +89,7 @@ export const CarProvider = ({ children }: IDefaultProviderProps) => {
         toast.error("Car already exists.");
       }
     }
-    console.log(response);
+
     return response;
   };
 

@@ -38,7 +38,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { CommentContext } from "../../providers/CommentProvider/CommentContext";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { ModalEditAndDeleteComments } from "../../components/ModalEditAndDeleteComments";
-import {BsThreeDotsVertical} from "react-icons/bs"
+import { BsThreeDotsVertical } from "react-icons/bs";
 
 const ProductPage = () => {
   const { productId } = useParams();
@@ -50,11 +50,22 @@ const ProductPage = () => {
 
   const token = localStorage.getItem("@userToken");
 
-  const { registerComment, commentsCarId, setCommentsCarId, isModalComment, setIsModalComment, setCommentOneById } = useContext(CommentContext);
+  const {
+    registerComment,
+    commentsCarId,
+    setCommentsCarId,
+    isModalComment,
+    setIsModalComment,
+    setCommentOneById,
+    allComments,
+  } = useContext(CommentContext);
 
   const schema = z.object({
     description: z.string().nonempty("Diga algo sobre o anúncio"),
   });
+
+
+  const userId: string | null = localStorage.getItem("@userId") || "null";
 
   const {
     register,
@@ -66,6 +77,15 @@ const ProductPage = () => {
   });
 
   useEffect(() => {
+    const commentsProduct: TCommentUserResponse[] | undefined = allComments.filter(
+      (comment) => comment.carId === productId
+    )
+    if (commentsProduct.length > 0) {
+      setCommentsCarId(commentsProduct);
+    }
+  }, [])
+
+  useEffect(() => {
     const product: TCarDataIdResponse | undefined = allcars.find(
       (car) => car.id === productId
     );
@@ -73,11 +93,10 @@ const ProductPage = () => {
     if (product) {
       setProductDetails(product);
 
-      setCommentsCarId(product.comments);
+      // setCommentsCarId(product.comments);
     }
   }, [allcars, productId, productDetails]);
-  
-  
+
   useEffect(() => {
     // Rolar para o topo da página quando o componente for montado
     window.scrollTo(0, 0);
@@ -87,18 +106,20 @@ const ProductPage = () => {
     const carsSearch = allCarsRegistered.filter(
       (car) => car.user.id === userId
     );
+
     localStorage.setItem("@carsSellerSelect", JSON.stringify(carsSearch));
   };
 
+  
   const getImageProduct = (img: string) => {
     setModalImage(!modalImage);
     setImageById(img);
   };
 
-  const getCommentById = (comment: TCommentUserResponse ) => {
-    setIsModalComment(!isModalComment)
-    setCommentOneById(comment)
-  }
+  const getCommentById = (comment: TCommentUserResponse) => {
+    setIsModalComment(!isModalComment);
+    setCommentOneById(comment);
+  };
 
   const submit: SubmitHandler<IFormComment> = async (formData) => {
     const commentData: TCommentRequest = {
@@ -170,14 +191,19 @@ const ProductPage = () => {
                 <h3>Seja o primeiro a comentar</h3>
               ) : (
                 commentsCarId?.map((comment) => (
-                  <CardComment key={comment.id} >
+                  <CardComment key={comment!.id}>
                     <section>
-                      <div>JL</div>
-                      <span>{comment.user.name}</span>
-                      <span>criado em {comment.createdAt}</span>
+                      <div>{comment.user?.name[0]}</div>
+                      <span>{comment.user?.name}</span>
+                      <span>Há {comment!.createdAtString}</span>
                     </section>
-                    <p>{comment.description}</p>
-                    <BsThreeDotsVertical className="open_modal_comments" onClick={() => getCommentById(comment)}/>
+                    <p>{comment!.description}</p>
+                    {comment!.userId === userId && (
+                      <BsThreeDotsVertical
+                        className="open_modal_comments"
+                        onClick={() => getCommentById(comment)}
+                      />
+                    )}
                   </CardComment>
                 ))
               )}

@@ -35,7 +35,6 @@ const Header = () => {
   };
 
   const handleRegisterClick = () => {
-    console.log("Botão de cadastro clicado");
     navigate("/register");
   };
 
