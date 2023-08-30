@@ -45,8 +45,9 @@ export const ButtonHeader = styled.button`
     font-size: .9rem;
 
     &:hover {
-      border: 1px solid var(--black);
-      color: var(--black);
+      border: 1px solid var(--orange);
+      background: var(--orange);
+      color: var(--white);
     }
   }
 `;
