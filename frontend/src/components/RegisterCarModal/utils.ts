@@ -83,7 +83,25 @@ export const registerCarSchema = z.object({
 })
 
 export const bestPriceReckoning = (fipePrice: number, inputPrice: number) => {
-    const result = inputPrice > fipePrice * 1.1 ?
+    const result = inputPrice > fipePrice * 1.05 ?
         false : true
     return result
+}
+
+export const numberToKm = (number: number) => {
+    const string = number.toString()
+    let newString = ""
+    for (let index = 0; index < string.length; index++) {
+        newString = kmMask(newString + string[index])
+    }
+    return newString
+}
+
+export const numberToCash = (number: number) => {
+    const string = number.toString()
+    let newString = ""
+    for (let index = 0; index < string.length; index++) {
+        newString = valueMask(newString + string[index])
+    }
+    return newString
 }

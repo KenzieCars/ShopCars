@@ -61,3 +61,17 @@ export const UpdateButtonsContainer = styled.div`
         }
     }
 `
+
+export const GoodPriceAnotation = styled.p`
+    color: var(--light-gray);
+    font-size: .5rem;
+    letter-spacing: .04rem;
+    transition: .4s ease;
+    position: absolute;
+    bottom: -15px;
+    left: 1.5rem;
+
+    @media (width < 485px){
+      bottom: -28px;
+    }
+`
