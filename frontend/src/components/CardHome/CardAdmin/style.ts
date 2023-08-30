@@ -83,7 +83,12 @@ export const ContactUserContainer = styled.div`
 
     background-color: var(--blue);
 
-    padding: 0.4rem 0.7rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 26px;
+    height: 26px;
 
     font-size: 0.7rem;
 
@@ -197,7 +202,7 @@ export const DescriptionWithOverFlowAdm = styled.section`
   &:before {
     content: '';
     position: absolute;
-    bottom: 139px;
+    bottom: 118px;
     left: 0;
     width: 100%;
     height: 38px; /* Ajuste a altura do degradê conforme necessário */
@@ -214,6 +219,10 @@ export const DescriptionWithOverFlowAdm = styled.section`
 
     > p {
       font-size: .74rem;
+
+      &:before {
+        bottom: 132px;
+      }
     }
   }
 `

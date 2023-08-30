@@ -80,7 +80,7 @@ const EditProfileModal = () => {
           <button onClick={() => setProfileEditModal(!profileEditModal)}>
             Cancelar
           </button>
-          <button onClick={() => deleteUser()}>Excluir Perfil</button>
+          <button type="button" onClick={() => deleteUser()}>Excluir Perfil</button>
           <button type="submit">Salvar alterações</button>
         </ButtonContainer>
       </FormContainer>

@@ -126,7 +126,7 @@ export const ButtonContainer = styled.div`
     transition: .2s ease;
 
     &:hover {
-      background: var(--black);
+      background: var(--orange);
       color: var(--white);
     }
 
@@ -156,8 +156,8 @@ export const ButtonToRegister = styled(Link)`
   transition: .2s ease;
 
   &:hover {
-    color: var(--black);
-    border: 1.5px solid var(--black);
+    color: var(--orange);
+    border: 1.5px solid var(--orange);
   }
 
   @media (min-width: 768px) {

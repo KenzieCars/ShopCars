@@ -34,6 +34,8 @@ const AppRoutes = () => {
                 />
                 <Route path="/product/:productId" element={<ProductPage />} />
                 <Route path="/userPage/:userId" element={<UserPage />} />
+                <Route path="/user/:userId" element={<UserAds />} />
+
                 <Route path="/userAds/:userId" element={<UserAds />} />
                 <Route path="/" element={<ProtectedRoutes />}>
                   <Route path="/profile" element={<ProfileView />} />
