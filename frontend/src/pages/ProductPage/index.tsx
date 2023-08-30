@@ -20,7 +20,7 @@ import {
 } from "./style";
 import Footer from "../../components/Footer";
 import { Header } from "../../components/Header";
-import { Link, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
 import { CarContext } from "../../providers/CarProvider/CarContext";
 import { TCarDataIdResponse } from "../../providers/CarProvider/@types";
@@ -114,12 +114,19 @@ const ProductPage = () => {
     reset();
     await registerComment(commentData);
   };
+  const navigate = useNavigate();
 
-  console.log(productDetails);
+  const handleLoginClick = () => {
+    navigate("/login");
+  };
 
   const openWhatsAppInNewTab = () => {
-    window.open(`https://wa.me/+55${32984705511}`, "_blank");
+    window.open(
+      `https://wa.me/+55${productDetails?.user.cellPhone}?text=Ol%C3%A1%2C%20venho%20por%20meio%20do%20seu%20an%C3%BAncio%20no%20site%20Motors%20Shop%2C%20gostaria%20de%20negociar%20a%20compra%20do%20ve%C3%ADculo`,
+      "_blank"
+    );
   };
+
   return (
     <>
       <ContainerShop>
@@ -148,6 +155,11 @@ const ProductPage = () => {
                   }}
                 >
                   Comprar
+                </button>
+              )}
+              {!token && (
+                <button type="button" onClick={handleLoginClick}>
+                  Faça o login para Comprar
                 </button>
               )}
             </InfoSection>
