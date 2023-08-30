@@ -64,7 +64,7 @@ const Home = () => {
       <NextButtonContainer>
         {currentPage > 1 && (
           <ButtonNext
-            to="/"
+            to="/home"
             onClick={() => {
               setCurrentPage(currentPage - 1);
             }}
@@ -78,7 +78,7 @@ const Home = () => {
         </span>
         {currentPage < totalPages && (
           <ButtonNext
-            to="/"
+            to="/home"
             onClick={() => {
               setCurrentPage(currentPage + 1);
             }}
