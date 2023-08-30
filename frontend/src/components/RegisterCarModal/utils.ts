@@ -84,6 +84,7 @@ export const registerCarSchema = z.object({
 
 export const bestPriceReckoning = (fipePrice: number, inputPrice: number) => {
     const result = inputPrice > fipePrice * 1.05 ?
+
         false : true
     return result
 }

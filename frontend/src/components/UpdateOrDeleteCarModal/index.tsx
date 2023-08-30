@@ -1,7 +1,7 @@
 /* eslint-disable no-extra-semi */
 import {
     // LegacyRef,
-    useEffect, useState
+    useEffect, useState, useContext
 } from "react";
 // import useOutClick from "../../hooks/useOutclick";
 import {
@@ -11,7 +11,7 @@ import {
 } from "../RegisterCarModal/style";
 import { IChangeStyles, IUpdateModalProps, TUpdateSchema } from "./@types";
 import { useForm } from "react-hook-form";
-import { numberToKm, numberToCash, rectifyKm, rectifyPrice } from "../RegisterCarModal/utils";
+import { numberToKm, numberToCash, rectifyKm, rectifyPrice, bestPriceReckoning } from "../RegisterCarModal/utils";
 import { CarStatusField, GoodPriceAnotation, UpdateButtonsContainer } from "./style";
 import { handleNumber } from "../RegisterForm/utils";
 import { fipeApi } from "../../services/api";
@@ -19,9 +19,11 @@ import { AxiosResponse } from "axios";
 import { IFipeCars, IUpdateCars } from "../RegisterCarModal/@types";
 import { handleKm, handleValue } from "./utils";
 import DeleteCarModal from "./DeleteCarModal";
+import { CarContext } from "../../providers/CarProvider/CarContext";
+import { TCarRequest } from "../../providers/CarProvider/@types";
 
 
-const UpdateOrDeleteCarModal = ({ setModal, car }: IUpdateModalProps) => {
+const UpdateOrDeleteCarModal = ({ setModal: setUpdateModal, car }: IUpdateModalProps) => {
 
     const [isPublished, setIsPublished] = useState<boolean | undefined>(car?.status);
     const [extraImagesFields, setExtraImagesFields] = useState<number>(0);
@@ -39,6 +41,8 @@ const UpdateOrDeleteCarModal = ({ setModal, car }: IUpdateModalProps) => {
         status: getCarStatus(car!.status!) || "",
         imgCover: car?.imgCover || ""
     });
+
+    const { editeCar } = useContext(CarContext);
 
     // const modalContainerRef = useOutClick(() => setModal(false));
     const { register, handleSubmit } = useForm<TUpdateSchema>();
@@ -58,7 +62,7 @@ const UpdateOrDeleteCarModal = ({ setModal, car }: IUpdateModalProps) => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
-    const updateCar = () => {
+    const updateCar = async (): Promise<void | null> => {
         // eslint-disable-next-line prefer-const
         let updatePayload: IUpdateCars = { ...updateData };
 
@@ -80,17 +84,9 @@ const UpdateOrDeleteCarModal = ({ setModal, car }: IUpdateModalProps) => {
         updatePayload.km = rectifyKm(updateData.km as string);
         updatePayload.price = rectifyPrice(updateData.price as string);
         updatePayload.imgCover = updatePayload.imgCover.href;
+        updatePayload.bestPrice = bestPriceReckoning(fipePrice / 100, updatePayload.price);
 
-
-
-
-        // verifyIfIsUrl(updateCarData.imgCover!);
-
-        // data.status === "true" ?
-        //     updateCarData.status = true : updateCarData.status = false
-
-        console.log(updatePayload);
-        console.log(updateData);
+        await editeCar(updatePayload as TCarRequest, car!.id);
     };
 
     function getCarStatus(status: boolean): string {
@@ -164,7 +160,7 @@ const UpdateOrDeleteCarModal = ({ setModal, car }: IUpdateModalProps) => {
                 <FormModalContainer onSubmit={handleSubmit(updateCar)}>
                     <TitleModal>
                         <h3>Editar anúncio</h3>
-                        <span onClick={() => setModal(false)}>X</span>
+                        <span onClick={() => setUpdateModal(false)}>X</span>
                     </TitleModal>
                     <FieldsetModal>
                         <label>Marca</label>
@@ -262,9 +258,10 @@ const UpdateOrDeleteCarModal = ({ setModal, car }: IUpdateModalProps) => {
                     </UpdateButtonsContainer>
                 </FormModalContainer>
             </ModalContainer>
-            {deleteCarModal && <DeleteCarModal carId={car?.id} setModal={setDeleteCarModal} />}
+            {deleteCarModal && <DeleteCarModal carId={car?.id} setDeleteCarModal={setDeleteCarModal}
+                setUpdateModal={setUpdateModal} />}
         </ModalWrapper>
     )
-}
+};
 
 export default UpdateOrDeleteCarModal;

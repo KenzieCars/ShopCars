@@ -26,5 +26,6 @@ export interface IUpdateCars {
     description: string
     status: string | boolean
     imgCover: string | URL
+    bestPrice?: boolean | undefined
     imgs?: string[] | URL[] | undefined
 }

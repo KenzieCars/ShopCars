@@ -9,7 +9,8 @@ export interface IUpdateModalProps {
 }
 
 export interface IDeleteModalProps {
-    setModal: React.Dispatch<React.SetStateAction<boolean>>
+    setDeleteCarModal: React.Dispatch<React.SetStateAction<boolean>>
+    setUpdateModal: React.Dispatch<React.SetStateAction<boolean>>
     carId?: string | undefined
     // updateModalOutClick: React.Dispatch<React.SetStateAction<React.MutableRefObject<HTMLElement | null> | null>>
 }
