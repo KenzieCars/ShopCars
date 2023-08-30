@@ -39,6 +39,7 @@ export const TitleModal = styled.div`
     > h3 {
         color: var(--gray);
         font-size: 1rem;
+        text-decoration: underline;
     }
 
     > span {
@@ -137,6 +138,7 @@ export const FieldsetModal = styled.fieldset`
         &::placeholder {
             color: var(--light-gray);
         }
+       
     }
 
     > input {
@@ -153,6 +155,10 @@ export const FieldsetModal = styled.fieldset`
 
         &::placeholder {
             color: var(--light-gray);
+        }
+
+        &:disabled {
+            background-color: white;
         }
     }
 `
@@ -193,6 +199,7 @@ export const AddImagesContainer = styled.div`
     flex-direction: row;
     align-items: center;
     position: relative;
+    min-height: 35px;
 
     > button {
         background-color: var(--primary-color-hover);
