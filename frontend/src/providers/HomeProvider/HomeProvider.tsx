@@ -36,6 +36,24 @@ interface HomeContextValues {
   allcarsPages: [] | ICar[];
 }
 
+export interface User {
+  id: string;
+  name: string;
+  email: string;
+  password: string;
+  seller: boolean;
+  isAdm: boolean;
+  cellPhone: string;
+  cpf: string;
+  dateOfBirth: string;
+  description: string;
+  city: string;
+  state: string;
+  street: string;
+  number: number;
+  complement: string;
+}
+
 export const HomeContext = createContext({} as HomeContextValues);
 
 export const HomeProvider = ({ children }: IHomeProviderProps) => {
@@ -71,10 +89,12 @@ export const HomeProvider = ({ children }: IHomeProviderProps) => {
       }
 
       if (selectedModel !== "") {
-        filteredCars = filteredCars.filter(
-          (car) => car.model.toLowerCase() === selectedModel.toLowerCase()
-        );
+        filteredCars = filteredCars.filter((car) => {
+          const firstWordOfModel = car.model.split(" ")[0].toLowerCase();
+          return firstWordOfModel === selectedModel.toLowerCase();
+        });
       }
+
       if (selectedColor !== "") {
         filteredCars = filteredCars.filter(
           (car) => car.color.toLowerCase() === selectedColor.toLowerCase()

@@ -20,7 +20,7 @@ import {
 } from "./style";
 import Footer from "../../components/Footer";
 import { Header } from "../../components/Header";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
 import { CarContext } from "../../providers/CarProvider/CarContext";
 import { TCarDataIdResponse } from "../../providers/CarProvider/@types";
@@ -38,7 +38,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { CommentContext } from "../../providers/CommentProvider/CommentContext";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { ModalEditAndDeleteComments } from "../../components/ModalEditAndDeleteComments";
-import {BsThreeDotsVertical} from "react-icons/bs"
+import { BsThreeDotsVertical } from "react-icons/bs";
 
 const ProductPage = () => {
   const { productId } = useParams();
@@ -50,7 +50,14 @@ const ProductPage = () => {
 
   const token = localStorage.getItem("@userToken");
 
-  const { registerComment, commentsCarId, setCommentsCarId, isModalComment, setIsModalComment, setCommentOneById } = useContext(CommentContext);
+  const {
+    registerComment,
+    commentsCarId,
+    setCommentsCarId,
+    isModalComment,
+    setIsModalComment,
+    setCommentOneById,
+  } = useContext(CommentContext);
 
   const schema = z.object({
     description: z.string().nonempty("Diga algo sobre o anúncio"),
@@ -76,8 +83,7 @@ const ProductPage = () => {
       setCommentsCarId(product.comments);
     }
   }, [allcars, productId, productDetails]);
-  
-  
+
   useEffect(() => {
     // Rolar para o topo da página quando o componente for montado
     window.scrollTo(0, 0);
@@ -95,10 +101,10 @@ const ProductPage = () => {
     setImageById(img);
   };
 
-  const getCommentById = (comment: TCommentUserResponse ) => {
-    setIsModalComment(!isModalComment)
-    setCommentOneById(comment)
-  }
+  const getCommentById = (comment: TCommentUserResponse) => {
+    setIsModalComment(!isModalComment);
+    setCommentOneById(comment);
+  };
 
   const submit: SubmitHandler<IFormComment> = async (formData) => {
     const commentData: TCommentRequest = {
@@ -107,6 +113,18 @@ const ProductPage = () => {
     };
     reset();
     await registerComment(commentData);
+  };
+  const navigate = useNavigate();
+
+  const handleLoginClick = () => {
+    navigate("/login");
+  };
+
+  const openWhatsAppInNewTab = () => {
+    window.open(
+      `https://wa.me/+55${productDetails?.user.cellPhone}?text=Ol%C3%A1%2C%20venho%20por%20meio%20do%20seu%20an%C3%BAncio%20no%20site%20Motors%20Shop%2C%20gostaria%20de%20negociar%20a%20compra%20do%20ve%C3%ADculo`,
+      "_blank"
+    );
   };
 
   return (
@@ -129,7 +147,21 @@ const ProductPage = () => {
               <PriceContainer>
                 <span>R$ {productDetails?.price}</span>
               </PriceContainer>
-              <button>Comprar</button>
+              {token && (
+                <button
+                  type="button"
+                  onClick={() => {
+                    openWhatsAppInNewTab();
+                  }}
+                >
+                  Comprar
+                </button>
+              )}
+              {!token && (
+                <button type="button" onClick={handleLoginClick}>
+                  Faça o login para Comprar
+                </button>
+              )}
             </InfoSection>
             <Description>
               <h3>Descrição</h3>
@@ -170,14 +202,17 @@ const ProductPage = () => {
                 <h3>Seja o primeiro a comentar</h3>
               ) : (
                 commentsCarId?.map((comment) => (
-                  <CardComment key={comment.id} >
+                  <CardComment key={comment.id}>
                     <section>
                       <div>JL</div>
                       <span>{comment.user.name}</span>
                       <span>criado em {comment.createdAt}</span>
                     </section>
                     <p>{comment.description}</p>
-                    <BsThreeDotsVertical className="open_modal_comments" onClick={() => getCommentById(comment)}/>
+                    <BsThreeDotsVertical
+                      className="open_modal_comments"
+                      onClick={() => getCommentById(comment)}
+                    />
                   </CardComment>
                 ))
               )}
