@@ -43,7 +43,7 @@ const Header = () => {
   return (
     <>
       <DivHeader>
-        <Link to="/">
+        <Link to="/home">
           <img src={LogoHeader} alt="Logo" />
         </Link>
         {isMobile ? (
