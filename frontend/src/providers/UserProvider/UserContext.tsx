@@ -48,7 +48,8 @@ export const UserProvider = ({ children }: IDefaultProviderProps) => {
   >([]);
   const [allcarsComumProfilePerPage, setAllCarsComumProfilePerPage] = useState<
     TDataCarResponse[] | []
-  >([]);
+    >([]);
+  const [userSelected, setUserSelected] = useState<TDataCarResponse[] | [] >([]);
 
   const userLogin = async (formData: ILogin) => {
     try {
@@ -340,6 +341,8 @@ export const UserProvider = ({ children }: IDefaultProviderProps) => {
         setAllcarsUserPerPage,
         setAllcarsUserPerPage2,
         carUserSeller,
+        userSelected,
+        setUserSelected
       }}
     >
       {children}

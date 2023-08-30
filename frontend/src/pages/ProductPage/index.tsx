@@ -17,6 +17,7 @@ import {
   ProductMainContainer,
   InfoAndDescriptionContainer,
   LinkTag,
+  SchemaMessage,
 } from "./style";
 import Footer from "../../components/Footer";
 import { Header } from "../../components/Header";
@@ -87,6 +88,7 @@ const ProductPage = () => {
     const carsSearch = allCarsRegistered.filter(
       (car) => car.user.id === userId
     );
+
     localStorage.setItem("@carsSellerSelect", JSON.stringify(carsSearch));
   };
 
@@ -159,7 +161,13 @@ const ProductPage = () => {
             <span>{productDetails?.user.name[0]}</span>
             <span>{productDetails?.user.name}</span>
             <p>{productDetails?.user.description}</p>
-            <LinkTag to={`/userPage/${productDetails?.user.id}`}>
+            <LinkTag
+              to={`/userAds/${productDetails?.user.id}`}
+              onClick={() => {
+                // localStorage.setItem('@carsSellerSelect', JSON.stringify(productDetails?.user))
+                searchCarsUserId(productDetails!.user.id)
+              }}
+            >
               Ver todos os anúncios
             </LinkTag>
           </AdvertiserSection>
@@ -195,9 +203,9 @@ const ProductPage = () => {
                 placeholder="Me conte sua experiência com o carro"
                 {...register("description")}
               />
-              {errors.description?.message}
+              <SchemaMessage>{errors && errors.description?.message}</SchemaMessage>
               <form id="form-description" onClick={handleSubmit(submit)}>
-                <input type="submit" value="Comentar" />
+                <button type="submit">Comentar</button>
               </form>
             </PostAComment>
           )}
@@ -227,8 +235,11 @@ const ProductPage = () => {
             <span>{productDetails?.user.name}</span>
             <p>{productDetails?.user.description}</p>
             <LinkTag
-              to={`/userPage/${productDetails?.user.id}`}
-              onClick={() => searchCarsUserId(productDetails!.user.id)}
+              to={`/userAds/${productDetails?.user.id}`}
+              onClick={() => {
+                localStorage.setItem('@userSelected', JSON.stringify(productDetails?.user))
+                searchCarsUserId(productDetails!.user.id)
+              }}
             >
               Ver todos os anúncios
             </LinkTag>

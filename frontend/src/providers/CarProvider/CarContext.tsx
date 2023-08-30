@@ -58,8 +58,8 @@ export const CarProvider = ({ children }: IDefaultProviderProps) => {
       const response = await api.get<TCarDataIdResponse>(`/cars/${carId}`);
 
       const allCommentsForCarId: TCommentUserResponse[] =
-        response.data.comments;
-
+      response.data.comments;
+      
       return allCommentsForCarId;
     } catch (error) {
       console.log(error);
@@ -88,7 +88,7 @@ export const CarProvider = ({ children }: IDefaultProviderProps) => {
         toast.error("Car already exists.");
       }
     }
-    console.log(response);
+    // console.log(response);
     return response;
   };
 
@@ -191,7 +191,7 @@ export const CarProvider = ({ children }: IDefaultProviderProps) => {
         editeCar,
         deleteCar,
         registerCarImage,
-        carsSellerId,
+        carsSellerId
       }}
     >
       {children}

@@ -13,6 +13,7 @@ import ResetPasswordPage from "./pages/resetPassword";
 import { ProtectedRoutes } from "./components/ProtectedRoutes";
 import ProductPage from "./pages/ProductPage";
 import Welcome from "./pages/Welcome";
+import UserAds from "./pages/UserAds";
 
 const AppRoutes = () => {
   return (
@@ -33,6 +34,7 @@ const AppRoutes = () => {
                 />
                 <Route path="/product/:productId" element={<ProductPage />} />
                 <Route path="/userPage/:userId" element={<UserPage />} />
+                <Route path="/userAds/:userId" element={<UserAds />} />
 
                 <Route path="/" element={<ProtectedRoutes />}>
                   <Route path="/profile" element={<ProfileView />} />

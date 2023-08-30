@@ -46,6 +46,8 @@ export interface IUserContext {
     value: React.SetStateAction<[] | ICarSeller[]>
   ) => void;
   carUserSeller: () => Promise<void>;
+  userSelected: [] | TDataCarResponse[];
+  setUserSelected: React.Dispatch<React.SetStateAction<[] | TDataCarResponse[]>>;
 }
 
 export interface IDefaultProviderProps {

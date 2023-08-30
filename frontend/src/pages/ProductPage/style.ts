@@ -440,7 +440,7 @@ export const PostAComment = styled.section`
     }
   }
 
-  > input {// Alterei, era um button 
+  > form > button {// Alterei, era um button 
     background-color: var(--black);
     
     color: var(--white);
@@ -584,4 +584,9 @@ export const LinkTag = styled(Link)`
   &:hover {
     background-color: var(--primary-color);
   }
+`
+
+export const SchemaMessage = styled.span`
+  font-size: .6rem;
+  color: var(--gray);
 `
