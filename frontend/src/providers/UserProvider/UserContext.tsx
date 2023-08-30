@@ -213,6 +213,7 @@ export const UserProvider = ({ children }: IDefaultProviderProps) => {
       });
 
       setUser(null);
+      setUserIdCars(null);
       localStorage.clear();
 
       toast.success("Conta deletada");
