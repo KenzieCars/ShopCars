@@ -53,7 +53,6 @@ const ProductPage = () => {
 
   const {
     registerComment,
-    commentsCarId,
     setCommentsCarId,
     isModalComment,
     setIsModalComment,
@@ -84,8 +83,11 @@ const ProductPage = () => {
     )
     if (commentsProduct.length > 0) {
       setCommentsCarId(commentsProduct);
+      localStorage.setItem("@commentsCarSelect", JSON.stringify(commentsProduct));
     }
   }, [])
+
+  const commentsCarFounded: TCommentUserResponse[] | null = JSON.parse(localStorage.getItem('@commentsCarSelect') || 'null')
 
   useEffect(() => {
     const product: TCarDataIdResponse | undefined = allcars.find(
@@ -95,7 +97,6 @@ const ProductPage = () => {
     if (product) {
       setProductDetails(product);
 
-      // setCommentsCarId(product.comments);
     }
   }, [allcars, productId, productDetails]);
 
@@ -223,10 +224,10 @@ const ProductPage = () => {
             <h3>Comentários</h3>
             <ListOfComments>
 
-              {commentsCarId?.length === 0 ? (
+              {commentsCarFounded?.length === 0 ? (
                 <h3>Seja o primeiro a comentar</h3>
               ) : (
-                commentsCarId?.map((comment) => (
+                commentsCarFounded?.map((comment) => (
                   <CardComment key={comment!.id}>
                     <section>
                       <div>{comment.user?.name[0]}</div>
