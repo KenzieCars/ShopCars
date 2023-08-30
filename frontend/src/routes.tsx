@@ -12,6 +12,8 @@ import UserPage from "./pages/UserPage";
 import ResetPasswordPage from "./pages/resetPassword";
 import { ProtectedRoutes } from "./components/ProtectedRoutes";
 import ProductPage from "./pages/ProductPage";
+import Welcome from "./pages/Welcome";
+import UserAds from "./pages/UserAds";
 
 const AppRoutes = () => {
   return (
@@ -21,22 +23,22 @@ const AppRoutes = () => {
           <CommentProvider>
             <HomeProvider>
               <Routes>
-                <Route path="/" element={<Home />} />
-                <Route path="*" element={<Login />} />
+                <Route path='/' element={<Welcome />} />
+                <Route path="/home" element={<Home />} />
+                <Route path="*" element={<Welcome />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register />} />
-                <Route path="/profile" element={<ProfileView />} />
-                <Route path="/userPage" element={<UserPage />} />
                 <Route
                   path="/resetPassword/:token"
                   element={<ResetPasswordPage />}
                 />
                 <Route path="/product/:productId" element={<ProductPage />} />
-                <Route path="/userPage" element={<UserPage />} />
                 <Route path="/userPage/:userId" element={<UserPage />} />
+                <Route path="/userAds/:userId" element={<UserAds />} />
 
                 <Route path="/" element={<ProtectedRoutes />}>
                   <Route path="/profile" element={<ProfileView />} />
+                  <Route path="/userPage" element={<UserPage />} />
                 </Route>
               </Routes>
             </HomeProvider>

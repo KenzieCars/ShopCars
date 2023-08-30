@@ -10,6 +10,8 @@ export const MainContainerLogin = styled.main`
     margin-top: 7rem;
     align-items: center;
 
+    height: 100vh;
+
     padding-bottom: 4rem;
   }
 `
@@ -126,6 +128,11 @@ export const ButtonContainer = styled.div`
     &:hover {
       background: var(--black);
       color: var(--white);
+    }
+
+    &:disabled {
+      background: var(--light-gray); // Change background color when disabled
+      cursor: auto;
     }
   }
 `

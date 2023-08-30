@@ -6,7 +6,7 @@ export interface IDefaultProviderProps {
 export interface IImage {
   id: string;
   imgGalery: string;
-  carId: number;
+  carId: string;
 }
 
 export type TImageRequest = Omit<IImage, "id">;
@@ -17,8 +17,3 @@ export type TListImages = IImage[]
 export interface IImageUpdate{
 	imgGalery: string;
 }
-
-// export interface TCarResponse extends ICar {
-//   images: IImage[] | [];
-//   comments: IImage[] | [];
-// }

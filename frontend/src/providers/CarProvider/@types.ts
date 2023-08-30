@@ -1,16 +1,21 @@
 import { AxiosResponse } from "axios";
 import { IUser } from "../UserProvider/@types";
+import { TCommentUserResponse } from "../CommentProvider/@types";
+
 export interface ICarContext {
   images: IImage[] | [];
   car: ICar | null;
-  allcars: [] | TDataCarResponse[];
+  allcars: [] | TCarDataIdResponse[]
+  allCarsRegistered: [] | TCarDataIdResponse[]
   setImages: React.Dispatch<React.SetStateAction<IImage[] | []>>;
   setCar: React.Dispatch<React.SetStateAction<ICar | null>>;
-  setAllCars: React.Dispatch<React.SetStateAction<[] | TDataCarResponse[]>>;
+  setAllCars: React.Dispatch<React.SetStateAction<[] | TCarDataIdResponse[]>>
+  setAllCarsRegistered: React.Dispatch<React.SetStateAction<[] | TCarDataIdResponse[]>>
   carRegister: (formData: TCarRequest) => Promise<"" | AxiosResponse<ICar>>;
   editeCar: (formData: TCarUpdate, carId: string) => Promise<void>;
   deleteCar: (carId: string) => Promise<void>;
   registerCarImage: (payload: IImageRequest) => Promise<void>;
+  carsSellerId: (carId: string) => Promise<TCommentUserResponse[] | undefined>
 }
 export interface IDefaultProviderProps {
   children: React.ReactNode;
@@ -27,19 +32,23 @@ export interface ICar {
   price: number;
   description: string;
   imgCover: string;
-  "bestPrice?": boolean;
-  userId: number;
+  bestPrice?: boolean;
+  userId: string;
 }
 export type TCarRequest = Omit<ICar, "id" | "userId">;
+
 export interface TUserCarsResponse extends IUser {
   cars: ICar[] | [];
 }
+
 export interface IImage {
   id: string;
   imgGalery: string;
   carId: string;
 }
+
 export type IImageRequest = Omit<IImage, "id">;
+
 export interface IComment {
   id: string;
   description: string;
@@ -66,3 +75,10 @@ export interface TListPaginationCars {
 export interface TCarUserResponse extends ICar {
   user: IUser;
 }
+
+export interface TCarDataIdResponse extends ICar {
+  images: IImage[];
+  comments: TCommentUserResponse[];
+  user: IUser
+}
+

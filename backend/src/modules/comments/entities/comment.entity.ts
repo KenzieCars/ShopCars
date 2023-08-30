@@ -9,7 +9,10 @@ export class Comment {
   description: string;
 
   @ApiProperty()
-  createdAt: Date;
+  readonly createdAt: Date;
+
+  @ApiProperty()
+  createdAtString: string;
 
   @ApiProperty()
   carId: string;
@@ -19,5 +22,6 @@ export class Comment {
 
   constructor() {
     this.id = randomUUID();
+    this.createdAt = new Date();
   }
 }

@@ -125,6 +125,9 @@ export const ButtonNext = styled(Link)`
 
   font-size: 0.8rem;
   font-weight: 600;
+  color: var(--gray);
+
+  text-decoration: none;
 
   :nth-child(1) {
     font-size: 1.2rem;

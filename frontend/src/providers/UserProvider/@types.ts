@@ -42,6 +42,12 @@ export interface IUserContext {
   setAllcarsUserPerPage: React.Dispatch<
     React.SetStateAction<[] | TDataCarResponse[]>
   >;
+  setAllcarsUserPerPage2: (
+    value: React.SetStateAction<[] | ICarSeller[]>
+  ) => void;
+  carUserSeller: () => Promise<void>;
+  userSelected: TDataCarResponse[] | null;
+  setUserSelected: React.Dispatch<React.SetStateAction<TDataCarResponse[] | null>>;
 }
 
 export interface IDefaultProviderProps {

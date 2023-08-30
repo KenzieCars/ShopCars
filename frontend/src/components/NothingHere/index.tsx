@@ -1,5 +1,5 @@
-import { TbPhotoSearch } from 'react-icons/tb'
-import { NothingHereContainer } from './style'
+import { TbPhotoSearch } from "react-icons/tb";
+import { NothingHereContainer } from "./style";
 
 const NothingHere = () => {
   return (
@@ -7,7 +7,7 @@ const NothingHere = () => {
       <TbPhotoSearch />
       <p>Nenhum carro cadastrado ainda :(</p>
     </NothingHereContainer>
-  )
-}
+  );
+};
 
-export default NothingHere
+export default NothingHere;

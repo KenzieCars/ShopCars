@@ -1,29 +1,28 @@
 import { createContext, useEffect, useState } from "react";
-// import { useNavigate } from "react-router-dom";
 import { api } from "../../services/api";
 import { toast } from "react-toastify";
 import {
-  IComment,
   ICommentContext,
   ICommentUpdate,
   IDefaultProviderProps,
   TCommentRequest,
-  TListComments,
+  TCommentUserResponse,
 } from "./@types";
 
 export const CommentContext = createContext({} as ICommentContext);
 
 export const CommentProvider = ({ children }: IDefaultProviderProps) => {
-  // const navigate = useNavigate();
+  const [allComments, setAllComments] = useState<TCommentUserResponse[] | []>([]);
+  const [commentsCarId, setCommentsCarId] = useState<TCommentUserResponse[] | []>([]);
 
-  const [allComments, setAllComments] = useState<TListComments | []>([]);
-  const [newCommentUser, setNewCommentUser] = useState<IComment | null>(null);
+  const [isModalComment, setIsModalComment] = useState<boolean>(false);
+  const [commentOneById, setCommentOneById] =
+    useState<TCommentUserResponse | null>(null);
 
   useEffect(() => {
     const allComments = async () => {
       try {
-        const response = await api.get<TListComments | []>(`/comments`);
-
+        const response = await api.get<TCommentUserResponse[] | []>(`/comments`);
         setAllComments(response.data);
       } catch (error) {
         console.log(error);
@@ -38,14 +37,17 @@ export const CommentProvider = ({ children }: IDefaultProviderProps) => {
 
     if (token) {
       try {
-        const response = await api.post<IComment>("/comments", formData, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-
-        setNewCommentUser(response.data);
-
+        const response = await api.post<TCommentUserResponse>(
+          "/comments",
+          formData,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        console.log(response.data)
+        setCommentsCarId([...commentsCarId, response.data]);
         toast.success("Comment registered!");
       } catch (error) {
         console.log(error);
@@ -60,7 +62,7 @@ export const CommentProvider = ({ children }: IDefaultProviderProps) => {
 
     if (token) {
       try {
-        const response = await api.patch<IComment>(
+        const response = await api.patch<TCommentUserResponse>(
           `/comments/${commentId}`,
           formData,
           {
@@ -70,15 +72,16 @@ export const CommentProvider = ({ children }: IDefaultProviderProps) => {
           }
         );
 
-        const newListComments = allComments.map((comment) => {
+        const newListComments = commentsCarId.map((comment) => {
           if (comment.id === commentId) {
-            return response.data;
+            return { ...comment, ...response.data };
           } else {
             return comment;
           }
         });
 
-        setAllComments(newListComments);
+        setCommentsCarId(newListComments);
+        setIsModalComment(false);
 
         toast.success("Successfully changed!");
       } catch (error) {
@@ -98,21 +101,21 @@ export const CommentProvider = ({ children }: IDefaultProviderProps) => {
           },
         });
 
-        const commentFind = allComments.find(
+        const commentFind = commentsCarId.find(
           (comment) => comment.id === commentId
         );
 
         if (!commentFind) {
           toast.error("Comment Not Found!");
         } else {
-          const newListComments = allComments.filter((comment) => {
+          const newListComments = commentsCarId.filter((comment) => {
             if (comment !== commentFind) {
               return comment;
             }
           });
 
-          setAllComments(newListComments);
-
+          setCommentsCarId(newListComments);
+          setIsModalComment(false);
           toast.success("Successfully deleted!");
         }
       } catch (error) {
@@ -127,9 +130,13 @@ export const CommentProvider = ({ children }: IDefaultProviderProps) => {
     <CommentContext.Provider
       value={{
         allComments,
-        newCommentUser,
+        commentsCarId,
+        isModalComment,
+        commentOneById,
         setAllComments,
-        setNewCommentUser,
+        setCommentOneById,
+        setCommentsCarId,
+        setIsModalComment,
         registerComment,
         editeComment,
         deleteComment,

@@ -89,10 +89,12 @@ export const HomeProvider = ({ children }: IHomeProviderProps) => {
       }
 
       if (selectedModel !== "") {
-        filteredCars = filteredCars.filter(
-          (car) => car.model.toLowerCase() === selectedModel.toLowerCase()
-        );
+        filteredCars = filteredCars.filter((car) => {
+          const firstWordOfModel = car.model.split(" ")[0].toLowerCase();
+          return firstWordOfModel === selectedModel.toLowerCase();
+        });
       }
+
       if (selectedColor !== "") {
         filteredCars = filteredCars.filter(
           (car) => car.color.toLowerCase() === selectedColor.toLowerCase()
@@ -135,8 +137,17 @@ export const HomeProvider = ({ children }: IHomeProviderProps) => {
     }
   };
 
-  const totalItems = allcarsPages.length + 1;
-  const totalPages = Math.ceil(totalItems / itemsPerPage);
+  // const totalItems = allcarsPages.length + 1;
+  // const totalPages = Math.ceil(totalItems / itemsPerPage);
+
+  let totalPages = 1;
+  if (allcarsPages.length < 12) {
+    const totalItems = allcarsPages.length + 1;
+    totalPages = Math.ceil(totalItems / itemsPerPage);
+  } else {
+    const totalItems = allcarsPages.length;
+    totalPages = Math.ceil(totalItems / itemsPerPage);
+  }
 
   useEffect(() => {
     setCurrentPage(1);
@@ -153,7 +164,6 @@ export const HomeProvider = ({ children }: IHomeProviderProps) => {
     valueKmCar,
     valueCar,
     currentPage,
-    // allcarsPages,
   ]);
 
   useEffect(() => {

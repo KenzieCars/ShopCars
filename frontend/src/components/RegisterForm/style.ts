@@ -100,6 +100,7 @@ export const FieldsetRegister = styled.fieldset`
     outline: none;
     color: var(--gray);
     transition: 0.2s ease;
+    resize: none;
 
     &:focus {
       border: 2px solid var(--primary-color);
@@ -155,6 +156,11 @@ export const RegisterButtonContainer = styled.div`
     &:hover {
       background: var(--black);
       color: var(--white);
+    }
+
+    &:disabled {
+      background: var(--light-gray); // Change background color when disabled
+      cursor: none;
     }
   }
 `;

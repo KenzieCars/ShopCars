@@ -4,7 +4,13 @@ import LogoHeader from "../../../public/LogoHeader.png";
 import { useMediaQuery } from "@mui/material";
 import { IconButton } from "@mui/material";
 import { GiHamburgerMenu } from "react-icons/gi";
-import { DivHeader, MobileNav, ButtonHeader, Nav, UserHeaderContainer } from "./style";
+import {
+  DivHeader,
+  MobileNav,
+  ButtonHeader,
+  Nav,
+  UserHeaderContainer,
+} from "./style";
 import { Link, useNavigate } from "react-router-dom";
 import { UserContext } from "../../providers/UserProvider/UserContext";
 import UserModalHeader from "./UserModalHeader";
@@ -12,8 +18,8 @@ import UserModalHeader from "./UserModalHeader";
 const Header = () => {
   const { userIdCars } = useContext(UserContext);
   const [menuAnchor, setMenuAnchor] = useState<null | HTMLElement>(null);
-  const [userModalHeader, setUserModalHeader] = useState(false)
-
+  const [userModalHeader, setUserModalHeader] = useState(false);
+  const path = window.location.pathname
   const navigate = useNavigate();
 
   const handleMenuOpen = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -29,7 +35,6 @@ const Header = () => {
   };
 
   const handleRegisterClick = () => {
-    console.log("Botão de cadastro clicado");
     navigate("/register");
   };
 
@@ -38,7 +43,7 @@ const Header = () => {
   return (
     <>
       <DivHeader>
-        <Link to="/">
+        <Link to="/home">
           <img src={LogoHeader} alt="Logo" />
         </Link>
         {isMobile ? (
@@ -53,16 +58,21 @@ const Header = () => {
             >
               <Nav>
                 {userIdCars ? (
-                  <UserHeaderContainer onClick={() => setUserModalHeader(!userModalHeader)}>
+                  <UserHeaderContainer
+                    onClick={() => setUserModalHeader(!userModalHeader)}
+                  >
                     <span>{userIdCars.name[0]}</span>
                     <span>{userIdCars.name.split(" ")[0]}</span>
                     {userModalHeader && <UserModalHeader />}
                   </UserHeaderContainer>
                 ) : (
                   <>
-                    <ButtonHeader onClick={handleLoginClick}>
-                      Fazer Login
-                    </ButtonHeader>
+                    {path !== '/login' && 
+                      <ButtonHeader onClick={handleLoginClick}>
+                        Fazer Login
+                      </ButtonHeader>
+                    }
+
                     <ButtonHeader onClick={handleRegisterClick}>
                       Cadastrar
                     </ButtonHeader>
@@ -74,16 +84,20 @@ const Header = () => {
         ) : (
           <Nav>
             {userIdCars ? (
-              <UserHeaderContainer onClick={() => setUserModalHeader(!userModalHeader)}>
+              <UserHeaderContainer
+                onClick={() => setUserModalHeader(!userModalHeader)}
+              >
                 <span>{userIdCars.name[0]}</span>
                 <span>{userIdCars.name.split(" ")[0]}</span>
-                  {userModalHeader && <UserModalHeader />}
+                {userModalHeader && <UserModalHeader />}
               </UserHeaderContainer>
             ) : (
               <>
-                <ButtonHeader onClick={handleLoginClick}>
-                  Fazer Login
-                </ButtonHeader>
+                 {path !== '/login' &&
+                      <ButtonHeader onClick={handleLoginClick}>
+                        Fazer Login
+                      </ButtonHeader>
+                    }
                 <ButtonHeader onClick={handleRegisterClick}>
                   Cadastrar
                 </ButtonHeader>

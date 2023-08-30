@@ -12,7 +12,7 @@ import {
 import FilterCars from "../../components/Filter";
 import CustomSwiperComponent from "../../components/Swiper";
 import { HomeContext } from "../../providers/HomeProvider/HomeProvider";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import ButtonHome from "../../components/Filter/ButonModal";
 import ModalFilter from "../../components/Filter/ModalRenderFilter";
 import { Header } from "../../components/Header";
@@ -20,13 +20,28 @@ import { UserContext } from "../../providers/UserProvider/UserContext";
 import EditProfileModal from "../../components/EditProfileModal";
 import EditAddressModal from "../../components/EditProfileModal/EditAddressModal";
 
+// import { CarContext } from "../../providers/CarProvider/CarContext";
+
 const Home = () => {
   const { currentPage, setCurrentPage, allcarsPages } = useContext(HomeContext);
   const { profileEditModal, addressEditModal } = useContext(UserContext)
   const itemsPerPage = 12;
 
-  const totalItems = allcarsPages.length + 1;
-  const totalPages = Math.ceil(totalItems / itemsPerPage);
+  // const totalItems = allcarsPages.length + 1;
+  // const totalPages = Math.ceil(totalItems / itemsPerPage);
+
+  let totalPages = 1;
+  if (allcarsPages.length < 12) {
+    const totalItems = allcarsPages.length + 1;
+    totalPages = Math.ceil(totalItems / itemsPerPage);
+  } else {
+    const totalItems = allcarsPages.length;
+    totalPages = Math.ceil(totalItems / itemsPerPage);
+  }
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   return (
     <>
