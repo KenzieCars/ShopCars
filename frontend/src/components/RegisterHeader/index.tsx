@@ -46,7 +46,7 @@ const RegisterHeader = () => {
           </MobileNav>
         ) : (
           <Nav>
-            <ButtonHeader onClick={() => navigate("/")}>
+            <ButtonHeader onClick={() => navigate("/home")}>
               Ir para Home
             </ButtonHeader>
             <ButtonHeader onClick={() => navigate("/login")}>

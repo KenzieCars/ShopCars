@@ -112,7 +112,6 @@ const ProductPage = () => {
     localStorage.setItem("@carsSellerSelect", JSON.stringify(carsSearch));
   };
 
-  
   const getImageProduct = (img: string) => {
     setModalImage(!modalImage);
     setImageById(img);
@@ -128,7 +127,10 @@ const ProductPage = () => {
       ...formData,
       carId: productId!,
     };
-    reset();
+
+    reset({
+      description: '', // Clear the description field
+    })
     await registerComment(commentData);
   };
   const navigate = useNavigate();
@@ -209,10 +211,9 @@ const ProductPage = () => {
             <span>{productDetails?.user.name}</span>
             <p>{productDetails?.user.description}</p>
             <LinkTag
-              to={`/userAds/${productDetails?.user.id}`}
+              to={`/user/${productDetails?.user.id}`}
               onClick={() => {
-                // localStorage.setItem('@carsSellerSelect', JSON.stringify(productDetails?.user))
-                searchCarsUserId(productDetails!.user.id)
+              searchCarsUserId(productDetails!.user.id)
               }}
             >
               Ver todos os anúncios
@@ -288,10 +289,9 @@ const ProductPage = () => {
             <span>{productDetails?.user.name}</span>
             <p>{productDetails?.user.description}</p>
             <LinkTag
-              to={`/userAds/${productDetails?.user.id}`}
+              to={`/user/${productDetails?.user.id}`}
               onClick={() => {
-                localStorage.setItem('@userSelected', JSON.stringify(productDetails?.user))
-                searchCarsUserId(productDetails!.user.id)
+              searchCarsUserId(productDetails!.user.id)
               }}
             >
               Ver todos os anúncios

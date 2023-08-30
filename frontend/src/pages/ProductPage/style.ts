@@ -344,8 +344,14 @@ export const CardComment = styled.li`
       background: var(--yellow);
 
       border-radius: 50%;
+      border: .3px solid var(--black);
 
-      padding: .4rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      width: 25px;
+      height: 25px;
 
       font-size: .7rem;
       font-weight: 600;
