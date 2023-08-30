@@ -29,7 +29,7 @@ const Header = () => {
   const handleMenuClose = () => {
     setMenuAnchor(null);
   };
-
+  console.log(userIdCars)
   const handleLoginClick = () => {
     navigate("/login");
   };
