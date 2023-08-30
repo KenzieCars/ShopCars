@@ -2,22 +2,21 @@ import { Link } from "react-router-dom"
 import { CardContainer, ContactUserContainer, ContainerInfo, ContainerInfoCar, DescriptionWithOverFlow, FigureContainer, FlagGoodDeal } from "./style"
 import { TbFlag3Filled } from "react-icons/tb"
 import { useContext } from "react"
-import { UserContext } from "../../../providers/UserProvider/UserContext"
 import { CarContext } from "../../../providers/CarProvider/CarContext"
+import { TDataCarResponse } from "../../../providers/CarProvider/@types"
 
 const CardUserAds = () => {
-  const { userSelected } = useContext(UserContext)
   const { carsSellerId } = useContext(CarContext)
 
   const searchDataCar = async (carId: string) => {
-    await carsSellerId(carId);
-  };
+    await carsSellerId(carId)
+  }
 
-  // console.log(userSelected)
+  const userData: TDataCarResponse[] | null = JSON.parse(localStorage.getItem('@carsSellerSelect') || 'null')
 
   return (
     <>
-      {userSelected.cars?.map((car) => (
+      {userData!.map((car) => (
         <Link
           to={`/product/${car.id}`}
           key={car.id}

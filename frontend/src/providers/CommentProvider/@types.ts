@@ -5,9 +5,9 @@ export interface IDefaultProviderProps {
 }
 
 export interface ICommentContext {
-  allComments: [] | TListComments;
+  allComments: [] | TCommentUserResponse[]
   commentsCarId: [] | TCommentUserResponse[]
-  setAllComments: React.Dispatch<React.SetStateAction<[] | TListComments>>;
+  setAllComments: React.Dispatch<React.SetStateAction<[] | TCommentUserResponse[]>>
   setCommentsCarId: React.Dispatch<React.SetStateAction<[] | TCommentUserResponse[]>>
   registerComment: (formData: TCommentRequest) => Promise<void>;
   editeComment: (formData: ICommentUpdate, commentId: string) => Promise<void>;
@@ -21,12 +21,13 @@ export interface ICommentContext {
 export interface IComment {
   id: string;
   description: string;
-  createdAt: Date;
+  createdAt: string;
+  createdAtString: string;
   carId: string;
   userId: string;
 }
 
-export type TCommentRequest = Omit<IComment, "id" | "createdAt" | "userId">;
+export type TCommentRequest = Omit<IComment, "id" | "createdAt" | "userId" | "createdAtString">;
 
 export type TListComments = IComment[];
 
@@ -68,6 +69,7 @@ export interface TCommentUserResponse {
   id: string;
   description: string;
   createdAt: string;
+  createdAtString: string;
   carId: string;
   userId: string;
   user: User;

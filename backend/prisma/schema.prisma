@@ -71,7 +71,9 @@ datasource db {
     model Comment {
     id String @id
     description String
-    createdAt DateTime @default(now())
+    
+    createdAt  DateTime
+    createdAtString String? 
 
     car Car @relation(fields: [carId], references: [id], onDelete: Cascade)
     carId String

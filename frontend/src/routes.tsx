@@ -23,9 +23,9 @@ const AppRoutes = () => {
           <CommentProvider>
             <HomeProvider>
               <Routes>
-                <Route path='welcome' element={<Welcome />} />
-                <Route path="/" element={<Home />} />
-                <Route path="*" element={<Login />} />
+                <Route path='/' element={<Welcome />} />
+                <Route path="/home" element={<Home />} />
+                <Route path="*" element={<Welcome />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register />} />
                 <Route

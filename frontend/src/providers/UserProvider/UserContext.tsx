@@ -49,7 +49,7 @@ export const UserProvider = ({ children }: IDefaultProviderProps) => {
   const [allcarsComumProfilePerPage, setAllCarsComumProfilePerPage] = useState<
     TDataCarResponse[] | []
     >([]);
-  const [userSelected, setUserSelected] = useState<TDataCarResponse[] | [] >([]);
+  const [userSelected, setUserSelected] = useState<TDataCarResponse[] | null >(null);
 
   const userLogin = async (formData: ILogin) => {
     try {

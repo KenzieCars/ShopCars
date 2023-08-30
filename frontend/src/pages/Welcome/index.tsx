@@ -1,11 +1,8 @@
 import { BackgroundImage, BrandsContainer, ListOurBrands, LoginBtn, MainTitleContainer, TitleContainer, WelcomeMainContainer } from './style'
 import { SiChevrolet, SiHonda, SiVolkswagen, SiToyota, SiRenault, SiHyundai, SiPeugeot, SiFord, SiCitroen } from 'react-icons/si'
 import { FiArrowUpRight } from 'react-icons/fi'
-import { useContext } from 'react'
-import { CarContext } from '../../providers/CarProvider/CarContext'
 
 const Welcome = () => {
-  const { allcars } = useContext(CarContext)
 
   return (
     <WelcomeMainContainer>

@@ -1,37 +1,30 @@
-import { useContext, useEffect } from "react"
 import Footer from "../../components/Footer"
 import { Header } from "../../components/Header"
-import { CardListUserAds, SectionProfileInfoComponent, SiglaUser, UserDiv } from "./style"
+import { CardListUserAds, SectionProfileInfoComponent, Shadow, SiglaUser, UserDiv } from "./style"
 import CardUserAds from "./CardUserAds"
-import { UserContext } from "../../providers/UserProvider/UserContext"
+import { TDataCarResponse } from "../../providers/CarProvider/@types"
 
 const UserAds = () => {
-  const { userSelected, setUserSelected } = useContext(UserContext)
 
-  useEffect(() => {
-    // Aqui você pode buscar as informações do usuário selecionado pelo ID no localStorage
-    const userData = JSON.parse(localStorage.getItem('@carsSellerSelect'));
-
-    setUserSelected(userData);
-
-  }, [])
-
-  console.log(userSelected[0].user.name)
+  const userData: TDataCarResponse[] | null = JSON.parse(localStorage.getItem('@carsSellerSelect') || 'null')
 
   return (
     <>
       <Header />
       <SectionProfileInfoComponent>
-        <UserDiv>
-          <SiglaUser>{userSelected[0].user.name[0]}</SiglaUser>
-          <div>
-            <span>{userSelected[0]?.user?.name}</span>
-            <span>Anunciante</span>
-          </div>
-        </UserDiv>
-        <p>{userSelected[0]?.user?.description}</p>
+        <Shadow>
+          <UserDiv>
+            <SiglaUser>{userData![0].user.name[0]}</SiglaUser>
+            <div>
+              <span>{userData![0].user?.name}</span>
+              <span>Anunciante</span>
+            </div>
+          </UserDiv>
+          <p>{userData![0].user?.description}</p>
+        </Shadow>
+        <h2>Anúncios de {userData![0].user.name}</h2>
         <CardListUserAds>
-          {/* <CardUserAds /> */}
+          <CardUserAds />
         </CardListUserAds>
       </SectionProfileInfoComponent>
       <Footer />

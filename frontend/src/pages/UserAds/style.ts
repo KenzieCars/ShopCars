@@ -7,22 +7,24 @@ export const SectionProfileInfoComponent = styled.section`
 
   padding: 1rem;
 
-  box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
-
   border-radius: 8px;
 
-  > p {
-    color: var(--gray);
-    font-size: .7rem;
-    line-height: 150%;
+  > h2 {
+    color: var(--black);
+    font-size: .8rem;
   }
 
   @media (min-width: 768px) {
     margin-top: 5rem;
-    padding: 2rem;
+    padding: 1.7rem 8rem;
+    gap: 2.3rem;
 
     > p {
       font-size: .8rem;
+    }
+
+    > h2 {
+      font-size: 1.2rem;
     }
   }
 `
@@ -41,7 +43,7 @@ export const UserDiv = styled.div`
       font-size: .9rem;
       font-weight: 600;
     }
-
+    
     > span:nth-child(2) {
       background: #EDEAFD;
       color: var(--primary-color);
@@ -55,11 +57,10 @@ export const UserDiv = styled.div`
 export const SiglaUser = styled.span`
   display: flex;
   align-items: center;
+  justify-content: center;
 
   border-radius: 50%;
   flex-shrink: 0;
-
-  /* padding: .6rem 1.3rem; */
 
   width: 50px;
   height: 50px;
@@ -75,15 +76,30 @@ export const CardListUserAds = styled.ul`
   gap: 1rem;
   overflow-x: auto;
 
-  padding-top: .7rem;
-
   @media (min-width: 768px) {
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: space-between;
 
     width: 100%;
-    padding: 3rem 0;
     overflow-x: visible;
+  }
+`
+
+export const Shadow = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: .7rem;
+
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+
+  padding: 2rem;
+
+  border-radius: 10px;
+
+   > p {
+    color: var(--gray);
+    font-size: .7rem;
+    line-height: 150%;
   }
 `
