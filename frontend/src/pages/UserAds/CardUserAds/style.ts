@@ -92,7 +92,12 @@ export const ContactUserContainer = styled.div`
 
     background-color: var(--blue);
 
-    padding: 0.4rem 0.7rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 26px;
+    height: 26px;
 
     font-size: 0.7rem;
 
