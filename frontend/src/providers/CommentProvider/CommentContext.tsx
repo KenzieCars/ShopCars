@@ -46,7 +46,7 @@ export const CommentProvider = ({ children }: IDefaultProviderProps) => {
             },
           }
         );
-        console.log(response.data)
+
         setCommentsCarId([...commentsCarId, response.data]);
         toast.success("Comment registered!");
       } catch (error) {

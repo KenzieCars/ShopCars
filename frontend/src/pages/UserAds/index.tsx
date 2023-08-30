@@ -5,7 +5,6 @@ import CardUserAds from "./CardUserAds"
 import { TDataCarResponse } from "../../providers/CarProvider/@types"
 
 const UserAds = () => {
-
   const userData: TDataCarResponse[] | null = JSON.parse(localStorage.getItem('@carsSellerSelect') || 'null')
 
   return (

@@ -1,19 +1,19 @@
 import { Route, Routes } from "react-router-dom";
-import Home from "./pages/Home";
 import { HomeProvider } from "./providers/HomeProvider/HomeProvider";
-import Login from "./pages/Login";
 import { UserProvider } from "./providers/UserProvider/UserContext";
 import Register from "./pages/Register";
 import { CarProvider } from "./providers/CarProvider/CarContext";
 import { ImageProvider } from "./providers/ImageProvider/ImageContext";
 import { CommentProvider } from "./providers/CommentProvider/CommentContext";
-import ProfileView from "./pages/ProfileView";
 import UserPage from "./pages/UserPage";
 import ResetPasswordPage from "./pages/resetPassword";
-import { ProtectedRoutes } from "./components/ProtectedRoutes";
-import ProductPage from "./pages/ProductPage";
 import Welcome from "./pages/Welcome";
 import UserAds from "./pages/UserAds";
+import Home from "./pages/Home";
+import Login from "./pages/Login";
+import ProductPage from "./pages/ProductPage";
+import ProfileView from "./pages/ProfileView";
+import { ProtectedRoutes } from "./components/ProtectedRoutes";
 
 const AppRoutes = () => {
   return (
@@ -23,7 +23,7 @@ const AppRoutes = () => {
           <CommentProvider>
             <HomeProvider>
               <Routes>
-                <Route path='/' element={<Welcome />} />
+                <Route path="/" element={<Welcome />} />
                 <Route path="/home" element={<Home />} />
                 <Route path="*" element={<Welcome />} />
                 <Route path="/login" element={<Login />} />
@@ -35,7 +35,6 @@ const AppRoutes = () => {
                 <Route path="/product/:productId" element={<ProductPage />} />
                 <Route path="/userPage/:userId" element={<UserPage />} />
                 <Route path="/userAds/:userId" element={<UserAds />} />
-
                 <Route path="/" element={<ProtectedRoutes />}>
                   <Route path="/profile" element={<ProfileView />} />
                   <Route path="/userPage" element={<UserPage />} />
@@ -48,5 +47,4 @@ const AppRoutes = () => {
     </UserProvider>
   );
 };
-
 export default AppRoutes;
