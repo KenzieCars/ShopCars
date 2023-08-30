@@ -20,7 +20,7 @@ import {
 } from "./style";
 import Footer from "../../components/Footer";
 import { Header } from "../../components/Header";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
 import { CarContext } from "../../providers/CarProvider/CarContext";
 import { TCarDataIdResponse } from "../../providers/CarProvider/@types";
@@ -58,6 +58,7 @@ const ProductPage = () => {
     setIsModalComment,
     setCommentOneById,
     allComments,
+
   } = useContext(CommentContext);
 
   const schema = z.object({
@@ -129,6 +130,18 @@ const ProductPage = () => {
     reset();
     await registerComment(commentData);
   };
+  const navigate = useNavigate();
+
+  const handleLoginClick = () => {
+    navigate("/login");
+  };
+
+  const openWhatsAppInNewTab = () => {
+    window.open(
+      `https://wa.me/+55${productDetails?.user.cellPhone}?text=Ol%C3%A1%2C%20venho%20por%20meio%20do%20seu%20an%C3%BAncio%20no%20site%20Motors%20Shop%2C%20gostaria%20de%20negociar%20a%20compra%20do%20ve%C3%ADculo`,
+      "_blank"
+    );
+  };
 
   return (
     <>
@@ -150,7 +163,21 @@ const ProductPage = () => {
               <PriceContainer>
                 <span>R$ {productDetails?.price}</span>
               </PriceContainer>
-              <button>Comprar</button>
+              {token && (
+                <button
+                  type="button"
+                  onClick={() => {
+                    openWhatsAppInNewTab();
+                  }}
+                >
+                  Comprar
+                </button>
+              )}
+              {!token && (
+                <button type="button" onClick={handleLoginClick}>
+                  Faça o login para Comprar
+                </button>
+              )}
             </InfoSection>
             <Description>
               <h3>Descrição</h3>
@@ -197,6 +224,7 @@ const ProductPage = () => {
                       <span>{comment.user?.name}</span>
                       <span>Há {comment!.createdAtString}</span>
                     </section>
+
                     <p>{comment!.description}</p>
                     {comment!.userId === userId && (
                       <BsThreeDotsVertical

@@ -6,3 +6,26 @@ export interface IModalProps {
 }
 
 export type TRegisterCarForm = z.infer<typeof registerCarSchema>
+
+export interface IFipeCars {
+    id: string
+    name: string
+    brand: string
+    year: string
+    fuel: number
+    value: number
+}
+
+export interface IUpdateCars {
+    brand: string
+    model: string
+    year: string
+    km: string | number
+    color: string
+    price: string | number
+    description: string
+    status: string | boolean
+    imgCover: string | URL
+    bestPrice?: boolean | undefined
+    imgs?: string[] | URL[] | undefined
+}
