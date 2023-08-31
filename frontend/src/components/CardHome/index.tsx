@@ -18,7 +18,7 @@ const CardHome = () => {
   const { carsSellerId } = useContext(CarContext);
 
   const searchDataCar = async (carId: string) => {
-    await carsSellerId(carId);
+    await carsSellerId(carId);//get car id
   };
 
   if (allcars.length === 0) return <NothingHere />;
