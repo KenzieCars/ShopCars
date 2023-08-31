@@ -1,38 +1,38 @@
-import { BsArrowUpCircleFill } from 'react-icons/bs'
-import { ButtonToBeginning, FooterContainer } from './style'
-import { useEffect, useState } from 'react'
+import { BsArrowUpCircleFill } from "react-icons/bs";
+import { ButtonToBeginning, FooterContainer } from "./style";
+import { useEffect, useState } from "react";
 
 const Footer = () => {
-  const [showButton, setShowButton] = useState(false)
+  const [showButton, setShowButton] = useState(false);
 
   const handleScroll = () => {
     if (window.scrollY > 500) {
-      setShowButton(true)
+      setShowButton(true);
     } else {
-      setShowButton(false)
+      setShowButton(false);
     }
-  }
+  };
 
   useEffect(() => {
-    window.addEventListener('scroll', handleScroll)
+    window.addEventListener("scroll", handleScroll);
     return () => {
-      window.removeEventListener('scroll', handleScroll)
-    }
-  }, [])
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
 
   const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' })
-  }
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
 
   return (
     <FooterContainer>
       <h3>Motors shop</h3>
-      <p>® 2023 -  Todos os direitos reservados.</p>
+      <p>® 2023 - Todos os direitos reservados.</p>
       <ButtonToBeginning onClick={scrollToTop}>
-        <BsArrowUpCircleFill/>
+        <BsArrowUpCircleFill />
       </ButtonToBeginning>
     </FooterContainer>
-  )
-}
+  );
+};
 
-export default Footer
+export default Footer;
