@@ -344,8 +344,14 @@ export const CardComment = styled.li`
       background: var(--yellow);
 
       border-radius: 50%;
+      border: .3px solid var(--black);
 
-      padding: .4rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      width: 25px;
+      height: 25px;
 
       font-size: .7rem;
       font-weight: 600;
@@ -440,7 +446,7 @@ export const PostAComment = styled.section`
     }
   }
 
-  > input {// Alterei, era um button 
+  > form > button {// Alterei, era um button 
     background-color: var(--black);
     
     color: var(--white);
@@ -584,4 +590,9 @@ export const LinkTag = styled(Link)`
   &:hover {
     background-color: var(--primary-color);
   }
+`
+
+export const SchemaMessage = styled.span`
+  font-size: .6rem;
+  color: var(--gray);
 `

@@ -29,13 +29,12 @@ const Header = () => {
   const handleMenuClose = () => {
     setMenuAnchor(null);
   };
-
+  console.log(userIdCars)
   const handleLoginClick = () => {
     navigate("/login");
   };
 
   const handleRegisterClick = () => {
-    console.log("Botão de cadastro clicado");
     navigate("/register");
   };
 
@@ -44,7 +43,7 @@ const Header = () => {
   return (
     <>
       <DivHeader>
-        <Link to="/">
+        <Link to="/home">
           <img src={LogoHeader} alt="Logo" />
         </Link>
         {isMobile ? (

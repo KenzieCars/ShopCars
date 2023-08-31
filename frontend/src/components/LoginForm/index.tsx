@@ -32,7 +32,7 @@ const LoginForm = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isValid },
   } = useForm<ILogin>({
     resolver: zodResolver(schema),
   });
@@ -94,7 +94,7 @@ const LoginForm = () => {
         </ForgotMyPassword>
         <ButtonContainer>
           <button type="submit"
-            disabled={loading}
+            disabled={loading || !isValid}
           >{loading ? <Loading /> : 'Entrar'}</button>
           <ButtonToRegister to="/register">
             Cadastrar

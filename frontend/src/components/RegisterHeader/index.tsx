@@ -25,7 +25,7 @@ const RegisterHeader = () => {
   return (
     <>
       <DivHeader id="register_header">
-        <img src={LogoHeader} alt="Logo" onClick={() => navigate("/")} />
+        <img src={LogoHeader} alt="Logo" onClick={() => navigate("/home")} />
         {isMobile ? (
           <MobileNav>
             <IconButton onClick={handleMenuOpen}>
@@ -46,7 +46,7 @@ const RegisterHeader = () => {
           </MobileNav>
         ) : (
           <Nav>
-            <ButtonHeader onClick={() => navigate("/")}>
+            <ButtonHeader onClick={() => navigate("/home")}>
               Ir para Home
             </ButtonHeader>
             <ButtonHeader onClick={() => navigate("/login")}>

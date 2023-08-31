@@ -17,6 +17,7 @@ import {
   ProductMainContainer,
   InfoAndDescriptionContainer,
   LinkTag,
+  SchemaMessage,
 } from "./style";
 import Footer from "../../components/Footer";
 import { Header } from "../../components/Header";
@@ -52,16 +53,20 @@ const ProductPage = () => {
 
   const {
     registerComment,
-    commentsCarId,
     setCommentsCarId,
     isModalComment,
     setIsModalComment,
     setCommentOneById,
+    allComments,
+
   } = useContext(CommentContext);
 
   const schema = z.object({
     description: z.string().nonempty("Diga algo sobre o anúncio"),
   });
+
+
+  const userId: string | null = localStorage.getItem("@userId") || "null";
 
   const {
     register,
@@ -73,6 +78,18 @@ const ProductPage = () => {
   });
 
   useEffect(() => {
+    const commentsProduct: TCommentUserResponse[] | undefined = allComments.filter(
+      (comment) => comment.carId === productId
+    )
+    if (commentsProduct.length > 0) {
+      setCommentsCarId(commentsProduct);
+      localStorage.setItem("@commentsCarSelect", JSON.stringify(commentsProduct));
+    }
+  }, [])
+
+  const commentsCarFounded: TCommentUserResponse[] | null = JSON.parse(localStorage.getItem('@commentsCarSelect') || 'null')
+
+  useEffect(() => {
     const product: TCarDataIdResponse | undefined = allcars.find(
       (car) => car.id === productId
     );
@@ -80,7 +97,6 @@ const ProductPage = () => {
     if (product) {
       setProductDetails(product);
 
-      setCommentsCarId(product.comments);
     }
   }, [allcars, productId, productDetails]);
 
@@ -93,6 +109,7 @@ const ProductPage = () => {
     const carsSearch = allCarsRegistered.filter(
       (car) => car.user.id === userId
     );
+
     localStorage.setItem("@carsSellerSelect", JSON.stringify(carsSearch));
   };
 
@@ -111,7 +128,10 @@ const ProductPage = () => {
       ...formData,
       carId: productId!,
     };
-    reset();
+
+    reset({
+      description: '', // Clear the description field
+    })
     await registerComment(commentData);
   };
   const navigate = useNavigate();
@@ -191,28 +211,37 @@ const ProductPage = () => {
             <span>{productDetails?.user.name[0]}</span>
             <span>{productDetails?.user.name}</span>
             <p>{productDetails?.user.description}</p>
-            <LinkTag to={`/userPage/${productDetails?.user.id}`}>
+            <LinkTag
+              to={`/user/${productDetails?.user.id}`}
+              onClick={() => {
+              searchCarsUserId(productDetails!.user.id)
+              }}
+            >
               Ver todos os anúncios
             </LinkTag>
           </AdvertiserSection>
           <CommentsSection>
             <h3>Comentários</h3>
             <ListOfComments>
-              {commentsCarId?.length === 0 ? (
+
+              {commentsCarFounded?.length === 0 ? (
                 <h3>Seja o primeiro a comentar</h3>
               ) : (
-                commentsCarId?.map((comment) => (
-                  <CardComment key={comment.id}>
+                commentsCarFounded?.map((comment) => (
+                  <CardComment key={comment!.id}>
                     <section>
-                      <div>JL</div>
-                      <span>{comment.user.name}</span>
-                      <span>criado em {comment.createdAt}</span>
+                      <div>{comment.user?.name[0]}</div>
+                      <span>{comment.user?.name}</span>
+                      <span>Há {comment!.createdAtString}</span>
                     </section>
-                    <p>{comment.description}</p>
-                    <BsThreeDotsVertical
-                      className="open_modal_comments"
-                      onClick={() => getCommentById(comment)}
-                    />
+
+                    <p>{comment!.description}</p>
+                    {comment!.userId === userId && (
+                      <BsThreeDotsVertical
+                        className="open_modal_comments"
+                        onClick={() => getCommentById(comment)}
+                      />
+                    )}
                   </CardComment>
                 ))
               )}
@@ -229,9 +258,9 @@ const ProductPage = () => {
                 placeholder="Me conte sua experiência com o carro"
                 {...register("description")}
               />
-              {errors.description?.message}
+              <SchemaMessage>{errors && errors.description?.message}</SchemaMessage>
               <form id="form-description" onClick={handleSubmit(submit)}>
-                <input type="submit" value="Comentar" />
+                <button type="submit">Comentar</button>
               </form>
             </PostAComment>
           )}
@@ -261,8 +290,10 @@ const ProductPage = () => {
             <span>{productDetails?.user.name}</span>
             <p>{productDetails?.user.description}</p>
             <LinkTag
-              to={`/userPage/${productDetails?.user.id}`}
-              onClick={() => searchCarsUserId(productDetails!.user.id)}
+              to={`/user/${productDetails?.user.id}`}
+              onClick={() => {
+              searchCarsUserId(productDetails!.user.id)
+              }}
             >
               Ver todos os anúncios
             </LinkTag>

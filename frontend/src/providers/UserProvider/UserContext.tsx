@@ -48,7 +48,8 @@ export const UserProvider = ({ children }: IDefaultProviderProps) => {
   >([]);
   const [allcarsComumProfilePerPage, setAllCarsComumProfilePerPage] = useState<
     TDataCarResponse[] | []
-  >([]);
+    >([]);
+  const [userSelected, setUserSelected] = useState<TDataCarResponse[] | null >(null);
 
   const userLogin = async (formData: ILogin) => {
     try {
@@ -213,6 +214,7 @@ export const UserProvider = ({ children }: IDefaultProviderProps) => {
       });
 
       setUser(null);
+      setUserIdCars(null);
       localStorage.clear();
 
       toast.success("Conta deletada");
@@ -340,6 +342,8 @@ export const UserProvider = ({ children }: IDefaultProviderProps) => {
         setAllcarsUserPerPage,
         setAllcarsUserPerPage2,
         carUserSeller,
+        userSelected,
+        setUserSelected
       }}
     >
       {children}

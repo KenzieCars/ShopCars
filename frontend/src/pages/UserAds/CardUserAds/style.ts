@@ -1,3 +1,4 @@
+
 import { styled } from "styled-components";
 
 export const CardContainer = styled.li`
@@ -6,7 +7,7 @@ export const CardContainer = styled.li`
 
   width: 244px;
 
-  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 
   background: var(--white);
 
@@ -16,10 +17,30 @@ export const CardContainer = styled.li`
 
   position: relative;
 
+  ::-webkit-scrollbar {
+    width: 3px; /* Largura da barra de rolagem vertical */
+    height: 3px; /* Altura da barra de rolagem horizontal */
+  }
+
+  /* Para navegadores baseados em Chromium (Google Chrome, Microsoft Edge, etc.) */
+  ::-webkit-scrollbar-thumb {
+    background-color: var(--light-gray); /* Cor do "polegar" da barra de rolagem (a parte que o usuário arrasta) */
+    border-radius: 6px; /* Raio de borda para o "polegar" */
+  }
+
+  /* Para navegadores baseados em Chromium (Google Chrome, Microsoft Edge, etc.) */
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: var(--light-gray); /* Cor do "polegar" da barra de rolagem ao passar o mouse */
+  }
+
+  /* Para navegadores baseados em Firefox */
+  /* Apenas para personalização básica */
+  scrollbar-color: var(--light-gray) transparent; /* Cor da barra de rolagem vertical */
+
   @media (min-width: 768px) {
     width: 262px;
     height: fit-content;
-    max-height: fit-content;
+    max-height: 390px;
   }
 `;
 
@@ -45,7 +66,6 @@ export const ContainerInfo = styled.div`
     font-size: 0.8rem;
     color: var(--black);
   }
-
   > h3.truncated-title {
   // Adicione as propriedades para texto truncado
   white-space: nowrap;
@@ -53,22 +73,11 @@ export const ContainerInfo = styled.div`
   text-overflow: ellipsis;
   }
 
-  > p {
-    font-size: 0.7rem;
-    color: var(--gray);
-    height: 90px;
-    line-height: 150%;
-  }
-
   @media (min-width: 768px) {
     gap: 0.7rem;
 
     > h3 {
       font-size: 1rem;
-    }
-
-    > p {
-      font-size: 0.8rem;
     }
   }
 `;
@@ -164,37 +173,11 @@ export const FlagGoodDeal = styled.div`
   font-size: 1.2rem;
 `
 
-export const ButtonContainer = styled.div`
-  display: flex;
-  justify-content: space-between;
-  gap: 1rem;
-
-  > button {
-    background: var(--white);
-    
-    padding: .4rem;
-
-    border: 1px solid var(--light-gray);
-    border-radius: 6px;
-
-    transition: .2s ease;
-
-    font-weight: 600;
-    color: var(--gray);
-
-    &:hover {
-      background: var(--black);
-      color: var(--white);
-      border: 1px solid var(--black);
-    }
-  }
-`
-
-export const DescriptionWithOverFlowAdm = styled.section`
+export const DescriptionWithOverFlow = styled.section`
   > p {
     font-size: .6rem;
     color: var(--gray);
-    height: 47px;
+    height: 75px;
     line-height: 150%;
 
     overflow-y: auto;
@@ -202,12 +185,14 @@ export const DescriptionWithOverFlowAdm = styled.section`
   &:before {
     content: '';
     position: absolute;
-    bottom: 118px;
+    bottom: 85px;
     left: 0;
     width: 100%;
-    height: 38px; /* Ajuste a altura do degradê conforme necessário */
+    height: 50px; /* Ajuste a altura do degradê conforme necessário */
     background: linear-gradient(transparent, var(--white)); /* Defina as cores do degradê aqui */
   }
+
+  /* rgba(246, 246, 246, 0.8) */
 }
 
   @media (min-width: 768px) {
@@ -218,45 +203,7 @@ export const DescriptionWithOverFlowAdm = styled.section`
     }
 
     > p {
-      font-size: .74rem;
-
-      &:before {
-        bottom: 132px;
-      }
+      font-size: .7rem;
     }
   }
-`
-
-export const FlagNotAvailable = styled.span`
-  position: absolute;
-  top: 10px;
-  left: 10px;
-
-  background: var(--black);
-
-  border-radius: 15px;
-
-  padding: .3rem .8rem;
-
-  opacity: .8;
-
-  font-size: .7rem;
-  color: var(--white);
-`
-
-export const FlagAvailable = styled.span`
-  position: absolute;
-  top: 10px;
-  left: 10px;
-
-  background: var(--primary-color);
-
-  border-radius: 15px;
-
-  padding: .3rem .8rem;
-
-  opacity: .8;
-
-  font-size: .7rem;
-  color: var(--white);
 `
