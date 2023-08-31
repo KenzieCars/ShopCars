@@ -22,7 +22,7 @@ const AppRoutes = () => {
         <ImageProvider>
           <CommentProvider>
             <HomeProvider>
-              <Routes>
+              <Routes >
                 <Route path='/' element={<Welcome />} />
                 <Route path="/home" element={<Home />} />
                 <Route path="*" element={<Welcome />} />

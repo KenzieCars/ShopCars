@@ -1,5 +1,4 @@
 import { useContext, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import {
   ButtonContainer,
   CardContainer,
@@ -12,7 +11,7 @@ import {
   FlagGoodDeal,
   FlagNotAvailable,
 } from "./style";
-import { TbFlag3Filled } from "react-icons/tb";
+import { BiSolidBadgeDollar } from "react-icons/bi";
 import NothingHere from "../../NothingHere";
 import { UserContext } from "../../../providers/UserProvider/UserContext";
 import UpdateOrDeleteCarModal from "../../UpdateOrDeleteCarModal";
@@ -21,7 +20,6 @@ import Loading from "../../Loading";
 
 const CardAdmin = () => {
   const { allcarsUserPerPage2, userIdCars, loading } = useContext(UserContext);
-  const navigate = useNavigate();
   const [updateOrDeleteModal, setUpdateOrDeleteModal] = useState<boolean>(false);
   const [carToUpdate, setCarToUpdate] = useState<null | TDataCarResponse>(null);
   
@@ -44,8 +42,6 @@ const CardAdmin = () => {
   return (
     <>
       {allcarsUserPerPage2.map((car) => (
-        <div onClick={() => navigate(`/product/${car.id}`)} key={car.id}
-          style={{ cursor: "pointer" }}>
         <CardContainer key={car.id}>
           {car.status === false ? (
             <FlagNotAvailable>Inativo</FlagNotAvailable>
@@ -80,11 +76,10 @@ const CardAdmin = () => {
           </ContainerInfo>
           {car.bestPrice && (
             <FlagGoodDeal>
-              <TbFlag3Filled />
+                <BiSolidBadgeDollar />
             </FlagGoodDeal>
           )}
         </CardContainer>
-       </div >
       ))}
       {updateOrDeleteModal && <UpdateOrDeleteCarModal
         setModal={setUpdateOrDeleteModal} car={carToUpdate} />}

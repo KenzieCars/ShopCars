@@ -9,7 +9,7 @@ import {
   DescriptionWithOverFlow,
 } from "./style";
 import NothingHere from "../NothingHere";
-import { TbFlag3Filled } from "react-icons/tb";
+import { BiSolidBadgeDollar } from "react-icons/bi";
 import { UserContext } from "../../providers/UserProvider/UserContext";
 import { Link } from "react-router-dom";
 import { CarContext } from "../../providers/CarProvider/CarContext";
@@ -55,7 +55,7 @@ const CardUserProfile = () => {
             </ContainerInfo>
             {car.bestPrice && (
               <FlagGoodDeal>
-                <TbFlag3Filled />
+                <BiSolidBadgeDollar />
               </FlagGoodDeal>
             )}
           </CardContainer>
