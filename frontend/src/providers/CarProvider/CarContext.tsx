@@ -55,13 +55,13 @@ export const CarProvider = ({ children }: IDefaultProviderProps) => {
   }, []);
 
   const carsSellerId = async (carId: string) => {
+
     try {
       const response = await api.get<TCarDataIdResponse>(`/cars/${carId}`);
 
       const allCommentsForCarId: TCommentUserResponse[] =
       response.data.comments;
-      
-      return allCommentsForCarId;
+  
     } catch (error) {
       console.log(error);
     }

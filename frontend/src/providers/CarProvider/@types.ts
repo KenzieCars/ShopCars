@@ -15,7 +15,7 @@ export interface ICarContext {
   editeCar: (formData: TCarUpdate, carId: string) => Promise<void>;
   deleteCar: (carId: string) => Promise<void>;
   registerCarImage: (payload: IImageRequest) => Promise<void>;
-  carsSellerId: (carId: string) => Promise<TCommentUserResponse[] | undefined>
+  carsSellerId: (carId: string) => Promise<void>
 }
 export interface IDefaultProviderProps {
   children: React.ReactNode;

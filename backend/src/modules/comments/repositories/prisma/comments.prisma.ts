@@ -76,7 +76,7 @@ export class CommentsPrismaRepository implements CommentsRepository {
       if (dias > 0 && horas >= 24) {
         newComments.push({
           ...comment,
-          createdAtString: `${dias}`,
+          createdAtString: `${dias} dias`,
         });
       }
     });
