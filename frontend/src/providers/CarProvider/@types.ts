@@ -5,17 +5,19 @@ import { TCommentUserResponse } from "../CommentProvider/@types";
 export interface ICarContext {
   images: IImage[] | [];
   car: ICar | null;
-  allcars: [] | TCarDataIdResponse[]
-  allCarsRegistered: [] | TCarDataIdResponse[]
+  allcars: [] | TCarDataIdResponse[];
+  allCarsRegistered: [] | TCarDataIdResponse[];
   setImages: React.Dispatch<React.SetStateAction<IImage[] | []>>;
   setCar: React.Dispatch<React.SetStateAction<ICar | null>>;
-  setAllCars: React.Dispatch<React.SetStateAction<[] | TCarDataIdResponse[]>>
-  setAllCarsRegistered: React.Dispatch<React.SetStateAction<[] | TCarDataIdResponse[]>>
+  setAllCars: React.Dispatch<React.SetStateAction<[] | TCarDataIdResponse[]>>;
+  setAllCarsRegistered: React.Dispatch<
+    React.SetStateAction<[] | TCarDataIdResponse[]>
+  >;
   carRegister: (formData: TCarRequest) => Promise<"" | AxiosResponse<ICar>>;
   editeCar: (formData: TCarUpdate, carId: string) => Promise<void>;
   deleteCar: (carId: string) => Promise<void>;
   registerCarImage: (payload: IImageRequest) => Promise<void>;
-  carsSellerId: (carId: string) => Promise<TCommentUserResponse[] | undefined>
+  carsSellerId: (carId: string) => Promise<TCommentUserResponse[] | undefined>;
 }
 export interface IDefaultProviderProps {
   children: React.ReactNode;
@@ -79,6 +81,5 @@ export interface TCarUserResponse extends ICar {
 export interface TCarDataIdResponse extends ICar {
   images: IImage[];
   comments: TCommentUserResponse[];
-  user: IUser
+  user: IUser;
 }
-
