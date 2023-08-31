@@ -66,7 +66,6 @@ export const ContainerInfo = styled.div`
     color: var(--black);
   }
   > h3.truncated-title {
-  // Adicione as propriedades para texto truncado
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;

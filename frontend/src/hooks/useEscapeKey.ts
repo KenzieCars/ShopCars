@@ -18,9 +18,7 @@ const useEscapeKey = (
 
   useEffect(() => {
     const keyEvent = (event: Event) => handleKeyDown(event as KeyboardEvent);
-
     window.addEventListener("keydown", keyEvent);
-
     return () => {
       window.removeEventListener("keydown", keyEvent);
     };

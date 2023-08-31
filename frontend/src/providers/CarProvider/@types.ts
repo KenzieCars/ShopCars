@@ -17,7 +17,7 @@ export interface ICarContext {
   editeCar: (formData: TCarUpdate, carId: string) => Promise<void>;
   deleteCar: (carId: string) => Promise<void>;
   registerCarImage: (payload: IImageRequest) => Promise<void>;
-  carsSellerId: (carId: string) => Promise<TCommentUserResponse[] | undefined>;
+  carsSellerId: (carId: string) => Promise<void>;
 }
 export interface IDefaultProviderProps {
   children: React.ReactNode;
@@ -55,6 +55,7 @@ export interface IComment {
   id: string;
   description: string;
   createdAt: string;
+  createdAtString: string;
   carId: string;
   userId: string;
 }
@@ -79,7 +80,7 @@ export interface TCarUserResponse extends ICar {
 }
 
 export interface TCarDataIdResponse extends ICar {
-  images: IImage[];
-  comments: TCommentUserResponse[];
+  images: IImage[] | [];
+  comments: TCommentUserResponse[] | [];
   user: IUser;
 }

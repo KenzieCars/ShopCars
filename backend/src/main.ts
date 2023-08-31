@@ -19,7 +19,6 @@ async function bootstrap() {
     .setTitle('Project ShopCars')
     .setDescription('O projeto será utilizado num aplicativo de venda de veículos')
     .setVersion('1.0')
-    // .addTag('cars')
     .build();
 
   const document = SwaggerModule.createDocument(app, config);

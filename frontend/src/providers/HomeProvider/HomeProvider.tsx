@@ -7,7 +7,7 @@ import {
 } from "react";
 import { CarContext } from "../CarProvider/CarContext";
 import { api } from "../../services/api";
-import { ICar, TDataCarResponse } from "../CarProvider/@types";
+import { ICar, TCarDataIdResponse } from "../CarProvider/@types";
 
 interface IHomeProviderProps {
   children: ReactNode;
@@ -72,11 +72,11 @@ export const HomeProvider = ({ children }: IHomeProviderProps) => {
 
   const itemsPerPage = 12;
 
-  const [allcarsPages, setallcarsPages] = useState<TDataCarResponse[] | []>([]);
+  const [allcarsPages, setallcarsPages] = useState<[] | TCarDataIdResponse[]>([]);
 
   const filterCars = async () => {
     try {
-      const response = await api.get<TDataCarResponse[]>("/cars");
+      const response = await api.get<[] | TCarDataIdResponse[]>("/cars");
 
       setallcarsPages(response.data);
 
@@ -130,15 +130,12 @@ export const HomeProvider = ({ children }: IHomeProviderProps) => {
 
       setallcarsPages(filteredCars);
 
-      const listpagination = filteredCars.slice(startIndex, endIndex);
+      const listpagination: [] | TCarDataIdResponse[] = filteredCars.slice(startIndex, endIndex);
       setAllCars(listpagination);
     } catch (error) {
       console.error("Error fetching cars:", error);
     }
   };
-
-  // const totalItems = allcarsPages.length + 1;
-  // const totalPages = Math.ceil(totalItems / itemsPerPage);
 
   let totalPages = 1;
   if (allcarsPages.length < 12) {

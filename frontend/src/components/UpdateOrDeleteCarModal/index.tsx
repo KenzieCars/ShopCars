@@ -1,9 +1,7 @@
 /* eslint-disable no-extra-semi */
 import {
-    // LegacyRef,
     useEffect, useState, useContext
 } from "react";
-// import useOutClick from "../../hooks/useOutclick";
 import {
     AddImagesContainer, DualFields,
     ErrorModal, FieldsetModal, FormModalContainer,
@@ -44,7 +42,6 @@ const UpdateOrDeleteCarModal = ({ setModal: setUpdateModal, car }: IUpdateModalP
 
     const { editeCar } = useContext(CarContext);
 
-    // const modalContainerRef = useOutClick(() => setModal(false));
     const { register, handleSubmit } = useForm<TUpdateSchema>();
 
     useEffect(() => {
@@ -59,7 +56,6 @@ const UpdateOrDeleteCarModal = ({ setModal: setUpdateModal, car }: IUpdateModalP
         } catch (err) {
             console.log(err);
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const updateCar = async (): Promise<void | null> => {

@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import { useContext, ChangeEvent } from "react";
 import Typography from "@material-ui/core/Typography";
 import { RootContainer, StyledSlider } from "./style";
 import { HomeContext } from "../../../providers/HomeProvider/HomeProvider";
@@ -10,7 +10,7 @@ const valuetext = (value: number) => {
 export const RangeKMSlider = () => {
   const { valueKmCar, setValueKmCar } = useContext(HomeContext);
 
-  const handleChange = (event: Event, newValue: number | number[]) => {
+  const handleChange = (_event: ChangeEvent<object>, newValue: number | number[]) => {
     setValueKmCar(newValue as number[]);
   };
 
