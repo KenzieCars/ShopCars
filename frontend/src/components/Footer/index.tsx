@@ -3,7 +3,8 @@ import { ButtonToBeginning, FooterContainer } from './style'
 import { useEffect, useState } from 'react'
 
 const Footer = () => {
-  const [showButton, setShowButton] = useState(false)
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [_showButton, setShowButton] = useState(false)
 
   const handleScroll = () => {
     if (window.scrollY > 500) {

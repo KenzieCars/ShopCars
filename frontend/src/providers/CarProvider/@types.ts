@@ -53,6 +53,7 @@ export interface IComment {
   id: string;
   description: string;
   createdAt: string;
+  createdAtString: string;
   carId: string;
   userId: string;
 }
@@ -77,8 +78,8 @@ export interface TCarUserResponse extends ICar {
 }
 
 export interface TCarDataIdResponse extends ICar {
-  images: IImage[];
-  comments: TCommentUserResponse[];
+  images: IImage[] | [];
+  comments: TCommentUserResponse[] | [];
   user: IUser
 }
 
