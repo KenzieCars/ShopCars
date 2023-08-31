@@ -1,12 +1,19 @@
-import Footer from "../../components/Footer"
-import { Header } from "../../components/Header"
-import { CardListUserAds, SectionProfileInfoComponent, Shadow, SiglaUser, UserDiv } from "./style"
-import CardUserAds from "./CardUserAds"
-import { TDataCarResponse } from "../../providers/CarProvider/@types"
+import Footer from "../../components/Footer";
+import { Header } from "../../components/Header";
+import {
+  CardListUserAds,
+  SectionProfileInfoComponent,
+  Shadow,
+  SiglaUser,
+  UserDiv,
+} from "./style";
+import CardUserAds from "./CardUserAds";
+import { TDataCarResponse } from "../../providers/CarProvider/@types";
 
 const UserAds = () => {
-
-  const userData: TDataCarResponse[] | null = JSON.parse(localStorage.getItem('@carsSellerSelect') || 'null')
+  const userData: TDataCarResponse[] | null = JSON.parse(
+    localStorage.getItem("@carsSellerSelect") || "null"
+  );
 
   return (
     <>
@@ -29,7 +36,7 @@ const UserAds = () => {
       </SectionProfileInfoComponent>
       <Footer />
     </>
-  )
-}
+  );
+};
 
-export default UserAds
+export default UserAds;

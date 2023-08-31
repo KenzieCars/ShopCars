@@ -53,19 +53,15 @@ const ProductPage = () => {
 
   const {
     registerComment,
-    commentsCarId,
     setCommentsCarId,
     isModalComment,
     setIsModalComment,
     setCommentOneById,
-    allComments,
-
   } = useContext(CommentContext);
 
   const schema = z.object({
     description: z.string().nonempty("Diga algo sobre o anúncio"),
   });
-
 
   const userId: string | null = localStorage.getItem("@userId") || "null";
 
@@ -79,13 +75,21 @@ const ProductPage = () => {
   });
 
   useEffect(() => {
-    const commentsProduct: TCommentUserResponse[] | undefined = allComments.filter(
-      (comment) => comment.carId === productId
-    )
+    const allCommmentsCar: TCommentUserResponse[] | null = JSON.parse(
+      localStorage.getItem("@allCommentsCar") || "null"
+    );
+    const commentsProduct: TCommentUserResponse[] | undefined =
+    allCommmentsCar!.filter((comment) => comment.carId === productId);
+
     if (commentsProduct.length > 0) {
       setCommentsCarId(commentsProduct);
+
     }
-  }, [])
+    localStorage.setItem(
+      "@commentsCarSelect",
+      JSON.stringify(commentsProduct)
+    );
+  }, []);
 
   useEffect(() => {
     const product: TCarDataIdResponse | undefined = allcars.find(
@@ -94,8 +98,6 @@ const ProductPage = () => {
 
     if (product) {
       setProductDetails(product);
-
-      // setCommentsCarId(product.comments);
     }
   }, [allcars, productId, productDetails]);
 
@@ -129,8 +131,8 @@ const ProductPage = () => {
     };
 
     reset({
-      description: '', // Clear the description field
-    })
+      description: "", // Clear the description field
+    });
     await registerComment(commentData);
   };
   const navigate = useNavigate();
@@ -145,6 +147,10 @@ const ProductPage = () => {
       "_blank"
     );
   };
+
+  const commentsCarFounded: TCommentUserResponse[] | null = JSON.parse(
+    localStorage.getItem("@commentsCarSelect") || "null"
+  );
 
   return (
     <>
@@ -213,7 +219,7 @@ const ProductPage = () => {
             <LinkTag
               to={`/user/${productDetails?.user.id}`}
               onClick={() => {
-              searchCarsUserId(productDetails!.user.id)
+                searchCarsUserId(productDetails!.user.id);
               }}
             >
               Ver todos os anúncios
@@ -222,11 +228,11 @@ const ProductPage = () => {
           <CommentsSection>
             <h3>Comentários</h3>
             <ListOfComments>
-
-              {commentsCarId?.length === 0 ? (
+              {
+              commentsCarFounded?.length === 0 ? (
                 <h3>Seja o primeiro a comentar</h3>
               ) : (
-                commentsCarId?.map((comment) => (
+                commentsCarFounded?.map((comment) => (
                   <CardComment key={comment!.id}>
                     <section>
                       <div>{comment.user?.name[0]}</div>
@@ -257,7 +263,9 @@ const ProductPage = () => {
                 placeholder="Me conte sua experiência com o carro"
                 {...register("description")}
               />
-              <SchemaMessage>{errors && errors.description?.message}</SchemaMessage>
+              <SchemaMessage>
+                {errors && errors.description?.message}
+              </SchemaMessage>
               <form id="form-description" onClick={handleSubmit(submit)}>
                 <button type="submit">Comentar</button>
               </form>
@@ -291,7 +299,7 @@ const ProductPage = () => {
             <LinkTag
               to={`/user/${productDetails?.user.id}`}
               onClick={() => {
-              searchCarsUserId(productDetails!.user.id)
+                searchCarsUserId(productDetails!.user.id);
               }}
             >
               Ver todos os anúncios

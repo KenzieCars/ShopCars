@@ -15,13 +15,13 @@ import { BiSolidBadgeDollar } from "react-icons/bi";
 import NothingHere from "../../NothingHere";
 import { UserContext } from "../../../providers/UserProvider/UserContext";
 import UpdateOrDeleteCarModal from "../../UpdateOrDeleteCarModal";
-import { TDataCarResponse } from "../../../providers/CarProvider/@types";
 import Loading from "../../Loading";
+import { ICarSeller } from "../../../providers/UserProvider/@types";
 
 const CardAdmin = () => {
   const { allcarsUserPerPage2, userIdCars, loading } = useContext(UserContext);
   const [updateOrDeleteModal, setUpdateOrDeleteModal] = useState<boolean>(false);
-  const [carToUpdate, setCarToUpdate] = useState<null | TDataCarResponse>(null);
+  const [carToUpdate, setCarToUpdate] = useState<null | ICarSeller>(null);
   
   if (allcarsUserPerPage2.length === 0) return <NothingHere />;
 
@@ -32,7 +32,7 @@ const CardAdmin = () => {
       </h1>
     );
   
-  const handleUpdateOrDeleteCarModal = (car: TDataCarResponse,
+  const handleUpdateOrDeleteCarModal = (car: ICarSeller,
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>): void => {
     event.stopPropagation();
     setCarToUpdate(car);
