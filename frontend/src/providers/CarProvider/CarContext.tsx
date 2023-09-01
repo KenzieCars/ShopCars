@@ -31,12 +31,8 @@ export const CarProvider = ({ children }: IDefaultProviderProps) => {
     TCarDataIdResponse[] | []
   >([]);
 
-  const {
-    setListCarsUser,
-    listCarsUser,
-    carUserSeller,
-  } = useContext(UserContext);
-
+  const { setListCarsUser, listCarsUser, carUserSeller } =
+    useContext(UserContext);
 
   useEffect(() => {
     const allCars = async () => {
@@ -45,7 +41,6 @@ export const CarProvider = ({ children }: IDefaultProviderProps) => {
 
         setAllCars(response.data);
         setAllCarsRegistered(response.data);
-        
       } catch (error) {
         console.log(error);
       }
@@ -59,8 +54,8 @@ export const CarProvider = ({ children }: IDefaultProviderProps) => {
       const response = await api.get<TCarDataIdResponse>(`/cars/${carId}`);
 
       const allCommentsForCarId: TCommentUserResponse[] =
-      response.data.comments;
-      
+        response.data.comments;
+
       return allCommentsForCarId;
     } catch (error) {
       console.log(error);
@@ -176,6 +171,50 @@ export const CarProvider = ({ children }: IDefaultProviderProps) => {
     }
   };
 
+  // logiga de paginação de UserAds Gedson
+
+  const [carsSellerSelect, setCarsSellerSelect] = useState<
+    TDataCarResponse[] | []
+  >([]);
+  const [carsSellerSelectPerPage, setCarsSellerSelectPerPage] = useState<
+    TDataCarResponse[] | []
+  >([]);
+
+  const [currentPageprofile, setCurrentPageprofile] = useState(1);
+  const itemsPerPage = 12;
+
+  const carSellerSelect = async () => {
+    const userData: TDataCarResponse[] | null = JSON.parse(
+      localStorage.getItem("@carsSellerSelect") || "null"
+    );
+
+    if (userData) {
+      try {
+        setCarsSellerSelect(userData);
+
+        const startIndex = (currentPageprofile - 1) * itemsPerPage;
+        const endIndex = startIndex + itemsPerPage;
+
+        setCarsSellerSelectPerPage(userData);
+
+        const listpagination = userData.slice(startIndex, endIndex);
+
+        setCarsSellerSelectPerPage(listpagination);
+      } catch (error) {
+        console.log(error);
+        toast.error("Algo deu errado :(");
+      }
+    }
+  };
+
+  useEffect(() => {
+    carSellerSelect();
+  }, []);
+
+  useEffect(() => {
+    carSellerSelect();
+  }, [currentPageprofile]);
+
   return (
     <CarContext.Provider
       value={{
@@ -191,7 +230,12 @@ export const CarProvider = ({ children }: IDefaultProviderProps) => {
         editeCar,
         deleteCar,
         registerCarImage,
-        carsSellerId
+        carsSellerId,
+        carsSellerSelectPerPage,
+        carsSellerSelect,
+        setCurrentPageprofile,
+        currentPageprofile,
+        carSellerSelect,
       }}
     >
       {children}

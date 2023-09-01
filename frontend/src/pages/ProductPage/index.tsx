@@ -43,7 +43,8 @@ import { BsThreeDotsVertical } from "react-icons/bs";
 
 const ProductPage = () => {
   const { productId } = useParams();
-  const { allcars, allCarsRegistered } = useContext(CarContext);
+  const { allcars, allCarsRegistered, carSellerSelect } =
+    useContext(CarContext);
   const { userIdCars } = useContext(UserContext);
   const { modalImage, setModalImage, setImageById } = useContext(ImageContext);
   const [productDetails, setProductDetails] =
@@ -58,13 +59,11 @@ const ProductPage = () => {
     setIsModalComment,
     setCommentOneById,
     allComments,
-
   } = useContext(CommentContext);
 
   const schema = z.object({
     description: z.string().nonempty("Diga algo sobre o anúncio"),
   });
-
 
   const userId: string | null = localStorage.getItem("@userId") || "null";
 
@@ -78,27 +77,34 @@ const ProductPage = () => {
   });
 
   useEffect(() => {
-    const commentsProduct: TCommentUserResponse[] | undefined = allComments.filter(
-      (comment) => comment.carId === productId
-    )
+    const commentsProduct: TCommentUserResponse[] | undefined =
+      allComments.filter((comment) => comment.carId === productId);
     if (commentsProduct.length > 0) {
       setCommentsCarId(commentsProduct);
-      localStorage.setItem("@commentsCarSelect", JSON.stringify(commentsProduct));
+      localStorage.setItem(
+        "@commentsCarSelect",
+        JSON.stringify(commentsProduct)
+      );
     }
-  }, [])
+  }, []);
 
-  const commentsCarFounded: TCommentUserResponse[] | null = JSON.parse(localStorage.getItem('@commentsCarSelect') || 'null')
+  const commentsCarFounded: TCommentUserResponse[] | null = JSON.parse(
+    localStorage.getItem("@commentsCarSelect") || "null"
+  );
 
   useEffect(() => {
-    const product: TCarDataIdResponse | undefined = allcars.find(
+    const product: TCarDataIdResponse | undefined = allCarsRegistered.find(
       (car) => car.id === productId
     );
+    console.log(productId);
 
     if (product) {
       setProductDetails(product);
-
     }
+    carSellerSelect();
   }, [allcars, productId, productDetails]);
+
+  console.log(productDetails);
 
   useEffect(() => {
     // Rolar para o topo da página quando o componente for montado
@@ -111,6 +117,7 @@ const ProductPage = () => {
     );
 
     localStorage.setItem("@carsSellerSelect", JSON.stringify(carsSearch));
+    carSellerSelect();
   };
 
   const getImageProduct = (img: string) => {
@@ -130,8 +137,8 @@ const ProductPage = () => {
     };
 
     reset({
-      description: '', // Clear the description field
-    })
+      description: "", // Clear the description field
+    });
     await registerComment(commentData);
   };
   const navigate = useNavigate();
@@ -214,7 +221,7 @@ const ProductPage = () => {
             <LinkTag
               to={`/user/${productDetails?.user.id}`}
               onClick={() => {
-              searchCarsUserId(productDetails!.user.id)
+                searchCarsUserId(productDetails!.user.id);
               }}
             >
               Ver todos os anúncios
@@ -223,7 +230,6 @@ const ProductPage = () => {
           <CommentsSection>
             <h3>Comentários</h3>
             <ListOfComments>
-
               {commentsCarFounded?.length === 0 ? (
                 <h3>Seja o primeiro a comentar</h3>
               ) : (
@@ -258,7 +264,9 @@ const ProductPage = () => {
                 placeholder="Me conte sua experiência com o carro"
                 {...register("description")}
               />
-              <SchemaMessage>{errors && errors.description?.message}</SchemaMessage>
+              <SchemaMessage>
+                {errors && errors.description?.message}
+              </SchemaMessage>
               <form id="form-description" onClick={handleSubmit(submit)}>
                 <button type="submit">Comentar</button>
               </form>
@@ -292,7 +300,7 @@ const ProductPage = () => {
             <LinkTag
               to={`/user/${productDetails?.user.id}`}
               onClick={() => {
-              searchCarsUserId(productDetails!.user.id)
+                searchCarsUserId(productDetails!.user.id);
               }}
             >
               Ver todos os anúncios

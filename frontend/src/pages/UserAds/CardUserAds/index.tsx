@@ -1,22 +1,29 @@
-import { Link } from "react-router-dom"
-import { CardContainer, ContactUserContainer, ContainerInfo, ContainerInfoCar, DescriptionWithOverFlow, FigureContainer, FlagGoodDeal } from "./style"
-import { TbFlag3Filled } from "react-icons/tb"
-import { useContext } from "react"
-import { CarContext } from "../../../providers/CarProvider/CarContext"
-import { TDataCarResponse } from "../../../providers/CarProvider/@types"
+import { Link } from "react-router-dom";
+import {
+  CardContainer,
+  ContactUserContainer,
+  ContainerInfo,
+  ContainerInfoCar,
+  DescriptionWithOverFlow,
+  FigureContainer,
+  FlagGoodDeal,
+} from "./style";
+import { TbFlag3Filled } from "react-icons/tb";
+import { useContext } from "react";
+import { CarContext } from "../../../providers/CarProvider/CarContext";
 
 const CardUserAds = () => {
-  const { carsSellerId } = useContext(CarContext)
+  const { carsSellerId, carsSellerSelectPerPage, setCurrentPageprofile } =
+    useContext(CarContext);
 
   const searchDataCar = async (carId: string) => {
-    await carsSellerId(carId)
-  }
-
-  const userData: TDataCarResponse[] | null = JSON.parse(localStorage.getItem('@carsSellerSelect') || 'null')
+    setCurrentPageprofile(1);
+    await carsSellerId(carId);
+  };
 
   return (
     <>
-      {userData!.map((car) => (
+      {carsSellerSelectPerPage!.map((car) => (
         <Link
           to={`/product/${car.id}`}
           key={car.id}
@@ -55,7 +62,7 @@ const CardUserAds = () => {
         </Link>
       ))}
     </>
-  )
-}
+  );
+};
 
-export default CardUserAds
+export default CardUserAds;
