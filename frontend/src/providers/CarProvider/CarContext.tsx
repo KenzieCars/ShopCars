@@ -30,12 +30,8 @@ export const CarProvider = ({ children }: IDefaultProviderProps) => {
     TCarDataIdResponse[] | []
   >([]);
 
-  const {
-    setListCarsUser,
-    listCarsUser,
-    carUserSeller,
-  } = useContext(UserContext);
-
+  const { setListCarsUser, listCarsUser, carUserSeller } =
+    useContext(UserContext);
 
   useEffect(() => {
     const allCars = async () => {
@@ -44,7 +40,6 @@ export const CarProvider = ({ children }: IDefaultProviderProps) => {
 
         setAllCars(response.data);
         setAllCarsRegistered(response.data);
-
       } catch (error) {
         console.log(error);
       }
@@ -53,7 +48,9 @@ export const CarProvider = ({ children }: IDefaultProviderProps) => {
     allCars();
   }, []);
 
-  const carRegister = async (formData: TCarRequest): Promise<AxiosResponse<ICar>> => {
+  const carRegister = async (
+    formData: TCarRequest
+  ): Promise<AxiosResponse<ICar>> => {
     const token = localStorage.getItem("@userToken");
 
     let response: AxiosResponse<ICar> | "" = "";
@@ -123,7 +120,6 @@ export const CarProvider = ({ children }: IDefaultProviderProps) => {
 
         carUserSeller();
         toast.success("Successfully deleted!");
-
       } catch (error) {
         console.log(error);
 
@@ -150,6 +146,50 @@ export const CarProvider = ({ children }: IDefaultProviderProps) => {
     }
   };
 
+  // logiga de paginação de UserAds Gedson
+
+  const [carsSellerSelect, setCarsSellerSelect] = useState<
+    TDataCarResponse[] | []
+  >([]);
+  const [carsSellerSelectPerPage, setCarsSellerSelectPerPage] = useState<
+    TDataCarResponse[] | []
+  >([]);
+
+  const [currentPageprofile, setCurrentPageprofile] = useState(1);
+  const itemsPerPage = 12;
+
+  const carSellerSelect = async () => {
+    const userData: TDataCarResponse[] | null = JSON.parse(
+      localStorage.getItem("@carsSellerSelect") || "null"
+    );
+
+    if (userData) {
+      try {
+        setCarsSellerSelect(userData);
+
+        const startIndex = (currentPageprofile - 1) * itemsPerPage;
+        const endIndex = startIndex + itemsPerPage;
+
+        setCarsSellerSelectPerPage(userData);
+
+        const listpagination = userData.slice(startIndex, endIndex);
+
+        setCarsSellerSelectPerPage(listpagination);
+      } catch (error) {
+        console.log(error);
+        toast.error("Algo deu errado :(");
+      }
+    }
+  };
+
+  useEffect(() => {
+    carSellerSelect();
+  }, []);
+
+  useEffect(() => {
+    carSellerSelect();
+  }, [currentPageprofile]);
+
   return (
     <CarContext.Provider
       value={{
@@ -165,10 +205,15 @@ export const CarProvider = ({ children }: IDefaultProviderProps) => {
         editeCar,
         deleteCar,
         registerCarImage,
+        carsSellerSelectPerPage,
+        carsSellerSelect,
+        setCurrentPageprofile,
+        currentPageprofile,
+        carSellerSelect,
         carDetailModal,
         setCarDetailModal,
         selectedCar,
-        setSelectedCar
+        setSelectedCar,
       }}
     >
       {children}

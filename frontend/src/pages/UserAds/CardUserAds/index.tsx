@@ -1,19 +1,34 @@
-import { Link } from "react-router-dom"
-import { CardContainer, ContactUserContainer, ContainerInfo, ContainerInfoCar, DescriptionWithOverFlow, FigureContainer, FlagGoodDeal } from "./style"
-import { TbFlag3Filled } from "react-icons/tb"
-import { TDataCarResponse } from "../../../providers/CarProvider/@types"
+import { Link } from "react-router-dom";
+import {
+  CardContainer,
+  ContactUserContainer,
+  ContainerInfo,
+  ContainerInfoCar,
+  DescriptionWithOverFlow,
+  FigureContainer,
+  FlagGoodDeal,
+} from "./style";
+import { TbFlag3Filled } from "react-icons/tb";
+import { CarContext } from "../../../providers/CarProvider/CarContext";
+import { useContext } from "react";
 
 const CardUserAds = () => {
+  const { carsSellerSelectPerPage, setCurrentPageprofile } =
+    useContext(CarContext);
 
-
-  const userData: TDataCarResponse[] | null = JSON.parse(localStorage.getItem('@carsSellerSelect') || 'null')
+  const searchDataCar = async () => {
+    setCurrentPageprofile(1);
+  };
 
   return (
     <>
-      {userData!.map((car) => (
+      {carsSellerSelectPerPage!.map((car) => (
         <Link
           to={`/product/${car.id}`}
           key={car.id}
+          onClick={() => {
+            searchDataCar();
+          }}
         >
           <CardContainer key={car.id}>
             <FigureContainer>
@@ -48,7 +63,7 @@ const CardUserAds = () => {
         </Link>
       ))}
     </>
-  )
-}
+  );
+};
 
-export default CardUserAds
+export default CardUserAds;

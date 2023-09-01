@@ -43,7 +43,8 @@ import { BsThreeDotsVertical } from "react-icons/bs";
 
 const ProductPage = () => {
   const { productId } = useParams();
-  const { allcars, allCarsRegistered } = useContext(CarContext);
+  const { allcars, allCarsRegistered, carSellerSelect } =
+    useContext(CarContext);
   const { userIdCars } = useContext(UserContext);
   const { modalImage, setModalImage, setImageById } = useContext(ImageContext);
   const [productDetails, setProductDetails] =
@@ -79,20 +80,16 @@ const ProductPage = () => {
       localStorage.getItem("@allCommentsCar") || "null"
     );
     const commentsProduct: TCommentUserResponse[] | undefined =
-    allCommmentsCar!.filter((comment) => comment.carId === productId);
+      allCommmentsCar!.filter((comment) => comment.carId === productId);
 
     if (commentsProduct.length > 0) {
       setCommentsCarId(commentsProduct);
-
     }
-    localStorage.setItem(
-      "@commentsCarSelect",
-      JSON.stringify(commentsProduct)
-    );
+    localStorage.setItem("@commentsCarSelect", JSON.stringify(commentsProduct));
   }, []);
 
   useEffect(() => {
-    const product: TCarDataIdResponse | undefined = allcars.find(
+    const product: TCarDataIdResponse | undefined = allCarsRegistered.find(
       (car) => car.id === productId
     );
 
@@ -101,6 +98,7 @@ const ProductPage = () => {
 
       console.log(productDetails)
     }
+    carSellerSelect();
   }, [allcars, productId, productDetails]);
 
   useEffect(() => {
@@ -114,6 +112,7 @@ const ProductPage = () => {
     );
 
     localStorage.setItem("@carsSellerSelect", JSON.stringify(carsSearch));
+    carSellerSelect();
   };
 
   const getImageProduct = (img: string) => {
@@ -230,8 +229,7 @@ const ProductPage = () => {
           <CommentsSection>
             <h3>Comentários</h3>
             <ListOfComments>
-              {
-              commentsCarFounded?.length === 0 ? (
+              {commentsCarFounded?.length === 0 ? (
                 <h3>Seja o primeiro a comentar</h3>
               ) : (
                 commentsCarFounded?.map((comment) => (

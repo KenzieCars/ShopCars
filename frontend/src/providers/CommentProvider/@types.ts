@@ -5,17 +5,23 @@ export interface IDefaultProviderProps {
 }
 
 export interface ICommentContext {
-  allComments: [] | TCommentUserResponse[]
-  commentsCarId: [] | TCommentUserResponse[]
-  setAllComments: React.Dispatch<React.SetStateAction<[] | TCommentUserResponse[]>>
-  setCommentsCarId: React.Dispatch<React.SetStateAction<[] | TCommentUserResponse[]>>
+  allComments: [] | TCommentUserResponse[];
+  commentsCarId: [] | TCommentUserResponse[];
+  setAllComments: React.Dispatch<
+    React.SetStateAction<[] | TCommentUserResponse[]>
+  >;
+  setCommentsCarId: React.Dispatch<
+    React.SetStateAction<[] | TCommentUserResponse[]>
+  >;
   registerComment: (formData: TCommentRequest) => Promise<void>;
   editeComment: (formData: ICommentUpdate, commentId: string) => Promise<void>;
   deleteComment: (commentId: string) => Promise<void>;
-  setIsModalComment: React.Dispatch<React.SetStateAction<boolean>>,
-  isModalComment: boolean,
-  setCommentOneById: React.Dispatch<React.SetStateAction<TCommentUserResponse | null>>,
-  commentOneById: TCommentUserResponse | null
+  setIsModalComment: React.Dispatch<React.SetStateAction<boolean>>;
+  isModalComment: boolean;
+  setCommentOneById: React.Dispatch<
+    React.SetStateAction<TCommentUserResponse | null>
+  >;
+  commentOneById: TCommentUserResponse | null;
 }
 
 export interface IComment {
@@ -27,7 +33,10 @@ export interface IComment {
   userId: string;
 }
 
-export type TCommentRequest = Omit<IComment, "id" | "createdAt" | "userId" | "createdAtString">;
+export type TCommentRequest = Omit<
+  IComment,
+  "id" | "createdAt" | "userId" | "createdAtString"
+>;
 
 export type TListComments = IComment[];
 
@@ -69,7 +78,7 @@ export interface TCommentUserResponse {
   id: string;
   description: string;
   createdAt: string;
-  createdAtString: string;
+  createdAtString?: string;
   carId: string;
   userId: string;
   user: User;
