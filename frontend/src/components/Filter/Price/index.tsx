@@ -10,7 +10,7 @@ const valuetext = (value: number) => {
 export const RangeSlider = () => {
   const { valueCar, setValueCar } = useContext(HomeContext);
 
-  const handleChange = (event: ChangeEvent, newValue: number | number[]) => {
+  const handleChange = (_event: ChangeEvent<{}>, newValue: number | number[]) => {
     setValueCar(newValue as number[]);
   };
 

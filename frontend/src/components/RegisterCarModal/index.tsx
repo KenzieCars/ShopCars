@@ -11,7 +11,7 @@ import {
   TitleModal,
   TitleOptions,
 } from "./style";
-import { IModalProps, TRegisterCarForm } from "./@types";
+import { FipeOptions, IModalProps, TRegisterCarForm } from "./@types";
 import { useForm } from "react-hook-form";
 import { fipeApi } from "../../services/api";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -42,7 +42,7 @@ const carInfoDefault = {
 };
 
 const RegisterCarModal = ({ setModal }: IModalProps) => {
-  const [fipeOptions, setFipeOptions] = useState({});
+  const [fipeOptions, setFipeOptions] = useState<FipeOptions>({});
   const [models, setModels] = useState([]);
   const [modelInfo, setmodelInfo] = useState([]);
   const [loadModels, setLoadModels] = useState<boolean>(false);

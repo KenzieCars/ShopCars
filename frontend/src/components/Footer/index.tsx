@@ -3,7 +3,7 @@ import { ButtonToBeginning, FooterContainer } from './style'
 import { useEffect, useState } from 'react'
 
 const Footer = () => {
-  const [showButton, setShowButton] = useState(false)
+  const [_showButton, setShowButton] = useState(false)
 
   const handleScroll = () => {
     if (window.scrollY > 500) {

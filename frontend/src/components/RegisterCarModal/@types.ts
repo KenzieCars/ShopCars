@@ -29,3 +29,7 @@ export interface IUpdateCars {
     bestPrice?: boolean | undefined
     imgs?: string[] | URL[] | undefined
 }
+
+export interface FipeOptions {
+    [brand: string]: Array<{ name: string }>;
+  }
