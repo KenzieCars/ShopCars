@@ -15,6 +15,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { UserContext } from "../../providers/UserProvider/UserContext";
 import UserModalHeader from "./UserModalHeader";
 
+
 const Header = () => {
   const { userIdCars } = useContext(UserContext);
   const [menuAnchor, setMenuAnchor] = useState<null | HTMLElement>(null);
@@ -29,7 +30,7 @@ const Header = () => {
   const handleMenuClose = () => {
     setMenuAnchor(null);
   };
-  console.log(userIdCars)
+
   const handleLoginClick = () => {
     navigate("/login");
   };

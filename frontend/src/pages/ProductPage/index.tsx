@@ -58,7 +58,6 @@ const ProductPage = () => {
     isModalComment,
     setIsModalComment,
     setCommentOneById,
-    allComments,
   } = useContext(CommentContext);
 
   const schema = z.object({
@@ -77,34 +76,28 @@ const ProductPage = () => {
   });
 
   useEffect(() => {
+    const allCommmentsCar: TCommentUserResponse[] | null = JSON.parse(
+      localStorage.getItem("@allCommentsCar") || "null"
+    );
     const commentsProduct: TCommentUserResponse[] | undefined =
-      allComments.filter((comment) => comment.carId === productId);
+      allCommmentsCar!.filter((comment) => comment.carId === productId);
+
     if (commentsProduct.length > 0) {
       setCommentsCarId(commentsProduct);
-      localStorage.setItem(
-        "@commentsCarSelect",
-        JSON.stringify(commentsProduct)
-      );
     }
+    localStorage.setItem("@commentsCarSelect", JSON.stringify(commentsProduct));
   }, []);
-
-  const commentsCarFounded: TCommentUserResponse[] | null = JSON.parse(
-    localStorage.getItem("@commentsCarSelect") || "null"
-  );
 
   useEffect(() => {
     const product: TCarDataIdResponse | undefined = allCarsRegistered.find(
       (car) => car.id === productId
     );
-    console.log(productId);
 
     if (product) {
       setProductDetails(product);
     }
     carSellerSelect();
   }, [allcars, productId, productDetails]);
-
-  console.log(productDetails);
 
   useEffect(() => {
     // Rolar para o topo da página quando o componente for montado
@@ -153,6 +146,10 @@ const ProductPage = () => {
       "_blank"
     );
   };
+
+  const commentsCarFounded: TCommentUserResponse[] | null = JSON.parse(
+    localStorage.getItem("@commentsCarSelect") || "null"
+  );
 
   return (
     <>

@@ -9,16 +9,15 @@ import {
   FlagGoodDeal,
 } from "./style";
 import { TbFlag3Filled } from "react-icons/tb";
-import { useContext } from "react";
 import { CarContext } from "../../../providers/CarProvider/CarContext";
+import { useContext } from "react";
 
 const CardUserAds = () => {
-  const { carsSellerId, carsSellerSelectPerPage, setCurrentPageprofile } =
+  const { carsSellerSelectPerPage, setCurrentPageprofile } =
     useContext(CarContext);
 
-  const searchDataCar = async (carId: string) => {
+  const searchDataCar = async () => {
     setCurrentPageprofile(1);
-    await carsSellerId(carId);
   };
 
   return (
@@ -27,7 +26,9 @@ const CardUserAds = () => {
         <Link
           to={`/product/${car.id}`}
           key={car.id}
-          onClick={() => searchDataCar(car.id)}
+          onClick={() => {
+            searchDataCar();
+          }}
         >
           <CardContainer key={car.id}>
             <FigureContainer>

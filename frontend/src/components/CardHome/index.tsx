@@ -15,11 +15,7 @@ import { Link } from "react-router-dom";
 
 const CardHome = () => {
   const { allcars } = useContext(CarContext);
-  const { carsSellerId } = useContext(CarContext);
 
-  const searchDataCar = async (carId: string) => {
-    await carsSellerId(carId);
-  };
 
   if (allcars.length === 0) return <NothingHere />;
 
@@ -29,7 +25,6 @@ const CardHome = () => {
         <Link
           to={`/product/${car.id}`}
           key={car.id}
-          onClick={() => searchDataCar(car.id)}
         >
           <CardContainer key={car.id}>
             <FigureContainer>

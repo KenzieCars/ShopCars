@@ -16,8 +16,6 @@ import {
 } from "./@types";
 import { AxiosResponse } from "axios";
 
-import { TCommentUserResponse } from "../CommentProvider/@types";
-
 export const CarContext = createContext({} as ICarContext);
 
 export const CarProvider = ({ children }: IDefaultProviderProps) => {
@@ -49,20 +47,9 @@ export const CarProvider = ({ children }: IDefaultProviderProps) => {
     allCars();
   }, []);
 
-  const carsSellerId = async (carId: string) => {
-    try {
-      const response = await api.get<TCarDataIdResponse>(`/cars/${carId}`);
-
-      const allCommentsForCarId: TCommentUserResponse[] =
-        response.data.comments;
-
-      return allCommentsForCarId;
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const carRegister = async (formData: TCarRequest) => {
+  const carRegister = async (
+    formData: TCarRequest
+  ): Promise<AxiosResponse<ICar>> => {
     const token = localStorage.getItem("@userToken");
 
     let response: AxiosResponse<ICar> | "" = "";
@@ -84,7 +71,7 @@ export const CarProvider = ({ children }: IDefaultProviderProps) => {
         toast.error("Car already exists.");
       }
     }
-    return response;
+    return response as AxiosResponse<ICar>;
   };
 
   const editeCar = async (formData: TCarUpdate, carId: string) => {
@@ -111,7 +98,7 @@ export const CarProvider = ({ children }: IDefaultProviderProps) => {
         });
 
         setListCarsUser(newListCars);
-
+        carUserSeller();
         toast.success("Successfully changed!");
       } catch (error) {
         toast.error("Something went wrong!");
@@ -130,21 +117,8 @@ export const CarProvider = ({ children }: IDefaultProviderProps) => {
           },
         });
 
-        const carFind = listCarsUser.find((car) => car.id === carId);
-
-        if (!carFind) {
-          toast.error("Car Not Found!");
-        } else {
-          const newListCars = listCarsUser.filter((car) => {
-            if (car !== carFind) {
-              return car;
-            }
-          });
-
-          setListCarsUser(newListCars);
-
-          toast.success("Successfully deleted!");
-        }
+        carUserSeller();
+        toast.success("Successfully deleted!");
       } catch (error) {
         console.log(error);
 
@@ -230,7 +204,6 @@ export const CarProvider = ({ children }: IDefaultProviderProps) => {
         editeCar,
         deleteCar,
         registerCarImage,
-        carsSellerId,
         carsSellerSelectPerPage,
         carsSellerSelect,
         setCurrentPageprofile,
