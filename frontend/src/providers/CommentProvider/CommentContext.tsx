@@ -62,6 +62,7 @@ export const CommentProvider = ({ children }: IDefaultProviderProps) => {
         );
         if(commentsCarFounded!.length ===0){
           const commentsRefresh = [...commentsCarFounded!, response.data];
+          setCommentsCarId(commentsRefresh);
           localStorage.setItem(
             "@commentsCarSelect",
             JSON.stringify(commentsRefresh)
@@ -70,7 +71,7 @@ export const CommentProvider = ({ children }: IDefaultProviderProps) => {
         } else{
 
           const commentsRefresh = [...commentsCarFounded!, response.data];
-  
+
           setCommentsCarId(commentsRefresh);
           localStorage.setItem(
             "@commentsCarSelect",
