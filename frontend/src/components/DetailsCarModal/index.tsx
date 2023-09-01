@@ -5,7 +5,7 @@ import { UserContext } from "../../providers/UserProvider/UserContext"
 
 const DetailsCarModal = () => {
   const { carDetailModal, setCarDetailModal, selectedCar } = useContext(CarContext)
-  const { userIdCars } = useContext(UserContext)
+  const { userIdCars } =  useContext(UserContext)
 
   return (
     <ModalContainer>
