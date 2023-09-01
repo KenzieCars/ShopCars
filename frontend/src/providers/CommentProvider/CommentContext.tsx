@@ -40,10 +40,14 @@ export const CommentProvider = ({ children }: IDefaultProviderProps) => {
     };
 
     allComments();
-  }, []);
+  }, [commentsCarId]);
 
   const registerComment = async (formData: TCommentRequest) => {
     const token = localStorage.getItem("@userToken");
+    
+    const commentsCarFounded: TCommentUserResponse[] | null = JSON.parse(
+      localStorage.getItem("@commentsCarSelect") || "null"
+    );
 
     if (token) {
       try {
@@ -56,12 +60,23 @@ export const CommentProvider = ({ children }: IDefaultProviderProps) => {
             },
           }
         );
-        const commentsRefresh = [...commentsCarId, response.data];
-        setCommentsCarId([...commentsCarId, response.data]);
-        localStorage.setItem(
-          "@commentsCarSelect",
-          JSON.stringify(commentsRefresh)
-        );
+        if(commentsCarFounded!.length ===0){
+          const commentsRefresh = [...commentsCarFounded!, response.data];
+          localStorage.setItem(
+            "@commentsCarSelect",
+            JSON.stringify(commentsRefresh)
+          );
+
+        } else{
+
+          const commentsRefresh = [...commentsCarFounded!, response.data];
+  
+          setCommentsCarId(commentsRefresh);
+          localStorage.setItem(
+            "@commentsCarSelect",
+            JSON.stringify(commentsRefresh)
+          );
+        }
         toast.success("Comment registered!");
       } catch (error) {
         console.log(error);
