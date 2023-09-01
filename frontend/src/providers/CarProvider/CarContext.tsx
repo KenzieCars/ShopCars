@@ -16,8 +16,6 @@ import {
 } from "./@types";
 import { AxiosResponse } from "axios";
 
-import { TCommentUserResponse } from "../CommentProvider/@types";
-
 export const CarContext = createContext({} as ICarContext);
 
 export const CarProvider = ({ children }: IDefaultProviderProps) => {
@@ -49,16 +47,18 @@ export const CarProvider = ({ children }: IDefaultProviderProps) => {
     allCars();
   }, []);
 
-  const carsSellerId = async (carId: string) => {
-    try {
-      const response = await api.get<TCarDataIdResponse>(`/cars/${carId}`);
+  // const carsSellerId = async (carId: string) => {
 
-      const allCommentsForCarId: TCommentUserResponse[] =
-        response.data.comments;
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  //   try {
+  //     const response = await api.get<TCarDataIdResponse>(`/cars/${carId}`);
+
+  //     const allCommentsForCarId: TCommentUserResponse[] =
+  //     response.data.comments;
+
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
 
   const carRegister = async (formData: TCarRequest) => {
     const token = localStorage.getItem("@userToken");
@@ -184,7 +184,6 @@ export const CarProvider = ({ children }: IDefaultProviderProps) => {
         editeCar,
         deleteCar,
         registerCarImage,
-        carsSellerId,
       }}
     >
       {children}
