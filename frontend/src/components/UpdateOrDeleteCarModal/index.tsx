@@ -56,7 +56,7 @@ const UpdateOrDeleteCarModal = ({ setModal: setUpdateModal, car }: IUpdateModalP
         } catch (err) {
             console.log(err);
         }
-    }, []);
+    });
 
     const updateCar = async (): Promise<void | null> => {
         // eslint-disable-next-line prefer-const
@@ -83,6 +83,7 @@ const UpdateOrDeleteCarModal = ({ setModal: setUpdateModal, car }: IUpdateModalP
         updatePayload.bestPrice = bestPriceReckoning(fipePrice / 100, updatePayload.price);
 
         await editeCar(updatePayload as TCarRequest, car!.id);
+        setUpdateModal(false);
     };
 
     function getCarStatus(status: boolean): string {
@@ -200,7 +201,7 @@ const UpdateOrDeleteCarModal = ({ setModal: setUpdateModal, car }: IUpdateModalP
                             <label>Preço</label>
                             <input name="price" value={updateData.price} onChange={handleUpdate}
                                 onKeyDown={(event) => handleValue(event)} maxLength={16} />
-                            <GoodPriceAnotation>{`(Bom preço: ${numberToCash(Math.floor(fipePrice * 1.05))})`}</GoodPriceAnotation>
+                            <GoodPriceAnotation>{`(Bom preço: ${numberToCash(Math.floor(fipePrice * 0.95))})`}</GoodPriceAnotation>
                         </FieldsetModal>
                     </DualFields>
                     <FieldsetModal>
@@ -221,7 +222,6 @@ const UpdateOrDeleteCarModal = ({ setModal: setUpdateModal, car }: IUpdateModalP
                     <FieldsetModal>
                         <label>Imagem da capa</label>
                         <input name="imgCover" value={updateData.imgCover} onChange={handleUpdate} />
-                        {/* {errors.imgCover?.message ? <ErrorModal>{errors.imgCover.message}</ErrorModal> : null} */}
                         {imgCoverError && <ErrorModal>{imgCoverError}</ErrorModal>}
                     </FieldsetModal>
                     <FieldsetModal>
