@@ -10,7 +10,7 @@ const valuetext = (value: number) => {
 export const RangeKMSlider = () => {
   const { valueKmCar, setValueKmCar } = useContext(HomeContext);
 
-  const handleChange = (_event: ChangeEvent<{}>, newValue: number | number[]) => {
+  const handleChange = (_event: ChangeEvent<object>, newValue: number | number[]) => {
     setValueKmCar(newValue as number[]);
   };
 

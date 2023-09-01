@@ -11,11 +11,10 @@ export interface ICarContext {
   setCar: React.Dispatch<React.SetStateAction<ICar | null>>;
   setAllCars: React.Dispatch<React.SetStateAction<[] | TCarDataIdResponse[]>>
   setAllCarsRegistered: React.Dispatch<React.SetStateAction<[] | TCarDataIdResponse[]>>
-  carRegister: (formData: TCarRequest) => Promise<"" | AxiosResponse<ICar>>;
+  carRegister: (formData: TCarRequest) => Promise<AxiosResponse<ICar>>;
   editeCar: (formData: TCarUpdate, carId: string) => Promise<void>;
   deleteCar: (carId: string) => Promise<void>;
   registerCarImage: (payload: IImageRequest) => Promise<void>;
-  carsSellerId: (carId: string) => Promise<void>
 }
 export interface IDefaultProviderProps {
   children: React.ReactNode;
@@ -53,6 +52,7 @@ export interface IComment {
   id: string;
   description: string;
   createdAt: string;
+  createdAtString: string;
   carId: string;
   userId: string;
 }
@@ -77,8 +77,8 @@ export interface TCarUserResponse extends ICar {
 }
 
 export interface TCarDataIdResponse extends ICar {
-  images: IImage[];
-  comments: TCommentUserResponse[];
+  images: IImage[] | [];
+  comments: TCommentUserResponse[] | [];
   user: IUser
 }
 

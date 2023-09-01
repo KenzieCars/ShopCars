@@ -12,23 +12,17 @@ import NothingHere from "../NothingHere";
 import { BiSolidBadgeDollar } from "react-icons/bi";
 import { UserContext } from "../../providers/UserProvider/UserContext";
 import { Link } from "react-router-dom";
-import { CarContext } from "../../providers/CarProvider/CarContext";
 
 
 const CardUserProfile = () => {
   const { allcarsComumProfilePerPage } = useContext(UserContext);
-  const { carsSellerId } = useContext(CarContext);
-
-  const searchDataCar = async (carId: string) => {
-    await carsSellerId(carId)
-  }
 
   if (allcarsComumProfilePerPage.length === 0) return <NothingHere />;
 
   return (
     <>
       {allcarsComumProfilePerPage.map((car) => (
-        <Link to={`/product/${car.id}`} key={car.id} onClick={() => searchDataCar(car.id)}>
+        <Link to={`/product/${car.id}`} key={car.id} >
           <CardContainer key={car.id}>
             <FigureContainer>
               <img src={car.imgCover} alt={car.model} />

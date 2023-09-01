@@ -3,6 +3,7 @@ import { ButtonToBeginning, FooterContainer } from './style'
 import { useEffect, useState } from 'react'
 
 const Footer = () => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [_showButton, setShowButton] = useState(false)
 
   const handleScroll = () => {
