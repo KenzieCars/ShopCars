@@ -10,6 +10,8 @@ import { CardListProfile, MainContainerProfile } from "./style";
 import { UserContext } from "../../providers/UserProvider/UserContext";
 import EditAddressModal from "../../components/EditProfileModal/EditAddressModal";
 import { ButtonNext, NextButtonContainer } from "../Home/style";
+import { CarContext } from "../../providers/CarProvider/CarContext";
+import DetailsCarModal from "../../components/DetailsCarModal";
 
 const ProfileView = () => {
   const {
@@ -19,6 +21,7 @@ const ProfileView = () => {
     allcarsUser2,
     addressEditModal,
   } = useContext(UserContext);
+  const { carDetailModal } = useContext(CarContext)
 
   const itemsPerPage = 12;
   let totalPages = 1;
@@ -45,6 +48,7 @@ const ProfileView = () => {
       </MainContainerProfile>
       {profileEditModal && <EditProfileModal />}
       {addressEditModal && <EditAddressModal />}
+      {carDetailModal && <DetailsCarModal />}
 
       <NextButtonContainer>
         {currentPageprofile > 1 && (

@@ -98,6 +98,8 @@ const ProductPage = () => {
 
     if (product) {
       setProductDetails(product);
+
+      console.log(productDetails)
     }
   }, [allcars, productId, productDetails]);
 

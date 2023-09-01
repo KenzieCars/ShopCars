@@ -16,7 +16,6 @@ import { Link } from "react-router-dom";
 const CardHome = () => {
   const { allcars } = useContext(CarContext);
 
-
   if (allcars.length === 0) return <NothingHere />;
 
   return (

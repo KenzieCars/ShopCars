@@ -15,6 +15,10 @@ export interface ICarContext {
   editeCar: (formData: TCarUpdate, carId: string) => Promise<void>;
   deleteCar: (carId: string) => Promise<void>;
   registerCarImage: (payload: IImageRequest) => Promise<void>;
+  carDetailModal: boolean;
+  setCarDetailModal: React.Dispatch<React.SetStateAction<boolean>>;
+  selectedCar: ICar | null;
+  setSelectedCar: React.Dispatch<React.SetStateAction<ICar | null>>;
 }
 export interface IDefaultProviderProps {
   children: React.ReactNode;
