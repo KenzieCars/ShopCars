@@ -1,5 +1,4 @@
 import { createContext, useContext, useEffect, useState } from "react";
-// import { useNavigate } from "react-router-dom";
 import { api } from "../../services/api";
 import { toast } from "react-toastify";
 import { UserContext } from "../UserProvider/UserContext";
@@ -22,6 +21,8 @@ export const CarProvider = ({ children }: IDefaultProviderProps) => {
   const [images, setImages] = useState<IImage[] | []>([]);
   const [car, setCar] = useState<ICar | null>(null);
   const [allcars, setAllCars] = useState<TCarDataIdResponse[] | []>([]);
+  const [carDetailModal, setCarDetailModal] = useState(false);
+  const [selectedCar, setSelectedCar] = useState<ICar | null>(null);
 
   //Vem todos os carros cadastrado em um array só
   //Sem paginação
@@ -209,6 +210,10 @@ export const CarProvider = ({ children }: IDefaultProviderProps) => {
         setCurrentPageprofile,
         currentPageprofile,
         carSellerSelect,
+        carDetailModal,
+        setCarDetailModal,
+        selectedCar,
+        setSelectedCar,
       }}
     >
       {children}

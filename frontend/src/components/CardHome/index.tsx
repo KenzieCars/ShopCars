@@ -10,12 +10,11 @@ import {
 } from "./style";
 import { CarContext } from "../../providers/CarProvider/CarContext";
 import NothingHere from "../NothingHere";
-import { TbFlag3Filled } from "react-icons/tb";
+import { BiSolidBadgeDollar } from "react-icons/bi";
 import { Link } from "react-router-dom";
 
 const CardHome = () => {
   const { allcars } = useContext(CarContext);
-
 
   if (allcars.length === 0) return <NothingHere />;
 
@@ -52,7 +51,7 @@ const CardHome = () => {
             </ContainerInfo>
             {car.bestPrice && (
               <FlagGoodDeal>
-                <TbFlag3Filled />
+                <BiSolidBadgeDollar />
               </FlagGoodDeal>
             )}
           </CardContainer>
