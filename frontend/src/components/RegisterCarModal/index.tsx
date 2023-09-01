@@ -11,12 +11,11 @@ import {
   TitleModal,
   TitleOptions,
 } from "./style";
-import { IModalProps, TRegisterCarForm } from "./@types";
+import { IFipeOptions, IHandleCreateCarData, IModalProps, IModelInfo, IModels, IModelsOptions, IPayloadCreateCar, TRegisterCarForm } from "./@types";
 import { useForm } from "react-hook-form";
 import { fipeApi } from "../../services/api";
 import { zodResolver } from "@hookform/resolvers/zod";
 import useOutClick from "../../hooks/useOutclick";
-import useEscapeKey from "../../hooks/useEscapeKey";
 import {
   bestPriceReckoning,
   getFuelTipe,
@@ -31,6 +30,7 @@ import { AxiosResponse } from "axios";
 import { CarContext } from "../../providers/CarProvider/CarContext";
 import { UserContext } from "../../providers/UserProvider/UserContext";
 import Loading from "../Loading";
+import { ICar, TCarRequest } from "../../providers/CarProvider/@types";
 
 const carInfoDefault = {
   brand: "brand",
@@ -42,9 +42,9 @@ const carInfoDefault = {
 };
 
 const RegisterCarModal = ({ setModal }: IModalProps) => {
-  const [fipeOptions, setFipeOptions] = useState({});
-  const [models, setModels] = useState([]);
-  const [modelInfo, setmodelInfo] = useState([]);
+  const [fipeOptions, setFipeOptions] = useState<IFipeOptions>();
+  const [models, setModels] = useState<IModels[]>([]);
+  const [modelInfo, setmodelInfo] = useState<IModelInfo[]>([]);
   const [loadModels, setLoadModels] = useState<boolean>(false);
   const {
     register,
@@ -56,14 +56,11 @@ const RegisterCarModal = ({ setModal }: IModalProps) => {
   const [carInfo, setCarInfo] = useState(carInfoDefault);
   const [extraImagesFields, setExtraImagesFields] = useState(0);
 
-  const { carRegister, registerCarImage, allcars, setAllCars } =
+  const { carRegister, registerCarImage } =
     useContext(CarContext);
-  const { user, loading } = useContext(UserContext);
+  const { loading } = useContext(UserContext);
 
   const modalRef = useOutClick(() => setModal(false));
-    const buttonRef = useEscapeKey('Escape', (element) => {
-        element.click();
-    });
 
   useEffect(() => {
     fipeApi
@@ -74,8 +71,8 @@ const RegisterCarModal = ({ setModal }: IModalProps) => {
       .catch((error) => console.log(error));
   }, []);
 
-  const getModelOptions = async (model: string) => {
-    const modelArray = fipeOptions[model];
+  const getModelOptions = async (model: IModelsOptions) => {
+    const modelArray: IModels[] = fipeOptions![model];
     setModels(modelArray);
     try {
       setLoadModels(true);
@@ -99,15 +96,16 @@ const RegisterCarModal = ({ setModal }: IModalProps) => {
     }
   };
 
-  const registerCar = async (payload) => {
-    const createCarData = {
-      year: carInfo.year,
-      fuel: getFuelTipe(carInfo.fuel),
+  const registerCar = async (payload: IPayloadCreateCar) => {
+
+    const createCarData: IHandleCreateCarData = {
       ...payload,
+      year: carInfo.year,
+      fuel: getFuelTipe(carInfo.fuel)
     };
 
-    createCarData.price = rectifyPrice(createCarData.price);
-    createCarData.km = rectifyKm(createCarData.km);
+    createCarData.price = rectifyPrice(createCarData.price as string);
+    createCarData.km = rectifyKm(createCarData.km as string);
     createCarData.bestPrice = bestPriceReckoning(
       carInfo.value,
       createCarData.price
@@ -118,17 +116,12 @@ const RegisterCarModal = ({ setModal }: IModalProps) => {
 
     let carId: string = "";
 
-    await carRegister(createCarData)
-      .then((res: AxiosResponse) => {
-        carId = res.data.id;
-        let newCarsArray = allcars;
-        newCarsArray.push({ ...res.data, user: user });
-        setAllCars(newCarsArray);
-      })
+    await carRegister(createCarData as TCarRequest)
+      .then((res: AxiosResponse<ICar>) => carId = res.data.id)
       .then(async () => {
-        for (let index = 0; index < imgs.length; index++) {
+        for (let index = 0; index < imgs!.length; index++) {
           const addImageObject = {
-            imgGalery: imgs[index],
+            imgGalery: imgs![index],
             carId: carId,
           };
           await registerCarImage(addImageObject);
@@ -139,6 +132,7 @@ const RegisterCarModal = ({ setModal }: IModalProps) => {
   };
 
   const addImageField = (): number[] => {
+    // eslint-disable-next-line prefer-const
     let result: number[] = [];
     for (let index: number = 0; index < extraImagesFields; index++) {
       result.push(index);
@@ -163,7 +157,6 @@ const RegisterCarModal = ({ setModal }: IModalProps) => {
           <TitleModal>
             <h3>Criar anúncio</h3>
             <span
-              ref={buttonRef as LegacyRef<HTMLDivElement>}
               onClick={() => setModal(false)}
             >
               X
@@ -176,7 +169,7 @@ const RegisterCarModal = ({ setModal }: IModalProps) => {
             <label>Marca</label>
             <select
               {...register("brand")}
-              onChange={(event) => getModelOptions(event.target.value)}
+              onChange={(event) => getModelOptions(event.target.value as IModelsOptions)}
             >
               <option value="">Selecione a marca</option>
               <option value="chevrolet">Chevrolet</option>
@@ -285,8 +278,8 @@ const RegisterCarModal = ({ setModal }: IModalProps) => {
                 placeholder={
                   carInfo
                     ? `${numberToMoney(
-                        Math.round(carInfo.value * 1.1)
-                      )} (Bom preço)`
+                      Math.round(carInfo.value * 0.95)
+                    )} (Bom preço)`
                     : "R$ 50.000,00"
                 }
                 onKeyUp={(event) => handleValue(event)}
@@ -348,9 +341,6 @@ const RegisterCarModal = ({ setModal }: IModalProps) => {
                 Adicionar campo para imagem
               </button>
             ) : null}
-            {/* {extraImagesFields > 0 ?
-                            <button type='button' className='remove' onClick={() => setExtraImagesFields(extraImagesFields - 1)}
-                            >Remover campo</button> : null} */}
           </AddImagesContainer>
           <ModalButtonContainer>
             <button
