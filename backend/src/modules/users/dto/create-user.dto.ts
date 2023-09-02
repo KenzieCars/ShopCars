@@ -83,4 +83,9 @@ export class CreateUserDto {
   @IsOptional()
   cep: string | null;
 
+  @ApiPropertyOptional({ default: null })
+  @IsString()
+  @IsOptional()
+  reset_token: string | null;
+
 }
