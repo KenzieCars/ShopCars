@@ -30,10 +30,7 @@ export const CommentProvider = ({ children }: IDefaultProviderProps) => {
           `/comments`
         );
         setAllComments(response.data);
-        localStorage.setItem(
-          "@allCommentsCar",
-          JSON.stringify(response.data)
-        );
+        localStorage.setItem("@allCommentsCar", JSON.stringify(response.data));
       } catch (error) {
         console.log(error);
       }
@@ -44,7 +41,7 @@ export const CommentProvider = ({ children }: IDefaultProviderProps) => {
 
   const registerComment = async (formData: TCommentRequest) => {
     const token = localStorage.getItem("@userToken");
-    
+
     const commentsCarFounded: TCommentUserResponse[] | null = JSON.parse(
       localStorage.getItem("@commentsCarSelect") || "null"
     );
@@ -60,18 +57,15 @@ export const CommentProvider = ({ children }: IDefaultProviderProps) => {
             },
           }
         );
-        if(commentsCarFounded!.length ===0){
+        if (commentsCarFounded!.length === 0) {
           const commentsRefresh = [...commentsCarFounded!, response.data];
           setCommentsCarId(commentsRefresh);
           localStorage.setItem(
             "@commentsCarSelect",
             JSON.stringify(commentsRefresh)
           );
-
-        } else{
-
+        } else {
           const commentsRefresh = [...commentsCarFounded!, response.data];
-
           setCommentsCarId(commentsRefresh);
           localStorage.setItem(
             "@commentsCarSelect",
@@ -135,21 +129,18 @@ export const CommentProvider = ({ children }: IDefaultProviderProps) => {
             Authorization: `Bearer ${token}`,
           },
         });
-        
+
         const commentFind = commentsCarId.find(
           (comment) => comment.id === commentId
         );
-        
+
         if (!commentFind) {
           toast.error("Comment Not Found!");
-          
         } else {
-          
           const newListComments = commentsCarId.filter((comment) => {
             if (comment !== commentFind) {
               return comment;
             }
-            
           });
           localStorage.setItem(
             "@commentsCarSelect",
@@ -160,9 +151,8 @@ export const CommentProvider = ({ children }: IDefaultProviderProps) => {
           setIsModalComment(false);
           toast.success("Successfully deleted!");
         }
-        
       } catch (error) {
-        console.log("Deu erro")
+        console.log("Deu erro");
         console.log(error);
 
         toast.error("Unable to delete comment!");
