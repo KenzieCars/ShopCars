@@ -15,7 +15,7 @@ import { handleNumber } from "../RegisterForm/utils";
 import { fipeApi } from "../../services/api";
 import { AxiosResponse } from "axios";
 import { IFipeCars, IUpdateCars } from "../RegisterCarModal/@types";
-import { handleKm, handleValue } from "./utils";
+import { convertObjectToArray, handleKm, handleValue } from "./utils";
 import DeleteCarModal from "./DeleteCarModal";
 // import { CarContext } from "../../providers/CarProvider/CarContext";
 // import { TCarRequest } from "../../providers/CarProvider/@types";
@@ -53,7 +53,7 @@ const UpdateOrDeleteCarModal = ({ setModal: setUpdateModal, car }: IUpdateModalP
         let objectImages: IObjectImages = {};
 
         for (let index: number | string = 0; index < allCarImages.length; index++) {
-            objectImages[`img${index}` as keyof IObjectImages] = allCarImages[index].imgGalery
+            objectImages[`img${index}` as keyof IObjectImages] = allCarImages[index].imgGalery;
         };
         return objectImages;
     };
@@ -71,7 +71,7 @@ const UpdateOrDeleteCarModal = ({ setModal: setUpdateModal, car }: IUpdateModalP
             if (getFipeCar.length !== 0) {
                 setFipePrice(getFipeCar[0].value * 100);
             } else {
-                setFipePrice("Indeterminado")
+                setFipePrice("Indeterminado");
             }
         };
         getFipePrice(updateData.brand, updateData.model);
@@ -90,28 +90,41 @@ const UpdateOrDeleteCarModal = ({ setModal: setUpdateModal, car }: IUpdateModalP
             return null;
         };
 
-        const imagesObjects = updateImages;
+        // eslint-disable-next-line prefer-const
+        let imagesObjects = updateImages;
+
+        if (Object.keys(imagesObjects).length !== imagesFields) {
+            for (let index: number = Object.keys(imagesObjects).length - 1; index > imagesFields - 1; index--) {
+                if (imagesObjects[`img${index}` as keyof IObjectImages]) {
+                    delete imagesObjects[`img${index}` as keyof IObjectImages];
+                };
+            };
+        };
 
         for (let index: number = 0; index < Object.keys(imagesObjects).length; index++) {
             try {
-                const _url = new URL(imagesObjects[`img${index}` as keyof IObjectImages]!);
-                imagesObjects[`img${index}` as keyof IObjectImages]! = _url.href;
-                setUpdateImagesError({
-                    ...updateImagesError,
-                    [`img${index}` as keyof IObjectImages]: null
-                });
-                console.log('INDEX' + index);
-                console.log(updateImagesError);
+                if (imagesObjects[`img${index}` as keyof IObjectImages] === "") {
+                    delete imagesObjects[`img${index}` as keyof IObjectImages];
+                } else {
+                    const _url = new URL(imagesObjects[`img${index}` as keyof IObjectImages]!);
+                    imagesObjects[`img${index}` as keyof IObjectImages]! = _url.href;
+                    setUpdateImagesError({
+                        ...updateImagesError,
+                        [`img${index}` as keyof IObjectImages]: null,
+                    });
+                };
             } catch (err) {
                 setUpdateImagesError({
                     ...updateImagesError,
-                    [`img${index}` as keyof IObjectImages]: "Deve ser uma fonte url da imagem *"
+                    [`img${index}` as keyof IObjectImages]: "Deve ser uma fonte url da imagem *",
                 });
                 return null;
             };
         };
 
         setUpdateImagesError({});
+
+        const imagesToUpdate = convertObjectToArray(imagesObjects);
 
         updateData.status === "true" ?
             updatePayload.status = true : updatePayload.status = false
@@ -121,11 +134,45 @@ const UpdateOrDeleteCarModal = ({ setModal: setUpdateModal, car }: IUpdateModalP
         updatePayload.imgCover = updatePayload.imgCover.href;
         updatePayload.bestPrice = bestPriceReckoning(fipePrice as number / 100, updatePayload.price);
 
-
         // await editeCar(updatePayload as TCarRequest, car!.id);
+
+        let counter: number = 0;
+
+        if (imagesToUpdate.length === allCarImages.length) {
+
+            for (let index: number = 0; index < imagesToUpdate.length; index++) {
+                console.log("UPDATE " + index);
+            };
+
+        } else if (imagesToUpdate.length > allCarImages.length) {
+
+            for (let index: number = 0; index < imagesToUpdate.length; index++) {
+
+                if (counter >= allCarImages.length) {
+                    console.log("CREATE " + index);
+                    counter = counter + 1;
+
+                } else {
+                    console.log("UPDATE " + index);
+                    counter = counter + 1;
+                };
+            };
+        } else {
+
+            for (let index: number = 0; index < allCarImages.length; index++) {
+
+                if (counter >= imagesToUpdate.length) {
+                    console.log("DELETE " + index);
+                    counter++;
+
+                } else {
+                    console.log("UPDATE" + index);
+                    counter++;
+                };
+            };
+        };
+
         // setUpdateModal(false);
-        console.log(imagesObjects);
-        console.log(imagesFields);
     };
 
     function getCarStatus(status: boolean): string {
@@ -225,33 +272,33 @@ const UpdateOrDeleteCarModal = ({ setModal: setUpdateModal, car }: IUpdateModalP
                         <span onClick={() => setUpdateModal(false)}>X</span>
                     </TitleModal>
                     <FieldsetModal>
-                        <label>Marca</label>
-                        <input value={updateData.brand} disabled />
+                        <label htmlFor="brand" >Marca</label>
+                        <input id="brand" value={updateData.brand} disabled />
                     </FieldsetModal>
                     <FieldsetModal>
-                        <label>Modelo</label>
-                        <input value={updateData.model} disabled />
+                        <label htmlFor="model">Modelo</label>
+                        <input id="model" value={updateData.model} disabled />
                     </FieldsetModal>
                     <DualFields>
                         <FieldsetModal>
-                            <label>Ano</label>
-                            <input name="year" value={updateData.year} onChange={handleUpdate}
+                            <label htmlFor="year">Ano</label>
+                            <input id="year" name="year" value={updateData.year} onChange={handleUpdate}
                                 maxLength={4} onKeyUp={(event) => handleNumber(event)} />
                         </FieldsetModal>
                         <FieldsetModal>
-                            <label>Combustivel</label>
-                            <input disabled value={car?.fuel} />
+                            <label htmlFor="fuel">Combustivel</label>
+                            <input id="fuel" disabled value={car?.fuel} />
                         </FieldsetModal>
                     </DualFields>
                     <DualFields>
                         <FieldsetModal>
-                            <label>Quilometragem</label>
-                            <input name="km" value={updateData.km} onChange={handleUpdate}
+                            <label htmlFor="km">Quilometragem</label>
+                            <input id="km" name="km" value={updateData.km} onChange={handleUpdate}
                                 onKeyDown={(event) => handleKm(event)} maxLength={12} />
                         </FieldsetModal>
                         <FieldsetModal>
-                            <label>Cor</label>
-                            <select name="color" onChange={handleUpdate} >
+                            <label htmlFor="color">Cor</label>
+                            <select id="color" name="color" onChange={handleUpdate} >
                                 <option value={car?.color}>{car?.color}</option>
                                 {anotherColorOptions(car?.color)}
                             </select>
@@ -259,19 +306,19 @@ const UpdateOrDeleteCarModal = ({ setModal: setUpdateModal, car }: IUpdateModalP
                     </DualFields>
                     <DualFields>
                         <FieldsetModal>
-                            <label>Preço tabela FIPE</label>
-                            <input value={handleFipePrice()} disabled />
+                            <label htmlFor="fipePrice">Preço tabela FIPE</label>
+                            <input id="fipePrice" value={handleFipePrice()} disabled />
                         </FieldsetModal>
                         <FieldsetModal>
-                            <label>Preço</label>
-                            <input name="price" value={updateData.price} onChange={handleUpdate}
+                            <label htmlFor="price">Preço</label>
+                            <input id="price" name="price" value={updateData.price} onChange={handleUpdate}
                                 onKeyDown={(event) => handleValue(event)} maxLength={16} />
                             <GoodPriceAnotation>{handleGoodPriceAnotation()}</GoodPriceAnotation>
                         </FieldsetModal>
                     </DualFields>
                     <FieldsetModal>
-                        <label>Descrição</label>
-                        <textarea name="description" value={updateData.description} onChange={handleUpdate} />
+                        <label htmlFor="description">Descrição</label>
+                        <textarea id="description" name="description" value={updateData.description} onChange={handleUpdate} />
                     </FieldsetModal>
                     <FieldsetModal>
                         <label>Publicado</label>
@@ -285,16 +332,16 @@ const UpdateOrDeleteCarModal = ({ setModal: setUpdateModal, car }: IUpdateModalP
                         <label style={changeNotPublishedStyle()} htmlFor="not-published" >Não</label>
                     </CarStatusField>
                     <FieldsetModal>
-                        <label>Imagem da capa</label>
-                        <input name="imgCover" value={updateData.imgCover} onChange={handleUpdate} />
+                        <label htmlFor="imgCover">Imagem da capa</label>
+                        <input id="imgCover" name="imgCover" value={updateData.imgCover} onChange={handleUpdate} />
                         {imgCoverError && <ErrorModal>{imgCoverError}</ErrorModal>}
                     </FieldsetModal>
                     {imagesFields > 0 ? (<>
                         {addImageField().map((field) => (
                             <FieldsetModal key={`field${field}`}>
-                                <label>{field + 1}º imagem da galeria</label>
-                                <input value={updateImages[`img${field}` as keyof IObjectImages]}
-                                    onChange={handleUpdateImages} name={`img${field}`} />
+                                <label htmlFor={`imgGallery_${field}`}>{field + 1}º imagem da galeria</label>
+                                <input id={`imgGallery_${field}`} value={updateImages[`img${field}` as keyof IObjectImages]}
+                                    onChange={handleUpdateImages} name={`img${field}`} autoComplete="OLAAAAA" />
                                 {updateImagesError[`img${field}` as keyof IObjectImages] &&
                                     <ErrorModal>{updateImagesError[`img${field}` as keyof IObjectImages]}</ErrorModal>}
                             </FieldsetModal>
@@ -306,6 +353,7 @@ const UpdateOrDeleteCarModal = ({ setModal: setUpdateModal, car }: IUpdateModalP
                             <button type='button' className='remove' onClick={() => setImagesFields(imagesFields - 1)}
                             >Remover campo</button> : null}
                     </AddImagesContainer>
+                    <div className="division_between_buttons"></div>
                     <UpdateButtonsContainer>
                         <button type="button" className="cancel"
                             onClick={() => setDeleteCarModal(true)}>Excluir anúncio</button>
