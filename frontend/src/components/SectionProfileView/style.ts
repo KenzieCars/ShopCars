@@ -7,9 +7,13 @@ export const SectionProfileInfoComponent = styled.section`
 
   padding: 1rem;
 
+  padding-top: 5rem;
+
   box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
 
   border-radius: 8px;
+
+  background: var(--light-black);
 
   > p {
     color: var(--gray);
@@ -20,6 +24,8 @@ export const SectionProfileInfoComponent = styled.section`
   @media (min-width: 768px) {
     margin-top: 5rem;
     padding: 2rem;
+
+    padding-top: 2rem;
 
     > p {
       font-size: .8rem;
@@ -37,13 +43,13 @@ export const UserDiv = styled.div`
     gap: .4rem;
 
     > span:nth-child(1) {
-      color: var(--black);
+      color: var(--gray);
       font-size: .9rem;
       font-weight: 600;
     }
 
     > span:nth-child(2) {
-      background: #EDEAFD;
+      background: var(--white);
       color: var(--primary-color);
       font-size: .7rem;
       padding: .4rem;

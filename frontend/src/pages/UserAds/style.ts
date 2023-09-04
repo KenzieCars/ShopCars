@@ -10,7 +10,7 @@ export const SectionProfileInfoComponent = styled.section`
   border-radius: 8px;
 
   > h2 {
-    color: var(--black);
+    color: var(--gray);
     font-size: .8rem;
   }
 
@@ -45,7 +45,7 @@ export const UserDiv = styled.div`
     }
     
     > span:nth-child(2) {
-      background: #EDEAFD;
+      background: var(--white);
       color: var(--primary-color);
       font-size: .7rem;
       padding: .4rem;

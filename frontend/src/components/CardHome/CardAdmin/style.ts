@@ -9,7 +9,7 @@ export const CardContainer = styled.li`
 
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 
-  background: var(--white);
+  background: var(--light-black);
 
   border-radius: 12px;
 
@@ -225,7 +225,7 @@ export const DescriptionWithOverFlowAdm = styled.section`
     left: 0;
     width: 100%;
     height: 38px; /* Ajuste a altura do degradê conforme necessário */
-    background: linear-gradient(transparent, var(--white)); /* Defina as cores do degradê aqui */
+    background: linear-gradient(transparent, var(--light-black)); /* Defina as cores do degradê aqui */
   }
 }
 

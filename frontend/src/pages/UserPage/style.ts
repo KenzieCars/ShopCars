@@ -14,7 +14,7 @@ export const MainContainerUserProfile = styled.main`
 
 export const Divanucios = styled.div`
   > h2 {
-    color: var(--black);
+    color: var(--gray);
     font-size: 1rem;
   }
 

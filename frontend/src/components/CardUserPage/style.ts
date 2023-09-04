@@ -8,7 +8,7 @@ export const CardContainer = styled.li`
 
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 
-  background: var(--white);
+  background: var(--light-black);
 
   border-radius: 12px;
 
@@ -63,7 +63,7 @@ export const ContainerInfo = styled.div`
 
   > h3 {
     font-size: 0.8rem;
-    color: var(--black);
+    color: var(--gray);
   }
 
   > h3.truncated-title {
@@ -189,7 +189,7 @@ export const DescriptionWithOverFlow = styled.section`
     left: 0;
     width: 100%;
     height: 50px; /* Ajuste a altura do degradê conforme necessário */
-    background: linear-gradient(transparent, var(--white)); /* Defina as cores do degradê aqui */
+    background: linear-gradient(transparent, var(--light-black)); /* Defina as cores do degradê aqui */
   }
 }
 
