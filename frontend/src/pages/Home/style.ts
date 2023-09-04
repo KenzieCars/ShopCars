@@ -43,10 +43,16 @@ export const TitleContainer = styled.div`
 
   z-index: 6;
 
-  > h1,
-  p {
-    color: var(--white);
+  > h1 {
+    color: var(--primary-color);
+    font-family: 'Anton', sans-serif;
+
+    > span {
+      font-family: 'Sedgwick Ave Display', cursive;
+      color: white;
+    }
   }
+
 
   > h1 {
     font-size: 1.7rem;
@@ -54,6 +60,8 @@ export const TitleContainer = styled.div`
 
   > p {
     font-size: 1.1rem;
+    color: var(--light-gray);
+    font-family: 'Anton', sans-serif;
   }
 
   @media (min-width: 768px) {

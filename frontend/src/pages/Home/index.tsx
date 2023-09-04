@@ -48,7 +48,7 @@ const Home = () => {
       <Header />
       <BannerContainer>
         <TitleContainer>
-          <h1>Motors Shop</h1>
+          <h1>Motors <span>Shop</span></h1>
           <p>A melhor plataforma de anúncios de carros do país</p>
         </TitleContainer>
         <CustomSwiperComponent />

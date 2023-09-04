@@ -11,6 +11,7 @@ export const ContainerShop = styled.div`
     margin-top: 6rem;
   }
 `
+
 export const ProductMainContainer = styled.main`
   display: flex;
   flex-direction: column;
@@ -54,6 +55,8 @@ export const InfoAndDescriptionContainer = styled.div`
   gap: 1rem;
   width: 100%;
 
+  /* background: var(--light-black); */
+
   @media(min-width: 821px) {
     display: flex;
     flex-direction: row;
@@ -72,8 +75,10 @@ export const InfoSection = styled.section`
 
   border-radius: 6px;
 
+  background: var(--light-black);
+
   > h2 {
-    color: var(--black);
+    color: var(--gray);
     font-size: .9rem;
   }
 
@@ -116,7 +121,7 @@ export const KmContainer = styled.div`
   > span {
     padding: .4rem;
 
-    background: var(--light-purple);
+    background: var(--gray);
 
     color: var(--primary-color);
     font-size: .6rem;
@@ -153,14 +158,16 @@ export const Description = styled.section`
 
   border-radius: 6px;
 
+  background: var(--light-black);
+
   > h3 {
-    color: var(--black);
+    color: var(--gray);
 
     font-size: 1rem;
   }
 
   > p {
-    color: var(--gray);
+    color: var(--light-gray);
 
     font-size: .8rem;
 
@@ -197,8 +204,10 @@ export const PicturesContainer = styled.ul`
 
   border-radius: 6px;
 
+  background: var(--light-black);
+
   > h3 {
-    color: var(--black);
+    color: var(--gray);
 
     font-size: 1rem;
   }
@@ -227,7 +236,6 @@ export const PicturesContainer = styled.ul`
     }
   }
 
-
   @media (min-width: 768px) {
     display: none;
   }
@@ -246,6 +254,8 @@ export const AdvertiserSection = styled.section`
 
   border-radius: 6px;
 
+  background: var(--light-black);
+
   > h3 {
     color: var(--black);
 
@@ -254,7 +264,7 @@ export const AdvertiserSection = styled.section`
 
   > span {
     &:nth-child(1) {
-      background: var(--primary-color);
+      background: var(--light-black);
 
       color: var(--white);
 
@@ -279,7 +289,7 @@ export const AdvertiserSection = styled.section`
   }
 
   > button {
-    background-color: var(--black);
+    background-color: var(--light-black);
     
     color: var(--white);
     font-weight: 600;
@@ -309,6 +319,12 @@ export const CommentsSection = styled.section`
   padding: 1rem;
 
   border-radius: 6px;
+
+  background: var(--light-black);
+
+  > h3 {
+    color: var(--gray);
+  }
 
   @media (min-width: 768px) {
     gap: 1.7rem;
@@ -395,6 +411,8 @@ export const PostAComment = styled.section`
   padding: 1rem;
 
   border-radius: 6px;
+
+  background: var(--light-black);
 
   > div {
     display: flex;
@@ -488,6 +506,8 @@ export const PicturesContainerDesktop = styled.ul`
 
   width: 100%;
 
+  background: var(--light-black);
+
   > h3 {
     color: var(--black);
 
@@ -534,6 +554,8 @@ export const AdvertiserSectionDesktop = styled.section`
   padding: 2rem;
 
   border-radius: 6px;
+
+  background: var(--light-black);
 
   > h3 {
     color: var(--black);

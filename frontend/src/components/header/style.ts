@@ -1,23 +1,25 @@
 import { styled } from "styled-components";
 
+export const HeaderContainer = styled.div`
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 9;
+  padding: 0.7rem;
+  backdrop-filter: blur(10px); /* Ajuste o valor conforme desejado */
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+  background: rgba(0, 0, 0, 0.3); /* Cor de fundo com opacidade */
+  `;
+
 export const DivHeader = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0.7rem;
-
-  background: var(--white);
+  opacity: 1;
 
   @media (min-width: 768px) {
-    position: fixed;
-    top: 0;
-    right: 0;
-    z-index: 9;
-
-    width: 100%;
     padding: 1rem 3.75rem;
-
-    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
   }
 `;
 
@@ -77,6 +79,10 @@ export const UserHeaderContainer = styled.div`
 
     transition: .2s ease;
 
+    opacity: 1;
+
+    z-index: 200;
+
     &:hover {
       background: var(--orange);
       color: var(--white);
@@ -87,5 +93,26 @@ export const UserHeaderContainer = styled.div`
     color: var(--gray);
 
     font-size: .8rem;
+  }
+`
+
+export const LogoContainer = styled.div`
+  position: relative;
+
+  > span {
+    color: var(--primary-color);
+    font-size: 1.9rem;
+  }
+
+  :nth-child(1) {
+    font-family: 'Anton', sans-serif;
+  }
+  
+  :nth-child(2) {
+    font-family: 'Sedgwick Ave Display', cursive;
+    color: white;
+    position: absolute;
+    top: 19px;
+    right: -51px;
   }
 `

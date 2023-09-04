@@ -10,6 +10,8 @@ import {
   ButtonHeader,
   Nav,
   UserHeaderContainer,
+  HeaderContainer,
+  LogoContainer,
 } from "./style";
 import { Link, useNavigate } from "react-router-dom";
 import { UserContext } from "../../providers/UserProvider/UserContext";
@@ -43,70 +45,75 @@ const Header = () => {
 
   return (
     <>
-      <DivHeader>
-        <Link to="/home">
-          <img src={LogoHeader} alt="Logo" />
-        </Link>
-        {isMobile ? (
-          <MobileNav>
-            <IconButton onClick={handleMenuOpen}>
-              <GiHamburgerMenu />
-            </IconButton>
-            <Menu
-              anchorEl={menuAnchor}
-              open={Boolean(menuAnchor)}
-              onClose={handleMenuClose}
-            >
-              <Nav>
-                {userIdCars ? (
-                  <UserHeaderContainer
-                    onClick={() => setUserModalHeader(!userModalHeader)}
-                  >
-                    <span>{userIdCars.name[0]}</span>
-                    <span>{userIdCars.name.split(" ")[0]}</span>
-                    {userModalHeader && <UserModalHeader />}
-                  </UserHeaderContainer>
-                ) : (
-                  <>
-                    {path !== '/login' && 
-                      <ButtonHeader onClick={handleLoginClick}>
-                        Fazer Login
-                      </ButtonHeader>
-                    }
-
-                    <ButtonHeader onClick={handleRegisterClick}>
-                      Cadastrar
-                    </ButtonHeader>
-                  </>
-                )}
-              </Nav>
-            </Menu>
-          </MobileNav>
-        ) : (
-          <Nav>
-            {userIdCars ? (
-              <UserHeaderContainer
-                onClick={() => setUserModalHeader(!userModalHeader)}
+      <HeaderContainer>
+        <DivHeader>
+          <Link to="/home">
+            <LogoContainer>
+              <span>MOTORS</span>
+              <span>Shop</span>
+            </LogoContainer>
+          </Link>
+          {isMobile ? (
+            <MobileNav>
+              <IconButton onClick={handleMenuOpen}>
+                <GiHamburgerMenu />
+              </IconButton>
+              <Menu
+                anchorEl={menuAnchor}
+                open={Boolean(menuAnchor)}
+                onClose={handleMenuClose}
               >
-                <span>{userIdCars.name[0]}</span>
-                <span>{userIdCars.name.split(" ")[0]}</span>
-                {userModalHeader && <UserModalHeader />}
-              </UserHeaderContainer>
-            ) : (
-              <>
-                 {path !== '/login' &&
-                      <ButtonHeader onClick={handleLoginClick}>
-                        Fazer Login
+                <Nav>
+                  {userIdCars ? (
+                    <UserHeaderContainer
+                      onClick={() => setUserModalHeader(!userModalHeader)}
+                    >
+                      <span>{userIdCars.name[0]}</span>
+                      <span>{userIdCars.name.split(" ")[0]}</span>
+                      {userModalHeader && <UserModalHeader />}
+                    </UserHeaderContainer>
+                  ) : (
+                    <>
+                      {path !== '/login' && 
+                        <ButtonHeader onClick={handleLoginClick}>
+                          Fazer Login
+                        </ButtonHeader>
+                      }
+
+                      <ButtonHeader onClick={handleRegisterClick}>
+                        Cadastrar
                       </ButtonHeader>
-                    }
-                <ButtonHeader onClick={handleRegisterClick}>
-                  Cadastrar
-                </ButtonHeader>
-              </>
-            )}
-          </Nav>
-        )}
-      </DivHeader>
+                    </>
+                  )}
+                </Nav>
+              </Menu>
+            </MobileNav>
+          ) : (
+            <Nav>
+              {userIdCars ? (
+                <UserHeaderContainer
+                  onClick={() => setUserModalHeader(!userModalHeader)}
+                >
+                  <span>{userIdCars.name[0]}</span>
+                  <span>{userIdCars.name.split(" ")[0]}</span>
+                  {userModalHeader && <UserModalHeader />}
+                </UserHeaderContainer>
+              ) : (
+                <>
+                  {path !== '/login' &&
+                        <ButtonHeader onClick={handleLoginClick}>
+                          Fazer Login
+                        </ButtonHeader>
+                      }
+                  <ButtonHeader onClick={handleRegisterClick}>
+                    Cadastrar
+                  </ButtonHeader>
+                </>
+              )}
+            </Nav>
+          )}
+        </DivHeader>
+      </HeaderContainer>
     </>
   );
 };
