@@ -60,7 +60,6 @@ export class CommentsService {
 
   async findOne(id: string) {
     const comment: ICommentUser | null = await this.commentsRepository.findOne(id);
-
     if (!comment) {
       throw new NotFoundException('Comment not found');
     }
