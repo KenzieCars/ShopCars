@@ -20,7 +20,10 @@ import { CreateCommentDto } from './dto/create-comment.dto';
 import { UpdateCommentDto } from './dto/update-comment.dto';
 import { CommentsService } from './comments.service';
 import { CommentPermissionGuard } from './guards/updateOrDeletePermission.guard';
-import { CommentsSwagger } from './swagger/comments.swagger';
+import {
+  CommentsSwagger,
+  CommentsUserSwagger,
+} from './swagger/comments.swagger';
 import { BadRequestSwagger } from 'src/helpers/swagger/bad-request.swagger';
 import { NotFoundSwagger } from 'src/helpers/swagger/not-found.swagger';
 import { UnauthorizedSwagger } from 'src/helpers/swagger/unauthorized.swagger';
@@ -35,7 +38,7 @@ export class CommentsController {
   @ApiResponse({
     status: 201,
     description: 'Comentário postado com sucesso!',
-    type: CommentsSwagger,
+    type: CommentsUserSwagger,
   })
   @ApiResponse({
     status: 400,
@@ -58,7 +61,7 @@ export class CommentsController {
   @ApiResponse({
     status: 200,
     description: 'Lista de comentários',
-    type: CommentsSwagger,
+    type: CommentsUserSwagger,
     isArray: true,
   })
   findAll() {
@@ -70,7 +73,7 @@ export class CommentsController {
   @ApiResponse({
     status: 200,
     description: 'Comentário retornado com sucesso!',
-    type: CommentsSwagger,
+    type: CommentsUserSwagger,
   })
   @ApiResponse({
     status: 404,
@@ -96,7 +99,7 @@ export class CommentsController {
   @ApiResponse({
     status: 401,
     description: 'Você não tem permissão para alterar o comentário.',
-    type: UnauthorizedSwagger
+    type: UnauthorizedSwagger,
   })
   @UseGuards(JwtauthGuard, CommentPermissionGuard)
   update(@Param('id') id: string, @Body() data: UpdateCommentDto) {

@@ -13,22 +13,98 @@ export class CommentsService {
   }
 
   async findAll() {
-    return await this.commentsRepository.findAll();
+    const comments = await this.commentsRepository.findAll();
+    const currentDate = new Date();
+    const newComments = [];
+
+    comments.map((comment) => {
+      const postDate = new Date(comment.createdAt);
+      const result: number = Number(currentDate) - Number(postDate);
+
+      const segundos = Math.floor(result / 1000);
+      const minutos = Math.floor(segundos / 60);
+      const horas = Math.floor(minutos / 60);
+      const dias = Math.floor(horas / 24);
+
+      if (segundos < 60 && minutos <= 0) {
+        newComments.push({
+          ...comment,
+          createdAtString: `${segundos} segundos`,
+        });
+      }
+      if (minutos < 60 && segundos >= 60) {
+        newComments.push({
+          ...comment,
+          createdAtString: `${minutos} minutos`,
+        });
+      }
+      if (horas > 0 && horas < 24 && minutos >= 60) {
+        newComments.push({
+          ...comment,
+          createdAtString: `${horas} horas`,
+        });
+      }
+      if (dias > 0 && horas >= 24) {
+        newComments.push({
+          ...comment,
+          createdAtString: `${dias} dias`,
+        });
+      }
+    });
+
+    return newComments;
+    
   }
 
   async findOne(id: string) {
     const comment = await this.commentsRepository.findOne(id);
-
+    
     if (!comment) {
       throw new NotFoundException('Comment not found');
     }
-    return comment;
+    const currentDate = new Date();
+    const newComments = [];
+
+    const postDate = new Date(comment.createdAt);
+    const result: number = Number(currentDate) - Number(postDate);
+
+    const segundos = Math.floor(result / 1000);
+    const minutos = Math.floor(segundos / 60);
+    const horas = Math.floor(minutos / 60);
+    const dias = Math.floor(horas / 24);
+
+    if (segundos < 60 && minutos <= 0) {
+      newComments.push({
+        ...comment,
+        createdAtString: `${segundos} segundos`,
+      });
+    }
+    if (minutos < 60 && segundos >= 60) {
+      newComments.push({
+        ...comment,
+        createdAtString: `${minutos} minutos`,
+      });
+    }
+    if (horas > 0 && minutos >= 60) {
+      newComments.push({
+        ...comment,
+        createdAtString: `${horas} horas`,
+      });
+    }
+    if (dias > 0 && horas >= 24) {
+      newComments.push({
+        ...comment,
+        createdAtString: `${dias}`,
+      });
+    }
+    
+    return newComments[0];
   }
 
   async update(id: string, updateCommentDto: UpdateCommentDto) {
-    const findcomment = await this.commentsRepository.findOne(id);
+    const comment = await this.commentsRepository.findOne(id);
 
-    if (!findcomment) {
+    if (!comment) {
       throw new NotFoundException('Comment not found');
     }
 

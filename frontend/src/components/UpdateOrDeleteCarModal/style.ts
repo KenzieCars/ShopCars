@@ -32,14 +32,13 @@ export const CarStatusField = styled.div`
 export const UpdateButtonsContainer = styled.div`
     display: flex;
     flex-direction: row;
-    align-items: center;
-    justify-content: center;
+    justify-content: space-between;
     gap: .3rem;
 
     > button {
         background: var(--primary-color);
         padding: .8rem;
-        width: 55%;
+        width: 49%;
         color: var(--white);
         font-size: .9rem;
         font-weight: 600;
@@ -53,7 +52,6 @@ export const UpdateButtonsContainer = styled.div`
 
     > .cancel {
         background-color: var(--light-gray);
-        width: 100%;
         height: 100%;
 
         &:hover{

@@ -8,6 +8,7 @@ import {
   IDefaultProviderProps,
   IImage,
   IImageRequest,
+  IImageUpdate,
   TCarDataIdResponse,
   TCarRequest,
   TCarUpdate,
@@ -128,7 +129,7 @@ export const CarProvider = ({ children }: IDefaultProviderProps) => {
     }
   };
 
-  const registerCarImage = async (payload: IImageRequest) => {
+  const registerCarImage = async (payload: IImageRequest): Promise<void> => {
     const token = localStorage.getItem("@userToken");
 
     try {
@@ -138,11 +139,50 @@ export const CarProvider = ({ children }: IDefaultProviderProps) => {
         },
       });
 
-      toast.success("imagem cadastrada!");
+      toast.success("Registered image!");
     } catch (error) {
       console.log(error);
 
-      toast.error("Error on upload images");
+      toast.error("Error on register image");
+    }
+  };
+
+  const updateCarImage = async (payload: IImageUpdate): Promise<void> => {
+
+    const token: string | null = localStorage.getItem("@userToken");
+    const carId: string | undefined = payload.id;
+    delete payload.id;
+
+    try {
+      await api.patch(`/images/${carId}`, payload, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      toast.success("Updated image!");
+
+    } catch (error) {
+      console.log(error);
+      toast.error("Error on update image");
+    }
+  };
+
+  const deleteCarImage = async (carId: string) => {
+
+    const token: string | null = localStorage.getItem("@userToken");
+
+    try {
+      await api.delete(`/images/${carId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      toast.success("Deleted image!");
+
+    } catch (error) {
+      console.log(error);
+      toast.error("Error on delete image");
+
     }
   };
 
@@ -184,7 +224,7 @@ export const CarProvider = ({ children }: IDefaultProviderProps) => {
 
   useEffect(() => {
     carSellerSelect();
-  }, []);
+  });
 
   useEffect(() => {
     carSellerSelect();
@@ -214,6 +254,8 @@ export const CarProvider = ({ children }: IDefaultProviderProps) => {
         setCarDetailModal,
         selectedCar,
         setSelectedCar,
+        updateCarImage,
+        deleteCarImage
       }}
     >
       {children}
