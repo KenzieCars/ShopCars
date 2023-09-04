@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { styled } from "styled-components";
 
 export const CardContainer = styled.li`
@@ -187,6 +188,25 @@ export const ButtonContainer = styled.div`
       border: 1px solid var(--black);
     }
   }
+`
+export const LinkBtn = styled(Link)`
+    background: var(--white);
+    
+    padding: .4rem;
+
+    border: 1px solid var(--light-gray);
+    border-radius: 6px;
+
+    transition: .2s ease;
+
+    font-weight: 600;
+    color: var(--gray);
+
+    &:hover {
+      background: var(--black);
+      color: var(--white);
+      border: 1px solid var(--black);
+    }
 `
 
 export const DescriptionWithOverFlowAdm = styled.section`

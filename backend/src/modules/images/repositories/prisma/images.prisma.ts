@@ -44,6 +44,7 @@ export class ImagesPrismaRepository implements ImagesRepository {
     const image = await this.prisma.image.findFirst({
       where: { id },
     });
+    console.log(image)
     return image;
   }
 

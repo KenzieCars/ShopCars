@@ -497,7 +497,6 @@ export const PicturesContainerDesktop = styled.ul`
   > div {
     display: flex;
     flex-wrap: wrap;
-    /* justify-content: space-between; */
     gap: 1rem;
 
     > span {
@@ -551,7 +550,12 @@ export const AdvertiserSectionDesktop = styled.section`
 
       border-radius: 50%;
 
-      padding: 1rem 1.4rem;
+      width: 60px;
+      height: 60px;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
 
     &:nth-child(2) {

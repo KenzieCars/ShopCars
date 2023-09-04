@@ -47,4 +47,5 @@ const AppRoutes = () => {
     </UserProvider>
   );
 };
+
 export default AppRoutes;

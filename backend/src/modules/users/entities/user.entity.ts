@@ -1,4 +1,4 @@
-import { ApiProperty } from '@nestjs/swagger';
+import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { Exclude } from 'class-transformer';
 import { randomUUID } from 'crypto';
 
@@ -52,6 +52,9 @@ export class User {
   @ApiProperty()
   @Exclude()
   isAdm: boolean;
+
+  @ApiPropertyOptional()
+  reset_token: string | null;
 
   constructor() {
     this.id = randomUUID();
@@ -117,6 +120,9 @@ export class UserProfile {
   @ApiProperty()
   @Exclude()
   isAdm: boolean;
+
+  @ApiPropertyOptional()
+  reset_token: string | null;
 
   constructor() {
     this.id = randomUUID();

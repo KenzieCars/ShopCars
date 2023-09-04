@@ -16,7 +16,7 @@ export const ModalContainer = styled.div`
     max-height: 570px;
     background-color: var(--white);
     border-radius: 8px;
-    margin: .4rem auto 0;
+    margin: 2rem auto 0;
     overflow-y: auto;
 `
 
@@ -29,6 +29,13 @@ export const FormModalContainer = styled.form`
     /* box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px; */
     background: var(--white);
     margin: 0 auto;
+
+    > .division_between_buttons {
+        width: 100%;
+        height: 2px;
+        border: 1px solid var(--light-gray);
+        margin: .5rem 0;
+    }
 `
 
 export const TitleModal = styled.div`
@@ -222,7 +229,7 @@ export const AddImagesContainer = styled.div`
         right: 0;
         width: 38%;
         color: var(--white);
-        background-color: var(--alert-negative-hover);
+        background-color: var(--light-gray);
 
         &:hover {
             background-color: var(--alert-negative);

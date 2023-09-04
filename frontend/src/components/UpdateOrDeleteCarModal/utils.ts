@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { IObjectImages } from "./@types";
 
 const carSchema = z.object({
     year: z.string(),
@@ -57,4 +58,14 @@ function kmMask(value: string) {
     value = value.replace(/(\d)(\d{2})$/, "$1.$2")
 
     return value
+}
+
+export const convertObjectToArray = (obj: IObjectImages) => {
+    const imagesArray: string[] = [];
+
+    for (let index: number = 0; index < Object.keys(obj).length; index++) {
+        imagesArray.push(obj[`img${index}` as keyof IObjectImages]!);
+    }
+
+    return imagesArray;
 }

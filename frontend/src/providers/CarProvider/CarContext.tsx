@@ -1,5 +1,4 @@
 import { createContext, useContext, useEffect, useState } from "react";
-// import { useNavigate } from "react-router-dom";
 import { api } from "../../services/api";
 import { toast } from "react-toastify";
 import { UserContext } from "../UserProvider/UserContext";
@@ -9,6 +8,7 @@ import {
   IDefaultProviderProps,
   IImage,
   IImageRequest,
+  IImageUpdate,
   TCarDataIdResponse,
   TCarRequest,
   TCarUpdate,
@@ -22,6 +22,8 @@ export const CarProvider = ({ children }: IDefaultProviderProps) => {
   const [images, setImages] = useState<IImage[] | []>([]);
   const [car, setCar] = useState<ICar | null>(null);
   const [allcars, setAllCars] = useState<TCarDataIdResponse[] | []>([]);
+  const [carDetailModal, setCarDetailModal] = useState(false);
+  const [selectedCar, setSelectedCar] = useState<ICar | null>(null);
 
   //Vem todos os carros cadastrado em um array só
   //Sem paginação
@@ -46,19 +48,6 @@ export const CarProvider = ({ children }: IDefaultProviderProps) => {
 
     allCars();
   }, []);
-
-  // const carsSellerId = async (carId: string) => {
-
-  //   try {
-  //     const response = await api.get<TCarDataIdResponse>(`/cars/${carId}`);
-
-  //     const allCommentsForCarId: TCommentUserResponse[] =
-  //     response.data.comments;
-
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
 
   const carRegister = async (
     formData: TCarRequest
@@ -140,7 +129,7 @@ export const CarProvider = ({ children }: IDefaultProviderProps) => {
     }
   };
 
-  const registerCarImage = async (payload: IImageRequest) => {
+  const registerCarImage = async (payload: IImageRequest): Promise<void> => {
     const token = localStorage.getItem("@userToken");
 
     try {
@@ -150,13 +139,91 @@ export const CarProvider = ({ children }: IDefaultProviderProps) => {
         },
       });
 
-      toast.success("imagem cadastrada!");
+      toast.success("Registered image!");
     } catch (error) {
       console.log(error);
 
-      toast.error("Error on upload images");
+      toast.error("Error on register image");
     }
   };
+
+  const updateCarImage = async (payload: IImageUpdate): Promise<void> => {
+    const token: string | null = localStorage.getItem("@userToken");
+    const carId: string | undefined = payload.id;
+    delete payload.id;
+
+    try {
+      await api.patch(`/images/${carId}`, payload, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      toast.success("Updated image!");
+    } catch (error) {
+      console.log(error);
+      toast.error("Error on update image");
+    }
+  };
+
+  const deleteCarImage = async (carId: string) => {
+    const token: string | null = localStorage.getItem("@userToken");
+
+    try {
+      await api.delete(`/images/${carId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      toast.success("Deleted image!");
+    } catch (error) {
+      console.log(error);
+      toast.error("Error on delete image");
+    }
+  };
+
+  // logiga de paginação de UserAds Gedson
+
+  const [carsSellerSelect, setCarsSellerSelect] = useState<
+    TDataCarResponse[] | []
+  >([]);
+  const [carsSellerSelectPerPage, setCarsSellerSelectPerPage] = useState<
+    TDataCarResponse[] | []
+  >([]);
+
+  const [currentPageprofile, setCurrentPageprofile] = useState(1);
+  const itemsPerPage = 12;
+
+  const carSellerSelect = async () => {
+    const userData: TDataCarResponse[] | null = JSON.parse(
+      localStorage.getItem("@carsSellerSelect") || "null"
+    );
+
+    if (userData) {
+      try {
+        setCarsSellerSelect(userData);
+
+        const startIndex = (currentPageprofile - 1) * itemsPerPage;
+        const endIndex = startIndex + itemsPerPage;
+
+        setCarsSellerSelectPerPage(userData);
+
+        const listpagination = userData.slice(startIndex, endIndex);
+
+        setCarsSellerSelectPerPage(listpagination);
+      } catch (error) {
+        console.log(error);
+        toast.error("Algo deu errado :(");
+      }
+    }
+  };
+
+  useEffect(() => {
+    carSellerSelect();
+  });
+
+  useEffect(() => {
+    carSellerSelect();
+  }, [currentPageprofile]);
 
   return (
     <CarContext.Provider
@@ -173,6 +240,17 @@ export const CarProvider = ({ children }: IDefaultProviderProps) => {
         editeCar,
         deleteCar,
         registerCarImage,
+        carsSellerSelectPerPage,
+        carsSellerSelect,
+        setCurrentPageprofile,
+        currentPageprofile,
+        carSellerSelect,
+        carDetailModal,
+        setCarDetailModal,
+        selectedCar,
+        setSelectedCar,
+        updateCarImage,
+        deleteCarImage,
       }}
     >
       {children}

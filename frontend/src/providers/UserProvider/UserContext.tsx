@@ -104,6 +104,10 @@ export const UserProvider = ({ children }: IDefaultProviderProps) => {
           }
         } catch (error) {
           console.log(error);
+
+          localStorage.clear();
+
+          navigate('/')
         } finally {
           setLoading(false);
         }

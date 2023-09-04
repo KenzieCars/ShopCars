@@ -11,15 +11,19 @@ import {
   FlagGoodDeal,
   FlagNotAvailable,
 } from "./style";
-import { TbFlag3Filled } from "react-icons/tb";
+import { BiSolidBadgeDollar } from "react-icons/bi";
 import NothingHere from "../../NothingHere";
 import { UserContext } from "../../../providers/UserProvider/UserContext";
 import UpdateOrDeleteCarModal from "../../UpdateOrDeleteCarModal";
 import Loading from "../../Loading";
 import { ICarSeller } from "../../../providers/UserProvider/@types";
+import { CarContext } from "../../../providers/CarProvider/CarContext";
+import { ICar } from "../../../providers/CarProvider/@types";
 
 const CardAdmin = () => {
   const { allcarsUserPerPage2, userIdCars, loading } = useContext(UserContext);
+  const { setCarDetailModal, carDetailModal, setSelectedCar } =
+    useContext(CarContext);
   const [updateOrDeleteModal, setUpdateOrDeleteModal] =
     useState<boolean>(false);
   const [carToUpdate, setCarToUpdate] = useState<null | ICarSeller>(null);
@@ -42,10 +46,15 @@ const CardAdmin = () => {
     setUpdateOrDeleteModal(true);
   };
 
+  const showCarDetails = (car: ICar) => {
+    setSelectedCar(car);
+    setCarDetailModal(true);
+  };
+
   return (
     <>
-      {allcarsUserPerPage2.map((car) => (
-        <CardContainer key={car.id}>
+      {allcarsUserPerPage2.map((car, index) => (
+        <CardContainer key={index}>
           {car.status === false ? (
             <FlagNotAvailable>Inativo</FlagNotAvailable>
           ) : (
@@ -78,12 +87,19 @@ const CardAdmin = () => {
               >
                 Editar
               </button>
-              <button>Ver detalhes</button>
+              <button
+                onClick={() => {
+                  setCarDetailModal(!carDetailModal);
+                  showCarDetails(car);
+                }}
+              >
+                Ver detalhes
+              </button>
             </ButtonContainer>
           </ContainerInfo>
           {car.bestPrice && (
             <FlagGoodDeal>
-              <TbFlag3Filled />
+              <BiSolidBadgeDollar />
             </FlagGoodDeal>
           )}
         </CardContainer>
@@ -97,4 +113,5 @@ const CardAdmin = () => {
     </>
   );
 };
+
 export default CardAdmin;
