@@ -60,7 +60,9 @@ export const CarProvider = ({ children }: IDefaultProviderProps) => {
   //   }
   // };
 
-  const carRegister = async (formData: TCarRequest) => {
+  const carRegister = async (
+    formData: TCarRequest
+  ): Promise<AxiosResponse<ICar>> => {
     const token = localStorage.getItem("@userToken");
 
     let response: AxiosResponse<ICar> | "" = "";
@@ -82,7 +84,7 @@ export const CarProvider = ({ children }: IDefaultProviderProps) => {
         toast.error("Car already exists.");
       }
     }
-    return response;
+    return response as AxiosResponse<ICar>;
   };
 
   const editeCar = async (formData: TCarUpdate, carId: string) => {
@@ -109,7 +111,7 @@ export const CarProvider = ({ children }: IDefaultProviderProps) => {
         });
 
         setListCarsUser(newListCars);
-
+        carUserSeller();
         toast.success("Successfully changed!");
       } catch (error) {
         toast.error("Something went wrong!");
@@ -128,21 +130,8 @@ export const CarProvider = ({ children }: IDefaultProviderProps) => {
           },
         });
 
-        const carFind = listCarsUser.find((car) => car.id === carId);
-
-        if (!carFind) {
-          toast.error("Car Not Found!");
-        } else {
-          const newListCars = listCarsUser.filter((car) => {
-            if (car !== carFind) {
-              return car;
-            }
-          });
-
-          setListCarsUser(newListCars);
-
-          toast.success("Successfully deleted!");
-        }
+        carUserSeller();
+        toast.success("Successfully deleted!");
       } catch (error) {
         console.log(error);
 

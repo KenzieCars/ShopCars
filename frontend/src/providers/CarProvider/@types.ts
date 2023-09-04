@@ -13,7 +13,7 @@ export interface ICarContext {
   setAllCarsRegistered: React.Dispatch<
     React.SetStateAction<[] | TCarDataIdResponse[]>
   >;
-  carRegister: (formData: TCarRequest) => Promise<"" | AxiosResponse<ICar>>;
+  carRegister: (formData: TCarRequest) => Promise<AxiosResponse<ICar>>;
   editeCar: (formData: TCarUpdate, carId: string) => Promise<void>;
   deleteCar: (carId: string) => Promise<void>;
   registerCarImage: (payload: IImageRequest) => Promise<void>;
