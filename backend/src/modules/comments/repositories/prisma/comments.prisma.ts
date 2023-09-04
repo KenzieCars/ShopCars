@@ -9,7 +9,7 @@ import { CommentsRepository } from '../comments.repository';
 export class CommentsPrismaRepository implements CommentsRepository {
   constructor(private prisma: PrismaService) {}
 
-  async create(data: CreateCommentDto, userId: string): Promise<Comment> {    
+  async create(data: CreateCommentDto, userId: string): Promise<Comment> {
     const comment = new Comment();
 
     const car = await this.prisma.car.findFirst({
@@ -20,18 +20,18 @@ export class CommentsPrismaRepository implements CommentsRepository {
       throw new NotFoundException('Car not found');
     }
 
-    comment.carId = data.carId
-    comment.description = data.description
-    comment.userId = userId
-    comment.createdAtString = "0 segundos"
-    
+    comment.carId = data.carId;
+    comment.description = data.description;
+    comment.userId = userId;
+    comment.createdAtString = '0 segundos';
+
     const newComment = await this.prisma.comment.create({
       data: {
-        ...comment
+        ...comment,
       },
       include: {
-        user: true
-      }
+        user: true,
+      },
     });
 
     return newComment;
@@ -43,45 +43,8 @@ export class CommentsPrismaRepository implements CommentsRepository {
         user: true,
       },
     });
-    const currentDate = new Date();
-    const newComments = [];
 
-    comments.map((comment) => {
-      const postDate = new Date(comment.createdAt);
-      const result: number = Number(currentDate) - Number(postDate);
-
-      const segundos = Math.floor(result / 1000);
-      const minutos = Math.floor(segundos / 60);
-      const horas = Math.floor(minutos / 60);
-      const dias = Math.floor(horas / 24);
-
-      if (segundos < 60 && minutos <= 0) {
-        newComments.push({
-          ...comment,
-          createdAtString: `${segundos} segundos`,
-        });
-      }
-      if (minutos < 60 && segundos >= 60) {
-        newComments.push({
-          ...comment,
-          createdAtString: `${minutos} minutos`,
-        });
-      }
-      if (horas > 0 && minutos >= 60) {
-        newComments.push({
-          ...comment,
-          createdAtString: `${horas} horas`,
-        });
-      }
-      if (dias > 0 && horas >= 24) {
-        newComments.push({
-          ...comment,
-          createdAtString: `${dias} dias`,
-        });
-      }
-    });
-
-    return newComments;
+    return comments;
   }
 
   async findOne(id: string): Promise<Comment> {
@@ -91,43 +54,8 @@ export class CommentsPrismaRepository implements CommentsRepository {
         user: true,
       },
     });
-    const currentDate = new Date();
-    const newComments = [];
 
-    const postDate = new Date(comment.createdAt);
-    const result: number = Number(currentDate) - Number(postDate);
-
-    const segundos = Math.floor(result / 1000);
-    const minutos = Math.floor(segundos / 60);
-    const horas = Math.floor(minutos / 60);
-    const dias = Math.floor(horas / 24);
-
-    if (segundos < 60 && minutos <= 0) {
-      newComments.push({
-        ...comment,
-        createdAtString: `${segundos} segundos`,
-      });
-    }
-    if (minutos < 60 && segundos >= 60) {
-      newComments.push({
-        ...comment,
-        createdAtString: `${minutos} minutos`,
-      });
-    }
-    if (horas > 0 && minutos >= 60) {
-      newComments.push({
-        ...comment,
-        createdAtString: `${horas} horas`,
-      });
-    }
-    if (dias > 0 && horas >= 24) {
-      newComments.push({
-        ...comment,
-        createdAtString: `${dias}`,
-      });
-    }
-
-    return newComments[0];
+    return comment;
   }
 
   async update(id: string, data: UpdateCommentDto): Promise<Comment> {
