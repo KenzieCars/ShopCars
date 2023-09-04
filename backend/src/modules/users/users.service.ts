@@ -8,14 +8,22 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { UsersRepository } from './repositories/users.repository';
 import { MailService } from '../utils/mail.service';
 import { randomUUID } from 'crypto';
-import { InformEmailDto, InformNewPasswordDto, TokenDto } from './dto/send-email.dto';
+import {
+  InformEmailDto,
+  InformNewPasswordDto,
+  TokenDto,
+} from './dto/send-email.dto';
+import { User } from '@prisma/client';
 
 @Injectable()
 export class UsersService {
-  constructor(private usersRepository: UsersRepository, private mailService: MailService) {}
+  constructor(
+    private usersRepository: UsersRepository,
+    private mailService: MailService,
+  ) {}
 
   async create(createUserDto: CreateUserDto) {
-    const findUser = await this.usersRepository.findByEmail(
+    const findUser: User | null = await this.usersRepository.findByEmail(
       createUserDto.email,
     );
 
@@ -23,7 +31,7 @@ export class UsersService {
       throw new ConflictException('Email already exists');
     }
 
-    const user = await this.usersRepository.create(createUserDto);
+    const user: User = await this.usersRepository.create(createUserDto);
 
     return user;
   }
@@ -37,7 +45,7 @@ export class UsersService {
   }
 
   async findOne(id: string) {
-    const findUser = await this.usersRepository.findOne(id);
+    const findUser: User | null = await this.usersRepository.findOne(id);
 
     if (!findUser) {
       throw new NotFoundException('User not found');
@@ -47,13 +55,13 @@ export class UsersService {
   }
 
   async findByEmail(email: string) {
-    const findUser = await this.usersRepository.findByEmail(email);
+    const findUser: User = await this.usersRepository.findByEmail(email);
 
     return findUser;
   }
 
   async update(id: string, updateUserDto: UpdateUserDto) {
-    const findUser = await this.usersRepository.findOne(id);
+    const findUser: User | null = await this.usersRepository.findOne(id);
 
     if (!findUser) {
       throw new NotFoundException('User not found!');
@@ -73,13 +81,15 @@ export class UsersService {
   }
 
   async sendEmailResetPassword(informEmailDto: InformEmailDto) {
-    const user = await this.usersRepository.findByEmail(informEmailDto.email);
+    const user: User | null = await this.usersRepository.findByEmail(
+      informEmailDto.email,
+    );
 
     if (!user) {
       throw new NotFoundException('User Not found');
     }
 
-    const resetToken = randomUUID();
+    const resetToken: string = randomUUID();
 
     await this.usersRepository.updateToken(informEmailDto.email, resetToken);
 
@@ -88,16 +98,25 @@ export class UsersService {
       user.name,
       resetToken,
     );
+
     await this.mailService.sendEmail(resetPasswordTemplate);
   }
 
-  async resetPassword(informNewPasswordDto: InformNewPasswordDto, tokenDto: TokenDto) {
-    const user = await this.usersRepository.findByToken(tokenDto.token);
+  async resetPassword(
+    informNewPasswordDto: InformNewPasswordDto,
+    tokenDto: TokenDto,
+  ) {
+    const user: User | null = await this.usersRepository.findByToken(
+      tokenDto.token,
+    );
 
     if (!user) {
       throw new NotFoundException('User Not found');
     }
 
-    await this.usersRepository.updatePassword(user.id, informNewPasswordDto.password);
+    await this.usersRepository.updatePassword(
+      user.id,
+      informNewPasswordDto.password,
+    );
   }
 }

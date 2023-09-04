@@ -4,27 +4,28 @@ import { ImagesRepository } from 'src/modules/images/repositories/images.reposit
 import { CreateImageDto } from '../../dto/create-image.dto';
 import { Image } from 'src/modules/images/entities/image.entity';
 import { UpdateImageDto } from '../../dto/update-image.dto';
+import { Car } from '@prisma/client';
 
 @Injectable()
 export class ImagesPrismaRepository implements ImagesRepository {
   constructor(private prisma: PrismaService) {}
 
   async create(data: CreateImageDto): Promise<Image> {
-    const image = new Image();
+    const image: Image = new Image();
 
-    const car = await this.prisma.car.findFirst({
+    const car: Car | null = await this.prisma.car.findFirst({
       where: { id: data.carId },
     });
 
-    if(!car){
-      throw new NotFoundException("Car not found")
+    if (!car) {
+      throw new NotFoundException('Car not found');
     }
 
     Object.assign(image, {
       ...data,
     });
 
-    const newImage = await this.prisma.image.create({
+    const newImage: Image = await this.prisma.image.create({
       data: {
         id: image.id,
         imgGalery: image.imgGalery,
@@ -36,20 +37,20 @@ export class ImagesPrismaRepository implements ImagesRepository {
   }
 
   async findAll(): Promise<Image[]> {
-    const images = await this.prisma.image.findMany();
+    const images: Image[] | [] = await this.prisma.image.findMany();
     return images;
   }
 
   async findOne(id: string): Promise<Image> {
-    const image = await this.prisma.image.findFirst({
+    const image: Image = await this.prisma.image.findFirst({
       where: { id },
     });
-    console.log(image)
+
     return image;
   }
 
   async update(id: string, data: UpdateImageDto): Promise<Image> {
-    const image = await this.prisma.image.update({
+    const image: Image = await this.prisma.image.update({
       where: { id },
       data: { ...data },
     });
@@ -61,5 +62,4 @@ export class ImagesPrismaRepository implements ImagesRepository {
       where: { id },
     });
   }
-
 }
