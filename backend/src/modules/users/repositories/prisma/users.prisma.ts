@@ -12,13 +12,13 @@ export class UsersPrismaRepository implements UsersRepository {
   constructor(private prisma: PrismaService) {}
 
   async create(data: CreateUserDto): Promise<User> {
-    const user = new User();
+    const user: User = new User();
 
     Object.assign(user, {
       ...data,
     });
 
-    const newUser = await this.prisma.user.create({
+    const newUser: User = await this.prisma.user.create({
       data: { ...user },
     });
 
@@ -26,13 +26,13 @@ export class UsersPrismaRepository implements UsersRepository {
   }
 
   async findAll(): Promise<User[]> {
-    const users = await this.prisma.user.findMany();
+    const users: User[] | [] = await this.prisma.user.findMany();
 
     return plainToInstance(User, users);
   }
 
-  async findAllProfile(): Promise<User[]> {
-    const users = await this.prisma.user.findMany({
+  async findAllProfile(): Promise<User[] | []> {
+    const users: User[] | [] = await this.prisma.user.findMany({
       include: {
         cars: true
       },
@@ -42,7 +42,7 @@ export class UsersPrismaRepository implements UsersRepository {
   }
 
   async findOne(id: string): Promise<User> {
-    const user = await this.prisma.user.findUnique({
+    const user: User = await this.prisma.user.findUnique({
       where: { id },
       include: {
         cars: true,
@@ -53,7 +53,7 @@ export class UsersPrismaRepository implements UsersRepository {
   }
 
   async findByEmail(email: string): Promise<User> {
-    const user = await this.prisma.user.findUnique({
+    const user: User = await this.prisma.user.findUnique({
       where: { email },
     });
 
@@ -61,7 +61,7 @@ export class UsersPrismaRepository implements UsersRepository {
   }
 
   async findByToken(token: string): Promise<User> {
-    const user = await this.prisma.user.findFirst({
+    const user: User = await this.prisma.user.findFirst({
       where: { reset_token: token },
     });
 
@@ -69,7 +69,7 @@ export class UsersPrismaRepository implements UsersRepository {
   }
 
   async update(id: string, data: UpdateUserDto): Promise<User> {
-    const user = await this.prisma.user.update({
+    const user: User = await this.prisma.user.update({
       where: { id },
       data: { ...data },
       include: {

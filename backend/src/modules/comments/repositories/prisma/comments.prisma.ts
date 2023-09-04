@@ -4,15 +4,17 @@ import { CreateCommentDto } from '../../dto/create-comment.dto';
 import { UpdateCommentDto } from '../../dto/update-comment.dto';
 import { Comment } from '../../entities/comment.entity';
 import { CommentsRepository } from '../comments.repository';
+import { Car } from '@prisma/client';
+import { ICommentUser } from '../../interfaces/comments.interfaces';
 
 @Injectable()
 export class CommentsPrismaRepository implements CommentsRepository {
   constructor(private prisma: PrismaService) {}
 
-  async create(data: CreateCommentDto, userId: string): Promise<Comment> {
-    const comment = new Comment();
+  async create(data: CreateCommentDto, userId: string): Promise<ICommentUser> {
+    const comment: Comment = new Comment();
 
-    const car = await this.prisma.car.findFirst({
+    const car: Car | null = await this.prisma.car.findFirst({
       where: { id: data.carId },
     });
 
@@ -25,7 +27,7 @@ export class CommentsPrismaRepository implements CommentsRepository {
     comment.userId = userId;
     comment.createdAtString = '0 segundos';
 
-    const newComment = await this.prisma.comment.create({
+    const newComment: ICommentUser= await this.prisma.comment.create({
       data: {
         ...comment,
       },
@@ -37,8 +39,8 @@ export class CommentsPrismaRepository implements CommentsRepository {
     return newComment;
   }
 
-  async findAll(): Promise<Comment[]> {
-    const comments = await this.prisma.comment.findMany({
+  async findAll(): Promise<ICommentUser[] | []> {
+    const comments: ICommentUser[] | [] = await this.prisma.comment.findMany({
       include: {
         user: true,
       },
@@ -47,8 +49,8 @@ export class CommentsPrismaRepository implements CommentsRepository {
     return comments;
   }
 
-  async findOne(id: string): Promise<Comment> {
-    const comment = await this.prisma.comment.findFirst({
+  async findOne(id: string): Promise<ICommentUser> {
+    const comment: ICommentUser | null = await this.prisma.comment.findFirst({
       where: { id },
       include: {
         user: true,
@@ -59,7 +61,7 @@ export class CommentsPrismaRepository implements CommentsRepository {
   }
 
   async update(id: string, data: UpdateCommentDto): Promise<Comment> {
-    const comment = await this.prisma.comment.update({
+    const comment: Comment | null = await this.prisma.comment.update({
       where: { id },
       data: { ...data },
     });
