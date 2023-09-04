@@ -1,23 +1,24 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/database/prisma.service';
-import { CarsRepository, PaginationCars } from '../cars.repository';
+import { CarsRepository } from '../cars.repository';
 import { CreateCarDto } from '../../dto/create-car.dto';
 import { Car } from '../../entities/car.entity';
 import { UpdateCarDto } from '../../dto/update-car.dto';
+import { TPaginationCars } from '../../interface/car.interfaces';
 
 @Injectable()
 export class CarsPrismaRepository implements CarsRepository {
   constructor(private prisma: PrismaService) {}
 
   async create(data: CreateCarDto, userId: string): Promise<Car> {
-    const car = new Car();
+    const car: Car = new Car();
 
     Object.assign(car, {
       ...data,
       userId: userId,
     });
 
-    const newCar = await this.prisma.car.create({
+    const newCar: Car = await this.prisma.car.create({
       data: {
         id: car.id,
 
@@ -40,11 +41,11 @@ export class CarsPrismaRepository implements CarsRepository {
     return newCar;
   }
 
-  async findAll(page: number, perPage: number): Promise<PaginationCars> {
+  async findAll(page: number, perPage: number): Promise<TPaginationCars> {
     const skip = (page - 1) * perPage;
     const take = perPage;
 
-    const cars = await this.prisma.car.findMany({
+    const cars: Car[] | [] = await this.prisma.car.findMany({
       skip,
       take,
       include: {
@@ -53,33 +54,38 @@ export class CarsPrismaRepository implements CarsRepository {
         user: true,
       },
     });
-    const totalCars = await this.prisma.car.count()
+
+    const totalCars = await this.prisma.car.count();
     const totalPages = Math.ceil(totalCars / perPage);
     const nextPage = Number(page) < totalPages && Number(page) + 1;
-    const prevPage = Number(page) > 1 && Number(page) <= totalPages + 1  && Number(page) - 1;
-    const nextPageUrl = nextPage ? `http://localhost:3000/cars/?page=${nextPage}` : null
-    const prevPageUrl = prevPage ? `http://localhost:3000/cars/?page=${prevPage}` : null
+    const prevPage =
+      Number(page) > 1 && Number(page) <= totalPages + 1 && Number(page) - 1;
+    const nextPageUrl = nextPage
+      ? `http://localhost:3000/cars/?page=${nextPage}`
+      : null;
+    const prevPageUrl = prevPage
+      ? `http://localhost:3000/cars/?page=${prevPage}`
+      : null;
 
-    const returnCarsPagination = {
+    const returnCarsPagination: TPaginationCars = {
       nextPage: nextPageUrl,
       prevPage: prevPageUrl,
       totalPages: totalPages,
       totalCars: totalCars,
-      cars
-    }
+      cars,
+    };
 
     return returnCarsPagination;
   }
 
-  async findAllCars(): Promise<Car[]> {
-
-    const cars = await this.prisma.car.findMany({
+  async findAllCars(): Promise<Car[]| []> {
+    const cars: Car[] | [] = await this.prisma.car.findMany({
       include: {
         images: true,
         comments: {
           include: {
-            user: true
-          }
+            user: true,
+          },
         },
         user: true,
       },
@@ -89,14 +95,14 @@ export class CarsPrismaRepository implements CarsRepository {
   }
 
   async findOne(id: string): Promise<Car> {
-    const car = await this.prisma.car.findFirst({
+    const car: Car = await this.prisma.car.findFirst({
       where: { id },
       include: {
         images: true,
         comments: {
           include: {
-            user: true
-          }
+            user: true,
+          },
         },
         user: true,
       },
@@ -105,7 +111,7 @@ export class CarsPrismaRepository implements CarsRepository {
   }
 
   async update(id: string, data: UpdateCarDto): Promise<Car> {
-    const car = await this.prisma.car.update({
+    const car: Car = await this.prisma.car.update({
       where: { id },
       include: {
         images: true,

@@ -2,6 +2,7 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateImageDto } from './dto/create-image.dto';
 import { UpdateImageDto } from './dto/update-image.dto';
 import { ImagesRepository } from './repositories/images.repository';
+import { Image } from '@prisma/client';
 
 @Injectable()
 export class ImagesService {
@@ -16,7 +17,7 @@ export class ImagesService {
   }
 
   async findOne(id: string) {
-    const image = await this.imagesRepository.findOne(id);
+    const image: Image | null = await this.imagesRepository.findOne(id);
 
     if (!image) {
       throw new NotFoundException('Image not found');
@@ -25,7 +26,7 @@ export class ImagesService {
   }
 
   async update(id: string, updateImageDto: UpdateImageDto) {
-    const findImage = await this.imagesRepository.findOne(id);
+    const findImage: Image | null = await this.imagesRepository.findOne(id);
 
     if (!findImage) {
       throw new NotFoundException('Image not found');
@@ -35,7 +36,7 @@ export class ImagesService {
   }
 
   async remove(id: string) {
-    const findImage = await this.imagesRepository.findOne(id);
+    const findImage: Image | null = await this.imagesRepository.findOne(id);
 
     if (!findImage) {
       throw new NotFoundException('Image not found');
