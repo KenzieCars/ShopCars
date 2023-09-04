@@ -2,6 +2,8 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { CommentsRepository } from './repositories/comments.repository';
 import { CreateCommentDto } from './dto/create-comment.dto';
 import { UpdateCommentDto } from './dto/update-comment.dto';
+import { Comment } from '@prisma/client';
+import { ICommentUser } from './interfaces/comments.interfaces';
 
 
 @Injectable()
@@ -13,7 +15,7 @@ export class CommentsService {
   }
 
   async findAll() {
-    const comments = await this.commentsRepository.findAll();
+    const comments: ICommentUser[] | [] = await this.commentsRepository.findAll();
     const currentDate = new Date();
     const newComments = [];
 
@@ -57,8 +59,8 @@ export class CommentsService {
   }
 
   async findOne(id: string) {
-    const comment = await this.commentsRepository.findOne(id);
-    
+    const comment: ICommentUser | null = await this.commentsRepository.findOne(id);
+
     if (!comment) {
       throw new NotFoundException('Comment not found');
     }
@@ -102,7 +104,7 @@ export class CommentsService {
   }
 
   async update(id: string, updateCommentDto: UpdateCommentDto) {
-    const comment = await this.commentsRepository.findOne(id);
+    const comment: ICommentUser | null = await this.commentsRepository.findOne(id);
 
     if (!comment) {
       throw new NotFoundException('Comment not found');
@@ -112,7 +114,7 @@ export class CommentsService {
   }
 
   async remove(id: string) {
-    const findcomment = await this.commentsRepository.findOne(id);
+    const findcomment: ICommentUser | null = await this.commentsRepository.findOne(id);
 
     if (!findcomment) {
       throw new NotFoundException('Comment not found');
