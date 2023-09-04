@@ -17,8 +17,8 @@ import { AxiosResponse } from "axios";
 import { IFipeCars, IUpdateCars } from "../RegisterCarModal/@types";
 import { convertObjectToArray, handleKm, handleValue } from "./utils";
 import DeleteCarModal from "./DeleteCarModal";
-// import { CarContext } from "../../providers/CarProvider/CarContext";
-// import { TCarRequest } from "../../providers/CarProvider/@types";
+import { CarContext } from "../../providers/CarProvider/CarContext";
+import { IImageRequest, IImageUpdate, TCarRequest } from "../../providers/CarProvider/@types";
 import { UserContext } from "../../providers/UserProvider/UserContext";
 
 
@@ -40,7 +40,8 @@ const UpdateOrDeleteCarModal = ({ setModal: setUpdateModal, car }: IUpdateModalP
         imgCover: car?.imgCover || ""
     });
 
-    // const { editeCar } = useContext(CarContext);
+    const { editeCar, registerCarImage,
+        updateCarImage, deleteCarImage } = useContext(CarContext);
     const { allcarsComumProfile } = useContext(UserContext);
 
     const allCarImages = allcarsComumProfile
@@ -103,7 +104,7 @@ const UpdateOrDeleteCarModal = ({ setModal: setUpdateModal, car }: IUpdateModalP
 
         for (let index: number = 0; index < Object.keys(imagesObjects).length; index++) {
             try {
-                if (imagesObjects[`img${index}` as keyof IObjectImages] === "") {
+                if (imagesObjects[`img${index}` as keyof IObjectImages] == "") {
                     delete imagesObjects[`img${index}` as keyof IObjectImages];
                 } else {
                     const _url = new URL(imagesObjects[`img${index}` as keyof IObjectImages]!);
@@ -134,14 +135,20 @@ const UpdateOrDeleteCarModal = ({ setModal: setUpdateModal, car }: IUpdateModalP
         updatePayload.imgCover = updatePayload.imgCover.href;
         updatePayload.bestPrice = bestPriceReckoning(fipePrice as number / 100, updatePayload.price);
 
-        // await editeCar(updatePayload as TCarRequest, car!.id);
+        await editeCar(updatePayload as TCarRequest, car!.id);
 
         let counter: number = 0;
 
         if (imagesToUpdate.length === allCarImages.length) {
 
             for (let index: number = 0; index < imagesToUpdate.length; index++) {
-                console.log("UPDATE " + index);
+
+                const updateData: IImageUpdate = {
+                    id: allCarImages[index].id,
+                    imgGalery: imagesToUpdate[index]
+                };
+                await updateCarImage(updateData);
+
             };
 
         } else if (imagesToUpdate.length > allCarImages.length) {
@@ -149,12 +156,24 @@ const UpdateOrDeleteCarModal = ({ setModal: setUpdateModal, car }: IUpdateModalP
             for (let index: number = 0; index < imagesToUpdate.length; index++) {
 
                 if (counter >= allCarImages.length) {
-                    console.log("CREATE " + index);
-                    counter = counter + 1;
+
+                    const registerData: IImageRequest = {
+                        carId: car!.id,
+                        imgGalery: imagesToUpdate[index]
+                    };
+                    await registerCarImage(registerData);
+
+                    counter++;
 
                 } else {
-                    console.log("UPDATE " + index);
-                    counter = counter + 1;
+
+                    const updateData: IImageUpdate = {
+                        id: allCarImages[index].id,
+                        imgGalery: imagesToUpdate[index]
+                    };
+                    await updateCarImage(updateData);
+
+                    counter++;
                 };
             };
         } else {
@@ -162,17 +181,23 @@ const UpdateOrDeleteCarModal = ({ setModal: setUpdateModal, car }: IUpdateModalP
             for (let index: number = 0; index < allCarImages.length; index++) {
 
                 if (counter >= imagesToUpdate.length) {
-                    console.log("DELETE " + index);
+                    await deleteCarImage(allCarImages[index].id);
+
                     counter++;
 
                 } else {
-                    console.log("UPDATE" + index);
+                    const updateData: IImageUpdate = {
+                        id: allCarImages[index].id,
+                        imgGalery: imagesToUpdate[index]
+                    };
+                    await updateCarImage(updateData);
+
                     counter++;
                 };
             };
         };
 
-        // setUpdateModal(false);
+        setUpdateModal(false);
     };
 
     function getCarStatus(status: boolean): string {

@@ -27,6 +27,8 @@ export interface ICarContext {
   setCarDetailModal: React.Dispatch<React.SetStateAction<boolean>>;
   selectedCar: ICar | null;
   setSelectedCar: React.Dispatch<React.SetStateAction<ICar | null>>;
+  updateCarImage: (payload: IImageUpdate) => Promise<void>;
+  deleteCarImage: (carId: string) => Promise<void>;
 }
 export interface IDefaultProviderProps {
   children: React.ReactNode;
@@ -56,6 +58,7 @@ export interface IImage {
   carId: string;
 }
 export type IImageRequest = Omit<IImage, "id">;
+export type IImageUpdate = Partial<Omit<IImage, "carId">>;
 export interface IComment {
   id: string;
   description: string;

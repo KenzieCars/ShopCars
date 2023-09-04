@@ -16,7 +16,7 @@ export const ModalContainer = styled.div`
     max-height: 570px;
     background-color: var(--white);
     border-radius: 8px;
-    margin: .4rem auto 0;
+    margin: 2rem auto 0;
     overflow-y: auto;
 `
 
@@ -34,6 +34,7 @@ export const FormModalContainer = styled.form`
         width: 100%;
         height: 2px;
         border: 1px solid var(--light-gray);
+        margin: .5rem 0;
     }
 `
 
