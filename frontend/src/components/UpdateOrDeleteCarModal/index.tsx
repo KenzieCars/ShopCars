@@ -32,6 +32,7 @@ const UpdateOrDeleteCarModal = ({ setModal: setUpdateModal, car }: IUpdateModalP
         brand: car?.brand || "",
         model: car?.model || "",
         year: car?.year || "",
+        fuel: car?.fuel || "",
         km: numberToKm(car!.km) || numberToKm(0),
         color: car?.color || "",
         price: numberToCash(car!.price * 100) || numberToCash(0),
@@ -42,7 +43,7 @@ const UpdateOrDeleteCarModal = ({ setModal: setUpdateModal, car }: IUpdateModalP
 
     const { editeCar, registerCarImage,
         updateCarImage, deleteCarImage } = useContext(CarContext);
-    const { allcarsComumProfile } = useContext(UserContext);
+    const { allcarsComumProfile, carUser } = useContext(UserContext);
 
     const allCarImages = allcarsComumProfile
         .filter((vehicle) => vehicle.id === car!.id)[0].images;
@@ -53,8 +54,8 @@ const UpdateOrDeleteCarModal = ({ setModal: setUpdateModal, car }: IUpdateModalP
         // eslint-disable-next-line prefer-const
         let objectImages: IObjectImages = {};
 
-        for (let index: number | string = 0; index < allCarImages.length; index++) {
-            objectImages[`img${index}` as keyof IObjectImages] = allCarImages[index].imgGalery;
+        for (let index: number | string = 0; index < allCarImages!.length; index++) {
+            objectImages[`img${index}` as keyof IObjectImages] = allCarImages![index].imgGalery;
         };
         return objectImages;
     };
@@ -75,6 +76,7 @@ const UpdateOrDeleteCarModal = ({ setModal: setUpdateModal, car }: IUpdateModalP
             }
         };
         getFipePrice(updateData.brand, updateData.model);
+
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
@@ -160,23 +162,23 @@ const UpdateOrDeleteCarModal = ({ setModal: setUpdateModal, car }: IUpdateModalP
 
         let counter: number = 0;
 
-        if (imagesToUpdate.length === allCarImages.length) {
+        if (imagesToUpdate.length === allCarImages!.length) {
 
             for (let index: number = 0; index < imagesToUpdate.length; index++) {
 
                 const updateData: IImageUpdate = {
-                    id: allCarImages[index].id,
+                    id: allCarImages![index].id,
                     imgGalery: imagesToUpdate[index]
                 };
                 await updateCarImage(updateData);
 
             };
 
-        } else if (imagesToUpdate.length > allCarImages.length) {
+        } else if (imagesToUpdate.length > allCarImages!.length) {
 
             for (let index: number = 0; index < imagesToUpdate.length; index++) {
 
-                if (counter >= allCarImages.length) {
+                if (counter >= allCarImages!.length) {
 
                     const registerData: IImageRequest = {
                         carId: car!.id,
@@ -189,7 +191,7 @@ const UpdateOrDeleteCarModal = ({ setModal: setUpdateModal, car }: IUpdateModalP
                 } else {
 
                     const updateData: IImageUpdate = {
-                        id: allCarImages[index].id,
+                        id: allCarImages![index].id,
                         imgGalery: imagesToUpdate[index]
                     };
                     await updateCarImage(updateData);
@@ -199,16 +201,16 @@ const UpdateOrDeleteCarModal = ({ setModal: setUpdateModal, car }: IUpdateModalP
             };
         } else {
 
-            for (let index: number = 0; index < allCarImages.length; index++) {
+            for (let index: number = 0; index < allCarImages!.length; index++) {
 
                 if (counter >= imagesToUpdate.length) {
-                    await deleteCarImage(allCarImages[index].id);
+                    await deleteCarImage(allCarImages![index].id);
 
                     counter++;
 
                 } else {
                     const updateData: IImageUpdate = {
-                        id: allCarImages[index].id,
+                        id: allCarImages![index].id,
                         imgGalery: imagesToUpdate[index]
                     };
                     await updateCarImage(updateData);
@@ -217,7 +219,7 @@ const UpdateOrDeleteCarModal = ({ setModal: setUpdateModal, car }: IUpdateModalP
                 };
             };
         };
-
+        carUser();
         setUpdateModal(false);
     };
 
@@ -262,6 +264,30 @@ const UpdateOrDeleteCarModal = ({ setModal: setUpdateModal, car }: IUpdateModalP
                 ))}
             </>
         );
+    };
+
+    const anotherFuelOptions = (fipeFuelOption: string = "Flex") => {
+        const allFuelOptions = [
+            { fuelTipe: "Flex" },
+            { fuelTipe: "Híbrido" },
+            { fuelTipe: "Elétrico" },
+            { fuelTipe: "Gás Natural Veicular" },
+            { fuelTipe: "Álcool" },
+            { fuelTipe: "Gasolina" },
+        ]
+
+        const newAnotherOptions = allFuelOptions.filter((fuel) => fuel.fuelTipe !== fipeFuelOption);
+
+        return (
+            <>
+                {newAnotherOptions.map((option) => (
+                    <option value={option.fuelTipe}
+                        key={`fuel_${option.fuelTipe}`}>
+                        {option.fuelTipe}
+                    </option>
+                ))}
+            </>
+        )
     };
 
     const changePublishedStyle = (): IChangeStyles => {
@@ -338,7 +364,10 @@ const UpdateOrDeleteCarModal = ({ setModal: setUpdateModal, car }: IUpdateModalP
                         </FieldsetModal>
                         <FieldsetModal>
                             <label htmlFor="fuel">Combustivel</label>
-                            <input id="fuel" disabled value={car?.fuel} />
+                            <select id="fuel" name="fuel" onChange={handleUpdate}>
+                                <option value={car?.fuel}>{car?.fuel}</option>
+                                {anotherFuelOptions(car?.fuel)}
+                            </select>
                         </FieldsetModal>
                     </DualFields>
                     <DualFields>
