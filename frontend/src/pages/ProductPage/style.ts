@@ -410,7 +410,7 @@ export const PostAComment = styled.section`
 
   border-radius: 6px;
 
-  background: var(--light-black);
+  background: var(--gray);
 
   > div {
     display: flex;
@@ -447,6 +447,8 @@ export const PostAComment = styled.section`
     transition: .2s ease;
 
     resize: none;
+
+    background: var(--black);
     
     &:focus {
       border: 2px solid var(--primary-color);
@@ -463,7 +465,7 @@ export const PostAComment = styled.section`
   }
 
   > form > button {// Alterei, era um button 
-    background-color: var(--black);
+    background-color: var(--primary-color);
     
     color: var(--white);
     font-weight: 600;
@@ -474,7 +476,7 @@ export const PostAComment = styled.section`
     transition: .2s ease;
 
     &:hover {
-      background-color: var(--primary-color);
+      background-color: var(--primary-color-hover);
     }
   }
 
