@@ -4,6 +4,8 @@ export const ContainerSlider = styled.section`
   position: relative;
   height: 100%;
 
+  padding-top: 5rem;
+
   &::before {
     content: "";
     position: absolute;
@@ -16,13 +18,13 @@ export const ContainerSlider = styled.section`
 
   @media (min-width: 768px) {
     height: 34rem;
+    padding-top: 0rem;
   }
 `
 
 export const ImgSlider = styled.img`
   width: 100%;
   height: 100%;
-
 
   position: relative;
   z-index: 1;

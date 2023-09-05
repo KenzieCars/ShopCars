@@ -32,6 +32,7 @@ import { UserContext } from "../../providers/UserProvider/UserContext";
 import Loading from "../Loading";
 import { ICar, TCarRequest } from "../../providers/CarProvider/@types";
 import { handleNumber } from "../RegisterForm/utils";
+import { MdOutlineAddCircle } from 'react-icons/md'
 
 const carInfoDefault = {
   brand: "brand",
@@ -427,7 +428,7 @@ const RegisterCarModal = ({ setModal }: IModalProps) => {
                 type="button"
                 onClick={() => setExtraImagesFields(extraImagesFields + 1)}
               >
-                Adicionar campo para imagem
+                <MdOutlineAddCircle />Adicionar campo para imagem
               </button>
             ) : null}
           </AddImagesContainer>

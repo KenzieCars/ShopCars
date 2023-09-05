@@ -38,6 +38,7 @@ export const TitleContainer = styled.div`
   gap: 0.4rem;
 
   padding: 2.8rem;
+  padding-top: 6.8rem;
 
   position: absolute;
 
@@ -48,11 +49,10 @@ export const TitleContainer = styled.div`
     font-family: 'Anton', sans-serif;
 
     > span {
-      font-family: 'Sedgwick Ave Display', cursive;
+      font-family: 'Galada', cursive;
       color: white;
     }
   }
-
 
   > h1 {
     font-size: 1.7rem;

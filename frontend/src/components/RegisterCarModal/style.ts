@@ -8,12 +8,14 @@ export const ModalWrapper = styled.div`
     height: 100vh;
     background-color: rgba(0,0,0,0.5);
     z-index: 9;
+
+    backdrop-filter: blur(2px);
 `
 
 export const ModalContainer = styled.div`
     width: 95%;
     max-width: 520px;
-    max-height: 570px;
+    max-height: 90%;
     background-color: var(--white);
     border-radius: 8px;
     margin: 2rem auto 0;
@@ -106,7 +108,7 @@ export const DualFields = styled.div`
             padding: .7rem 1rem;
             width: 100%;
             border-radius: 8px;
-            border: 2px solid var(--white);
+            border: 2px solid var(--light-gray);
             outline: none;
             color: var(--gray);
             transition: .2s ease;
@@ -141,7 +143,7 @@ export const FieldsetModal = styled.fieldset`
         > select {
         padding: .7rem 1rem;
         border-radius: 8px;
-        border: 2px solid var(--white);
+        border: 2px solid var(--light-gray);
         outline: none;
         color: var(--gray);
         transition: .2s ease;
@@ -150,7 +152,7 @@ export const FieldsetModal = styled.fieldset`
     > textarea {
         padding: .7rem 1rem;
         border-radius: 8px;
-        border: 2px solid var(--white);
+        border: 2px solid var(--light-gray);
         outline: none;
         color: var(--gray);
         transition: .2s ease;
@@ -169,7 +171,7 @@ export const FieldsetModal = styled.fieldset`
     > input {
         padding: .7rem 1rem;
         border-radius: 8px;
-        border: 2px solid var(--white);
+        border: 2px solid var(--light-gray);
         outline: none;
         color: var(--gray);
         transition: .2s ease;
@@ -227,16 +229,21 @@ export const AddImagesContainer = styled.div`
     min-height: 35px;
 
     > button {
-        background-color: var(--primary-color-hover);
+        background-color: var(--primary-color);
         height: 2rem;
         border-radius: 8px;
-        width: 60%;
-        color: var(--primary-color);
+        /* width: 60%; */
+        padding: .4rem 1rem;
+        color: var(--white);
         font-weight: 700;
         transition: .2s ease;
 
+        display: flex;
+        align-items: center;
+        gap: .1rem;
+
         &:hover {
-            background: var(--primary-color);
+            background: var(--primary-color-hover);
             color: var(--white);
         }
     }

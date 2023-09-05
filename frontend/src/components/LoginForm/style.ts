@@ -6,13 +6,15 @@ export const MainContainerLogin = styled.main`
   flex-direction: column;
   padding: 1rem;
 
+  padding-top : 5rem;
+
   @media (min-width: 768px) {
-    margin-top: 7rem;
+    margin-top: 2rem;
     align-items: center;
 
     height: 100vh;
 
-    padding-bottom: 4rem;
+    padding-bottom: 2rem;
   }
 `
 
