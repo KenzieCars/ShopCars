@@ -1,6 +1,6 @@
 /* eslint-disable no-extra-semi */
 import {
-    useEffect, useState, useContext
+    useEffect, useState, useContext, useRef, LegacyRef
 } from "react";
 import {
     AddImagesContainer, DualFields,
@@ -62,7 +62,6 @@ const UpdateOrDeleteCarModal = ({ setModal: setUpdateModal, car }: IUpdateModalP
     const [updateImages, setUpdateImages] = useState<IObjectImages>(arrayToObjectImages());
     const [updateImagesError, setUpdateImagesError] = useState<IObjectImages>({});
 
-
     const { handleSubmit } = useForm<TUpdateSchema>();
 
     useEffect(() => {
@@ -76,7 +75,29 @@ const UpdateOrDeleteCarModal = ({ setModal: setUpdateModal, car }: IUpdateModalP
             }
         };
         getFipePrice(updateData.brand, updateData.model);
-    });
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+
+    const updateModalRef = useRef<HTMLElement>(null);
+    const [disableOutclickEvent, setDisableOutclickEvent] = useState<boolean>(false);
+
+    useEffect(() => {
+        const handleOutclick = (event: MouseEvent) => {
+            if (!updateModalRef.current?.contains(event.target as Node)) {
+                setUpdateModal(false);
+            }
+        }
+
+        window.addEventListener("mousedown", handleOutclick);
+
+        if (disableOutclickEvent) {
+            window.removeEventListener("mousedown", handleOutclick);
+        }
+
+        return () => {
+            window.removeEventListener("mousedown", handleOutclick);
+        }
+    }, [disableOutclickEvent, setUpdateModal]);
 
     const updateCar = async (): Promise<void | null> => {
         // eslint-disable-next-line prefer-const
@@ -286,10 +307,15 @@ const UpdateOrDeleteCarModal = ({ setModal: setUpdateModal, car }: IUpdateModalP
         }));
     };
 
+    const openDeleteCarModal = () => {
+        setDeleteCarModal(true);
+        setDisableOutclickEvent(true);
+    }
+
     return (
         <ModalWrapper role="dialog">
             <ModalContainer
-            // ref={modalContainerRef as LegacyRef<HTMLDivElement>}
+                ref={updateModalRef as LegacyRef<HTMLDivElement>}
             >
                 <FormModalContainer onSubmit={handleSubmit(updateCar)}>
                     <TitleModal>
@@ -381,13 +407,13 @@ const UpdateOrDeleteCarModal = ({ setModal: setUpdateModal, car }: IUpdateModalP
                     <div className="division_between_buttons"></div>
                     <UpdateButtonsContainer>
                         <button type="button" className="cancel"
-                            onClick={() => setDeleteCarModal(true)}>Excluir anúncio</button>
+                            onClick={() => openDeleteCarModal()}>Excluir anúncio</button>
                         <button type="submit">Salvar alterações</button>
                     </UpdateButtonsContainer>
                 </FormModalContainer>
             </ModalContainer>
             {deleteCarModal && <DeleteCarModal carId={car?.id} setDeleteCarModal={setDeleteCarModal}
-                setUpdateModal={setUpdateModal} />}
+                setUpdateModal={setUpdateModal} setDisableOutclickEvent={setDisableOutclickEvent} />}
         </ModalWrapper>
     )
 };

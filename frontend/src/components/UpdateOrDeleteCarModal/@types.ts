@@ -11,6 +11,7 @@ export interface IUpdateModalProps {
 export interface IDeleteModalProps {
     setDeleteCarModal: React.Dispatch<React.SetStateAction<boolean>>
     setUpdateModal: React.Dispatch<React.SetStateAction<boolean>>
+    setDisableOutclickEvent: React.Dispatch<React.SetStateAction<boolean>>
     carId?: string | undefined
 }
 

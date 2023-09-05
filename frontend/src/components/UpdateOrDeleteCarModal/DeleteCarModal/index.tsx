@@ -4,7 +4,7 @@ import { useContext } from "react";
 import { CarContext } from "../../../providers/CarProvider/CarContext";
 
 
-const DeleteCarModal = ({ carId, setDeleteCarModal, setUpdateModal }: IDeleteModalProps) => {
+const DeleteCarModal = ({ carId, setDeleteCarModal, setUpdateModal, setDisableOutclickEvent }: IDeleteModalProps) => {
     const { deleteCar } = useContext(CarContext);
 
     const handleDeleteCar = async (id: string): Promise<void> => {
@@ -17,17 +17,22 @@ const DeleteCarModal = ({ carId, setDeleteCarModal, setUpdateModal }: IDeleteMod
         }
     }
 
+    const closeDeleteCarModal = () => {
+        setDeleteCarModal(false);
+        setDisableOutclickEvent(false);
+    }
+
     return (
         <DeleteModalWrapper role="dialog">
             <DeleteModalContainer>
                 <DeleteModalHeader>
                     <h3>Excluir anúncio</h3>
-                    <span onClick={() => setDeleteCarModal(false)}>X</span>
+                    <span onClick={() => closeDeleteCarModal()}>X</span>
                 </DeleteModalHeader>
                 <h4>Tem certeza que deseja remover este anúncio?</h4>
                 <p>Essa ação não pode ser desfeita. Isso excluirá permanentemente sua conta e removerá seus dados de nossos servidores.</p>
                 <DeleteModalButtons>
-                    <button type="button" className="cancel" onClick={() => setDeleteCarModal(false)}>Cancelar</button>
+                    <button type="button" className="cancel" onClick={() => closeDeleteCarModal()}>Cancelar</button>
                     <button type="button" className="delete" onClick={() => handleDeleteCar(carId!)}>Sim, excluir anúncio</button>
                 </DeleteModalButtons>
             </DeleteModalContainer>
