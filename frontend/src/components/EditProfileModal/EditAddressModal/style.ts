@@ -43,6 +43,10 @@ export const TitleAddressContainer = styled.div`
 
   > button {
     cursor: pointer;
+
+    background: transparent;
+
+    color: var(--light-gray);
   }
 `
 

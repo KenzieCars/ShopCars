@@ -19,6 +19,7 @@ import Loading from "../../Loading";
 import { ICarSeller } from "../../../providers/UserProvider/@types";
 import { CarContext } from "../../../providers/CarProvider/CarContext";
 import { ICar } from "../../../providers/CarProvider/@types";
+import { convertNumberToLocaleString } from "../../UpdateOrDeleteCarModal/utils";
 
 const CardAdmin = () => {
   const { allcarsUserPerPage2, userIdCars, loading } = useContext(UserContext);
@@ -46,7 +47,7 @@ const CardAdmin = () => {
     setUpdateOrDeleteModal(true);
   };
 
-  const showCarDetails = (car: ICar) => {
+  const showCarDetails = (car: ICar | any) => {
     setSelectedCar(car);
     setCarDetailModal(true);
   };
@@ -76,10 +77,10 @@ const CardAdmin = () => {
             </ContactUserContainer>
             <ContainerInfoCar>
               <div>
-                <span>{car.km} KM</span>
+                <span>{convertNumberToLocaleString(car.km)} KM</span>
                 <span>{car.year}</span>
               </div>
-              <span>R$ {car.price}</span>
+              <span>R$ {convertNumberToLocaleString(car.price)}</span>
             </ContainerInfoCar>
             <ButtonContainer>
               <button

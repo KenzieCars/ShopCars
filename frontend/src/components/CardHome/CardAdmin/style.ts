@@ -9,13 +9,33 @@ export const CardContainer = styled.li`
 
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 
-  background: var(--white);
+  background: var(--gray);
 
   border-radius: 12px;
 
   flex-shrink: 0;
 
   position: relative;
+
+  ::-webkit-scrollbar {
+    width: 3px; /* Largura da barra de rolagem vertical */
+    height: 3px; /* Altura da barra de rolagem horizontal */
+  }
+
+  /* Para navegadores baseados em Chromium (Google Chrome, Microsoft Edge, etc.) */
+  ::-webkit-scrollbar-thumb {
+    background-color: var(--light-gray); /* Cor do "polegar" da barra de rolagem (a parte que o usuário arrasta) */
+    border-radius: 6px; /* Raio de borda para o "polegar" */
+  }
+
+  /* Para navegadores baseados em Chromium (Google Chrome, Microsoft Edge, etc.) */
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: var(--light-gray); /* Cor do "polegar" da barra de rolagem ao passar o mouse */
+  }
+
+  /* Para navegadores baseados em Firefox */
+  /* Apenas para personalização básica */
+  scrollbar-color: var(--light-gray) transparent;
 
   @media (min-width: 768px) {
     width: 262px;
@@ -44,18 +64,18 @@ export const ContainerInfo = styled.div`
 
   > h3 {
     font-size: 0.8rem;
-    color: var(--black);
+    color: var(--white);
   }
 
   > h3.truncated-title {
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   > p {
     font-size: 0.7rem;
-    color: var(--gray);
+    color: var(--white);
     height: 90px;
     line-height: 150%;
   }
@@ -81,7 +101,7 @@ export const ContactUserContainer = styled.div`
   :nth-child(1) {
     border-radius: 50%;
 
-    background-color: var(--blue);
+    background-color: var(--yellow);
 
     display: flex;
     align-items: center;
@@ -92,12 +112,12 @@ export const ContactUserContainer = styled.div`
 
     font-size: 0.7rem;
 
-    color: var(--white);
+    color: var(--black);
   }
 
   :nth-child(2) {
     font-size: 0.7rem;
-    color: var(--gray);
+    color: var(--light-gray);
   }
 
   @media (min-width: 768px) {
@@ -121,8 +141,6 @@ export const ContainerInfoCar = styled.div`
       background: var(--primary-color);
 
       border-radius: 6px;
-
-      opacity: 0.7;
 
       padding: 0.4rem;
       font-size: 0.7rem;
@@ -170,17 +188,17 @@ export const ButtonContainer = styled.div`
   gap: 1rem;
 
   > button {
-    background: var(--white);
+    background: var(--black);
     
     padding: .4rem;
 
-    border: 1px solid var(--light-gray);
+    border: 1px solid var(--primary-color);
     border-radius: 6px;
 
     transition: .2s ease;
 
     font-weight: 600;
-    color: var(--gray);
+    color: var(--primary-color);
 
     &:hover {
       background: var(--black);
@@ -189,6 +207,7 @@ export const ButtonContainer = styled.div`
     }
   }
 `
+
 export const LinkBtn = styled(Link)`
     background: var(--white);
     
@@ -212,7 +231,7 @@ export const LinkBtn = styled(Link)`
 export const DescriptionWithOverFlowAdm = styled.section`
   > p {
     font-size: .6rem;
-    color: var(--gray);
+    color: var(--light-gray);
     height: 47px;
     line-height: 150%;
 
@@ -225,7 +244,7 @@ export const DescriptionWithOverFlowAdm = styled.section`
     left: 0;
     width: 100%;
     height: 38px; /* Ajuste a altura do degradê conforme necessário */
-    background: linear-gradient(transparent, var(--white)); /* Defina as cores do degradê aqui */
+    background: linear-gradient(transparent, var(--gray)); /* Defina as cores do degradê aqui */
   }
 }
 

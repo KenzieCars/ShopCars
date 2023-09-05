@@ -69,3 +69,42 @@ export const convertObjectToArray = (obj: IObjectImages) => {
 
     return imagesArray;
 }
+
+export const convertNumberToLocaleString = (number: number): string => {
+    const stringBase: string = number.toString();
+    let localeString: string = "";
+
+    if (stringBase.length > 6) {
+        let counter: number = 0
+
+        for (let index: number = stringBase.length - 1; index > -1; index--) {
+            localeString = stringBase[index] + localeString;
+            counter++;
+
+            if (counter === 3) {
+                localeString = "." + localeString;
+
+            } else if (counter === 6) {
+                localeString = "." + localeString;
+            }
+        }
+
+    } else if (stringBase.length > 3) {
+        let counter: number = 0
+
+        for (let index = stringBase.length - 1; index > -1; index--) {
+            localeString = stringBase[index] + localeString;
+            counter++;
+
+            if (counter === 3) {
+                localeString = "." + localeString;
+            }
+        }
+
+    } else {
+
+        localeString = stringBase;
+    }
+
+    return localeString;
+}

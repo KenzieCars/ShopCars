@@ -9,7 +9,7 @@ export const FooterContainer = styled.footer`
 
   padding: 2rem;
 
-  background: var(--black);
+  background: var(--gray);
 
   > h3, p {
     color: var(--white);

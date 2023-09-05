@@ -13,6 +13,9 @@ import { useContext } from "react";
 import { CarContext } from "../../providers/CarProvider/CarContext";
 import { ButtonNext, NextButtonContainer } from "../Home/style";
 import { BsArrowLeftShort, BsArrowRightShort } from "react-icons/bs";
+import EditProfileModal from "../../components/EditProfileModal";
+import EditAddressModal from "../../components/EditProfileModal/EditAddressModal";
+import { UserContext } from "../../providers/UserProvider/UserContext";
 
 const UserAds = () => {
   const userData: TDataCarResponse[] | null = JSON.parse(
@@ -21,6 +24,7 @@ const UserAds = () => {
 
   const { carsSellerSelect, currentPageprofile, setCurrentPageprofile } =
     useContext(CarContext);
+  const { profileEditModal, addressEditModal } = useContext(UserContext)
 
   const itemsPerPage = 12;
   let totalPages = 1;
@@ -80,6 +84,8 @@ const UserAds = () => {
           </ButtonNext>
         )}
       </NextButtonContainer>
+      {profileEditModal && <EditProfileModal />}
+      {addressEditModal && <EditAddressModal />}
       <Footer />
     </>
   );

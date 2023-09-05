@@ -219,10 +219,12 @@ export const CarProvider = ({ children }: IDefaultProviderProps) => {
 
   useEffect(() => {
     carSellerSelect();
-  });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     carSellerSelect();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentPageprofile]);
 
   return (
