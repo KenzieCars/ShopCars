@@ -109,16 +109,16 @@ const UpdateOrDeleteCarModal = ({ setModal: setUpdateModal, car }: IUpdateModalP
                 } else {
                     const _url = new URL(imagesObjects[`img${index}` as keyof IObjectImages]!);
                     imagesObjects[`img${index}` as keyof IObjectImages]! = _url.href;
-                    setUpdateImagesError({
-                        ...updateImagesError,
+                    setUpdateImagesError(oldImagesError => ({
+                        ...oldImagesError,
                         [`img${index}` as keyof IObjectImages]: null,
-                    });
+                    }));
                 };
             } catch (err) {
-                setUpdateImagesError({
-                    ...updateImagesError,
+                setUpdateImagesError(oldImagesError => ({
+                    ...oldImagesError,
                     [`img${index}` as keyof IObjectImages]: "Deve ser uma fonte url da imagem *",
-                });
+                }));
                 return null;
             };
         };
@@ -366,7 +366,7 @@ const UpdateOrDeleteCarModal = ({ setModal: setUpdateModal, car }: IUpdateModalP
                             <FieldsetModal key={`field${field}`}>
                                 <label htmlFor={`imgGallery_${field}`}>{field + 1}º imagem da galeria</label>
                                 <input id={`imgGallery_${field}`} value={updateImages[`img${field}` as keyof IObjectImages]}
-                                    onChange={handleUpdateImages} name={`img${field}`} autoComplete="OLAAAAA" />
+                                    onChange={handleUpdateImages} name={`img${field}`} />
                                 {updateImagesError[`img${field}` as keyof IObjectImages] &&
                                     <ErrorModal>{updateImagesError[`img${field}` as keyof IObjectImages]}</ErrorModal>}
                             </FieldsetModal>
