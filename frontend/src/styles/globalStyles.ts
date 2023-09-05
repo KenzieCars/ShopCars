@@ -3,26 +3,20 @@ import { createGlobalStyle } from "styled-components"
 const GlobalStyle = createGlobalStyle`
 
   :root {
-    --primary-color: #1D70F1;
-    --white: #FDFDFE;
-    --primary-color-hover: #D9DEEC;
-    --secondary-color: #ED9243;
-    --gray: #5F7067;
-    --light-gray: #D3D3D3;
+    --primary-color: #9BCCCB;
+    --primary-color-hover: #9BCCAF;
+    --white: #FFFFFF;
+    --black: #121212;
+    --gray: #282828;
     --green: #6FD660;
-    --orange: #F2D405;
-    --blue: #001D4A;
-    --alert-negative: #F24D35;
-    --alert-negative-hover: #e74c3c6b;
-    --red: #FDE0D8;
-    --alert-success: #33E897;
-    --black: #1D1E2C;
-    --light-purple: #D5F2E3;
     --yellow: #FEEA00;
+    --light-gray: #D3D3D3;
+    --alert-negative: #F24D35;
+    --alert-success: #33E897;
   }
 
   body {
-    background-color: var(--white);
+    background-color: var(--black);
     font-family: 'Open sans', sans-serif;
   }
 
@@ -39,7 +33,7 @@ const GlobalStyle = createGlobalStyle`
     scrollbar-color: var(--primary-color) ;
   }
   *::-webkit-scrollbar {
-    width: 5px; 
+
   }
   *::-webkit-scrollbar-track {
     background: none;

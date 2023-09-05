@@ -6,8 +6,8 @@ export const FilterStyle = styled.div`
   button {
     width: 230px;
     border-radius: 4px;
-    color: #f6f6f6;
-    background-color: #5126ea;
+    color: var(--white);
+    background-color: var(--primary-color);
     border: none;
     padding: 10px;
     font-family: "Lexend", sans-serif;

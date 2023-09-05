@@ -8,7 +8,7 @@ export const CardContainer = styled.li`
 
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 
-  background: var(--white);
+  background: var(--light-black);
 
   border-radius: 12px;
 
@@ -63,7 +63,7 @@ export const ContainerInfo = styled.div`
 
   > h3 {
     font-size: 0.8rem;
-    color: var(--black);
+    color: var(--primary-color);
   }
   > h3.truncated-title {
   white-space: nowrap;
@@ -95,7 +95,7 @@ export const ContactUserContainer = styled.div`
 
     border-radius: 50%;
 
-    background-color: var(--blue);
+    background-color: var(--gray);
 
     font-size: 0.7rem;
 
@@ -104,7 +104,7 @@ export const ContactUserContainer = styled.div`
 
   :nth-child(2) {
     font-size: 0.7rem;
-    color: var(--gray);
+    color: var(--light-gray);
   }
 
   @media (min-width: 768px) {
@@ -174,7 +174,7 @@ export const FlagGoodDeal = styled.div`
 export const DescriptionWithOverFlow = styled.section`
   > p {
     font-size: .6rem;
-    color: var(--gray);
+    color: var(--light-gray);
     height: 75px;
     line-height: 150%;
 
@@ -187,10 +187,8 @@ export const DescriptionWithOverFlow = styled.section`
     left: 0;
     width: 100%;
     height: 50px; /* Ajuste a altura do degradê conforme necessário */
-    background: linear-gradient(transparent, var(--white)); /* Defina as cores do degradê aqui */
+    background: linear-gradient(transparent, var(--black)); /* Defina as cores do degradê aqui */
   }
-
-  /* rgba(246, 246, 246, 0.8) */
 }
 
   @media (min-width: 768px) {

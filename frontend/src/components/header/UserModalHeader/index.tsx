@@ -22,7 +22,7 @@ const UserModalHeader = () => {
     navigate("/profile");
   };
 
-  const handleClickNavigateUserPage = () => {
+  const handleClickNavigateToUserPage = () => {
     navigate("/userPage");
   };
 
@@ -37,6 +37,11 @@ const UserModalHeader = () => {
         opacity: isVisible ? 1 : 0,
       }}
     >
+      {userIdCars?.seller === false && path !== "/userPage" ? (
+        <ModalItem onClick={() => handleClickNavigateToUserPage()}>
+          Ver perfil
+        </ModalItem>
+      ) : null}
       <ModalItem onClick={() => setProfileEditModal(!profileEditModal)}>
         Editar Perfil
       </ModalItem>
@@ -46,11 +51,6 @@ const UserModalHeader = () => {
       {userIdCars?.seller === true && path !== "/profile" ? (
         <ModalItem onClick={() => handleClickNavigate()}>
           Meus anúncios
-        </ModalItem>
-      ) : null}
-      {userIdCars?.seller === !true && path !== "/userPage" ? (
-        <ModalItem onClick={() => handleClickNavigateUserPage()}>
-          Ir para perfil
         </ModalItem>
       ) : null}
       <ModalItem onClick={() => logout()}>Sair</ModalItem>

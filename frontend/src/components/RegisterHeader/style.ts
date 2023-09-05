@@ -6,7 +6,7 @@ export const DivHeader = styled.div`
   align-items: center;
   padding: .7rem;
   
-  background: var(--white);
+  background: var(--black);
   
   @media (min-width: 768px) {
     position: fixed;
@@ -45,8 +45,8 @@ export const ButtonHeader = styled.button`
     font-size: .9rem;
 
     &:hover {
-      border: 1px solid var(--orange);
-      background: var(--orange);
+      border: 1px solid var(--primary-color);
+      background: var(--primary-color);
       color: var(--white);
     }
   }

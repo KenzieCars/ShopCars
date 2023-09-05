@@ -40,12 +40,14 @@ import { CommentContext } from "../../providers/CommentProvider/CommentContext";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { ModalEditAndDeleteComments } from "../../components/ModalEditAndDeleteComments";
 import { BsThreeDotsVertical } from "react-icons/bs";
+import EditProfileModal from "../../components/EditProfileModal";
+import EditAddressModal from "../../components/EditProfileModal/EditAddressModal";
 
 const ProductPage = () => {
   const { productId } = useParams();
   const { allcars, allCarsRegistered, carSellerSelect } =
     useContext(CarContext);
-  const { userIdCars } = useContext(UserContext);
+  const { userIdCars, profileEditModal, addressEditModal } = useContext(UserContext);
   const { modalImage, setModalImage, setImageById } = useContext(ImageContext);
   const [productDetails, setProductDetails] =
     useState<TCarDataIdResponse | null>(null);
@@ -230,7 +232,7 @@ const ProductPage = () => {
             <h3>Comentários</h3>
             <ListOfComments>
               {commentsCarFounded?.length === 0 ? (
-                <h3>Seja o primeiro a comentar</h3>
+                <h3>Nenhum comentário ainda</h3>
               ) : (
                 commentsCarFounded?.map((comment) => (
                   <CardComment key={comment!.id}>
@@ -309,6 +311,8 @@ const ProductPage = () => {
         {modalImage && <ModalImageProduct />}
         {isModalComment && <ModalEditAndDeleteComments />}
       </ContainerShop>
+      {profileEditModal && <EditProfileModal />}
+      {addressEditModal && <EditAddressModal />}
       <Footer />
     </>
   );

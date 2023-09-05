@@ -1,23 +1,24 @@
 import { styled } from "styled-components";
 
+export const HeaderContainer = styled.div`
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 9;
+  padding: 0.7rem;
+  background: transparent;
+  backdrop-filter: blur(10px); /* Ajuste o valor conforme desejado */
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+  `;
+
 export const DivHeader = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0.7rem;
-
-  background: var(--white);
 
   @media (min-width: 768px) {
-    position: fixed;
-    top: 0;
-    right: 0;
-    z-index: 9;
-
-    width: 100%;
     padding: 1rem 3.75rem;
-
-    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
   }
 `;
 
@@ -77,15 +78,41 @@ export const UserHeaderContainer = styled.div`
 
     transition: .2s ease;
 
+    opacity: 1;
+
+    z-index: 200;
+
     &:hover {
-      background: var(--orange);
+      background: var(--primary-color-hover);
       color: var(--white);
     }
   }
 
   > span:nth-child(2) {
-    color: var(--gray);
+    color: var(--white);
 
     font-size: .8rem;
+  }
+`
+
+export const Logo = styled.div`
+  display: flex;
+
+  position: relative;
+
+  > h2 {
+    font-size: 2.1rem;
+    font-family: 'Anton', sans-serif;
+    color: var(--primary-color);
+  }
+
+  > span {
+    position: absolute;
+    top: 19px;
+    right: -50px;
+
+    color: var(--white);
+    font-size: 1.9rem;
+    font-family: 'Galada', cursive;
   }
 `

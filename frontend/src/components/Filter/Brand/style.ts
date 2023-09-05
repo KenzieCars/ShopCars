@@ -1,13 +1,15 @@
 import styled from "styled-components";
 
 export const CustomSelect = styled.div`
+  color: var(--white);
+  
   .select-header {
     font-weight: bold;
     font-family: "Lexend", sans-serif;
     margin: 10px 0 10px 0;
     font-size: 20px;
   }
-
+  
   .options {
     display: flex;
     flex-direction: column;

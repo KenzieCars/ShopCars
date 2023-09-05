@@ -20,20 +20,20 @@ export const FormRegisterContainer = styled.form`
   border-radius: 8px;
   padding: 1.4rem;
   box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
-  background: var(--white);
+  background: var(--gray);
   max-width: 412px;
   margin: 0 auto;
 `;
 
 export const TitleRegister = styled.div`
   > h3 {
-    color: var(--gray);
+    color: var(--primary-color);
   }
 `;
 
 export const TitleOptions = styled.div`
   > h4 {
-    color: var(--gray);
+    color: var(--primary-color);
     font-size: 0.9rem;
   }
 `;
@@ -52,7 +52,7 @@ export const DualFields = styled.div`
     border: none;
 
     > label {
-      color: var(--gray);
+      color: var(--primary-color);
       font-size: 0.8rem;
     }
 
@@ -62,22 +62,21 @@ export const DualFields = styled.div`
       max-width: 175px;
       width: fit-content;
       border-radius: 8px;
-      border: 2px solid var(--white);
+      border: 2px solid var(--primary-color);
       outline: none;
       color: var(--gray);
       transition: 0.2s ease;
 
+      background: var(--black);
+
       &:focus {
-        border: 2px solid var(--primary-color);
+        border: 2px solid var(--primary-color-hover);
       }
 
       &::placeholder {
         color: var(--light-gray);
       }
     }
-    /* > p {
-            width: 40%;
-        } */
   }
 `;
 
@@ -89,7 +88,7 @@ export const FieldsetRegister = styled.fieldset`
   position: relative;
 
   > label {
-    color: var(--gray);
+    color: var(--primary-color);
     font-size: 0.8rem;
   }
 
@@ -98,9 +97,11 @@ export const FieldsetRegister = styled.fieldset`
     border-radius: 8px;
     border: 2px solid var(--white);
     outline: none;
-    color: var(--gray);
+    color: var(--primary-color);
     transition: 0.2s ease;
     resize: none;
+
+    background: var(--black);
 
     &:focus {
       border: 2px solid var(--primary-color);
@@ -114,10 +115,12 @@ export const FieldsetRegister = styled.fieldset`
   > input {
     padding: 0.7rem 1rem;
     border-radius: 8px;
-    border: 2px solid var(--white);
+    border: 2px solid var(--primary-color);
     outline: none;
-    color: var(--gray);
+    color: var(--primary-color);
     transition: 0.2s ease;
+
+    background: var(--black);
 
     &:focus {
       border: 2px solid var(--primary-color);
