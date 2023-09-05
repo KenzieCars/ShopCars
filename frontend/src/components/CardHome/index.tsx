@@ -12,6 +12,7 @@ import { CarContext } from "../../providers/CarProvider/CarContext";
 import NothingHere from "../NothingHere";
 import { BiSolidBadgeDollar } from "react-icons/bi";
 import { Link } from "react-router-dom";
+import { convertNumberToLocaleString } from "../UpdateOrDeleteCarModal/utils";
 
 const CardHome = () => {
   const { allcars } = useContext(CarContext);
@@ -43,10 +44,10 @@ const CardHome = () => {
               </ContactUserContainer>
               <ContainerInfoCar>
                 <div>
-                  <span>{car.km} KM</span>
+                  <span>{convertNumberToLocaleString(car.km)} KM</span>
                   <span>{car.year}</span>
                 </div>
-                <span>R$ {car.price}</span>
+                <span>R$ {convertNumberToLocaleString(car.price)}</span>
               </ContainerInfoCar>
             </ContainerInfo>
             {car.bestPrice && (

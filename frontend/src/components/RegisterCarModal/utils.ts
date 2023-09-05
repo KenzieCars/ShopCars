@@ -48,6 +48,7 @@ export const rectifyPrice = (payload: string): number => {
     payload = payload.split(' ')[1]
     payload = payload.split(',')[0]
     payload = payload.replace('.', '')
+    payload = payload.replace('.', '')
 
     return Number(payload)
 }
@@ -74,6 +75,8 @@ export const getFuelTipe = (number: number) => {
 export const registerCarSchema = z.object({
     brand: z.string().nonempty('Marca é obrigatória *'),
     color: z.string().nonempty('Cor é obrigatória *'),
+    year: z.string().nonempty('Ano é obrigatório *'),
+    fuel: z.string().nonempty('Tipo de combustível é obrigatório *'),
     description: z.string().nonempty('Descrição é obrigatória *'),
     imgCover: z.string().nonempty('Imagem da capa é obrigatória *').url('Deve ser uma fonte url da imagem *'),
     km: z.string().nonempty('Quilometragem é obrigatória *'),

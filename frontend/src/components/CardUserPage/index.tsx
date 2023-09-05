@@ -12,6 +12,7 @@ import NothingHere from "../NothingHere";
 import { BiSolidBadgeDollar } from "react-icons/bi";
 import { UserContext } from "../../providers/UserProvider/UserContext";
 import { Link } from "react-router-dom";
+import { convertNumberToLocaleString } from "../UpdateOrDeleteCarModal/utils";
 
 
 const CardUserProfile = () => {
@@ -34,17 +35,17 @@ const CardUserProfile = () => {
               <DescriptionWithOverFlow>
                 <p>{car.description}</p>
               </DescriptionWithOverFlow>
-  
+
               <ContactUserContainer>
                 <span>{car.user.name[0]}</span>
                 <span>{car.user.name}</span>
               </ContactUserContainer>
               <ContainerInfoCar>
                 <div>
-                  <span>{car.km} KM</span>
+                  <span>{convertNumberToLocaleString(car.km)} KM</span>
                   <span>{car.year}</span>
                 </div>
-                <span>R$ {car.price}</span>
+                <span>R$ {convertNumberToLocaleString(car.price)}</span>
               </ContainerInfoCar>
             </ContainerInfo>
             {car.bestPrice && (

@@ -10,7 +10,6 @@ import {
   FlagAvailable,
   FlagGoodDeal,
   FlagNotAvailable,
-  LinkBtn,
 } from "./style";
 import { BiSolidBadgeDollar } from "react-icons/bi";
 import NothingHere from "../../NothingHere";
@@ -20,13 +19,14 @@ import Loading from "../../Loading";
 import { ICarSeller } from "../../../providers/UserProvider/@types";
 import { CarContext } from "../../../providers/CarProvider/CarContext";
 import { ICar } from "../../../providers/CarProvider/@types";
+import { convertNumberToLocaleString } from "../../UpdateOrDeleteCarModal/utils";
 
 const CardAdmin = () => {
   const { allcarsUserPerPage2, userIdCars, loading } = useContext(UserContext);
   const { setCarDetailModal, carDetailModal, setSelectedCar } = useContext(CarContext)
   const [updateOrDeleteModal, setUpdateOrDeleteModal] = useState<boolean>(false);
   const [carToUpdate, setCarToUpdate] = useState<null | ICarSeller>(null);
-  
+
   if (allcarsUserPerPage2.length === 0) return <NothingHere />;
 
   if (loading)
@@ -35,7 +35,7 @@ const CardAdmin = () => {
         <Loading />
       </h1>
     );
-  
+
   const handleUpdateOrDeleteCarModal = (car: ICarSeller,
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>): void => {
     event.stopPropagation();
@@ -73,10 +73,10 @@ const CardAdmin = () => {
             </ContactUserContainer>
             <ContainerInfoCar>
               <div>
-                <span>{car.km} KM</span>
+                <span>{convertNumberToLocaleString(car.km)} KM</span>
                 <span>{car.year}</span>
               </div>
-              <span>R$ {car.price}</span>
+              <span>R$ {convertNumberToLocaleString(car.price)}</span>
             </ContainerInfoCar>
             <ButtonContainer>
               <button onClick={(event) => handleUpdateOrDeleteCarModal(car, event)}>Editar</button>
@@ -90,7 +90,7 @@ const CardAdmin = () => {
           </ContainerInfo>
           {car.bestPrice && (
             <FlagGoodDeal>
-                <BiSolidBadgeDollar />
+              <BiSolidBadgeDollar />
             </FlagGoodDeal>
           )}
         </CardContainer>

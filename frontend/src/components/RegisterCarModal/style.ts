@@ -36,6 +36,24 @@ export const FormModalContainer = styled.form`
         border: 1px solid var(--light-gray);
         margin: .5rem 0;
     }
+
+    > .another_brand_input {
+        border: none;
+        padding: .2rem 1rem;
+        position: relative;
+        top: -1rem;
+        border-bottom: 2px solid var(--gray);
+        outline: none;
+        transition: .2s ease;
+
+        &:focus {
+                border-bottom: 2px solid var(--primary-color);
+            }
+
+            &::placeholder {
+                color: var(--light-gray);
+            }
+    }
 `
 
 export const TitleModal = styled.div`
@@ -242,4 +260,3 @@ export const ErrorModal = styled.p`
     letter-spacing: .04rem;
     transition: .4s ease;
 `
-
