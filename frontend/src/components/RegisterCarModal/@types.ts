@@ -45,7 +45,8 @@ export type IModelsOptions =
     "peugeot" |
     "renault" |
     "toyota" |
-    "volkswagen"
+    "volkswagen" |
+    "another"
 
 export interface IFipeOptions {
     chevrolet: IModels[]
@@ -59,6 +60,7 @@ export interface IFipeOptions {
     renault: IModels[]
     toyota: IModels[]
     volkswagen: IModels[]
+    another?: IModels[] | undefined
 }
 
 export interface IModelInfo {
@@ -79,6 +81,8 @@ export interface IPayloadCreateCar {
     km: string
     model: string
     price: string
+    year: string
+    fuel: string
 }
 
 export interface IHandleCreateCarData {

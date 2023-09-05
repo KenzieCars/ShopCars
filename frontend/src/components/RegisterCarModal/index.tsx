@@ -31,6 +31,7 @@ import { CarContext } from "../../providers/CarProvider/CarContext";
 import { UserContext } from "../../providers/UserProvider/UserContext";
 import Loading from "../Loading";
 import { ICar, TCarRequest } from "../../providers/CarProvider/@types";
+import { handleNumber } from "../RegisterForm/utils";
 
 const carInfoDefault = {
   brand: "brand",
@@ -43,6 +44,7 @@ const carInfoDefault = {
 
 const RegisterCarModal = ({ setModal }: IModalProps) => {
   const [fipeOptions, setFipeOptions] = useState<IFipeOptions>();
+  const [anotherOption, setAnotherOption] = useState<boolean>(false);
   const [models, setModels] = useState<IModels[]>([]);
   const [modelInfo, setmodelInfo] = useState<IModelInfo[]>([]);
   const [loadModels, setLoadModels] = useState<boolean>(false);
@@ -72,8 +74,16 @@ const RegisterCarModal = ({ setModal }: IModalProps) => {
   }, []);
 
   const getModelOptions = async (model: IModelsOptions) => {
-    const modelArray: IModels[] = fipeOptions![model];
-    setModels(modelArray);
+
+    if (model === "another") {
+      setAnotherOption(true);
+      return null;
+    } else {
+      setAnotherOption(false);
+    }
+
+    const modelArray: IModels[] | undefined = fipeOptions![model];
+    setModels(modelArray!);
     try {
       setLoadModels(true);
       const modelOptions = await fipeApi.get(`/cars`, {
@@ -100,16 +110,23 @@ const RegisterCarModal = ({ setModal }: IModalProps) => {
 
     const createCarData: IHandleCreateCarData = {
       ...payload,
-      year: carInfo.year,
-      fuel: getFuelTipe(carInfo.fuel)
     };
 
-    createCarData.price = rectifyPrice(createCarData.price as string);
-    createCarData.km = rectifyKm(createCarData.km as string);
-    createCarData.bestPrice = bestPriceReckoning(
-      carInfo.value,
-      createCarData.price
-    );
+    if (anotherOption) {
+      createCarData.bestPrice = false;
+      createCarData.year = payload.year;
+      createCarData.fuel = payload.fuel;
+      createCarData.price = rectifyPrice(createCarData.price as string);
+      createCarData.km = rectifyKm(createCarData.km as string);
+
+    } else {
+      createCarData.price = rectifyPrice(createCarData.price as string);
+      createCarData.km = rectifyKm(createCarData.km as string);
+      createCarData.bestPrice = bestPriceReckoning(
+        carInfo.value,
+        createCarData.price
+      );
+    }
 
     const { imgs } = createCarData;
     delete createCarData.imgs;
@@ -150,6 +167,30 @@ const RegisterCarModal = ({ setModal }: IModalProps) => {
     return null;
   };
 
+  const anotherFuelOptions = (fipeFuelOption: string = "Flex") => {
+    const allFuelOptions = [
+      { fuelTipe: "Flex" },
+      { fuelTipe: "Híbrido" },
+      { fuelTipe: "Elétrico" },
+      { fuelTipe: "Gás Natural Veicular" },
+      { fuelTipe: "Álcool" },
+      { fuelTipe: "Gasolina" },
+    ]
+
+    const newAnotherOptions = allFuelOptions.filter((fuel) => fuel.fuelTipe !== fipeFuelOption);
+
+    return (
+      <>
+        {newAnotherOptions.map((option) => (
+          <option value={option.fuelTipe}
+            key={`fuel_${option.fuelTipe}`}>
+            {option.fuelTipe}
+          </option>
+        ))}
+      </>
+    )
+  };
+
   return (
     <ModalWrapper role="dialog">
       <ModalContainer ref={modalRef as LegacyRef<HTMLDivElement>}>
@@ -166,10 +207,10 @@ const RegisterCarModal = ({ setModal }: IModalProps) => {
             <h4>Informações do veículo</h4>
           </TitleOptions>
           <FieldsetModal>
-            <label>Marca</label>
+            <label htmlFor="carBrand">Marca</label>
             <select
               {...register("brand")}
-              onChange={(event) => getModelOptions(event.target.value as IModelsOptions)}
+              onChange={(event) => event.target.value !== "" && getModelOptions(event.target.value as IModelsOptions)}
             >
               <option value="">Selecione a marca</option>
               <option value="chevrolet">Chevrolet</option>
@@ -189,42 +230,78 @@ const RegisterCarModal = ({ setModal }: IModalProps) => {
               <ErrorModal>{errors.brand.message}</ErrorModal>
             )}
           </FieldsetModal>
-          <FieldsetModal>
-            <label>Modelo</label>
-            <select
-              disabled={loadModels}
-              {...register("model")}
-              onChange={(event) => getCarInfo(event.target.value)}
-            >
-              <option value="">Selecione o modelo</option>
-              {models.map((model, index) => (
-                <option key={`model${index}`} value={model.name}>
-                  {model.name}
-                </option>
-              ))}
-            </select>
-            {errors.model?.message && (
-              <ErrorModal>{errors.model.message}</ErrorModal>
-            )}
-          </FieldsetModal>
+          {anotherOption &&
+            <input
+              className="another_brand_input"
+              id="carBrand"
+              placeholder="Informe a marca"
+              {...register("brand")} />}
+          {anotherOption ? (
+            <FieldsetModal>
+              <label htmlFor="carModel">Modelo</label>
+              <input
+                id="carModel"
+                placeholder="Informe o modelo"
+                {...register("model")} />
+            </FieldsetModal>
+          ) : (
+            <FieldsetModal>
+              <label>Modelo</label>
+              <select
+                disabled={loadModels}
+                {...register("model")}
+                onChange={(event) => getCarInfo(event.target.value)}
+              >
+                <option value="">Selecione o modelo</option>
+                {models.map((model, index) => (
+                  <option key={`model${index}`} value={model.name}>
+                    {model.name}
+                  </option>
+                ))}
+              </select>
+              {errors.model?.message && (
+                <ErrorModal>{errors.model.message}</ErrorModal>
+              )}
+            </FieldsetModal>
+          )}
           <DualFields>
             <FieldsetModal>
               <label>Ano</label>
               <input
-                disabled
-                value={carInfo ? carInfo.year : carInfoDefault.year}
+                maxLength={4} onKeyUp={(event) => handleNumber(event)}
+                placeholder={carInfo ? carInfo.year : "Informe o ano"}
+                {...register("year")}
               />
+              {errors.year?.message && (
+                <ErrorModal>{errors.year.message}</ErrorModal>
+              )}
             </FieldsetModal>
             <FieldsetModal>
-              <label>Combustível</label>
-              <input
-                disabled
-                value={
-                  carInfo
-                    ? getFuelTipe(carInfo.fuel)
-                    : getFuelTipe(carInfoDefault.fuel)
-                }
-              />
+              <label
+                htmlFor="fuel"
+              >Combustível</label>
+              {anotherOption ? (
+                <select id="fuel" {...register("fuel")} >
+                  <option value="">Selecione combustível</option>
+                  <option value="Flex">Flex</option>
+                  <option value="Híbrido">Híbrido</option>
+                  <option value="Elétrico">Elétrico</option>
+                  <option value="Gás Natural Veicular">Gás Natural Veicular</option>
+                  <option value="Álcool">Álcool</option>
+                  <option value="Gasolina">Gasolina</option>
+                </select>
+              ) : (
+                <select id="fuel" {...register("fuel")}>
+                  <option
+                    value={getFuelTipe(carInfo.fuel)}>
+                    {getFuelTipe(carInfo.fuel)}
+                  </option>
+                  {anotherFuelOptions(getFuelTipe(carInfo.fuel))}
+                </select>
+              )}
+              {errors.fuel?.message && (
+                <ErrorModal>{errors.fuel.message}</ErrorModal>
+              )}
             </FieldsetModal>
           </DualFields>
           <DualFields>
@@ -262,25 +339,27 @@ const RegisterCarModal = ({ setModal }: IModalProps) => {
           </DualFields>
           <DualFields>
             <FieldsetModal>
-              <label>Preço tabela FIPE</label>
+              <label htmlFor="fipePrice">Preço tabela FIPE</label>
               <input
                 disabled
+                id="fipePrice"
                 value={
-                  carInfo
-                    ? numberToMoney(carInfo.value)
-                    : numberToMoney(carInfoDefault.value)
+                  anotherOption ?
+                    "Marca sem dados FIPE" :
+                    numberToMoney(carInfo.value)
                 }
               />
             </FieldsetModal>
             <FieldsetModal>
-              <label>Preço</label>
+              <label htmlFor="price">Preço</label>
               <input
+                id="price"
                 placeholder={
-                  carInfo
-                    ? `${numberToMoney(
+                  anotherOption ?
+                    "Melhor preço indisponível" :
+                    `${numberToMoney(
                       Math.round(carInfo.value * 0.95)
                     )} (Bom preço)`
-                    : "R$ 50.000,00"
                 }
                 onKeyUp={(event) => handleValue(event)}
                 {...register("price")}
@@ -292,8 +371,9 @@ const RegisterCarModal = ({ setModal }: IModalProps) => {
             </FieldsetModal>
           </DualFields>
           <FieldsetModal>
-            <label>descrição</label>
+            <label htmlFor="description">descrição</label>
             <textarea
+              id="description"
               placeholder="Digite a descrição"
               {...register("description")}
             />
@@ -302,28 +382,32 @@ const RegisterCarModal = ({ setModal }: IModalProps) => {
             )}
           </FieldsetModal>
           <FieldsetModal>
-            <label>Imagem da capa</label>
-            <input placeholder="url da imagem" {...register("imgCover")} />
+            <label htmlFor="imgCover">Imagem da capa</label>
+            <input id="imgCover"
+              placeholder="url da imagem" {...register("imgCover")} />
             {errors.imgCover?.message && (
               <ErrorModal>{errors.imgCover.message}</ErrorModal>
             )}
           </FieldsetModal>
           <FieldsetModal>
-            <label>1º imagem da galeria</label>
-            <input placeholder="url da imagem" {...register("imgs.0")} />
+            <label htmlFor="imgGallery_1">1º imagem da galeria</label>
+            <input id="imgGallery_1"
+              placeholder="url da imagem" {...register("imgs.0")} />
             {handleErrorField(0)}
           </FieldsetModal>
           <FieldsetModal>
-            <label>2º imagem da galeria</label>
-            <input placeholder="url da imagem" {...register("imgs.1")} />
+            <label htmlFor="imgGallery_2">2º imagem da galeria</label>
+            <input id="imgGallery_2"
+              placeholder="url da imagem" {...register("imgs.1")} />
             {handleErrorField(1)}
           </FieldsetModal>
           {extraImagesFields > 0 ? (
             <>
               {addImageField().map((field) => (
                 <FieldsetModal key={`extraField${field}`}>
-                  <label>{field + 3}º imagem da galeria</label>
+                  <label htmlFor={`imgGallery_${field + 3}`}>{field + 3}º imagem da galeria</label>
                   <input
+                    id={`imgGallery_${field + 3}`}
                     placeholder="url da imagem"
                     {...register(`imgs.${field + 2}`)}
                   />
