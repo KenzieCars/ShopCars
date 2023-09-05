@@ -46,7 +46,7 @@ export const ButtonHeader = styled.button`
 
     &:hover {
       border: 1px solid var(--white);
-      background: var(--orange);
+      background: var(--black);
       color: var(--white);
     }
   }
@@ -78,7 +78,7 @@ export const UserHeaderContainer = styled.div`
     transition: .2s ease;
 
     &:hover {
-      background: var(--orange);
+      background: var(--black);
       color: var(--white);
     }
   }

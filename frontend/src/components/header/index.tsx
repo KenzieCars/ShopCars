@@ -15,7 +15,6 @@ import { Link, useNavigate } from "react-router-dom";
 import { UserContext } from "../../providers/UserProvider/UserContext";
 import UserModalHeader from "./UserModalHeader";
 
-
 const Header = () => {
   const { userIdCars } = useContext(UserContext);
   const [menuAnchor, setMenuAnchor] = useState<null | HTMLElement>(null);
@@ -36,6 +35,7 @@ const Header = () => {
   };
 
   const handleRegisterClick = () => {
+    console.log("Botão de cadastro clicado");
     navigate("/register");
   };
 
@@ -44,7 +44,7 @@ const Header = () => {
   return (
     <>
       <DivHeader>
-        <Link to="/home">
+        <Link to="/">
           <img src={LogoHeader} alt="Logo" />
         </Link>
         {isMobile ? (
