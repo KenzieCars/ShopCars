@@ -104,7 +104,7 @@ export const ContactUserContainer = styled.div`
 
   :nth-child(2) {
     font-size: 0.7rem;
-    color: var(--gray);
+    color: var(--light-gray);
   }
 
   @media (min-width: 768px) {
@@ -187,7 +187,7 @@ export const DescriptionWithOverFlow = styled.section`
     left: 0;
     width: 100%;
     height: 50px; /* Ajuste a altura do degradê conforme necessário */
-    background: linear-gradient(transparent, var(--light-black)); /* Defina as cores do degradê aqui */
+    background: linear-gradient(transparent, var(--black)); /* Defina as cores do degradê aqui */
   }
 }
 

@@ -6,17 +6,20 @@ export const SectionProfileInfoComponent = styled.section`
   gap: 1rem;
 
   padding: 1rem;
+  padding-top: 6rem;
 
   border-radius: 8px;
 
   > h2 {
-    color: var(--gray);
+    color: var(--light-gray);
     font-size: .8rem;
   }
 
   @media (min-width: 768px) {
-    margin-top: 5rem;
+    margin-top: 6rem;
+    padding-top: 5rem;
     padding: 1.7rem 8rem;
+
     gap: 2.3rem;
 
     > p {
@@ -39,14 +42,14 @@ export const UserDiv = styled.div`
     gap: .4rem;
 
     > span:nth-child(1) {
-      color: var(--black);
+      color: var(--light-gray);
       font-size: .9rem;
       font-weight: 600;
     }
     
     > span:nth-child(2) {
-      background: var(--white);
-      color: var(--primary-color);
+      background: var(--primary-color);
+      color: var(--white);
       font-size: .7rem;
       padding: .4rem;
       border-radius: 6px;
@@ -65,9 +68,9 @@ export const SiglaUser = styled.span`
   width: 50px;
   height: 50px;
 
-  background: var(--primary-color);
+  background: var(--yellow);
 
-  color: var(--white);
+  color: var(--black);
   font-weight: 600;
 `
 
@@ -91,14 +94,16 @@ export const Shadow = styled.div`
   flex-direction: column;
   gap: .7rem;
 
-  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+  /* box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px; */
 
   padding: 2rem;
+
+  background: var(--gray);
 
   border-radius: 10px;
 
    > p {
-    color: var(--gray);
+    color: var(--light-gray);
     font-size: .7rem;
     line-height: 150%;
   }

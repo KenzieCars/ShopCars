@@ -43,7 +43,7 @@ const CardAdmin = () => {
     setUpdateOrDeleteModal(true);
   };
 
-  const showCarDetails = (car: ICar) => {
+  const showCarDetails = (car: ICar | any) => {
     setSelectedCar(car);
     setCarDetailModal(true);
   };

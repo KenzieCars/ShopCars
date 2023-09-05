@@ -1,6 +1,8 @@
 import styled from "styled-components";
 
 export const YearCarsWrapper = styled.div`
+  color: var(--white);
+  
   .select-header {
     font-weight: bold;
     font-family: "Lexend", sans-serif;

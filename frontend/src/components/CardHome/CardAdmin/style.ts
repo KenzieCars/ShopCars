@@ -17,6 +17,26 @@ export const CardContainer = styled.li`
 
   position: relative;
 
+  ::-webkit-scrollbar {
+    width: 3px; /* Largura da barra de rolagem vertical */
+    height: 3px; /* Altura da barra de rolagem horizontal */
+  }
+
+  /* Para navegadores baseados em Chromium (Google Chrome, Microsoft Edge, etc.) */
+  ::-webkit-scrollbar-thumb {
+    background-color: var(--light-gray); /* Cor do "polegar" da barra de rolagem (a parte que o usuário arrasta) */
+    border-radius: 6px; /* Raio de borda para o "polegar" */
+  }
+
+  /* Para navegadores baseados em Chromium (Google Chrome, Microsoft Edge, etc.) */
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: var(--light-gray); /* Cor do "polegar" da barra de rolagem ao passar o mouse */
+  }
+
+  /* Para navegadores baseados em Firefox */
+  /* Apenas para personalização básica */
+  scrollbar-color: var(--light-gray) transparent;
+
   @media (min-width: 768px) {
     width: 262px;
     height: fit-content;

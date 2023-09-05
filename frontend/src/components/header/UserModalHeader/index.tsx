@@ -22,6 +22,10 @@ const UserModalHeader = () => {
     navigate("/profile");
   };
 
+  const handleClickNavigateToUserPage = () => {
+    navigate("/userPage");
+  };
+
   useEffect(() => {
     setIsVisible(true);
   }, []);
@@ -33,6 +37,11 @@ const UserModalHeader = () => {
         opacity: isVisible ? 1 : 0,
       }}
     >
+      {userIdCars?.seller === false && path !== "/userPage" ? (
+        <ModalItem onClick={() => handleClickNavigateToUserPage()}>
+          Ver perfil
+        </ModalItem>
+      ) : null}
       <ModalItem onClick={() => setProfileEditModal(!profileEditModal)}>
         Editar Perfil
       </ModalItem>

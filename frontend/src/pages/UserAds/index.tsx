@@ -38,7 +38,6 @@ const UserAds = () => {
 
   return (
     <>
-      {}
       <Header />
       <SectionProfileInfoComponent>
         <Shadow>
