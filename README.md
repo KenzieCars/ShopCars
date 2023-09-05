@@ -1,7 +1,7 @@
 # ShopCars
 
 <p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
+  <a href="http://nestjs.com/" target="blank"><img src="https://nodetalhe.com.br/wp-content/uploads/2023/02/carros-esportivos-modelos-mais-desejados-do-mundo.jpg" /></a>
 </p>
 
 [circleci-image]: https://nodetalhe.com.br/wp-content/uploads/2023/02/carros-esportivos-modelos-mais-desejados-do-mundo.jpg
@@ -45,6 +45,7 @@ git clone (chave SSH copiada)
 - Após isso você terá uma cópia totalmente editável de todo o projeto em sua máquina
 
 
+
 **BACK-END**
 
 ## 📦 Implantação
@@ -56,6 +57,12 @@ Manipulando o arquivo .env
 - Configure suas variáveis de ambiente com suas credenciais do PostgreSQL e um novo banco de dados para estar utilizando no projeto.
 
 - ATENÇÃO: Para que o servidor funcione corretamente as credenciais do arquivo .env devem estar exatamente iguais as credenciais do seu banco de dados PostgreSQL e não se esqueça de salvar o arquivo. 
+
+Execute os seguintes comandos no terminal:
+
+```
+$ cd backend
+```
 
 Instalando as dependências necessárias para executar o servidor local. 
 
@@ -71,12 +78,6 @@ Executando as migrações
 - Ainda com o terminal aberto, execute as migrações com o comando: 
 ```
 $ npx prisma migrate dev
-```
-
-Execute os seguintes comandos no terminal:
-
-```
-$ cd backend
 ```
 
 Executando o servidor localmente 
