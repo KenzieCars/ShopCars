@@ -18,7 +18,6 @@ import UpdateOrDeleteCarModal from "../../UpdateOrDeleteCarModal";
 import Loading from "../../Loading";
 import { ICarSeller } from "../../../providers/UserProvider/@types";
 import { CarContext } from "../../../providers/CarProvider/CarContext";
-import { ICar } from "../../../providers/CarProvider/@types";
 import { convertNumberToLocaleString } from "../../UpdateOrDeleteCarModal/utils";
 
 const CardAdmin = () => {
@@ -43,7 +42,7 @@ const CardAdmin = () => {
     setUpdateOrDeleteModal(true);
   };
 
-  const showCarDetails = (car: ICar | any) => {
+  const showCarDetails = (car: ICarSeller) => {
     setSelectedCar(car);
     setCarDetailModal(true);
   };
