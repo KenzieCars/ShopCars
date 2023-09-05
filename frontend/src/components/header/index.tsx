@@ -11,12 +11,11 @@ import {
   Nav,
   UserHeaderContainer,
   HeaderContainer,
-  LogoContainer,
+  Logo,
 } from "./style";
 import { Link, useNavigate } from "react-router-dom";
 import { UserContext } from "../../providers/UserProvider/UserContext";
 import UserModalHeader from "./UserModalHeader";
-
 
 const Header = () => {
   const { userIdCars } = useContext(UserContext);
@@ -38,6 +37,7 @@ const Header = () => {
   };
 
   const handleRegisterClick = () => {
+    console.log("Botão de cadastro clicado");
     navigate("/register");
   };
 
@@ -48,10 +48,10 @@ const Header = () => {
       <HeaderContainer>
         <DivHeader>
           <Link to="/home">
-            <LogoContainer>
-              <span>MOTORS</span>
+            <Logo>
+              <h2>Motors</h2>
               <span>Shop</span>
-            </LogoContainer>
+            </Logo>
           </Link>
           {isMobile ? (
             <MobileNav>

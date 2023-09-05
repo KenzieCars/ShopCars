@@ -13,10 +13,10 @@ export const SectionProfileInfoComponent = styled.section`
 
   border-radius: 8px;
 
-  background: var(--light-black);
+  background: var(--gray);
 
   > p {
-    color: var(--gray);
+    color: var(--white);
     font-size: .7rem;
     line-height: 150%;
   }
@@ -43,7 +43,7 @@ export const UserDiv = styled.div`
     gap: .4rem;
 
     > span:nth-child(1) {
-      color: var(--gray);
+      color: var(--white);
       font-size: .9rem;
       font-weight: 600;
     }
@@ -67,9 +67,9 @@ export const SiglaUser = styled.span`
 
   padding: .6rem 1.3rem;
 
-  background: var(--primary-color);
+  background: var(--yellow);
 
-  color: var(--white);
+  color: var(--black);
   font-weight: 600;
 `
 

@@ -55,9 +55,7 @@ export const InfoAndDescriptionContainer = styled.div`
   gap: 1rem;
   width: 100%;
 
-  /* background: var(--light-black); */
-
-  @media(min-width: 821px) {
+  @media(min-width: 1080px) {
     display: flex;
     flex-direction: row;
     gap: 2rem;
@@ -75,10 +73,10 @@ export const InfoSection = styled.section`
 
   border-radius: 6px;
 
-  background: var(--light-black);
+  background: var(--gray);
 
   > h2 {
-    color: var(--gray);
+    color: var(--white);
     font-size: .9rem;
   }
 
@@ -94,7 +92,7 @@ export const InfoSection = styled.section`
     transition: .2s ease;
 
     &:hover {
-      background-color: var(--black);
+      background-color: var(--primary-color-hover);
     }
   }
 
@@ -109,7 +107,7 @@ export const InfoSection = styled.section`
     }
   }
 
-  @media(max-width: 821px) {
+  @media(max-width: 1080px) {
     width: 100%;
   }
 `
@@ -121,7 +119,7 @@ export const KmContainer = styled.div`
   > span {
     padding: .4rem;
 
-    background: var(--gray);
+    background: var(--black);
 
     color: var(--primary-color);
     font-size: .6rem;
@@ -141,7 +139,7 @@ export const KmContainer = styled.div`
 
 export const PriceContainer = styled.div`
   > span {
-    color: var(--gray);
+    color: var(--white);
     font-size: .9rem;
     font-weight: 600;
   }
@@ -158,10 +156,10 @@ export const Description = styled.section`
 
   border-radius: 6px;
 
-  background: var(--light-black);
+  background: var(--gray);
 
   > h3 {
-    color: var(--gray);
+    color: var(--primary-color);
 
     font-size: 1rem;
   }
@@ -188,7 +186,7 @@ export const Description = styled.section`
     }
   }
 
-   @media(max-width: 821px) {
+   @media(max-width: 1080px) {
     width: 100%;
   }
 `
@@ -204,10 +202,10 @@ export const PicturesContainer = styled.ul`
 
   border-radius: 6px;
 
-  background: var(--light-black);
+  background: var(--gray);
 
   > h3 {
-    color: var(--gray);
+    color: var(--primary-color);
 
     font-size: 1rem;
   }
@@ -232,7 +230,7 @@ export const PicturesContainer = styled.ul`
       font-size: .9rem;
       font-style: italic;
 
-      color: var(--gray);
+      color: var(--light-gray);
     }
   }
 
@@ -254,19 +252,19 @@ export const AdvertiserSection = styled.section`
 
   border-radius: 6px;
 
-  background: var(--light-black);
+  background: var(--gray);
 
   > h3 {
-    color: var(--black);
+    color: var(--light-gray);
 
     font-size: 1rem;
   }
 
   > span {
     &:nth-child(1) {
-      background: var(--light-black);
+      background: var(--yellow);
 
-      color: var(--white);
+      color: var(--black);
 
       border-radius: 50%;
 
@@ -274,14 +272,14 @@ export const AdvertiserSection = styled.section`
     }
 
     &:nth-child(2) {
-      color: var(--black);
+      color: var(--white);
       font-weight: 600;
       font-size: 1rem;
     }
   }
 
   > p {
-    color: var(--gray);
+    color: var(--light-gray);
 
     font-size: .8rem;
 
@@ -289,7 +287,7 @@ export const AdvertiserSection = styled.section`
   }
 
   > button {
-    background-color: var(--light-black);
+    background: var(--primary-color);
     
     color: var(--white);
     font-weight: 600;
@@ -300,7 +298,7 @@ export const AdvertiserSection = styled.section`
     transition: .2s ease;
 
     &:hover {
-      background-color: var(--primary-color);
+      background-color: var(--primary-color-hover);
     }
   }
 
@@ -320,10 +318,10 @@ export const CommentsSection = styled.section`
 
   border-radius: 6px;
 
-  background: var(--light-black);
+  background: var(--gray);
 
   > h3 {
-    color: var(--gray);
+    color: var(--primary-color);
   }
 
   @media (min-width: 768px) {
@@ -376,7 +374,7 @@ export const CardComment = styled.li`
     > span {
       &:nth-child(2) {
         font-size: .8rem;
-        color: var(--black);
+        color: var(--white);
         font-weight: 600;
       }
 
@@ -388,7 +386,7 @@ export const CardComment = styled.li`
   } 
 
   > p {
-    color: var(--gray);
+    color: var(--light-gray);
     font-size: .8rem;
     line-height: 150%;
   }
@@ -506,10 +504,10 @@ export const PicturesContainerDesktop = styled.ul`
 
   width: 100%;
 
-  background: var(--light-black);
+  background: var(--gray);
 
   > h3 {
-    color: var(--black);
+    color: var(--primary-color);
 
     font-size: 1rem;
   }
@@ -520,7 +518,7 @@ export const PicturesContainerDesktop = styled.ul`
     gap: 1rem;
 
     > span {
-      color: var(--gray);
+      color: var(--white);
       font-size: .9rem;
       font-style: italic;
 
@@ -555,19 +553,19 @@ export const AdvertiserSectionDesktop = styled.section`
 
   border-radius: 6px;
 
-  background: var(--light-black);
+  background: var(--gray);
 
   > h3 {
-    color: var(--black);
+    color: var(--white);
 
     font-size: 1rem;
   }
 
   > span {
     &:nth-child(1) {
-      background: var(--primary-color);
+      background: var(--yellow);
 
-      color: var(--white);
+      color: var(--black);
       font-size: 1.2rem;
 
       border-radius: 50%;
@@ -581,14 +579,14 @@ export const AdvertiserSectionDesktop = styled.section`
     }
 
     &:nth-child(2) {
-      color: var(--black);
+      color: var(--white);
       font-weight: 600;
       font-size: 1rem;
     }
   }
 
   > p {
-    color: var(--gray);
+    color: var(--light-gray);
 
     font-size: .8rem;
 
@@ -601,7 +599,7 @@ export const AdvertiserSectionDesktop = styled.section`
 `
 
 export const LinkTag = styled(Link)`
-  background-color: var(--black);
+  background: var(--primary-color);
   
   color: var(--white);
   font-weight: 600;
@@ -614,7 +612,7 @@ export const LinkTag = styled(Link)`
   border-radius: 6px;
 
   &:hover {
-    background-color: var(--primary-color);
+    background-color: var(--primary-color-hover);
   }
 `
 

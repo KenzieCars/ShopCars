@@ -7,16 +7,15 @@ export const HeaderContainer = styled.div`
   left: 0;
   z-index: 9;
   padding: 0.7rem;
+  background: transparent;
   backdrop-filter: blur(10px); /* Ajuste o valor conforme desejado */
   box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
-  background: rgba(0, 0, 0, 0.3); /* Cor de fundo com opacidade */
   `;
 
 export const DivHeader = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  opacity: 1;
 
   @media (min-width: 768px) {
     padding: 1rem 3.75rem;
@@ -84,35 +83,36 @@ export const UserHeaderContainer = styled.div`
     z-index: 200;
 
     &:hover {
-      background: var(--orange);
+      background: var(--primary-color-hover);
       color: var(--white);
     }
   }
 
   > span:nth-child(2) {
-    color: var(--gray);
+    color: var(--white);
 
     font-size: .8rem;
   }
 `
 
-export const LogoContainer = styled.div`
+export const Logo = styled.div`
+  display: flex;
+
   position: relative;
 
-  > span {
+  > h2 {
+    font-size: 2.1rem;
+    font-family: 'Anton', sans-serif;
     color: var(--primary-color);
-    font-size: 1.9rem;
   }
 
-  :nth-child(1) {
-    font-family: 'Anton', sans-serif;
-  }
-  
-  :nth-child(2) {
-    font-family: 'Sedgwick Ave Display', cursive;
-    color: white;
+  > span {
     position: absolute;
     top: 19px;
-    right: -51px;
+    right: -50px;
+
+    color: var(--white);
+    font-size: 1.9rem;
+    font-family: 'Galada', cursive;
   }
 `

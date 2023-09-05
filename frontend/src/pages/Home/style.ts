@@ -109,7 +109,7 @@ export const NextButtonContainer = styled.div`
   padding: 1rem;
 
   > span {
-    color: var(--gray);
+    color: var(--light-gray);
     font-size: 0.8rem;
     font-weight: 600;
   }
@@ -133,7 +133,7 @@ export const ButtonNext = styled(Link)`
 
   font-size: 0.8rem;
   font-weight: 600;
-  color: var(--gray);
+  color: var(--light-gray);
 
   text-decoration: none;
 

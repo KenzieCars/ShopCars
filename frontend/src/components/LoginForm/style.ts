@@ -26,7 +26,7 @@ export const FormLoginContainer = styled.form`
   padding: 1.4rem;
 
   box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
-  background: var(--white);
+  background: var(--gray);
 
   @media (min-width: 768px) {
     width: 412px;
@@ -35,7 +35,7 @@ export const FormLoginContainer = styled.form`
 
 export const TitleLogin = styled.div`
   > h3 {
-    color: var(--gray);
+    color: var(--primary-color);
   }
 `
 
@@ -48,7 +48,7 @@ export const FieldsetLogin = styled.fieldset`
   border: none;
 
   > label {
-    color: var(--gray);
+    color: var(--primary-color);
     font-size: .8rem;
   }
 
@@ -56,15 +56,17 @@ export const FieldsetLogin = styled.fieldset`
     padding: .7rem 1rem;
     
     border-radius: 8px;
-    border: 2px solid var(--white);
+    border: 2px solid var(--primary-color);
     outline: none;
 
-    color: var(--gray);
+    background: var(--black);
+
+    color: var(--primary-color);
     
     transition: .2s ease;
     
     &:focus {
-      border: 2px solid var(--primary-color);
+      border: 2px solid var(--primary-color-hover);
     }
 
     &::placeholder {
@@ -87,7 +89,7 @@ export const ForgotMyPassword = styled.div`
   > span {
     font-size: .7rem;
     font-weight: 600;
-    color: var(--gray);
+    color: var(--primary-color);
 
     align-self: flex-end;
 
@@ -96,7 +98,7 @@ export const ForgotMyPassword = styled.div`
     transition: .2s ease;
 
     &:hover {
-      color: var(--primary-color);
+      color: var(--primary-color-hover);
     }
 
     @media (min-width: 768px) {
@@ -126,7 +128,7 @@ export const ButtonContainer = styled.div`
     transition: .2s ease;
 
     &:hover {
-      background: var(--orange);
+      background: var(--primary-color-hover);
       color: var(--white);
     }
 
@@ -141,12 +143,14 @@ export const ButtonToRegister = styled(Link)`
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--primary-color);
-  font-size: .7rem;
+  color: var(--white);
+  font-size: .8rem;
   font-weight: 600;
 
   border-radius: 6px;
   border: 1.5px solid var(--primary-color);
+
+  background: var(--primary-color);
 
   width: 100%;
   padding: .8rem;
@@ -156,12 +160,13 @@ export const ButtonToRegister = styled(Link)`
   transition: .2s ease;
 
   &:hover {
-    color: var(--orange);
-    border: 1.5px solid var(--orange);
+    color: var(--white);
+    border: 1.5px solid var(--primary-color-hover);
+    background: var(--primary-color-hover);
   }
 
   @media (min-width: 768px) {
-    font-size: .8rem;
+    font-size: .9rem;
   }
 `
 

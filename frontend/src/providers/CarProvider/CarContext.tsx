@@ -224,7 +224,7 @@ export const CarProvider = ({ children }: IDefaultProviderProps) => {
 
   useEffect(() => {
     carSellerSelect();
-  });
+  }, []);
 
   useEffect(() => {
     carSellerSelect();

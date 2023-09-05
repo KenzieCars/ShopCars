@@ -22,10 +22,6 @@ const UserModalHeader = () => {
     navigate("/profile");
   };
 
-  const handleClickNavigateUserPage = () => {
-    navigate("/userPage");
-  };
-
   useEffect(() => {
     setIsVisible(true);
   }, []);
@@ -46,11 +42,6 @@ const UserModalHeader = () => {
       {userIdCars?.seller === true && path !== "/profile" ? (
         <ModalItem onClick={() => handleClickNavigate()}>
           Meus anúncios
-        </ModalItem>
-      ) : null}
-      {userIdCars?.seller === !true && path !== "/userPage" ? (
-        <ModalItem onClick={() => handleClickNavigateUserPage()}>
-          Ir para perfil
         </ModalItem>
       ) : null}
       <ModalItem onClick={() => logout()}>Sair</ModalItem>
