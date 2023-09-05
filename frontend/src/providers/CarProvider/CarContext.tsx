@@ -15,6 +15,7 @@ import {
   TDataCarResponse,
 } from "./@types";
 import { AxiosResponse } from "axios";
+import { ICarSeller } from "../UserProvider/@types";
 
 export const CarContext = createContext({} as ICarContext);
 
@@ -23,7 +24,7 @@ export const CarProvider = ({ children }: IDefaultProviderProps) => {
   const [car, setCar] = useState<ICar | null>(null);
   const [allcars, setAllCars] = useState<TCarDataIdResponse[] | []>([]);
   const [carDetailModal, setCarDetailModal] = useState(false);
-  const [selectedCar, setSelectedCar] = useState<ICar | null>(null);
+  const [selectedCar, setSelectedCar] = useState<ICarSeller | null>(null);
 
   //Vem todos os carros cadastrado em um array só
   //Sem paginação

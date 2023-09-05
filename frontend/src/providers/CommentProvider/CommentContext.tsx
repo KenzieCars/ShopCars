@@ -152,7 +152,6 @@ export const CommentProvider = ({ children }: IDefaultProviderProps) => {
           toast.success("Successfully deleted!");
         }
       } catch (error) {
-        console.log("Deu erro");
         console.log(error);
 
         toast.error("Unable to delete comment!");

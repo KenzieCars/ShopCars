@@ -97,8 +97,6 @@ const ProductPage = () => {
 
     if (product) {
       setProductDetails(product);
-
-      console.log(productDetails)
     }
     carSellerSelect();
   }, [allcars, productId, productDetails]);

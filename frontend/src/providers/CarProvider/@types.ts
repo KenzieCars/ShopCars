@@ -1,5 +1,5 @@
 import { AxiosResponse } from "axios";
-import { IUser } from "../UserProvider/@types";
+import { ICarSeller, IUser } from "../UserProvider/@types";
 import { TCommentUserResponse } from "../CommentProvider/@types";
 export interface ICarContext {
   images: IImage[] | [];
@@ -25,8 +25,8 @@ export interface ICarContext {
   allCarsRegistered: [] | TCarDataIdResponse[];
   carDetailModal: boolean;
   setCarDetailModal: React.Dispatch<React.SetStateAction<boolean>>;
-  selectedCar: ICar | null;
-  setSelectedCar: React.Dispatch<React.SetStateAction<ICar | null>>;
+  selectedCar: ICarSeller | null
+  setSelectedCar: React.Dispatch<React.SetStateAction<ICarSeller | null>>
   updateCarImage: (payload: IImageUpdate) => Promise<void>;
   deleteCarImage: (carId: string) => Promise<void>;
 }

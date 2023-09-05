@@ -1,6 +1,5 @@
 import React, { useContext, useState } from "react";
 import { Menu } from "@mui/material";
-import LogoHeader from "../../../public/LogoHeader.png";
 import { useMediaQuery } from "@mui/material";
 import { IconButton } from "@mui/material";
 import { GiHamburgerMenu } from "react-icons/gi";
@@ -37,7 +36,6 @@ const Header = () => {
   };
 
   const handleRegisterClick = () => {
-    console.log("Botão de cadastro clicado");
     navigate("/register");
   };
 
