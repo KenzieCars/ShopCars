@@ -60,7 +60,7 @@ const RegisterCarModal = ({ setModal }: IModalProps) => {
 
   const { carRegister, registerCarImage } =
     useContext(CarContext);
-  const { loading } = useContext(UserContext);
+  const { loading, carUser } = useContext(UserContext);
 
   const modalRef = useOutClick(() => setModal(false));
 
@@ -71,6 +71,11 @@ const RegisterCarModal = ({ setModal }: IModalProps) => {
         setFipeOptions(response.data);
       })
       .catch((error) => console.log(error));
+
+    return () => {
+      carUser();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const getModelOptions = async (model: IModelsOptions) => {

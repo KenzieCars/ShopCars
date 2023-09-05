@@ -48,6 +48,7 @@ export interface IUserContext {
   carUserSeller: () => Promise<void>;
   userSelected: TDataCarResponse[] | null;
   setUserSelected: React.Dispatch<React.SetStateAction<TDataCarResponse[] | null>>;
+  carUser: () => void;
 }
 
 export interface IDefaultProviderProps {
@@ -73,7 +74,7 @@ export interface IUser {
   isAdmin: boolean;
 }
 
-export interface IRegister extends Omit<IUser, "id"> {}
+export interface IRegister extends Omit<IUser, "id"> { }
 
 export interface ILogin {
   email: string;
