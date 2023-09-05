@@ -7,7 +7,7 @@ export const HeaderContainer = styled.div`
   left: 0;
   z-index: 9;
   padding: 0.7rem;
-  background: transparent;
+  background: rgba(0, 0, 0, 0.5);
   backdrop-filter: blur(10px); /* Ajuste o valor conforme desejado */
   box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
 `;

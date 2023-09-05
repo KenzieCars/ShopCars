@@ -48,8 +48,8 @@ export const UserProvider = ({ children }: IDefaultProviderProps) => {
   >([]);
   const [allcarsComumProfilePerPage, setAllCarsComumProfilePerPage] = useState<
     TDataCarResponse[] | []
-    >([]);
-  const [userSelected, setUserSelected] = useState<TDataCarResponse[] | null >(null);
+  >([]);
+  const [userSelected, setUserSelected] = useState<TDataCarResponse[] | null>(null);
 
   const userLogin = async (formData: ILogin) => {
     try {
@@ -304,7 +304,7 @@ export const UserProvider = ({ children }: IDefaultProviderProps) => {
   useEffect(() => {
     carUser();
   }, []);
-  
+
   useEffect(() => {
     carUser();
   }, [currentPageprofileComum]);
@@ -347,7 +347,8 @@ export const UserProvider = ({ children }: IDefaultProviderProps) => {
         setAllcarsUserPerPage2,
         carUserSeller,
         userSelected,
-        setUserSelected
+        setUserSelected,
+        carUser
       }}
     >
       {children}

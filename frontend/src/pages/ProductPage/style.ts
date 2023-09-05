@@ -2,6 +2,8 @@ import { Link } from 'react-router-dom';
 import { styled } from "styled-components";
 
 export const ContainerShop = styled.div`
+  padding-top: 4rem;
+
   @media (min-width: 768px) {
     display: flex;
     justify-content: space-between;
@@ -429,7 +431,7 @@ export const PostAComment = styled.section`
     }
 
     :nth-child(2) {
-      color: var(--black);
+      color: var(--light-gray);
       font-size: .8rem;
       font-weight: 600;
     }
@@ -442,7 +444,7 @@ export const PostAComment = styled.section`
     border: 2px solid var(--white);
     outline: none;
 
-    color: var(--gray);
+    color: var(--light-gray);
     
     transition: .2s ease;
 

@@ -32,6 +32,7 @@ import { UserContext } from "../../providers/UserProvider/UserContext";
 import Loading from "../Loading";
 import { ICar, TCarRequest } from "../../providers/CarProvider/@types";
 import { handleNumber } from "../RegisterForm/utils";
+import { MdOutlineAddCircle } from 'react-icons/md'
 
 const carInfoDefault = {
   brand: "brand",
@@ -60,7 +61,7 @@ const RegisterCarModal = ({ setModal }: IModalProps) => {
 
   const { carRegister, registerCarImage } =
     useContext(CarContext);
-  const { loading } = useContext(UserContext);
+  const { loading, carUser } = useContext(UserContext);
 
   const modalRef = useOutClick(() => setModal(false));
 
@@ -71,6 +72,11 @@ const RegisterCarModal = ({ setModal }: IModalProps) => {
         setFipeOptions(response.data);
       })
       .catch((error) => console.log(error));
+
+    return () => {
+      carUser();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const getModelOptions = async (model: IModelsOptions) => {
@@ -422,7 +428,7 @@ const RegisterCarModal = ({ setModal }: IModalProps) => {
                 type="button"
                 onClick={() => setExtraImagesFields(extraImagesFields + 1)}
               >
-                Adicionar campo para imagem
+                <MdOutlineAddCircle />Adicionar campo para imagem
               </button>
             ) : null}
           </AddImagesContainer>
