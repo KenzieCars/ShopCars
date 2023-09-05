@@ -65,7 +65,7 @@ export const FieldsetAddressContainer = styled.fieldset`
   > input {
     padding: .7rem 1rem;
     border-radius: 8px;
-    border: 2px solid var(--white);
+    border: 2px solid var(--light-gray);
     outline: none;
     color: var(--gray);
     transition: .2s ease;
@@ -83,6 +83,7 @@ export const FieldsetAddressContainer = styled.fieldset`
 export const ButtonAddressContainer = styled.div`
   display: flex;
   justify-content: space-between;
+  gap: .2rem;
 
   > button {
     padding: .7rem 1.7rem;
@@ -91,7 +92,7 @@ export const ButtonAddressContainer = styled.div`
 
   :nth-child(1) {
     background: var(--light-gray);
-    color: var(--gray);
+    color: var(--white);
 
     &:hover {
       background: var(--gray);
@@ -100,12 +101,11 @@ export const ButtonAddressContainer = styled.div`
   }
 
   :nth-child(2) {
-    background: var(--red);
-    color: var(--alert-negative);
+    background: var(--alert-negative);
+    color: var(--white);
 
     &:hover {
-      background: var(--alert-negative);
-      color: var(--red);
+      background: var(--black);
     }
   }
 

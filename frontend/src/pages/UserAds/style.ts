@@ -6,7 +6,7 @@ export const SectionProfileInfoComponent = styled.section`
   gap: 1rem;
 
   padding: 1rem;
-  padding-top: 6rem;
+  padding-top: 5rem;
 
   border-radius: 8px;
 

@@ -6,9 +6,12 @@ export const MainContainerProfile = styled.main`
   gap: 1rem;
 
   padding: 1rem;
+  margin-top: 4rem;
 
   @media (min-width: 768px) {
     padding: 1.7rem 8rem;
+
+    margin-top: 1.4rem;
   }
 `
 
