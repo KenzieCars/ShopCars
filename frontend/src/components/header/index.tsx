@@ -1,6 +1,5 @@
 import { useContext, useState } from "react";
 import { useMediaQuery } from "@mui/material";
-import { GiHamburgerMenu } from "react-icons/gi";
 import {
   DivHeader,
   MobileNav,
@@ -9,6 +8,7 @@ import {
   UserHeaderContainer,
   HeaderContainer,
   Logo,
+  CustomHamburgerMenu,
 } from "./style";
 import { Link, useNavigate } from "react-router-dom";
 import { UserContext } from "../../providers/UserProvider/UserContext";
@@ -42,7 +42,7 @@ const Header = () => {
           </Link>
           {isMobile ? (
             <MobileNav>
-              <GiHamburgerMenu
+              <CustomHamburgerMenu
                 onClick={() => {
                   setUserModalHeader(!userModalHeader);
                 }}

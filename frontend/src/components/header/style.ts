@@ -1,4 +1,5 @@
 import { styled } from "styled-components";
+import { GiHamburgerMenu } from "react-icons/gi";
 
 export const HeaderContainer = styled.div`
   position: fixed;
@@ -10,7 +11,7 @@ export const HeaderContainer = styled.div`
   background: rgba(0, 0, 0, 0.5);
   backdrop-filter: blur(10px); /* Ajuste o valor conforme desejado */
   box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
-  `;
+`;
 
 export const DivHeader = styled.div`
   display: flex;
@@ -25,6 +26,11 @@ export const DivHeader = styled.div`
 export const Nav = styled.nav`
   display: flex;
   gap: 1rem;
+
+  @media (max-width: 500px) {
+    flex-direction: column;
+    gap: 0rem;
+  }
 `;
 
 export const ButtonHeader = styled.button`
@@ -47,7 +53,7 @@ export const ButtonHeader = styled.button`
 
     &:hover {
       border: 1px solid var(--white);
-      background: var(--orange);
+      background: var(--black);
       color: var(--white);
     }
   }
@@ -63,8 +69,8 @@ export const MobileNav = styled.div`
 export const UserHeaderContainer = styled.div`
   display: flex;
   align-items: center;
-  gap: .4rem;
-  
+  gap: 0.4rem;
+
   cursor: pointer;
 
   > span:nth-child(1) {
@@ -74,9 +80,9 @@ export const UserHeaderContainer = styled.div`
 
     border-radius: 50%;
 
-    padding: .4rem .7rem;
+    padding: 0.4rem 0.7rem;
 
-    transition: .2s ease;
+    transition: 0.2s ease;
 
     opacity: 1;
 
@@ -91,9 +97,9 @@ export const UserHeaderContainer = styled.div`
   > span:nth-child(2) {
     color: var(--white);
 
-    font-size: .8rem;
+    font-size: 0.8rem;
   }
-`
+`;
 
 export const Logo = styled.div`
   display: flex;
@@ -102,7 +108,7 @@ export const Logo = styled.div`
 
   > h2 {
     font-size: 2.1rem;
-    font-family: 'Anton', sans-serif;
+    font-family: "Anton", sans-serif;
     color: var(--primary-color);
   }
 
@@ -113,6 +119,10 @@ export const Logo = styled.div`
 
     color: var(--white);
     font-size: 1.9rem;
-    font-family: 'Galada', cursive;
+    font-family: "Galada", cursive;
   }
-`
+`;
+
+export const CustomHamburgerMenu = styled(GiHamburgerMenu)`
+  color: var(--primary-color);
+`;

@@ -22,8 +22,10 @@ import { convertNumberToLocaleString } from "../../UpdateOrDeleteCarModal/utils"
 
 const CardAdmin = () => {
   const { allcarsUserPerPage2, userIdCars, loading } = useContext(UserContext);
-  const { setCarDetailModal, carDetailModal, setSelectedCar } = useContext(CarContext)
-  const [updateOrDeleteModal, setUpdateOrDeleteModal] = useState<boolean>(false);
+  const { setCarDetailModal, carDetailModal, setSelectedCar } =
+    useContext(CarContext);
+  const [updateOrDeleteModal, setUpdateOrDeleteModal] =
+    useState<boolean>(false);
   const [carToUpdate, setCarToUpdate] = useState<null | ICarSeller>(null);
 
   if (allcarsUserPerPage2.length === 0) return <NothingHere />;
@@ -35,8 +37,10 @@ const CardAdmin = () => {
       </h1>
     );
 
-  const handleUpdateOrDeleteCarModal = (car: ICarSeller,
-    event: React.MouseEvent<HTMLButtonElement, MouseEvent>): void => {
+  const handleUpdateOrDeleteCarModal = (
+    car: ICarSeller,
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ): void => {
     event.stopPropagation();
     setCarToUpdate(car);
     setUpdateOrDeleteModal(true);
@@ -78,13 +82,19 @@ const CardAdmin = () => {
               <span>R$ {convertNumberToLocaleString(car.price)}</span>
             </ContainerInfoCar>
             <ButtonContainer>
-              <button onClick={(event) => handleUpdateOrDeleteCarModal(car, event)}>Editar</button>
+              <button
+                onClick={(event) => handleUpdateOrDeleteCarModal(car, event)}
+              >
+                Editar
+              </button>
               <button
                 onClick={() => {
-                  setCarDetailModal(!carDetailModal)
-                  showCarDetails(car)
+                  setCarDetailModal(!carDetailModal);
+                  showCarDetails(car);
                 }}
-              >Ver detalhes</button>
+              >
+                Ver detalhes
+              </button>
             </ButtonContainer>
           </ContainerInfo>
           {car.bestPrice && (
@@ -94,8 +104,12 @@ const CardAdmin = () => {
           )}
         </CardContainer>
       ))}
-      {updateOrDeleteModal && <UpdateOrDeleteCarModal
-        setModal={setUpdateOrDeleteModal} car={carToUpdate} />}
+      {updateOrDeleteModal && (
+        <UpdateOrDeleteCarModal
+          setModal={setUpdateOrDeleteModal}
+          car={carToUpdate}
+        />
+      )}
     </>
   );
 };

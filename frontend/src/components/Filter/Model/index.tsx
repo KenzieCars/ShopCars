@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import { useContext } from "react";
 import { HomeContext } from "../../../providers/HomeProvider/HomeProvider";
 import { ModelCarsWrapper } from "./style";
 
