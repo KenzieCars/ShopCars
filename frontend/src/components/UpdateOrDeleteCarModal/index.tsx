@@ -156,7 +156,11 @@ const UpdateOrDeleteCarModal = ({ setModal: setUpdateModal, car }: IUpdateModalP
         updatePayload.km = rectifyKm(updateData.km as string);
         updatePayload.price = rectifyPrice(updateData.price as string);
         updatePayload.imgCover = updatePayload.imgCover.href;
-        updatePayload.bestPrice = bestPriceReckoning(fipePrice as number / 100, updatePayload.price);
+        if (typeof fipePrice === "string") {
+            updatePayload.bestPrice = false;
+        } else {
+            updatePayload.bestPrice = bestPriceReckoning(fipePrice as number / 100, updatePayload.price);
+        }
 
         await editeCar(updatePayload as TCarRequest, car!.id);
 
