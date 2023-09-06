@@ -67,6 +67,9 @@
     "typescript": "^4.7.4"
   },
   "devDependencies": {},
+  "engines": {
+    "node": ">=16.13 <18"
+  },
   "jest": {
     "moduleFileExtensions": [
       "js",
