@@ -66,7 +66,7 @@ const ModelCars = () => {
   ];
 
   return (
-    <ModelCarsWrapper>
+    <ModelCarsWrapper className="scrollbar-custom">
       <div className="select-header">Modelo</div>
       <div className="options">
         {cars.map((model) => (

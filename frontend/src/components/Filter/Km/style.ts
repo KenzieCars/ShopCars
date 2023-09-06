@@ -9,7 +9,7 @@ export const RootContainer = styled.div`
 
 export const StyledSlider = styled(Slider)`
 .MuiSlider-valueLabel {
-    color: var(--white);
+    color: var(--gray);
     font-size: 9px;
   }
 `;

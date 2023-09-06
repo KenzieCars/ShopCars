@@ -16,5 +16,7 @@ export const StyledSlider = styled(Slider)`
   
   .MuiSlider-valueLabel {
     font-size: 9px;
+
+    color: var(--gray);
   }
 `;
