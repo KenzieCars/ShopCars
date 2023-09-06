@@ -40,8 +40,8 @@ export const TitleOptions = styled.div`
 
 export const DualFields = styled.div`
   display: flex;
-  flex-direction: row;
-  align-items: center;
+
+  flex-direction: column;
   justify-content: space-around;
   gap: 0.5rem;
 
@@ -59,12 +59,11 @@ export const DualFields = styled.div`
     > input {
       padding: 0.7rem 1rem;
       width: 100%;
-      max-width: 175px;
-      width: fit-content;
+      
       border-radius: 8px;
       border: 2px solid var(--primary-color);
       outline: none;
-      color: var(--gray);
+      color: var(--light-gray);
       transition: 0.2s ease;
 
       background: var(--black);
@@ -76,6 +75,16 @@ export const DualFields = styled.div`
       &::placeholder {
         color: var(--light-gray);
       }
+    }
+  }
+
+  @media (min-width: 768px) {
+    flex-direction: row;
+    align-items: center;
+
+    > input {
+      max-width: 175px;
+      width: fit-content;
     }
   }
 `;
