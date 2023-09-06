@@ -1,7 +1,5 @@
-import React, { useContext, useState } from "react";
-import { Menu } from "@mui/material";
+import { useContext, useState } from "react";
 import { useMediaQuery } from "@mui/material";
-import { IconButton } from "@mui/material";
 import { GiHamburgerMenu } from "react-icons/gi";
 import {
   DivHeader,
@@ -18,18 +16,9 @@ import UserModalHeader from "./UserModalHeader";
 
 const Header = () => {
   const { userIdCars } = useContext(UserContext);
-  const [menuAnchor, setMenuAnchor] = useState<null | HTMLElement>(null);
   const [userModalHeader, setUserModalHeader] = useState(false);
-  const path = window.location.pathname
+  const path = window.location.pathname;
   const navigate = useNavigate();
-
-  const handleMenuOpen = (event: React.MouseEvent<HTMLButtonElement>) => {
-    setMenuAnchor(event.currentTarget);
-  };
-
-  const handleMenuClose = () => {
-    setMenuAnchor(null);
-  };
 
   const handleLoginClick = () => {
     navigate("/login");
@@ -53,30 +42,26 @@ const Header = () => {
           </Link>
           {isMobile ? (
             <MobileNav>
-              <IconButton onClick={handleMenuOpen}>
-                <GiHamburgerMenu />
-              </IconButton>
-              <Menu
-                anchorEl={menuAnchor}
-                open={Boolean(menuAnchor)}
-                onClose={handleMenuClose}
-              >
+              <GiHamburgerMenu
+                onClick={() => {
+                  setUserModalHeader(!userModalHeader);
+                }}
+              />
+              {userModalHeader && (
                 <Nav>
                   {userIdCars ? (
-                    <UserHeaderContainer
-                      onClick={() => setUserModalHeader(!userModalHeader)}
-                    >
+                    <UserHeaderContainer>
                       <span>{userIdCars.name[0]}</span>
                       <span>{userIdCars.name.split(" ")[0]}</span>
                       {userModalHeader && <UserModalHeader />}
                     </UserHeaderContainer>
                   ) : (
                     <>
-                      {path !== '/login' && 
+                      {path !== "/login" && (
                         <ButtonHeader onClick={handleLoginClick}>
                           Fazer Login
                         </ButtonHeader>
-                      }
+                      )}
 
                       <ButtonHeader onClick={handleRegisterClick}>
                         Cadastrar
@@ -84,7 +69,7 @@ const Header = () => {
                     </>
                   )}
                 </Nav>
-              </Menu>
+              )}
             </MobileNav>
           ) : (
             <Nav>
@@ -98,11 +83,11 @@ const Header = () => {
                 </UserHeaderContainer>
               ) : (
                 <>
-                  {path !== '/login' &&
-                        <ButtonHeader onClick={handleLoginClick}>
-                          Fazer Login
-                        </ButtonHeader>
-                      }
+                  {path !== "/login" && (
+                    <ButtonHeader onClick={handleLoginClick}>
+                      Fazer Login
+                    </ButtonHeader>
+                  )}
                   <ButtonHeader onClick={handleRegisterClick}>
                     Cadastrar
                   </ButtonHeader>
