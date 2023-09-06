@@ -47,7 +47,8 @@ const ProductPage = () => {
   const { productId } = useParams();
   const { allcars, allCarsRegistered, carSellerSelect } =
     useContext(CarContext);
-  const { userIdCars, profileEditModal, addressEditModal } = useContext(UserContext);
+  const { userIdCars, profileEditModal, addressEditModal } =
+    useContext(UserContext);
   const { modalImage, setModalImage, setImageById } = useContext(ImageContext);
   const [productDetails, setProductDetails] =
     useState<TCarDataIdResponse | null>(null);
@@ -144,7 +145,7 @@ const ProductPage = () => {
 
   const openWhatsAppInNewTab = () => {
     window.open(
-      `https://wa.me/+55${productDetails?.user.cellPhone}?text=Ol%C3%A1%2C%20venho%20por%20meio%20do%20seu%20an%C3%BAncio%20no%20site%20Motors%20Shop%2C%20gostaria%20de%20negociar%20a%20compra%20do%20ve%C3%ADculo`,
+      `https://api.whatsapp.com/send?phone=+55${productDetails?.user.cellPhone}&text=Ol%C3%A1%2C%20venho%20por%20meio%20do%20seu%20an%C3%BAncio%20no%20site%20Motors%20Shop%2C%20gostaria%20de%20negociar%20a%20compra%20do%20ve%C3%ADculo`,
       "_blank"
     );
   };
