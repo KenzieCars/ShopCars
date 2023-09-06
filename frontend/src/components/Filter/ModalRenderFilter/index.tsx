@@ -28,6 +28,11 @@ const ModalFilter = () => {
     return null;
   }
 
+  const clearFiltersAndCloseModal = () => {
+    closeModal()
+    clearFilters()
+  }
+
   return (
     <ModalContainer>
       <ModalContent>
@@ -45,7 +50,7 @@ const ModalFilter = () => {
         <RangeContainer>
           <RangeKMSlider />
           <RangeSlider />
-          <button onClick={clearFilters}> Limpar Filtros </button>
+          <button onClick={clearFiltersAndCloseModal}> Limpar Filtros </button>
         </RangeContainer>
       </ModalContent>
     </ModalContainer>

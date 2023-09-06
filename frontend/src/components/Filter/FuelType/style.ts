@@ -4,6 +4,7 @@ export const FuelTypeCarsWrapper = styled.div`
   color: var(--white);
   
   .select-header {
+    color: var(--black);
     font-weight: bold;
     font-family: "Lexend", sans-serif;
     margin: 10px 0 10px 0;
@@ -17,7 +18,7 @@ export const FuelTypeCarsWrapper = styled.div`
   }
 
   .option {
-    color: var(--light-gray);
+    color: var(--grey);
     cursor: pointer;
     margin-left: 10px;
     transition: color 0.3s ease;
