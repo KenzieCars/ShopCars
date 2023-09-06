@@ -68,7 +68,7 @@
   },
   "devDependencies": {},
   "engines": {
-    "node": ">=16.13 <18"
+    "node": ">16 <=17"
   },
   "jest": {
     "moduleFileExtensions": [
