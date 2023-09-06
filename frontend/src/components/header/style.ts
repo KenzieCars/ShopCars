@@ -1,4 +1,5 @@
 import { styled } from "styled-components";
+import { GiHamburgerMenu } from "react-icons/gi";
 
 export const HeaderContainer = styled.div`
   position: fixed;
@@ -25,6 +26,11 @@ export const DivHeader = styled.div`
 export const Nav = styled.nav`
   display: flex;
   gap: 1rem;
+
+  @media (max-width: 500px) {
+    flex-direction: column;
+    gap: 0rem;
+  }
 `;
 
 export const ButtonHeader = styled.button`
@@ -115,4 +121,8 @@ export const Logo = styled.div`
     font-size: 1.9rem;
     font-family: "Galada", cursive;
   }
+`;
+
+export const CustomHamburgerMenu = styled(GiHamburgerMenu)`
+  color: var(--primary-color);
 `;
