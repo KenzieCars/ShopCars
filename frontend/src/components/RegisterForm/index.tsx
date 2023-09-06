@@ -73,7 +73,7 @@ const RegisteForm = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors, isValid },
+    formState: { errors },
   } = useForm<ICreateUser>({
     resolver: zodResolver(registerSchema),
   });
@@ -345,7 +345,7 @@ const RegisteForm = () => {
         <RegisterButtonContainer>
           <button
             type="submit"
-            disabled={loading || !isValid}
+            disabled={loading}
             style={changeRegisterButtonStyle()}
           >
             Finalizar cadastro
