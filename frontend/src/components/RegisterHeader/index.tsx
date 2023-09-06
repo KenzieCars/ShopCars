@@ -5,7 +5,8 @@ import { useMediaQuery } from "@mui/material";
 import { IconButton } from "@mui/material";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { DivHeader, MobileNav, ButtonHeader, Nav } from "./style";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { Logo } from "../Header/style";
 
 const RegisterHeader = () => {
   const [menuAnchor, setMenuAnchor] = useState<null | HTMLElement>(null);
@@ -25,7 +26,12 @@ const RegisterHeader = () => {
   return (
     <>
       <DivHeader id="register_header">
-        <img src={LogoHeader} alt="Logo" onClick={() => navigate("/home")} />
+        <Link to="/home">
+          <Logo>
+            <h2>Motors</h2>
+            <span>Shop</span>
+          </Logo>
+        </Link>
         {isMobile ? (
           <MobileNav>
             <IconButton onClick={handleMenuOpen}>
