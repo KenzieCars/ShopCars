@@ -246,6 +246,7 @@ const ProductPage = () => {
                       <BsThreeDotsVertical
                         className="open_modal_comments"
                         onClick={() => getCommentById(comment)}
+                        color='white'
                       />
                     )}
                   </CardComment>
