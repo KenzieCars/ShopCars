@@ -4,6 +4,7 @@ export const CustomSelect = styled.div`
   color: var(--white);
   
   .select-header {
+    color: var(--black);
     font-weight: bold;
     font-family: "Lexend", sans-serif;
     margin: 10px 0 10px 0;
@@ -15,7 +16,7 @@ export const CustomSelect = styled.div`
     flex-direction: column;
     font-family: "Lexend", sans-serif;
   }
-
+  
   .option {
     color: #868e96;
     cursor: pointer;
