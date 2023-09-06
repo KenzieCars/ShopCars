@@ -4,6 +4,7 @@ export const ColorCarsWrapper = styled.div`
   color: var(--white);
   
   .select-header {
+    color: var(--black);
     font-weight: bold;
     font-family: "Lexend", sans-serif;
     margin: 10px 0 10px 0;

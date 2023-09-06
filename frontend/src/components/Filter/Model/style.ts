@@ -8,7 +8,6 @@ export const ModelCarsWrapper = styled.div`
   .select-header {
     font-weight: bold;
     font-family: "Lexend", sans-serif;
-    color: var(--white);
     margin: 10px 0;
     font-size: 20px;
     position: sticky; /* Fixar o elemento no topo */

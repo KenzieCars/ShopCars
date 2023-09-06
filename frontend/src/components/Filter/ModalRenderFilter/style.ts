@@ -28,8 +28,8 @@ export const ModalContent = styled.div`
   button {
     width: 240px;
     border-radius: 4px;
-    color: #f6f6f6;
-    background-color: #5126ea;
+    color: var(--white);
+    background-color: var(--primary-color);
     border: none;
     padding: 10px;
     font-family: "Lexend", sans-serif;
@@ -67,16 +67,6 @@ export const CarFilters = styled.section`
   overflow-y: auto;
 
   height: 218px;
-
-  &:before {
-    content: '';
-    position: absolute;
-    bottom: 213px;
-    left: 0;
-    width: 100%;
-    height: 48px;
-    background: linear-gradient(transparent,  white);
-  }
 
   @media (min-width: 380px) {
     height: 300px;
