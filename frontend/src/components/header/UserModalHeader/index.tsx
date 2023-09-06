@@ -13,7 +13,7 @@ const UserModalHeader = () => {
     addressEditModal,
   } = useContext(UserContext);
 
-  const path = window.location.pathname
+  const path = window.location.pathname;
 
   const [isVisible, setIsVisible] = useState(false);
   const navigate = useNavigate();

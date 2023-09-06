@@ -5,7 +5,6 @@ const useOutClick = (callback: () => void) => {
 
   useEffect(() => {
     const handleOutEvent = (event: Event) => {
-
       if (
         !(event.target instanceof Node) ||
         !ref.current?.contains(event.target)
@@ -19,9 +18,8 @@ const useOutClick = (callback: () => void) => {
     return () => {
       window.removeEventListener("mousedown", handleOutEvent);
     };
-
   }, [callback]);
-  
+
   return ref;
 };
 export default useOutClick;

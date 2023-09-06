@@ -149,7 +149,6 @@ export const CarProvider = ({ children }: IDefaultProviderProps) => {
   };
 
   const updateCarImage = async (payload: IImageUpdate): Promise<void> => {
-
     const token: string | null = localStorage.getItem("@userToken");
     const carId: string | undefined = payload.id;
     delete payload.id;
@@ -161,7 +160,6 @@ export const CarProvider = ({ children }: IDefaultProviderProps) => {
         },
       });
       toast.success("Updated image!");
-
     } catch (error) {
       console.log(error);
       toast.error("Error on update image");
@@ -169,7 +167,6 @@ export const CarProvider = ({ children }: IDefaultProviderProps) => {
   };
 
   const deleteCarImage = async (carId: string) => {
-
     const token: string | null = localStorage.getItem("@userToken");
 
     try {
@@ -179,11 +176,9 @@ export const CarProvider = ({ children }: IDefaultProviderProps) => {
         },
       });
       toast.success("Deleted image!");
-
     } catch (error) {
       console.log(error);
       toast.error("Error on delete image");
-
     }
   };
 
@@ -258,7 +253,7 @@ export const CarProvider = ({ children }: IDefaultProviderProps) => {
         selectedCar,
         setSelectedCar,
         updateCarImage,
-        deleteCarImage
+        deleteCarImage,
       }}
     >
       {children}
