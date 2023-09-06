@@ -6,10 +6,11 @@ export const ModelCarsWrapper = styled.div`
   position: relative; /* Adicione isso para estabelecer um novo contexto de posicionamento */
 
   .select-header {
+    color: var(--primary-color);
     font-weight: bold;
     font-family: "Lexend", sans-serif;
-    margin: 10px 0;
     font-size: 20px;
+    margin: 10px 0;
     position: sticky; /* Fixar o elemento no topo */
     top: 0;/* Fixar no topo do contêiner */
     background-color: var(--black); /* Cor de fundo para esconder atrás das opções */

@@ -2,7 +2,7 @@ import styled from "styled-components";
 import Slider from "@material-ui/core/Slider";
 
 export const RootContainer = styled.div`
-  color: var(--black);
+  color: var(--primary-color);
   width: 240px;
 `;
 
