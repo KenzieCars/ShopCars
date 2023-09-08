@@ -23,13 +23,17 @@ export const CardContainer = styled.li`
 
   /* Para navegadores baseados em Chromium (Google Chrome, Microsoft Edge, etc.) */
   ::-webkit-scrollbar-thumb {
-    background-color: var(--light-gray); /* Cor do "polegar" da barra de rolagem (a parte que o usuário arrasta) */
+    background-color: var(
+      --light-gray
+    ); /* Cor do "polegar" da barra de rolagem (a parte que o usuário arrasta) */
     border-radius: 6px; /* Raio de borda para o "polegar" */
   }
 
   /* Para navegadores baseados em Chromium (Google Chrome, Microsoft Edge, etc.) */
   ::-webkit-scrollbar-thumb:hover {
-    background-color: var(--light-gray); /* Cor do "polegar" da barra de rolagem ao passar o mouse */
+    background-color: var(
+      --light-gray
+    ); /* Cor do "polegar" da barra de rolagem ao passar o mouse */
   }
 
   /* Para navegadores baseados em Firefox */
@@ -66,9 +70,9 @@ export const ContainerInfo = styled.div`
     color: var(--primary-color);
   }
   > h3.truncated-title {
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   @media (min-width: 768px) {
@@ -147,7 +151,7 @@ export const ContainerInfoCar = styled.div`
     font-size: 0.9rem;
     font-weight: 700;
 
-    color: var(--gray);
+    color: var(--light-gray);
   }
 `;
 
@@ -163,33 +167,38 @@ export const FlagGoodDeal = styled.div`
 
   box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px;
 
-  padding: .3rem;
+  padding: 0.3rem;
 
   background: var(--alert-success);
 
   color: var(--white);
   font-size: 1.2rem;
-`
+`;
 
 export const DescriptionWithOverFlow = styled.section`
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
   > p {
-    font-size: .6rem;
+    font-size: 0.6rem;
     color: var(--light-gray);
-    height: 75px;
-    line-height: 150%;
+    height: 56px;
+    line-height: 157%;
 
-    overflow-y: auto;
-
-  &:before {
-    content: '';
-    position: absolute;
-    bottom: 85px;
-    left: 0;
-    width: 100%;
-    height: 50px; /* Ajuste a altura do degradê conforme necessário */
-    background: linear-gradient(transparent, var(--black)); /* Defina as cores do degradê aqui */
+    &:before {
+      content: "";
+      position: absolute;
+      bottom: 85px;
+      left: 0;
+      width: 100%;
+      height: 50px; /* Ajuste a altura do degradê conforme necessário */
+      /* background: linear-gradient(
+        transparent,
+        var(--black)
+      ); Defina as cores do degradê aqui */
+    }
   }
-}
 
   @media (min-width: 768px) {
     gap: 0.7rem;
@@ -199,7 +208,7 @@ export const DescriptionWithOverFlow = styled.section`
     }
 
     > p {
-      font-size: .7rem;
+      font-size: 0.7rem;
     }
   }
-`
+`;

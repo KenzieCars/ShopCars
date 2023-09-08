@@ -30,11 +30,11 @@ export interface IUserContext {
   deleteUser: () => Promise<void>;
   allcarsUserPerPage2: [] | ICarSeller[];
   currentPageprofile: number;
-  setCurrentPageprofile: React.Dispatch<React.SetStateAction<number>>;
+  setCurrentPageProfile: React.Dispatch<React.SetStateAction<number>>;
   allcarsUser2: [] | ICarSeller[];
-  allcarsComumProfilePerPage: [] | TDataCarResponse[];
+  allCarsCommonProfilePerPage: [] | TDataCarResponse[];
   currentPageprofileComum: number;
-  setCurrentPageprofileComum: React.Dispatch<React.SetStateAction<number>>;
+  setCurrentPageProfileComum: React.Dispatch<React.SetStateAction<number>>;
   allcarsComumProfile: [] | TDataCarResponse[];
   allcarsUser: [] | TDataCarResponse[];
   setAllcarsUser: React.Dispatch<React.SetStateAction<[] | TDataCarResponse[]>>;
@@ -47,7 +47,9 @@ export interface IUserContext {
   ) => void;
   carUserSeller: () => Promise<void>;
   userSelected: TDataCarResponse[] | null;
-  setUserSelected: React.Dispatch<React.SetStateAction<TDataCarResponse[] | null>>;
+  setUserSelected: React.Dispatch<
+    React.SetStateAction<TDataCarResponse[] | null>
+  >;
   carUser: () => void;
 }
 
@@ -74,7 +76,7 @@ export interface IUser {
   isAdmin: boolean;
 }
 
-export interface IRegister extends Omit<IUser, "id"> { }
+export interface IRegister extends Omit<IUser, "id"> {}
 
 export interface ILogin {
   email: string;

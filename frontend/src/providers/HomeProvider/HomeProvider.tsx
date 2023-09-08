@@ -72,13 +72,15 @@ export const HomeProvider = ({ children }: IHomeProviderProps) => {
 
   const itemsPerPage = 12;
 
-  const [allcarsPages, setallcarsPages] = useState<[] | TCarDataIdResponse[]>([]);
+  const [allcarsPages, setAllCarsPages] = useState<[] | TCarDataIdResponse[]>(
+    []
+  );
 
   const filterCars = async () => {
     try {
       const response = await api.get<[] | TCarDataIdResponse[]>("/cars");
 
-      setallcarsPages(response.data);
+      setAllCarsPages(response.data);
 
       let filteredCars = response.data;
 
@@ -128,10 +130,13 @@ export const HomeProvider = ({ children }: IHomeProviderProps) => {
       const startIndex = (currentPage - 1) * itemsPerPage;
       const endIndex = startIndex + itemsPerPage;
 
-      setallcarsPages(filteredCars);
+      setAllCarsPages(filteredCars);
 
-      const listpagination: [] | TCarDataIdResponse[] = filteredCars.slice(startIndex, endIndex);
-      setAllCars(listpagination);
+      const listPagination: [] | TCarDataIdResponse[] = filteredCars.slice(
+        startIndex,
+        endIndex
+      );
+      setAllCars(listPagination);
     } catch (error) {
       console.error("Error fetching cars:", error);
     }

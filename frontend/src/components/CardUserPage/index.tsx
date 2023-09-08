@@ -14,16 +14,15 @@ import { UserContext } from "../../providers/UserProvider/UserContext";
 import { Link } from "react-router-dom";
 import { convertNumberToLocaleString } from "../UpdateOrDeleteCarModal/utils";
 
-
 const CardUserProfile = () => {
-  const { allcarsComumProfilePerPage } = useContext(UserContext);
+  const { allCarsCommonProfilePerPage } = useContext(UserContext);
 
-  if (allcarsComumProfilePerPage.length === 0) return <NothingHere />;
+  if (allCarsCommonProfilePerPage.length === 0) return <NothingHere />;
 
   return (
     <>
-      {allcarsComumProfilePerPage.map((car) => (
-        <Link to={`/product/${car.id}`} key={car.id} >
+      {allCarsCommonProfilePerPage.map((car) => (
+        <Link to={`/product/${car.id}`} key={car.id}>
           <CardContainer key={car.id}>
             <FigureContainer>
               <img src={car.imgCover} alt={car.model} />

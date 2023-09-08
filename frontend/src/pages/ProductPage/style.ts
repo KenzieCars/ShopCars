@@ -182,7 +182,7 @@ export const Description = styled.section`
     > p {
       line-height: 180%;
 
-      height: 160px;
+      /* height: 160px; */
 
       overflow-y: auto;
     }

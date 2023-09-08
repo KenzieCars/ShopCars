@@ -25,9 +25,6 @@ export const CarProvider = ({ children }: IDefaultProviderProps) => {
   const [allcars, setAllCars] = useState<TCarDataIdResponse[] | []>([]);
   const [carDetailModal, setCarDetailModal] = useState(false);
   const [selectedCar, setSelectedCar] = useState<ICarSeller | null>(null);
-
-  //Vem todos os carros cadastrado em um array só
-  //Sem paginação
   const [allCarsRegistered, setAllCarsRegistered] = useState<
     TCarDataIdResponse[] | []
   >([]);
@@ -191,7 +188,7 @@ export const CarProvider = ({ children }: IDefaultProviderProps) => {
     TDataCarResponse[] | []
   >([]);
 
-  const [currentPageprofile, setCurrentPageprofile] = useState(1);
+  const [currentPageprofile, setCurrentPageProfile] = useState(1);
   const itemsPerPage = 12;
 
   const carSellerSelect = async () => {
@@ -208,9 +205,9 @@ export const CarProvider = ({ children }: IDefaultProviderProps) => {
 
         setCarsSellerSelectPerPage(userData);
 
-        const listpagination = userData.slice(startIndex, endIndex);
+        const listPagination = userData.slice(startIndex, endIndex);
 
-        setCarsSellerSelectPerPage(listpagination);
+        setCarsSellerSelectPerPage(listPagination);
       } catch (error) {
         console.log(error);
         toast.error("Algo deu errado :(");
@@ -245,7 +242,7 @@ export const CarProvider = ({ children }: IDefaultProviderProps) => {
         registerCarImage,
         carsSellerSelectPerPage,
         carsSellerSelect,
-        setCurrentPageprofile,
+        setCurrentPageProfile,
         currentPageprofile,
         carSellerSelect,
         carDetailModal,

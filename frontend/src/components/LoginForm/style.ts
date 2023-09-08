@@ -4,6 +4,7 @@ import { styled } from "styled-components";
 export const MainContainerLogin = styled.main`
   display: flex;
   flex-direction: column;
+  justify-content: center;
   padding: 1rem;
 
   padding-top : 5rem;
@@ -58,7 +59,7 @@ export const FieldsetLogin = styled.fieldset`
     padding: .7rem 1rem;
     
     border-radius: 8px;
-    border: 2px solid var(--primary-color);
+    border: 1px solid var(--primary-color);
     outline: none;
 
     background: var(--black);
@@ -68,7 +69,7 @@ export const FieldsetLogin = styled.fieldset`
     transition: .2s ease;
     
     &:focus {
-      border: 2px solid var(--primary-color-hover);
+      border: 1px solid var(--primary-color-hover);
     }
 
     &::placeholder {
