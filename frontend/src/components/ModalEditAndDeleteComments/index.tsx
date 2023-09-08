@@ -1,8 +1,8 @@
 import { useContext } from "react";
-import { Modal, ModalContainer, DivTitle, DivButtons } from "./style";
+import { Modal, ModalContainer, DivTitle, DivButtons, StyledTextarea } from "./style";
 import { AiOutlineClose } from "react-icons/ai";
 import { CommentContext } from "../../providers/CommentProvider/CommentContext";
-import { TextField, Button } from "@material-ui/core";
+import { Button } from "@material-ui/core";
 import { ICommentUpdate } from "../../providers/CommentProvider/@types";
 import { useForm } from "react-hook-form";
 
@@ -26,12 +26,13 @@ export const ModalEditAndDeleteComments = () => {
             className="close-btn-modalComments"
           />
         </DivTitle>
-        <TextField
+        <StyledTextarea 
           id="outlined-basic"
-          label="comment"
-          variant="outlined"
+          aria-label="comment"
+          minRows={3}
+          // variant="outlined"
           placeholder={commentOneById?.description}
-          size="small"
+          // size="small"
           defaultValue={commentOneById?.description}
           {...register("description")}
           className="input-modal-comments"

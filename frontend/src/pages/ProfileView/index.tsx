@@ -17,11 +17,11 @@ const ProfileView = () => {
   const {
     profileEditModal,
     currentPageprofile,
-    setCurrentPageprofile,
+    setCurrentPageProfile,
     allcarsUser2,
     addressEditModal,
   } = useContext(UserContext);
-  const { carDetailModal } = useContext(CarContext)
+  const { carDetailModal } = useContext(CarContext);
 
   const itemsPerPage = 12;
   let totalPages = 1;
@@ -55,7 +55,7 @@ const ProfileView = () => {
           <ButtonNext
             to="/profile"
             onClick={() => {
-              setCurrentPageprofile(currentPageprofile - 1);
+              setCurrentPageProfile(currentPageprofile - 1);
             }}
           >
             <BsArrowLeftShort />
@@ -70,7 +70,7 @@ const ProfileView = () => {
           <ButtonNext
             to="/profile"
             onClick={() => {
-              setCurrentPageprofile(currentPageprofile + 1);
+              setCurrentPageProfile(currentPageprofile + 1);
             }}
           >
             Seguinte

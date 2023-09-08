@@ -19,7 +19,7 @@ const UserPage = () => {
     profileEditModal,
     addressEditModal,
     currentPageprofileComum,
-    setCurrentPageprofileComum,
+    setCurrentPageProfileComum,
     allcarsComumProfile,
   } = useContext(UserContext);
 
@@ -57,7 +57,7 @@ const UserPage = () => {
           <ButtonNext
             to="/userPage"
             onClick={() => {
-              setCurrentPageprofileComum(currentPageprofileComum - 1);
+              setCurrentPageProfileComum(currentPageprofileComum - 1);
             }}
           >
             <BsArrowLeftShort />
@@ -72,7 +72,7 @@ const UserPage = () => {
           <ButtonNext
             to="/userPage"
             onClick={() => {
-              setCurrentPageprofileComum(currentPageprofileComum + 1);
+              setCurrentPageProfileComum(currentPageprofileComum + 1);
             }}
           >
             Seguinte

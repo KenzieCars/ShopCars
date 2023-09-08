@@ -22,9 +22,9 @@ const UserAds = () => {
     localStorage.getItem("@carsSellerSelect") || "null"
   );
 
-  const { carsSellerSelect, currentPageprofile, setCurrentPageprofile } =
+  const { carsSellerSelect, currentPageprofile, setCurrentPageProfile } =
     useContext(CarContext);
-  const { profileEditModal, addressEditModal } = useContext(UserContext)
+  const { profileEditModal, addressEditModal } = useContext(UserContext);
 
   const itemsPerPage = 12;
   let totalPages = 1;
@@ -61,7 +61,7 @@ const UserAds = () => {
           <ButtonNext
             to={`/user/${userData![0].user.id}`}
             onClick={() => {
-              setCurrentPageprofile(currentPageprofile - 1);
+              setCurrentPageProfile(currentPageprofile - 1);
             }}
           >
             <BsArrowLeftShort />
@@ -76,7 +76,7 @@ const UserAds = () => {
           <ButtonNext
             to={`/user/${userData![0].user.id}`}
             onClick={() => {
-              setCurrentPageprofile(currentPageprofile + 1);
+              setCurrentPageProfile(currentPageprofile + 1);
             }}
           >
             Seguinte

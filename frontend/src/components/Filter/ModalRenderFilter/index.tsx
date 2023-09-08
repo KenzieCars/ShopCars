@@ -29,9 +29,9 @@ const ModalFilter = () => {
   }
 
   const clearFiltersAndCloseModal = () => {
-    closeModal()
-    clearFilters()
-  }
+    closeModal();
+    clearFilters();
+  };
 
   return (
     <ModalContainer>

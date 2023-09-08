@@ -34,22 +34,20 @@ export const UserProvider = ({ children }: IDefaultProviderProps) => {
   const [allcarsUserPerPage, setAllcarsUserPerPage] = useState<
     TDataCarResponse[] | []
   >([]);
-
   const [allcarsUser2, setAllcarsUser2] = useState<ICarSeller[] | []>([]);
   const [allcarsUserPerPage2, setAllcarsUserPerPage2] = useState<
     ICarSeller[] | []
   >([]);
-
-  const [currentPageprofile, setCurrentPageprofile] = useState(1);
-
-  const [currentPageprofileComum, setCurrentPageprofileComum] = useState(1);
-  const [allcarsComumProfile, setAllCarsComumProfile] = useState<
+  const [currentPageprofile, setCurrentPageProfile] = useState(1);
+  const [currentPageprofileComum, setCurrentPageProfileComum] = useState(1);
+  const [allcarsComumProfile, setModelInfoSetAllCarsCommonProfile] = useState<
     TDataCarResponse[] | []
   >([]);
-  const [allcarsComumProfilePerPage, setAllCarsComumProfilePerPage] = useState<
-    TDataCarResponse[] | []
-  >([]);
-  const [userSelected, setUserSelected] = useState<TDataCarResponse[] | null>(null);
+  const [allCarsCommonProfilePerPage, setAllCarsCommonProfilePerPage] =
+    useState<TDataCarResponse[] | []>([]);
+  const [userSelected, setUserSelected] = useState<TDataCarResponse[] | null>(
+    null
+  );
 
   const userLogin = async (formData: ILogin) => {
     try {
@@ -60,8 +58,8 @@ export const UserProvider = ({ children }: IDefaultProviderProps) => {
 
       localStorage.setItem("@userToken", res.data.token);
       localStorage.setItem("@userId", res.data.id);
-      setCurrentPageprofile(1);
-      setCurrentPageprofileComum(1);
+      setCurrentPageProfile(1);
+      setCurrentPageProfileComum(1);
       carUserSeller();
       toast.success("Logged in!");
 
@@ -107,7 +105,7 @@ export const UserProvider = ({ children }: IDefaultProviderProps) => {
 
           localStorage.clear();
 
-          navigate('/')
+          navigate("/");
         } finally {
           setLoading(false);
         }
@@ -138,10 +136,10 @@ export const UserProvider = ({ children }: IDefaultProviderProps) => {
   const logout = () => {
     setUser(null);
 
-    localStorage.removeItem("@userToken")
-    localStorage.removeItem("@userId")
-    setCurrentPageprofile(2);
-    setCurrentPageprofileComum(2);
+    localStorage.removeItem("@userToken");
+    localStorage.removeItem("@userId");
+    setCurrentPageProfile(2);
+    setCurrentPageProfileComum(2);
     setUserIdCars(null);
     navigate("/login");
   };
@@ -256,9 +254,9 @@ export const UserProvider = ({ children }: IDefaultProviderProps) => {
 
         setAllcarsUser2(carsUser);
 
-        const listpagination = carsUser.slice(startIndex, endIndex);
+        const listPagination = carsUser.slice(startIndex, endIndex);
 
-        setAllcarsUserPerPage2(listpagination);
+        setAllcarsUserPerPage2(listPagination);
       } catch (error) {
         console.log(error);
         toast.error("Algo deu errado :(");
@@ -283,16 +281,16 @@ export const UserProvider = ({ children }: IDefaultProviderProps) => {
 
       const carsUser = response.data;
 
-      setAllCarsComumProfile(carsUser);
+      setModelInfoSetAllCarsCommonProfile(carsUser);
 
       const startIndex = (currentPageprofileComum - 1) * itemsPerPage;
       const endIndex = startIndex + itemsPerPage;
 
-      setAllCarsComumProfile(carsUser);
+      setModelInfoSetAllCarsCommonProfile(carsUser);
 
-      const listpagination = carsUser.slice(startIndex, endIndex);
+      const listPagination = carsUser.slice(startIndex, endIndex);
 
-      setAllCarsComumProfilePerPage(listpagination);
+      setAllCarsCommonProfilePerPage(listPagination);
     } catch (error) {
       console.log(error);
       toast.error("Algo deu errado :(");
@@ -334,11 +332,11 @@ export const UserProvider = ({ children }: IDefaultProviderProps) => {
         setAddressEditModal,
         allcarsUserPerPage2,
         currentPageprofile,
-        setCurrentPageprofile,
+        setCurrentPageProfile,
         allcarsUser2,
-        allcarsComumProfilePerPage,
+        allCarsCommonProfilePerPage,
         currentPageprofileComum,
-        setCurrentPageprofileComum,
+        setCurrentPageProfileComum,
         allcarsComumProfile,
         allcarsUser,
         setAllcarsUser,
@@ -348,7 +346,7 @@ export const UserProvider = ({ children }: IDefaultProviderProps) => {
         carUserSeller,
         userSelected,
         setUserSelected,
-        carUser
+        carUser,
       }}
     >
       {children}

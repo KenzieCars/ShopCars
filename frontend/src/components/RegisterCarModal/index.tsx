@@ -11,7 +11,16 @@ import {
   TitleModal,
   TitleOptions,
 } from "./style";
-import { IFipeOptions, IHandleCreateCarData, IModalProps, IModelInfo, IModels, IModelsOptions, IPayloadCreateCar, TRegisterCarForm } from "./@types";
+import {
+  IFipeOptions,
+  IHandleCreateCarData,
+  IModalProps,
+  IModelInfo,
+  IModels,
+  IModelsOptions,
+  IPayloadCreateCar,
+  TRegisterCarForm,
+} from "./@types";
 import { useForm } from "react-hook-form";
 import { fipeApi } from "../../services/api";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -32,7 +41,7 @@ import { UserContext } from "../../providers/UserProvider/UserContext";
 import Loading from "../Loading";
 import { ICar, TCarRequest } from "../../providers/CarProvider/@types";
 import { handleNumber } from "../RegisterForm/utils";
-import { MdOutlineAddCircle } from 'react-icons/md'
+import { MdOutlineAddCircle } from "react-icons/md";
 
 const carInfoDefault = {
   brand: "brand",
@@ -47,8 +56,11 @@ const RegisterCarModal = ({ setModal }: IModalProps) => {
   const [fipeOptions, setFipeOptions] = useState<IFipeOptions>();
   const [anotherOption, setAnotherOption] = useState<boolean>(false);
   const [models, setModels] = useState<IModels[]>([]);
-  const [modelInfo, setmodelInfo] = useState<IModelInfo[]>([]);
+  const [modelInfo, setModelInfo] = useState<IModelInfo[]>([]);
   const [loadModels, setLoadModels] = useState<boolean>(false);
+  const [extraImagesFields, setExtraImagesFields] = useState(0);
+  const [carInfo, setCarInfo] = useState(carInfoDefault);
+
   const {
     register,
     handleSubmit,
@@ -56,11 +68,7 @@ const RegisterCarModal = ({ setModal }: IModalProps) => {
   } = useForm<TRegisterCarForm>({
     resolver: zodResolver(registerCarSchema),
   });
-  const [carInfo, setCarInfo] = useState(carInfoDefault);
-  const [extraImagesFields, setExtraImagesFields] = useState(0);
-
-  const { carRegister, registerCarImage } =
-    useContext(CarContext);
+  const { carRegister, registerCarImage } = useContext(CarContext);
   const { loading, carUser } = useContext(UserContext);
 
   const modalRef = useOutClick(() => setModal(false));
@@ -75,12 +83,11 @@ const RegisterCarModal = ({ setModal }: IModalProps) => {
 
     return () => {
       carUser();
-    }
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const getModelOptions = async (model: IModelsOptions) => {
-
     if (model === "another") {
       setAnotherOption(true);
       return null;
@@ -95,7 +102,7 @@ const RegisterCarModal = ({ setModal }: IModalProps) => {
       const modelOptions = await fipeApi.get(`/cars`, {
         params: { brand: model },
       });
-      setmodelInfo(modelOptions.data);
+      setModelInfo(modelOptions.data);
     } catch (error) {
       console.log(error);
     } finally {
@@ -113,7 +120,6 @@ const RegisterCarModal = ({ setModal }: IModalProps) => {
   };
 
   const registerCar = async (payload: IPayloadCreateCar) => {
-
     const createCarData: IHandleCreateCarData = {
       ...payload,
     };
@@ -124,7 +130,6 @@ const RegisterCarModal = ({ setModal }: IModalProps) => {
       createCarData.fuel = payload.fuel;
       createCarData.price = rectifyPrice(createCarData.price as string);
       createCarData.km = rectifyKm(createCarData.km as string);
-
     } else {
       createCarData.price = rectifyPrice(createCarData.price as string);
       createCarData.km = rectifyKm(createCarData.km as string);
@@ -140,7 +145,7 @@ const RegisterCarModal = ({ setModal }: IModalProps) => {
     let carId: string = "";
 
     await carRegister(createCarData as TCarRequest)
-      .then((res: AxiosResponse<ICar>) => carId = res.data.id)
+      .then((res: AxiosResponse<ICar>) => (carId = res.data.id))
       .then(async () => {
         for (let index = 0; index < imgs!.length; index++) {
           const addImageObject = {
@@ -181,20 +186,21 @@ const RegisterCarModal = ({ setModal }: IModalProps) => {
       { fuelTipe: "Gás Natural Veicular" },
       { fuelTipe: "Álcool" },
       { fuelTipe: "Gasolina" },
-    ]
+    ];
 
-    const newAnotherOptions = allFuelOptions.filter((fuel) => fuel.fuelTipe !== fipeFuelOption);
+    const newAnotherOptions = allFuelOptions.filter(
+      (fuel) => fuel.fuelTipe !== fipeFuelOption
+    );
 
     return (
       <>
         {newAnotherOptions.map((option) => (
-          <option value={option.fuelTipe}
-            key={`fuel_${option.fuelTipe}`}>
+          <option value={option.fuelTipe} key={`fuel_${option.fuelTipe}`}>
             {option.fuelTipe}
           </option>
         ))}
       </>
-    )
+    );
   };
 
   return (
@@ -203,11 +209,7 @@ const RegisterCarModal = ({ setModal }: IModalProps) => {
         <FormModalContainer onSubmit={handleSubmit(registerCar)}>
           <TitleModal>
             <h3>Criar anúncio</h3>
-            <span
-              onClick={() => setModal(false)}
-            >
-              X
-            </span>
+            <span onClick={() => setModal(false)}>X</span>
           </TitleModal>
           <TitleOptions>
             <h4>Informações do veículo</h4>
@@ -216,7 +218,10 @@ const RegisterCarModal = ({ setModal }: IModalProps) => {
             <label htmlFor="carBrand">Marca</label>
             <select
               {...register("brand")}
-              onChange={(event) => event.target.value !== "" && getModelOptions(event.target.value as IModelsOptions)}
+              onChange={(event) =>
+                event.target.value !== "" &&
+                getModelOptions(event.target.value as IModelsOptions)
+              }
             >
               <option value="">Selecione a marca</option>
               <option value="chevrolet">Chevrolet</option>
@@ -236,19 +241,22 @@ const RegisterCarModal = ({ setModal }: IModalProps) => {
               <ErrorModal>{errors.brand.message}</ErrorModal>
             )}
           </FieldsetModal>
-          {anotherOption &&
+          {anotherOption && (
             <input
               className="another_brand_input"
               id="carBrand"
               placeholder="Informe a marca"
-              {...register("brand")} />}
+              {...register("brand")}
+            />
+          )}
           {anotherOption ? (
             <FieldsetModal>
               <label htmlFor="carModel">Modelo</label>
               <input
                 id="carModel"
                 placeholder="Informe o modelo"
-                {...register("model")} />
+                {...register("model")}
+              />
             </FieldsetModal>
           ) : (
             <FieldsetModal>
@@ -274,7 +282,8 @@ const RegisterCarModal = ({ setModal }: IModalProps) => {
             <FieldsetModal>
               <label>Ano</label>
               <input
-                maxLength={4} onKeyUp={(event) => handleNumber(event)}
+                maxLength={4}
+                onKeyUp={(event) => handleNumber(event)}
                 placeholder={carInfo ? carInfo.year : "Informe o ano"}
                 {...register("year")}
               />
@@ -283,23 +292,22 @@ const RegisterCarModal = ({ setModal }: IModalProps) => {
               )}
             </FieldsetModal>
             <FieldsetModal>
-              <label
-                htmlFor="fuel"
-              >Combustível</label>
+              <label htmlFor="fuel">Combustível</label>
               {anotherOption ? (
-                <select id="fuel" {...register("fuel")} >
+                <select id="fuel" {...register("fuel")}>
                   <option value="">Selecione combustível</option>
                   <option value="Flex">Flex</option>
                   <option value="Híbrido">Híbrido</option>
                   <option value="Elétrico">Elétrico</option>
-                  <option value="Gás Natural Veicular">Gás Natural Veicular</option>
+                  <option value="Gás Natural Veicular">
+                    Gás Natural Veicular
+                  </option>
                   <option value="Álcool">Álcool</option>
                   <option value="Gasolina">Gasolina</option>
                 </select>
               ) : (
                 <select id="fuel" {...register("fuel")}>
-                  <option
-                    value={getFuelTipe(carInfo.fuel)}>
+                  <option value={getFuelTipe(carInfo.fuel)}>
                     {getFuelTipe(carInfo.fuel)}
                   </option>
                   {anotherFuelOptions(getFuelTipe(carInfo.fuel))}
@@ -350,9 +358,9 @@ const RegisterCarModal = ({ setModal }: IModalProps) => {
                 disabled
                 id="fipePrice"
                 value={
-                  anotherOption ?
-                    "Marca sem dados FIPE" :
-                    numberToMoney(carInfo.value)
+                  anotherOption
+                    ? "Marca sem dados FIPE"
+                    : numberToMoney(carInfo.value)
                 }
               />
             </FieldsetModal>
@@ -361,11 +369,11 @@ const RegisterCarModal = ({ setModal }: IModalProps) => {
               <input
                 id="price"
                 placeholder={
-                  anotherOption ?
-                    "Melhor preço indisponível" :
-                    `${numberToMoney(
-                      Math.round(carInfo.value * 0.95)
-                    )} (Bom preço)`
+                  anotherOption
+                    ? "Melhor preço indisponível"
+                    : `${numberToMoney(
+                        Math.round(carInfo.value * 0.95)
+                      )} (Bom preço)`
                 }
                 onKeyUp={(event) => handleValue(event)}
                 {...register("price")}
@@ -389,29 +397,40 @@ const RegisterCarModal = ({ setModal }: IModalProps) => {
           </FieldsetModal>
           <FieldsetModal>
             <label htmlFor="imgCover">Imagem da capa</label>
-            <input id="imgCover"
-              placeholder="url da imagem" {...register("imgCover")} />
+            <input
+              id="imgCover"
+              placeholder="url da imagem"
+              {...register("imgCover")}
+            />
             {errors.imgCover?.message && (
               <ErrorModal>{errors.imgCover.message}</ErrorModal>
             )}
           </FieldsetModal>
           <FieldsetModal>
             <label htmlFor="imgGallery_1">1º imagem da galeria</label>
-            <input id="imgGallery_1"
-              placeholder="url da imagem" {...register("imgs.0")} />
+            <input
+              id="imgGallery_1"
+              placeholder="url da imagem"
+              {...register("imgs.0")}
+            />
             {handleErrorField(0)}
           </FieldsetModal>
           <FieldsetModal>
             <label htmlFor="imgGallery_2">2º imagem da galeria</label>
-            <input id="imgGallery_2"
-              placeholder="url da imagem" {...register("imgs.1")} />
+            <input
+              id="imgGallery_2"
+              placeholder="url da imagem"
+              {...register("imgs.1")}
+            />
             {handleErrorField(1)}
           </FieldsetModal>
           {extraImagesFields > 0 ? (
             <>
               {addImageField().map((field) => (
                 <FieldsetModal key={`extraField${field}`}>
-                  <label htmlFor={`imgGallery_${field + 3}`}>{field + 3}º imagem da galeria</label>
+                  <label htmlFor={`imgGallery_${field + 3}`}>
+                    {field + 3}º imagem da galeria
+                  </label>
                   <input
                     id={`imgGallery_${field + 3}`}
                     placeholder="url da imagem"
@@ -428,7 +447,8 @@ const RegisterCarModal = ({ setModal }: IModalProps) => {
                 type="button"
                 onClick={() => setExtraImagesFields(extraImagesFields + 1)}
               >
-                <MdOutlineAddCircle />Adicionar campo para imagem
+                <MdOutlineAddCircle />
+                Adicionar campo para imagem
               </button>
             ) : null}
           </AddImagesContainer>

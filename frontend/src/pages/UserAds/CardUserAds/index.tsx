@@ -13,11 +13,11 @@ import { CarContext } from "../../../providers/CarProvider/CarContext";
 import { useContext } from "react";
 
 const CardUserAds = () => {
-  const { carsSellerSelectPerPage, setCurrentPageprofile } =
+  const { carsSellerSelectPerPage, setCurrentPageProfile } =
     useContext(CarContext);
 
   const searchDataCar = async () => {
-    setCurrentPageprofile(1);
+    setCurrentPageProfile(1);
   };
 
   return (

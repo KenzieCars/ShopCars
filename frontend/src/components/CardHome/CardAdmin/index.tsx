@@ -89,7 +89,7 @@ const CardAdmin = () => {
               </button>
               <button
                 onClick={() => {
-                  setCarDetailModal(!carDetailModal);
+                  setCarDetailModal(carDetailModal);
                   showCarDetails(car);
                 }}
               >

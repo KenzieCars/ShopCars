@@ -39,7 +39,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { CommentContext } from "../../providers/CommentProvider/CommentContext";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { ModalEditAndDeleteComments } from "../../components/ModalEditAndDeleteComments";
-import { BsThreeDotsVertical } from "react-icons/bs";
+import { BiPencil } from "react-icons/bi";
 import EditProfileModal from "../../components/EditProfileModal";
 import EditAddressModal from "../../components/EditProfileModal/EditAddressModal";
 
@@ -52,8 +52,11 @@ const ProductPage = () => {
   const { modalImage, setModalImage, setImageById } = useContext(ImageContext);
   const [productDetails, setProductDetails] =
     useState<TCarDataIdResponse | null>(null);
-
+  const userId: string | null = localStorage.getItem("@userId") || "null";
   const token = localStorage.getItem("@userToken");
+
+  const isUserLoggedOwnerCar =
+    String(productDetails?.userId) === userId ? true : false;
 
   const {
     registerComment,
@@ -66,8 +69,6 @@ const ProductPage = () => {
   const schema = z.object({
     description: z.string().nonempty("Diga algo sobre o anúncio"),
   });
-
-  const userId: string | null = localStorage.getItem("@userId") || "null";
 
   const {
     register,
@@ -103,7 +104,6 @@ const ProductPage = () => {
   }, [allcars, productId, productDetails]);
 
   useEffect(() => {
-    // Rolar para o topo da página quando o componente for montado
     window.scrollTo(0, 0);
   }, []);
 
@@ -133,7 +133,7 @@ const ProductPage = () => {
     };
 
     reset({
-      description: "", // Clear the description field
+      description: "",
     });
     await registerComment(commentData);
   };
@@ -243,10 +243,10 @@ const ProductPage = () => {
 
                     <p>{comment!.description}</p>
                     {comment!.userId === userId && (
-                      <BsThreeDotsVertical
+                      <BiPencil
                         className="open_modal_comments"
                         onClick={() => getCommentById(comment)}
-                        color='white'
+                        color="white"
                       />
                     )}
                   </CardComment>
@@ -254,7 +254,7 @@ const ProductPage = () => {
               )}
             </ListOfComments>
           </CommentsSection>
-          {token && (
+          {token && !isUserLoggedOwnerCar && (
             <PostAComment>
               <div>
                 <span>{userIdCars?.name[0]}</span>

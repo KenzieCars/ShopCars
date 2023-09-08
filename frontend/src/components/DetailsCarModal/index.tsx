@@ -1,12 +1,21 @@
-import { useContext } from "react"
-import { InfoContainer, KmAndYear, ModalContainer, ModalDetails, NameAndPrice, PictureAndInfos, TitleAndCloseBtn } from "./style"
-import { CarContext } from "../../providers/CarProvider/CarContext"
-import { UserContext } from "../../providers/UserProvider/UserContext"
-import { convertNumberToLocaleString } from "../UpdateOrDeleteCarModal/utils"
+import { useContext } from "react";
+import {
+  InfoContainer,
+  KmAndYear,
+  ModalContainer,
+  ModalDetails,
+  NameAndPrice,
+  PictureAndInfos,
+  TitleAndCloseBtn,
+} from "./style";
+import { CarContext } from "../../providers/CarProvider/CarContext";
+import { UserContext } from "../../providers/UserProvider/UserContext";
+import { convertNumberToLocaleString } from "../UpdateOrDeleteCarModal/utils";
 
 const DetailsCarModal = () => {
-  const { carDetailModal, setCarDetailModal, selectedCar } = useContext(CarContext)
-  const { userIdCars } = useContext(UserContext)
+  const { carDetailModal, setCarDetailModal, selectedCar } =
+    useContext(CarContext);
+  const { userIdCars } = useContext(UserContext);
 
   return (
     <ModalContainer>
@@ -20,7 +29,9 @@ const DetailsCarModal = () => {
             <img src={selectedCar?.imgCover} />
           </figure>
           <InfoContainer>
-            <h5>{selectedCar?.brand} - {selectedCar?.model}</h5>
+            <h5>
+              {selectedCar?.brand} - {selectedCar?.model}
+            </h5>
             <KmAndYear>
               <span>Km {convertNumberToLocaleString(selectedCar!.km)}</span>
               <span>{selectedCar?.year}</span>
@@ -37,7 +48,7 @@ const DetailsCarModal = () => {
         </PictureAndInfos>
       </ModalDetails>
     </ModalContainer>
-  )
-}
+  );
+};
 
-export default DetailsCarModal
+export default DetailsCarModal;

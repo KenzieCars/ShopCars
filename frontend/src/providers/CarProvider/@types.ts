@@ -19,14 +19,14 @@ export interface ICarContext {
   registerCarImage: (payload: IImageRequest) => Promise<void>;
   carsSellerSelectPerPage: TDataCarResponse[] | [] | null;
   carsSellerSelect: [] | TDataCarResponse[] | null;
-  setCurrentPageprofile: React.Dispatch<React.SetStateAction<number>>;
+  setCurrentPageProfile: React.Dispatch<React.SetStateAction<number>>;
   currentPageprofile: number;
   carSellerSelect: () => Promise<void>;
   allCarsRegistered: [] | TCarDataIdResponse[];
   carDetailModal: boolean;
   setCarDetailModal: React.Dispatch<React.SetStateAction<boolean>>;
-  selectedCar: ICarSeller | null
-  setSelectedCar: React.Dispatch<React.SetStateAction<ICarSeller | null>>
+  selectedCar: ICarSeller | null;
+  setSelectedCar: React.Dispatch<React.SetStateAction<ICarSeller | null>>;
   updateCarImage: (payload: IImageUpdate) => Promise<void>;
   deleteCarImage: (carId: string) => Promise<void>;
 }
